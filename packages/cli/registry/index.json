@@ -1,0 +1,1054 @@
+{
+  "schema": "v1",
+  "generatedAt": "2026-08-04T12:51:55.889Z",
+  "components": [
+    {
+      "name": "accordion",
+      "files": [
+        "accordion/accordion-content.svelte",
+        "accordion/accordion-item.svelte",
+        "accordion/accordion-trigger.svelte",
+        "accordion/accordion.svelte",
+        "accordion/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "accordion/accordion.svelte",
+      "mainTs": "accordion/index.ts",
+      "isComponent": true,
+      "entry": "accordion/index.ts"
+    },
+    {
+      "name": "alert",
+      "files": [
+        "alert/alert-action.svelte",
+        "alert/alert-description.svelte",
+        "alert/alert-title.svelte",
+        "alert/alert.svelte",
+        "alert/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "alert/alert.svelte",
+      "mainTs": "alert/index.ts",
+      "isComponent": true,
+      "entry": "alert/index.ts"
+    },
+    {
+      "name": "alert-dialog",
+      "files": [
+        "alert-dialog/alert-dialog-action.svelte",
+        "alert-dialog/alert-dialog-cancel.svelte",
+        "alert-dialog/alert-dialog-content.svelte",
+        "alert-dialog/alert-dialog-description.svelte",
+        "alert-dialog/alert-dialog-footer.svelte",
+        "alert-dialog/alert-dialog-header.svelte",
+        "alert-dialog/alert-dialog-media.svelte",
+        "alert-dialog/alert-dialog-overlay.svelte",
+        "alert-dialog/alert-dialog-portal.svelte",
+        "alert-dialog/alert-dialog-title.svelte",
+        "alert-dialog/alert-dialog-trigger.svelte",
+        "alert-dialog/alert-dialog.svelte",
+        "alert-dialog/index.ts"
+      ],
+      "deps": [
+        "button",
+        "utils"
+      ],
+      "main": "alert-dialog/alert-dialog.svelte",
+      "mainTs": "alert-dialog/index.ts",
+      "isComponent": true,
+      "entry": "alert-dialog/index.ts"
+    },
+    {
+      "name": "aspect-ratio",
+      "files": [
+        "aspect-ratio/aspect-ratio.svelte",
+        "aspect-ratio/index.ts"
+      ],
+      "deps": [],
+      "main": "aspect-ratio/aspect-ratio.svelte",
+      "mainTs": "aspect-ratio/index.ts",
+      "isComponent": true,
+      "entry": "aspect-ratio/index.ts"
+    },
+    {
+      "name": "avatar",
+      "files": [
+        "avatar/avatar-badge.svelte",
+        "avatar/avatar-fallback.svelte",
+        "avatar/avatar-group-count.svelte",
+        "avatar/avatar-group.svelte",
+        "avatar/avatar-image.svelte",
+        "avatar/avatar.svelte",
+        "avatar/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "avatar/avatar.svelte",
+      "mainTs": "avatar/index.ts",
+      "isComponent": true,
+      "entry": "avatar/index.ts"
+    },
+    {
+      "name": "avatar-group",
+      "files": [
+        "avatar-group/AvatarGroup.svelte",
+        "avatar-group/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "avatar-group/index.ts",
+      "isComponent": true,
+      "entry": "avatar-group/index.ts"
+    },
+    {
+      "name": "badge",
+      "files": [
+        "badge/badge.svelte",
+        "badge/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "badge/badge.svelte",
+      "mainTs": "badge/index.ts",
+      "isComponent": true,
+      "entry": "badge/index.ts"
+    },
+    {
+      "name": "bento-grid",
+      "files": [
+        "bento-grid/bento-grid.svelte",
+        "bento-grid/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "bento-grid/bento-grid.svelte",
+      "mainTs": "bento-grid/index.ts",
+      "isComponent": true,
+      "entry": "bento-grid/index.ts"
+    },
+    {
+      "name": "breadcrumb",
+      "files": [
+        "breadcrumb/breadcrumb-ellipsis.svelte",
+        "breadcrumb/breadcrumb-item.svelte",
+        "breadcrumb/breadcrumb-link.svelte",
+        "breadcrumb/breadcrumb-list.svelte",
+        "breadcrumb/breadcrumb-page.svelte",
+        "breadcrumb/breadcrumb-separator.svelte",
+        "breadcrumb/breadcrumb.svelte",
+        "breadcrumb/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "breadcrumb/breadcrumb.svelte",
+      "mainTs": "breadcrumb/index.ts",
+      "isComponent": true,
+      "entry": "breadcrumb/index.ts"
+    },
+    {
+      "name": "button",
+      "files": [
+        "button/Button.svelte",
+        "button/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "button/index.ts",
+      "isComponent": true,
+      "entry": "button/index.ts"
+    },
+    {
+      "name": "card",
+      "files": [
+        "card/Card.svelte",
+        "card/CardContent.svelte",
+        "card/CardDescription.svelte",
+        "card/CardFooter.svelte",
+        "card/CardHeader.svelte",
+        "card/CardTitle.svelte",
+        "card/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "card/index.ts",
+      "isComponent": true,
+      "entry": "card/index.ts"
+    },
+    {
+      "name": "carousel",
+      "files": [
+        "carousel/carousel.svelte",
+        "carousel/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "carousel/carousel.svelte",
+      "mainTs": "carousel/index.ts",
+      "isComponent": true,
+      "entry": "carousel/index.ts"
+    },
+    {
+      "name": "code-block",
+      "files": [
+        "code-block/CodeBlock.svelte",
+        "code-block/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "code-block/index.ts",
+      "isComponent": true,
+      "entry": "code-block/index.ts"
+    },
+    {
+      "name": "collapsible",
+      "files": [
+        "collapsible/collapsible-content.svelte",
+        "collapsible/collapsible-trigger.svelte",
+        "collapsible/collapsible.svelte",
+        "collapsible/index.ts"
+      ],
+      "deps": [],
+      "main": "collapsible/collapsible.svelte",
+      "mainTs": "collapsible/index.ts",
+      "isComponent": true,
+      "entry": "collapsible/index.ts"
+    },
+    {
+      "name": "color-picker",
+      "files": [
+        "color-picker/ColorPicker.svelte",
+        "color-picker/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "color-picker/index.ts",
+      "isComponent": true,
+      "entry": "color-picker/index.ts"
+    },
+    {
+      "name": "command",
+      "files": [
+        "command/command-dialog.svelte",
+        "command/command-empty.svelte",
+        "command/command-group.svelte",
+        "command/command-input.svelte",
+        "command/command-item.svelte",
+        "command/command-link-item.svelte",
+        "command/command-list.svelte",
+        "command/command-loading.svelte",
+        "command/command-separator.svelte",
+        "command/command-shortcut.svelte",
+        "command/command.svelte",
+        "command/index.ts"
+      ],
+      "deps": [
+        "dialog",
+        "input-group",
+        "utils"
+      ],
+      "main": "command/command.svelte",
+      "mainTs": "command/index.ts",
+      "isComponent": true,
+      "entry": "command/index.ts"
+    },
+    {
+      "name": "context-menu",
+      "files": [
+        "context-menu/context-menu-checkbox-item.svelte",
+        "context-menu/context-menu-content.svelte",
+        "context-menu/context-menu-group-heading.svelte",
+        "context-menu/context-menu-group.svelte",
+        "context-menu/context-menu-item.svelte",
+        "context-menu/context-menu-label.svelte",
+        "context-menu/context-menu-portal.svelte",
+        "context-menu/context-menu-radio-group.svelte",
+        "context-menu/context-menu-radio-item.svelte",
+        "context-menu/context-menu-separator.svelte",
+        "context-menu/context-menu-shortcut.svelte",
+        "context-menu/context-menu-sub-content.svelte",
+        "context-menu/context-menu-sub-trigger.svelte",
+        "context-menu/context-menu-sub.svelte",
+        "context-menu/context-menu-trigger.svelte",
+        "context-menu/context-menu.svelte",
+        "context-menu/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "context-menu/context-menu.svelte",
+      "mainTs": "context-menu/index.ts",
+      "isComponent": true,
+      "entry": "context-menu/index.ts"
+    },
+    {
+      "name": "copy-to-clipboard",
+      "files": [
+        "copy-to-clipboard/CopyToClipboard.svelte",
+        "copy-to-clipboard/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "copy-to-clipboard/index.ts",
+      "isComponent": true,
+      "entry": "copy-to-clipboard/index.ts"
+    },
+    {
+      "name": "cta-section",
+      "files": [
+        "cta-section/cta-section.svelte",
+        "cta-section/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "cta-section/cta-section.svelte",
+      "mainTs": "cta-section/index.ts",
+      "isComponent": true,
+      "entry": "cta-section/index.ts"
+    },
+    {
+      "name": "datetime-picker",
+      "files": [
+        "datetime-picker/DateTimePicker.svelte",
+        "datetime-picker/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "datetime-picker/index.ts",
+      "isComponent": true,
+      "entry": "datetime-picker/index.ts"
+    },
+    {
+      "name": "dialog",
+      "files": [
+        "dialog/dialog-close.svelte",
+        "dialog/dialog-content.svelte",
+        "dialog/dialog-description.svelte",
+        "dialog/dialog-footer.svelte",
+        "dialog/dialog-header.svelte",
+        "dialog/dialog-overlay.svelte",
+        "dialog/dialog-portal.svelte",
+        "dialog/dialog-title.svelte",
+        "dialog/dialog-trigger.svelte",
+        "dialog/dialog.svelte",
+        "dialog/index.ts"
+      ],
+      "deps": [
+        "button",
+        "utils"
+      ],
+      "main": "dialog/dialog.svelte",
+      "mainTs": "dialog/index.ts",
+      "isComponent": true,
+      "entry": "dialog/index.ts"
+    },
+    {
+      "name": "divider",
+      "files": [
+        "divider/Divider.svelte",
+        "divider/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "divider/index.ts",
+      "isComponent": true,
+      "entry": "divider/index.ts"
+    },
+    {
+      "name": "dropdown-menu",
+      "files": [
+        "dropdown-menu/dropdown-menu-checkbox-group.svelte",
+        "dropdown-menu/dropdown-menu-checkbox-item.svelte",
+        "dropdown-menu/dropdown-menu-content.svelte",
+        "dropdown-menu/dropdown-menu-group-heading.svelte",
+        "dropdown-menu/dropdown-menu-group.svelte",
+        "dropdown-menu/dropdown-menu-item.svelte",
+        "dropdown-menu/dropdown-menu-label.svelte",
+        "dropdown-menu/dropdown-menu-portal.svelte",
+        "dropdown-menu/dropdown-menu-radio-group.svelte",
+        "dropdown-menu/dropdown-menu-radio-item.svelte",
+        "dropdown-menu/dropdown-menu-separator.svelte",
+        "dropdown-menu/dropdown-menu-shortcut.svelte",
+        "dropdown-menu/dropdown-menu-sub-content.svelte",
+        "dropdown-menu/dropdown-menu-sub-trigger.svelte",
+        "dropdown-menu/dropdown-menu-sub.svelte",
+        "dropdown-menu/dropdown-menu-trigger.svelte",
+        "dropdown-menu/dropdown-menu.svelte",
+        "dropdown-menu/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "dropdown-menu/dropdown-menu.svelte",
+      "mainTs": "dropdown-menu/index.ts",
+      "isComponent": true,
+      "entry": "dropdown-menu/index.ts"
+    },
+    {
+      "name": "emoji",
+      "files": [
+        "emoji/EmojiPicker.svelte"
+      ],
+      "deps": [],
+      "isComponent": true
+    },
+    {
+      "name": "empty-state",
+      "files": [
+        "empty-state/EmptyState.svelte",
+        "empty-state/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "empty-state/index.ts",
+      "isComponent": true,
+      "entry": "empty-state/index.ts"
+    },
+    {
+      "name": "feature-grid",
+      "files": [
+        "feature-grid/feature-grid.svelte",
+        "feature-grid/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "feature-grid/feature-grid.svelte",
+      "mainTs": "feature-grid/index.ts",
+      "isComponent": true,
+      "entry": "feature-grid/index.ts"
+    },
+    {
+      "name": "file-uploader",
+      "files": [
+        "file-uploader/FileUploader.svelte",
+        "file-uploader/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "file-uploader/index.ts",
+      "isComponent": true,
+      "entry": "file-uploader/index.ts"
+    },
+    {
+      "name": "footer",
+      "files": [
+        "footer/footer.svelte",
+        "footer/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "footer/footer.svelte",
+      "mainTs": "footer/index.ts",
+      "isComponent": true,
+      "entry": "footer/index.ts"
+    },
+    {
+      "name": "form",
+      "files": [
+        "form/form-button.svelte",
+        "form/form-description.svelte",
+        "form/form-element-field.svelte",
+        "form/form-field-errors.svelte",
+        "form/form-field.svelte",
+        "form/form-fieldset.svelte",
+        "form/form-label.svelte",
+        "form/form-legend.svelte",
+        "form/index.ts"
+      ],
+      "deps": [
+        "button",
+        "label",
+        "utils"
+      ],
+      "mainTs": "form/index.ts",
+      "isComponent": true,
+      "entry": "form/index.ts"
+    },
+    {
+      "name": "hero",
+      "files": [
+        "hero/hero.svelte",
+        "hero/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "hero/hero.svelte",
+      "mainTs": "hero/index.ts",
+      "isComponent": true,
+      "entry": "hero/index.ts"
+    },
+    {
+      "name": "hover-card",
+      "files": [
+        "hover-card/hover-card-content.svelte",
+        "hover-card/hover-card-portal.svelte",
+        "hover-card/hover-card-trigger.svelte",
+        "hover-card/hover-card.svelte",
+        "hover-card/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "hover-card/hover-card.svelte",
+      "mainTs": "hover-card/index.ts",
+      "isComponent": true,
+      "entry": "hover-card/index.ts"
+    },
+    {
+      "name": "input",
+      "files": [
+        "input/index.ts",
+        "input/input.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "input/input.svelte",
+      "mainTs": "input/index.ts",
+      "isComponent": true,
+      "entry": "input/index.ts"
+    },
+    {
+      "name": "input-group",
+      "files": [
+        "input-group/index.ts",
+        "input-group/input-group-addon.svelte",
+        "input-group/input-group-button.svelte",
+        "input-group/input-group-input.svelte",
+        "input-group/input-group-text.svelte",
+        "input-group/input-group-textarea.svelte",
+        "input-group/input-group.svelte"
+      ],
+      "deps": [
+        "button",
+        "input",
+        "textarea",
+        "utils"
+      ],
+      "main": "input-group/input-group.svelte",
+      "mainTs": "input-group/index.ts",
+      "isComponent": true,
+      "entry": "input-group/index.ts"
+    },
+    {
+      "name": "label",
+      "files": [
+        "label/index.ts",
+        "label/label.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "label/label.svelte",
+      "mainTs": "label/index.ts",
+      "isComponent": true,
+      "entry": "label/index.ts"
+    },
+    {
+      "name": "markdown-renderer",
+      "files": [
+        "markdown-renderer/MarkdownRenderer.svelte",
+        "markdown-renderer/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "markdown-renderer/index.ts",
+      "isComponent": true,
+      "entry": "markdown-renderer/index.ts"
+    },
+    {
+      "name": "navbar",
+      "files": [
+        "navbar/index.ts",
+        "navbar/navbar.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "navbar/navbar.svelte",
+      "mainTs": "navbar/index.ts",
+      "isComponent": true,
+      "entry": "navbar/index.ts"
+    },
+    {
+      "name": "navigation-menu",
+      "files": [
+        "navigation-menu/index.ts",
+        "navigation-menu/navigation-menu-content.svelte",
+        "navigation-menu/navigation-menu-indicator.svelte",
+        "navigation-menu/navigation-menu-item.svelte",
+        "navigation-menu/navigation-menu-link.svelte",
+        "navigation-menu/navigation-menu-list.svelte",
+        "navigation-menu/navigation-menu-trigger.svelte",
+        "navigation-menu/navigation-menu-viewport.svelte",
+        "navigation-menu/navigation-menu.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "navigation-menu/navigation-menu.svelte",
+      "mainTs": "navigation-menu/index.ts",
+      "isComponent": true,
+      "entry": "navigation-menu/index.ts"
+    },
+    {
+      "name": "number-input",
+      "files": [
+        "number-input/NumberInput.svelte",
+        "number-input/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "number-input/index.ts",
+      "isComponent": true,
+      "entry": "number-input/index.ts"
+    },
+    {
+      "name": "otp-input",
+      "files": [
+        "otp-input/OTPInput.svelte",
+        "otp-input/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "otp-input/index.ts",
+      "isComponent": true,
+      "entry": "otp-input/index.ts"
+    },
+    {
+      "name": "pagination",
+      "files": [
+        "pagination/index.ts",
+        "pagination/pagination-content.svelte",
+        "pagination/pagination-ellipsis.svelte",
+        "pagination/pagination-item.svelte",
+        "pagination/pagination-link.svelte",
+        "pagination/pagination-next-button.svelte",
+        "pagination/pagination-next.svelte",
+        "pagination/pagination-prev-button.svelte",
+        "pagination/pagination-previous.svelte",
+        "pagination/pagination.svelte"
+      ],
+      "deps": [
+        "button",
+        "utils"
+      ],
+      "main": "pagination/pagination.svelte",
+      "mainTs": "pagination/index.ts",
+      "isComponent": true,
+      "entry": "pagination/index.ts"
+    },
+    {
+      "name": "password-input",
+      "files": [
+        "password-input/PasswordInput.svelte",
+        "password-input/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "password-input/index.ts",
+      "isComponent": true,
+      "entry": "password-input/index.ts"
+    },
+    {
+      "name": "popover",
+      "files": [
+        "popover/index.ts",
+        "popover/popover-close.svelte",
+        "popover/popover-content.svelte",
+        "popover/popover-description.svelte",
+        "popover/popover-header.svelte",
+        "popover/popover-portal.svelte",
+        "popover/popover-title.svelte",
+        "popover/popover-trigger.svelte",
+        "popover/popover.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "popover/popover.svelte",
+      "mainTs": "popover/index.ts",
+      "isComponent": true,
+      "entry": "popover/index.ts"
+    },
+    {
+      "name": "pricing-card",
+      "files": [
+        "pricing-card/index.ts",
+        "pricing-card/pricing-card.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "pricing-card/pricing-card.svelte",
+      "mainTs": "pricing-card/index.ts",
+      "isComponent": true,
+      "entry": "pricing-card/index.ts"
+    },
+    {
+      "name": "progress",
+      "files": [
+        "progress/index.ts",
+        "progress/progress.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "progress/progress.svelte",
+      "mainTs": "progress/index.ts",
+      "isComponent": true,
+      "entry": "progress/index.ts"
+    },
+    {
+      "name": "radio-group",
+      "files": [
+        "radio-group/index.ts",
+        "radio-group/radio-group-item.svelte",
+        "radio-group/radio-group.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "radio-group/radio-group.svelte",
+      "mainTs": "radio-group/index.ts",
+      "isComponent": true,
+      "entry": "radio-group/index.ts"
+    },
+    {
+      "name": "rating",
+      "files": [
+        "rating/Rating.svelte",
+        "rating/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "rating/index.ts",
+      "isComponent": true,
+      "entry": "rating/index.ts"
+    },
+    {
+      "name": "scroll-area",
+      "files": [
+        "scroll-area/index.ts",
+        "scroll-area/scroll-area-scrollbar.svelte",
+        "scroll-area/scroll-area.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "scroll-area/scroll-area.svelte",
+      "mainTs": "scroll-area/index.ts",
+      "isComponent": true,
+      "entry": "scroll-area/index.ts"
+    },
+    {
+      "name": "section-header",
+      "files": [
+        "section-header/SectionHeader.svelte",
+        "section-header/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "section-header/index.ts",
+      "isComponent": true,
+      "entry": "section-header/index.ts"
+    },
+    {
+      "name": "select",
+      "files": [
+        "select/index.ts",
+        "select/select-content.svelte",
+        "select/select-group-heading.svelte",
+        "select/select-group.svelte",
+        "select/select-item.svelte",
+        "select/select-label.svelte",
+        "select/select-portal.svelte",
+        "select/select-scroll-down-button.svelte",
+        "select/select-scroll-up-button.svelte",
+        "select/select-separator.svelte",
+        "select/select-trigger.svelte",
+        "select/select.svelte"
+      ],
+      "deps": [
+        "separator",
+        "utils"
+      ],
+      "main": "select/select.svelte",
+      "mainTs": "select/index.ts",
+      "isComponent": true,
+      "entry": "select/index.ts"
+    },
+    {
+      "name": "separator",
+      "files": [
+        "separator/index.ts",
+        "separator/separator.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "separator/separator.svelte",
+      "mainTs": "separator/index.ts",
+      "isComponent": true,
+      "entry": "separator/index.ts"
+    },
+    {
+      "name": "sheet",
+      "files": [
+        "sheet/index.ts",
+        "sheet/sheet-close.svelte",
+        "sheet/sheet-content.svelte",
+        "sheet/sheet-description.svelte",
+        "sheet/sheet-footer.svelte",
+        "sheet/sheet-header.svelte",
+        "sheet/sheet-overlay.svelte",
+        "sheet/sheet-portal.svelte",
+        "sheet/sheet-title.svelte",
+        "sheet/sheet-trigger.svelte",
+        "sheet/sheet.svelte"
+      ],
+      "deps": [
+        "button",
+        "utils"
+      ],
+      "main": "sheet/sheet.svelte",
+      "mainTs": "sheet/index.ts",
+      "isComponent": true,
+      "entry": "sheet/index.ts"
+    },
+    {
+      "name": "signature-pad",
+      "files": [
+        "signature-pad/SignaturePad.svelte",
+        "signature-pad/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "signature-pad/index.ts",
+      "isComponent": true,
+      "entry": "signature-pad/index.ts"
+    },
+    {
+      "name": "skeleton",
+      "files": [
+        "skeleton/index.ts",
+        "skeleton/skeleton.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "skeleton/skeleton.svelte",
+      "mainTs": "skeleton/index.ts",
+      "isComponent": true,
+      "entry": "skeleton/index.ts"
+    },
+    {
+      "name": "slider",
+      "files": [
+        "slider/index.ts",
+        "slider/slider.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "slider/slider.svelte",
+      "mainTs": "slider/index.ts",
+      "isComponent": true,
+      "entry": "slider/index.ts"
+    },
+    {
+      "name": "stat-card",
+      "files": [
+        "stat-card/StatCard.svelte",
+        "stat-card/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "stat-card/index.ts",
+      "isComponent": true,
+      "entry": "stat-card/index.ts"
+    },
+    {
+      "name": "stats",
+      "files": [
+        "stats/index.ts",
+        "stats/stats.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "stats/stats.svelte",
+      "mainTs": "stats/index.ts",
+      "isComponent": true,
+      "entry": "stats/index.ts"
+    },
+    {
+      "name": "stepper",
+      "files": [
+        "stepper/Stepper.svelte",
+        "stepper/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "stepper/index.ts",
+      "isComponent": true,
+      "entry": "stepper/index.ts"
+    },
+    {
+      "name": "switch",
+      "files": [
+        "switch/index.ts",
+        "switch/switch.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "switch/switch.svelte",
+      "mainTs": "switch/index.ts",
+      "isComponent": true,
+      "entry": "switch/index.ts"
+    },
+    {
+      "name": "table",
+      "files": [
+        "table/index.ts",
+        "table/table-body.svelte",
+        "table/table-caption.svelte",
+        "table/table-cell.svelte",
+        "table/table-footer.svelte",
+        "table/table-head.svelte",
+        "table/table-header.svelte",
+        "table/table-row.svelte",
+        "table/table.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "table/table.svelte",
+      "mainTs": "table/index.ts",
+      "isComponent": true,
+      "entry": "table/index.ts"
+    },
+    {
+      "name": "tabs",
+      "files": [
+        "tabs/index.ts",
+        "tabs/tabs-content.svelte",
+        "tabs/tabs-list.svelte",
+        "tabs/tabs-trigger.svelte",
+        "tabs/tabs.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "tabs/tabs.svelte",
+      "mainTs": "tabs/index.ts",
+      "isComponent": true,
+      "entry": "tabs/index.ts"
+    },
+    {
+      "name": "testimonial",
+      "files": [
+        "testimonial/index.ts",
+        "testimonial/testimonial.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "testimonial/testimonial.svelte",
+      "mainTs": "testimonial/index.ts",
+      "isComponent": true,
+      "entry": "testimonial/index.ts"
+    },
+    {
+      "name": "textarea",
+      "files": [
+        "textarea/index.ts",
+        "textarea/textarea.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "textarea/textarea.svelte",
+      "mainTs": "textarea/index.ts",
+      "isComponent": true,
+      "entry": "textarea/index.ts"
+    },
+    {
+      "name": "timeline",
+      "files": [
+        "timeline/Timeline.svelte",
+        "timeline/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "timeline/index.ts",
+      "isComponent": true,
+      "entry": "timeline/index.ts"
+    },
+    {
+      "name": "toast",
+      "files": [
+        "toast/Toast.svelte",
+        "toast/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "toast/index.ts",
+      "isComponent": true,
+      "entry": "toast/index.ts"
+    },
+    {
+      "name": "toggle",
+      "files": [
+        "toggle/index.ts",
+        "toggle/toggle.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "toggle/toggle.svelte",
+      "mainTs": "toggle/index.ts",
+      "isComponent": true,
+      "entry": "toggle/index.ts"
+    },
+    {
+      "name": "toggle-group",
+      "files": [
+        "toggle-group/index.ts",
+        "toggle-group/toggle-group-item.svelte",
+        "toggle-group/toggle-group.svelte"
+      ],
+      "deps": [
+        "toggle",
+        "utils"
+      ],
+      "main": "toggle-group/toggle-group.svelte",
+      "mainTs": "toggle-group/index.ts",
+      "isComponent": true,
+      "entry": "toggle-group/index.ts"
+    },
+    {
+      "name": "tooltip",
+      "files": [
+        "tooltip/index.ts",
+        "tooltip/tooltip-content.svelte",
+        "tooltip/tooltip-portal.svelte",
+        "tooltip/tooltip-provider.svelte",
+        "tooltip/tooltip-trigger.svelte",
+        "tooltip/tooltip.svelte"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "tooltip/tooltip.svelte",
+      "mainTs": "tooltip/index.ts",
+      "isComponent": true,
+      "entry": "tooltip/index.ts"
+    },
+    {
+      "name": "tree-view",
+      "files": [
+        "tree-view/TreeView.svelte",
+        "tree-view/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "tree-view/index.ts",
+      "isComponent": true,
+      "entry": "tree-view/index.ts"
+    }
+  ]
+}

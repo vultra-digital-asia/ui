@@ -1,0 +1,31 @@
+{
+  "name": "vultra-ui",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Monorepo for @vultra/* UI component library",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @vultra/storybook storybook",
+    "build": "pnpm --filter @vultra/tokens build && pnpm --filter @vultra/ui build",
+    "build:tokens": "pnpm --filter @vultra/tokens build",
+    "build:core": "pnpm --filter @vultra/ui build",
+    "build:all": "pnpm -r run build",
+    "storybook": "pnpm --filter @vultra/storybook storybook",
+    "build-storybook": "pnpm --filter @vultra/storybook build-storybook",
+    "check": "pnpm -r run check",
+    "lint": "pnpm -r run lint",
+    "format": "prettier --write .",
+    "version": "changeset version",
+    "cli": "pnpm --filter @vultra/cli build",
+    "generate:registry": "pnpm --filter @vultra/cli generate:registry"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.0",
+    "@sveltejs/kit": "^2.70.2",
+    "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "prettier": "^3.5.0",
+    "prettier-plugin-svelte": "^3.5.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.2.0"
+  }
+}

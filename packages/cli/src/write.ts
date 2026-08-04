@@ -1,0 +1,108 @@
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { join, relative, dirname } from 'node:path';
+import MagicString from 'magic-string';
+import type { RegistryComponent } from './registry.js';
+
+export interface WriteOptions {
+	root: string;
+	aliases: { components: string; utils: string; lib: string };
+	overwrite: boolean;
+}
+
+/** Absolute target path for a component file entry in the consumer project. */
+export function componentTargetPath(root: string, entry: string): string {
+	return join(root, 'src', 'lib', 'components', ...entry.split('/'));
+}
+
+/** Absolute source path inside the monorepo core package. */
+export function coreSourcePath(
+	monorepoRoot: string,
+	entry: string,
+): string {
+	return join(
+		monorepoRoot,
+		'packages',
+		'core',
+		'src',
+		'lib',
+		'components',
+		...entry.split('/'),
+	);
+}
+
+const IMPORT_RE =
+	/(import\s+(?:[\w$*{},\s]+?\s+from\s+)?)(['"])([^'"]+)\2/g;
+
+/**
+ * Rewrite a component source so it works outside the monorepo:
+ *   - "$lib/components/<name>/..." → "<alias>/components/<name>/..."
+ *   - "$lib/utils.js" / "$lib/utils.ts" → "<alias>.js"
+ *   - duplicate identical imports are de-duplicated
+ *
+ * Relative imports ("./x.svelte") and bare module imports are kept as-is.
+ */
+export function rewriteComponentSource(
+	source: string,
+	opts: WriteOptions,
+): string {
+	const s = new MagicString(source);
+	const seenBare = new Set<string>();
+	let match: RegExpExecArray | null;
+	while ((match = IMPORT_RE.exec(source)) !== null) {
+		const prefix = match[1];
+		const quote = match[2];
+		const spec = match[3];
+		const start = match.index;
+		const end = IMPORT_RE.lastIndex;
+		if (spec.startsWith('$lib/')) {
+			const rel = spec.slice('$lib/'.length);
+			const isUtils = rel === 'utils.js' || rel === 'utils.ts';
+			const newSpec = isUtils
+				? opts.aliases.utils.endsWith('.js') || opts.aliases.utils.endsWith('.ts')
+					? opts.aliases.utils
+					: `${opts.aliases.utils}.js`
+				: `${opts.aliases.components}/${rel.replace(/^components\//, '').replace(/\.ts$/, '.js')}`;
+			s.overwrite(start, end, `${prefix}${quote}${newSpec}${quote}`);
+			continue;
+		}
+
+		if (!spec.startsWith('.')) {
+			if (seenBare.has(spec)) {
+				// drop the whole duplicate import line
+				const lineStart = source.lastIndexOf('\n', start) + 1;
+				const lineEnd = source.indexOf('\n', end);
+				s.remove(lineStart, lineEnd === -1 ? source.length : lineEnd);
+			} else {
+				seenBare.add(spec);
+			}
+		}
+	}
+
+	return s.toString();
+}
+
+/** Write the component files into the consumer project. */
+export function writeComponent(
+	component: RegistryComponent,
+	opts: WriteOptions,
+	monorepoRoot: string,
+): { written: string[]; skipped: string[] } {
+	const written: string[] = [];
+	const skipped: string[] = [];
+	for (const entry of component.files) {
+		const srcPath = coreSourcePath(monorepoRoot, entry);
+		const target = componentTargetPath(opts.root, entry);
+		const targetRel = relative(opts.root, target);
+
+		if (existsSync(target) && !opts.overwrite) {
+			skipped.push(targetRel);
+			continue;
+		}
+		const source = readFileSync(srcPath, 'utf8');
+		const rewritten = rewriteComponentSource(source, opts);
+		mkdirSync(dirname(target), { recursive: true });
+		writeFileSync(target, rewritten);
+		written.push(targetRel);
+	}
+	return { written, skipped };
+}
