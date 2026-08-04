@@ -81,6 +81,14 @@ export { EmptyState } from './components/empty-state/index.js';
 export { StatCard } from './components/stat-card/index.js';
 export { Divider } from './components/divider/index.js';
 export { SectionHeader } from './components/section-header/index.js';
+
+// Semantic wrappers
+export { Aside } from './components/aside/index.js';
+export { Section } from './components/section/index.js';
+export { Figure, Figcaption } from './components/figure/index.js';
+export { Details, Summary } from './components/details/index.js';
+export { Main } from './components/main/index.js';
+
 // Marketing / Composite (from ui.live)
 export { Hero } from './components/hero/index.js';
 export { PricingCard } from './components/pricing-card/index.js';
