@@ -7,16 +7,16 @@
 		class: className,
 		children,
 		...restProps
-	}: HTMLAttributes<HTMLDivElement> & {
+	}: HTMLAttributes<HTMLElement> & {
 		class?: string;
 		children?: Snippet;
 	} = $props();
 </script>
 
-<div
+<footer
 	data-slot="sidebar-footer"
 	class={cn("flex flex-col gap-2 p-2", className)}
 	{...restProps}
 >
 	{@render children?.()}
-</div>
+</footer>

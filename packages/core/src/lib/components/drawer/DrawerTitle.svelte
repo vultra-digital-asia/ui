@@ -17,6 +17,7 @@
 
 <h2
 	bind:this={ref}
+	id="drawer-title"
 	data-slot="drawer-title"
 	class={cn("text-base font-medium text-foreground", className)}
 	{...restProps}

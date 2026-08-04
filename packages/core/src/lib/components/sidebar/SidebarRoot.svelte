@@ -39,11 +39,12 @@
 	});
 </script>
 
-<div
+<nav
 	data-slot="sidebar"
 	data-side={side}
 	data-collapsible={collapsible}
 	data-state={open ? "expanded" : "collapsed"}
+	aria-label="sidebar"
 	class={cn(
 		"group/sidebar relative flex h-svh w-64 flex-col border-r border-border bg-[var(--ui-card)] text-foreground transition-all duration-200 ease-in-out",
 		side === "right" && "border-r-0 border-l",
@@ -58,4 +59,4 @@
 	{...restProps}
 >
 	{@render children?.()}
-</div>
+</nav>

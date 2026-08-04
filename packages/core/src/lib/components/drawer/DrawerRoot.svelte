@@ -15,17 +15,54 @@
 		children?: Snippet;
 	} = $props();
 
-	setContext("drawer-state", {
-		get open() { return open; },
-		set open(v) { open = v; },
-		direction
+	let triggerElement: HTMLElement | null = $state(null);
+
+	function setTrigger(el: HTMLElement) {
+		triggerElement = el;
+	}
+
+	// Focus trap: trap Tab inside the drawer when open
+	$effect(() => {
+		if (!open) return;
+
+		const drawer = document.querySelector('[role="dialog"]') as HTMLElement;
+		if (!drawer) return;
+
+		const focusableSelector =
+			'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+		const focusableElements = drawer.querySelectorAll(focusableSelector);
+		const firstFocusable = focusableElements[0] as HTMLElement | undefined;
+		const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement | undefined;
+
+		// Auto-focus first focusable element inside the drawer
+		firstFocusable?.focus();
+
+		function handleKeyDown(e: KeyboardEvent) {
+			if (e.key !== "Tab") return;
+
+			if (e.shiftKey) {
+				if (document.activeElement === firstFocusable) {
+					e.preventDefault();
+					lastFocusable?.focus();
+				}
+			} else {
+				if (document.activeElement === lastFocusable) {
+					e.preventDefault();
+					firstFocusable?.focus();
+				}
+			}
+		}
+
+		drawer.addEventListener("keydown", handleKeyDown);
+		return () => drawer.removeEventListener("keydown", handleKeyDown);
 	});
 
-	function handleKeydown(e: KeyboardEvent) {
-		if (e.key === "Escape" && open) {
-			open = false;
+	// Restore focus to trigger when drawer closes
+	$effect(() => {
+		if (!open && triggerElement) {
+			triggerElement.focus();
 		}
-	}
+	});
 
 	// Lock body scroll when drawer is open
 	$effect(() => {
@@ -37,6 +74,23 @@
 			};
 		}
 	});
+
+	setContext("drawer-state", {
+		get open() {
+			return open;
+		},
+		set open(v) {
+			open = v;
+		},
+		direction,
+		setTrigger
+	});
+
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.key === "Escape" && open) {
+			open = false;
+		}
+	}
 </script>
 
 <svelte:window onkeydown={handleKeydown} />

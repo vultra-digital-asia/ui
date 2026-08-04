@@ -23,6 +23,7 @@
 {#if drawerState.open}
 	<div
 		bind:this={ref}
+		aria-hidden="true"
 		data-slot="drawer-overlay"
 		class={cn(
 			"fixed inset-0 z-50 bg-black/50",
@@ -31,9 +32,9 @@
 			className
 		)}
 		onclick={handleClick}
-		onkeydown={(e) => { if (e.key === 'Escape') drawerState.open = false; }}
-		role="button"
-		tabindex="-1"
+		onkeydown={(e) => {
+			if (e.key === "Escape") drawerState.open = false;
+		}}
 	>
 	</div>
 {/if}

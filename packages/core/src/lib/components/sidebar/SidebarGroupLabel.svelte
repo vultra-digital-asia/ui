@@ -8,7 +8,7 @@
 		class: className,
 		children,
 		...restProps
-	}: HTMLAttributes<HTMLDivElement> & {
+	}: HTMLAttributes<HTMLHeadingElement> & {
 		class?: string;
 		children?: Snippet;
 	} = $props();
@@ -21,7 +21,7 @@
 	});
 </script>
 
-<div
+<h3
 	data-slot="sidebar-group-label"
 	data-state={collapsed ? "collapsed" : "expanded"}
 	class={cn(
@@ -32,4 +32,4 @@
 	{...restProps}
 >
 	{@render children?.()}
-</div>
+</h3>

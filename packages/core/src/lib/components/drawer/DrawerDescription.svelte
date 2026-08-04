@@ -17,6 +17,7 @@
 
 <p
 	bind:this={ref}
+	id="drawer-description"
 	data-slot="drawer-description"
 	class={cn("text-sm text-muted-foreground", className)}
 	{...restProps}

@@ -50,6 +50,10 @@
 
 	<div
 		bind:this={ref}
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="drawer-title"
+		aria-describedby="drawer-description"
 		data-slot="drawer-content"
 		data-direction={drawerState.direction}
 		class={cn(

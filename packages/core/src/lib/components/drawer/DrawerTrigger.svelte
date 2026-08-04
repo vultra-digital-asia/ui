@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getContext } from "svelte";
+	import { getContext, type Snippet } from "svelte";
 	import { cn, type WithElementRef } from "$lib/utils.js";
 	import type { HTMLButtonAttributes } from "svelte/elements";
 
@@ -13,7 +13,15 @@
 	const drawerState = getContext<{
 		get open(): boolean;
 		set open(v: boolean);
+		setTrigger: (el: HTMLElement) => void;
 	}>("drawer-state");
+
+	// Store the trigger element for focus restoration on close
+	$effect(() => {
+		if (ref) {
+			drawerState.setTrigger(ref);
+		}
+	});
 
 	function handleClick() {
 		drawerState.open = true;
