@@ -18,3 +18,6 @@ export type { TreeNode } from './state/tree.svelte.js';
 
 // Export
 export { exportToSvelte, exportToReact, exportToHTML } from './export/index.js';
+
+// UI Panels
+export { ComponentPanel, PropertyPanel, LayerPanel, Toolbar } from './ui/index.js';
