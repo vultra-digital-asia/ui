@@ -9,7 +9,11 @@
     "./md3": "./src/md3.css",
     "./flat": "./src/flat.css",
     "./glass": "./src/glass.css",
-    "./brutalist": "./src/brutalist.css"
+    "./brutalist": "./src/brutalist.css",
+    "./neumorphism": "./src/neumorphism.css",
+    "./retro": "./src/retro.css",
+    "./cyberpunk": "./src/cyberpunk.css",
+    "./minimalist": "./src/minimalist.css"
   },
   "files": [
     "src",
