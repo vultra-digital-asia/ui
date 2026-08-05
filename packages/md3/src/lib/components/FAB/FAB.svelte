@@ -1,4 +1,4 @@
-<script lang="ts" module">
+<script lang="ts" module>
 	import { tv } from 'tailwind-variants';
 
 	export const fabVariants = tv({
