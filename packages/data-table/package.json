@@ -1,6 +1,6 @@
 {
   "name": "@vultra/data-table",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.0",
   "description": "Enterprise DataTable component built on grid-core",
   "type": "module",
   "exports": {
