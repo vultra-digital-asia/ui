@@ -39,6 +39,7 @@ export { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, Comman
 // Data
 export { Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption } from './components/table/index.js';
 export { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationLink, PaginationEllipsis } from './components/pagination/index.js';
+export { DataTable, type ColumnDef as DataTableColumnDef, type DataTableProps } from './components/data-table/index.js';
 
 // Form
 export { Select, SelectTrigger, SelectContent, SelectItem, SelectValue, SelectGroup, SelectLabel, SelectSeparator } from './components/select/index.js';
@@ -55,6 +56,7 @@ export { CopyToClipboard } from './components/copy-to-clipboard/index.js';
 export { SignaturePad } from './components/signature-pad/index.js';
 export { OTPInput } from './components/otp-input/index.js';
 export { PasswordInput } from './components/password-input/index.js';
+export { SearchSelect, type SearchSelectOption } from './components/search-select/index.js';
 
 // Feedback
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/tooltip/index.js';
@@ -70,7 +72,7 @@ export { Stepper } from './components/stepper/index.js';
 export { FileUploader } from './components/file-uploader/index.js';
 
 // Data Display
-export { Timeline } from './components/timeline/index.js';
+export { Timeline, TimelineItem, TimelineDot } from './components/timeline/index.js';
 export { TreeView } from './components/tree-view/index.js';
 export { ColorPicker } from './components/color-picker/index.js';
 export { DateTimePicker } from './components/datetime-picker/index.js';
@@ -100,6 +102,8 @@ export { Navbar } from './components/navbar/index.js';
 export { BentoGrid } from './components/bento-grid/index.js';
 export { Stats } from './components/stats/index.js';
 export { Carousel } from './components/carousel/index.js';
+export { TestimonialCarousel } from './components/testimonial-carousel/index.js';
+export { PricingTable, PricingCard as PricingTableCard } from './components/pricing-table/index.js';
 
 // Utils
 export { cn, formatBytes, formatDate, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from '../utils.js';

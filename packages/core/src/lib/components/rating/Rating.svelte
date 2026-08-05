@@ -1,51 +1,149 @@
 <script lang="ts">
   import { cn } from '../../utils.js';
+  import { Star } from 'lucide-svelte';
 
   let {
     value = $bindable(0),
     max = 5,
     size = 'md',
     readonly = false,
+    disabled = false,
     class: className,
-    onChange,
+    onchange,
   }: {
     value?: number;
     max?: number;
     size?: 'sm' | 'md' | 'lg';
     readonly?: boolean;
+    disabled?: boolean;
     class?: string;
-    onChange?: (value: number) => void;
+    onchange?: (value: number) => void;
   } = $props();
 
   let hoverValue = $state(0);
+  let containerRef = $state<HTMLDivElement | null>(null);
 
-  const sizeClasses = { sm: 'size-4', md: 'size-5', lg: 'size-6' };
+  const sizeMap = {
+    sm: 'size-4',
+    md: 'size-5',
+    lg: 'size-7',
+  } as const;
 
-  function handleClick(star: number) {
-    if (readonly) return;
-    value = star;
-    onChange?.(star);
+  function clampValue(v: number): number {
+    return Math.round(v * 10) / 10;
+  }
+
+  function getValueFromPosition(starIndex: number, event: MouseEvent): number {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const isLeftHalf = x < rect.width / 2;
+    return starIndex - (isLeftHalf ? 0.5 : 0);
+  }
+
+  function handleClick(starIndex: number, event: MouseEvent) {
+    if (readonly || disabled) return;
+    const newValue = getValueFromPosition(starIndex, event);
+    value = clampValue(newValue === value ? 0 : newValue);
+    onchange?.(value);
+  }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (readonly || disabled) return;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowUp': {
+        event.preventDefault();
+        const next = Math.min(max, clampValue(value + 0.5));
+        value = next;
+        onchange?.(next);
+        break;
+      }
+      case 'ArrowLeft':
+      case 'ArrowDown': {
+        event.preventDefault();
+        const prev = Math.max(0, clampValue(value - 0.5));
+        value = prev;
+        onchange?.(prev);
+        break;
+      }
+      case 'Home': {
+        event.preventDefault();
+        value = 0;
+        onchange?.(0);
+        break;
+      }
+      case 'End': {
+        event.preventDefault();
+        value = max;
+        onchange?.(max);
+        break;
+      }
+    }
   }
 </script>
 
-<div class={cn('flex items-center gap-0.5', className)}>
+<div
+  bind:this={containerRef}
+  role="slider"
+  aria-label="Rating"
+  aria-valuemin={0}
+  aria-valuemax={max}
+  aria-valuenow={value}
+  aria-valuetext={`${value} out of ${max} stars`}
+  aria-readonly={readonly}
+  aria-disabled={disabled}
+  tabindex={disabled ? -1 : 0}
+  class={cn(
+    'inline-flex items-center gap-0.5 outline-none',
+    disabled && 'pointer-events-none opacity-50',
+    className
+  )}
+  onkeydown={handleKeydown}
+>
   {#each Array.from({ length: max }, (_, i) => i + 1) as star}
+    {@const displayValue = hoverValue > 0 ? hoverValue : value}
+    {@const fillLevel = Math.max(0, Math.min(1, displayValue - (star - 1)))}
+
     <button
-      onclick={() => handleClick(star)}
-      onmouseenter={() => { if (!readonly) hoverValue = star; }}
-      onmouseleave={() => { hoverValue = 0; }}
+      type="button"
+      role="radio"
+      aria-checked={value === star}
+      aria-label={`${star} star${star > 1 ? 's' : ''}`}
+      {disabled}
       {readonly}
+      tabindex={-1}
       class={cn(
-        'cursor-pointer transition-colors',
-        readonly ? 'cursor-default' : '',
-        (hoverValue >= star || value >= star)
-          ? 'text-yellow-400'
-          : 'text-[var(--ui-muted-foreground)]/30'
+        'relative cursor-pointer rounded-sm outline-none transition-transform',
+        'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+        readonly && 'cursor-default',
+        disabled && 'cursor-not-allowed',
+        !disabled && !readonly && 'hover:scale-110'
       )}
+      onclick={(e) => handleClick(star, e)}
+      onmouseenter={() => { if (!readonly && !disabled) hoverValue = star; }}
+      onmouseleave={() => { hoverValue = 0; }}
     >
-      <svg class={cn(sizeClasses[size])} viewBox="0 0 20 20" fill="currentColor">
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
+      <!-- Empty star (background) -->
+      <Star
+        class={cn(
+          sizeMap[size],
+          'text-muted-foreground/30 transition-colors'
+        )}
+        fill="currentColor"
+        strokeWidth={0}
+      />
+
+      <!-- Filled portion (foreground, clipped) -->
+      <Star
+        class={cn(
+          sizeMap[size],
+          'absolute inset-0 text-yellow-400 transition-colors'
+        )}
+        style="clip-path: inset(0 {(1 - fillLevel) * 100}% 0 0);"
+        fill="currentColor"
+        strokeWidth={0}
+      />
     </button>
   {/each}
 </div>
