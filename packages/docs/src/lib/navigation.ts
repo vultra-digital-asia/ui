@@ -8,7 +8,9 @@ export const navigation: NavItem[] = [
 	{
 		title: 'Getting Started',
 		href: '/docs/getting-started',
-		items: [{ title: 'Installation', href: '/docs/getting-started' }]
+		items: [
+			{ title: 'Installation', href: '/docs/getting-started' },
+		]
 	},
 	{
 		title: 'Components',
@@ -49,10 +51,15 @@ export const navigation: NavItem[] = [
 		href: '/docs/themes',
 		items: [
 			{ title: 'Overview', href: '/docs/themes' },
+			{ title: 'shadcn', href: '/docs/themes' },
 			{ title: 'Material Design 3', href: '/docs/themes/md3' },
 			{ title: 'Flat', href: '/docs/themes/flat' },
 			{ title: 'Glass', href: '/docs/themes/glass' },
-			{ title: 'Brutalist', href: '/docs/themes/brutalist' }
+			{ title: 'Brutalist', href: '/docs/themes/brutalist' },
+			{ title: 'Neumorphism', href: '/docs/themes/neumorphism' },
+			{ title: 'Retro', href: '/docs/themes/retro' },
+			{ title: 'Cyberpunk', href: '/docs/themes/cyberpunk' },
+			{ title: 'Minimalist', href: '/docs/themes/minimalist' }
 		]
 	}
 ];
