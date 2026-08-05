@@ -62,6 +62,9 @@
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",

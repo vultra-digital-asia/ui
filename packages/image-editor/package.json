@@ -9,7 +9,9 @@
       "svelte": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "svelte-package -o dist"
   },
@@ -24,7 +26,12 @@
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2"
   },
-  "peerDependencies": { "svelte": "^5.0.0" },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
   "svelte": "./dist/index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -34,5 +34,8 @@
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",
     "directory": "packages/cli"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
