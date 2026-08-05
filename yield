@@ -1,1 +1,1 @@
-yield
+DnD system: created Draggable, Droppable, DragOverlay, Sortable Svelte components + GridSnap utilities at packages/editor-core/src/lib/dnd/. Package exports and main index already configured.
