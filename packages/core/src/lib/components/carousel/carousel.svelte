@@ -9,7 +9,8 @@
 		autoplay = false,
 		interval = 4000,
 		showDots = true,
-		showArrows = true
+		showArrows = true,
+		...restProps
 	}: {
 		ref?: HTMLElement | null;
 		class?: string;
@@ -18,6 +19,7 @@
 		interval?: number;
 		showDots?: boolean;
 		showArrows?: boolean;
+		[key: string]: unknown;
 	} = $props();
 
 	let current = $state(0);
@@ -69,7 +71,7 @@
 	onmouseleave={startAutoplay}
 	role="region"
 	aria-label="Carousel"
-	{...$$restProps}
+	{...restProps}
 >
 	{#if showArrows && total > 1}
 		<button

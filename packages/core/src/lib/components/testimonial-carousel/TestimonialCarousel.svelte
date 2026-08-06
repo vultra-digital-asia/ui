@@ -14,13 +14,15 @@
 		class: className,
 		testimonials = [],
 		autoplay = true,
-		interval = 5000
+		interval = 5000,
+		...restProps
 	}: {
 		ref?: HTMLElement | null;
 		class?: string;
 		testimonials?: Testimonial[];
 		autoplay?: boolean;
 		interval?: number;
+		[key: string]: unknown;
 	} = $props();
 
 	let current = $state(0);
@@ -102,7 +104,7 @@
 	aria-roledescription="carousel"
 	onmouseenter={stopAutoplay}
 	onmouseleave={startAutoplay}
-	{...$$restProps}
+	{...restProps}
 >
 	<!-- Testimonial slides -->
 	<div
