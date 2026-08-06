@@ -1,6 +1,6 @@
 {
   "name": "@vultra/motion-effects",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "CSS effects and transitions for @vultra/motion",
   "type": "module",
   "exports": {

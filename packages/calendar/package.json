@@ -1,6 +1,6 @@
 {
   "name": "@vultra/calendar",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Calendar and DatePicker components for Vultra UI",
   "type": "module",
   "exports": {
