@@ -2,11 +2,60 @@
 import { program } from 'commander';
 import { loadRegistry } from './registry.js';
 import { installComponents } from './install.js';
+import { initProject } from './init.js';
+import { updateComponents } from './update.js';
+import { runDoctor } from './doctor.js';
 
 program
 	.name('vultra')
 	.description('Vultra UI component installer for Svelte projects')
 	.version('0.1.0');
+
+program
+	.command('init')
+	.description('Initialize Vultra UI in your project')
+	.action(async () => {
+		try {
+			const result = initProject(process.cwd());
+			console.log(`Detected project type: ${result.projectType}`);
+			switch (result.componentsJson) {
+				case 'created':
+					console.log('Created components.json');
+					break;
+				case 'updated':
+					console.log('Updated components.json');
+					break;
+				case 'error':
+					console.error('Warning: could not write components.json');
+					break;
+			}
+			if (result.depsAdded.length > 0) {
+				console.log(
+					`Added ${result.depsAdded.length} dependency(ies) to package.json: ${result.depsAdded.join(', ')}`,
+				);
+				console.log('Run `pnpm install` (or `npm install`) to install them.');
+			} else {
+				console.log('Dependencies already present in package.json');
+			}
+			if (result.cssTouched) {
+				console.log(`Added token import to ${result.cssPath}`);
+			} else if (result.cssPath) {
+				console.log(`Token import already present in ${result.cssPath}`);
+			} else {
+				console.log('Could not find a CSS entry file to add the token import.');
+			}
+			if (result.utilsCreated) {
+				console.log(`Created cn() utils at ${result.utilsPath}`);
+			}
+			console.log('\nVultra UI is ready. Next steps:');
+			console.log('  1. Install dependencies: pnpm install');
+			console.log('  2. Add a component: npx @vultra/cli add button');
+			console.log('  3. Check setup: npx @vultra/cli doctor');
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
 
 program
 	.command('add')
@@ -49,6 +98,82 @@ program
 				for (const d of depNames) console.log(`  ${d}@${addedDeps[d]}`);
 				console.log('Run `pnpm install` to install them.');
 			}
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
+
+program
+	.command('update')
+	.description('Update installed Vultra UI components to the latest version')
+	.argument('[components...]', 'component names to update, e.g. button card')
+	.option('-a, --all', 'update every installed component')
+	.action(
+		async (
+			components: string[],
+			opts: { all?: boolean },
+		) => {
+			if (components.length === 0 && !opts.all) {
+				console.error('Specify components to update, or use --all to update everything.');
+				process.exit(1);
+			}
+			try {
+				const result = await updateComponents(components, {
+					all: opts.all ?? false,
+					cwd: process.cwd(),
+				});
+
+				if (result.missing.length > 0) {
+					console.log(
+						`Component(s) not installed, skipping: ${result.missing.join(', ')}`,
+					);
+					console.log('  Tip: use `npx @vultra/cli add <name>` to install them.');
+				}
+				if (result.updated.length > 0) {
+					console.log(`Updated ${result.updated.length} file(s):`);
+					for (const f of result.updated) console.log(`  ${f}`);
+				}
+				if (result.added.length > 0) {
+					console.log(`Added ${result.added.length} missing file(s):`);
+					for (const f of result.added) console.log(`  ${f}`);
+				}
+				if (result.upToDate.length > 0) {
+					console.log(
+						`${result.upToDate.length} file(s) already up to date (skipped).`,
+					);
+				}
+				const depNames = Object.keys(result.addedDeps);
+				if (depNames.length > 0) {
+					console.log(`Added ${depNames.length} dependency(ies) to package.json:`);
+					for (const d of depNames) console.log(`  ${d}@${result.addedDeps[d]}`);
+					console.log('Run `pnpm install` to install them.');
+				}
+			} catch (err) {
+				console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+				process.exit(1);
+			}
+		},
+	);
+
+program
+	.command('doctor')
+	.description('Check that Vultra UI is set up correctly in your project')
+	.action(async () => {
+		try {
+			const { checks, root } = runDoctor(process.cwd());
+			console.log(`Checking Vultra UI setup in ${root}`);
+			let okCount = 0;
+			for (const check of checks) {
+				console.log(`${check.ok ? '✅' : '❌'} ${check.label}${check.ok ? '' : ' — ' + check.detail}`);
+				if (check.ok) okCount++;
+			}
+			console.log(
+				`\n${okCount}/${checks.length} check(s) passed.` +
+					(okCount === checks.length
+						? ' Vultra UI is set up correctly.'
+						: ' Run `npx @vultra/cli init` to fix the failing checks.'),
+			);
 		} catch (err) {
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);
