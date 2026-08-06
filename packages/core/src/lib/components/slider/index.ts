@@ -6,6 +6,5 @@ export {
 	Root as Slider,
 	SliderPrimitive.Root as SliderRoot,
 	SliderPrimitive.Range as SliderRange,
-	SliderPrimitive.Thumb as SliderThumb,
-	SliderPrimitive.ThumbLabel as SliderThumbLabel,
+	SliderPrimitive.Thumb as SliderThumb
 };
