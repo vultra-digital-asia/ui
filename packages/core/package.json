@@ -33,7 +33,8 @@
     "clsx": "^2.1.1",
     "lucide-svelte": "^1.0.1",
     "tailwind-merge": "^3.5.0",
-    "tailwind-variants": "^3.3.0"
+    "tailwind-variants": "^3.3.0",
+    "zod": "^3.24.0"
   },
   "devDependencies": {
     "@internationalized/date": "^3.12.0",
@@ -52,10 +53,14 @@
   },
   "peerDependencies": {
     "svelte": "^5.0.0",
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^4.0.0",
+    "zod": "^3.24.0"
   },
   "peerDependenciesMeta": {
     "tailwindcss": {
+      "optional": true
+    },
+    "zod": {
       "optional": true
     }
   },

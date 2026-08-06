@@ -56,6 +56,9 @@ export { CopyToClipboard } from './components/copy-to-clipboard/index.js';
 export { SignaturePad } from './components/signature-pad/index.js';
 export { OTPInput } from './components/otp-input/index.js';
 export { PasswordInput } from './components/password-input/index.js';
+export { validators, createFormValidator } from './components/validate/index.js';
+export type { ValidationRule } from './components/validate/index.js';
+export { ValidationMessage, FormInput, FormSelect, FormTextarea, FormGroup } from './components/validate/index.js';
 export { SearchSelect, type SearchSelectOption } from './components/search-select/index.js';
 
 // Feedback
