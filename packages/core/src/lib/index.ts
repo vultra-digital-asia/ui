@@ -116,6 +116,12 @@ export { InfiniteScroll } from './components/infinite-scroll/index.js';
 // QR Code
 export { QRCode } from './components/qr-code/index.js';
 
+// Virtual List
+export { VirtualList } from './components/virtual-list/index.js';
+
+// Split View
+export { SplitView } from './components/split-view/index.js';
+
 // Utils
 export { cn, formatBytes, formatDate, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from '../utils.js';
 
