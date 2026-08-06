@@ -1,12 +1,13 @@
 {
   "name": "@vultra/grid-core",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.5",
   "description": "Shared grid infrastructure (TanStack Table + Virtual + keyboard + clipboard)",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
+      "svelte": "./dist/index.js",
+      "module": "./dist/index.js"
     }
   },
   "files": [
@@ -19,7 +20,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "^0.1.0-alpha.3",
+    "@vultra/ui": "^0.1.0-alpha.5",
     "@tanstack/table-core": "^8.21.3",
     "@tanstack/svelte-virtual": "^3.13.35"
   },
@@ -39,5 +40,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false
 }

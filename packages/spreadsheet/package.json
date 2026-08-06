@@ -1,6 +1,6 @@
 {
   "name": "@vultra/spreadsheet",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.5",
   "description": "Spreadsheet component with cell editing, range selection, multi-sheet support",
   "type": "module",
   "exports": {

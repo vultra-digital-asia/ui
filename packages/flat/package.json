@@ -1,12 +1,13 @@
 {
   "name": "@vultra/flat",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0-alpha.5",
   "description": "Flat color geometric components with clip-path shapes for Vultra UI",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
+      "svelte": "./dist/index.js",
+      "module": "./dist/index.js"
     },
     "./components/*": {
       "types": "./dist/components/*/index.d.ts",
@@ -23,7 +24,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/tokens": "^0.1.0-alpha.3"
+    "@vultra/tokens": "^0.1.0-alpha.5"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",
@@ -46,5 +47,6 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false
 }
