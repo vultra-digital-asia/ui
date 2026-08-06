@@ -1,6 +1,6 @@
 {
   "name": "@vultra/data-table",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "Enterprise DataTable component built on grid-core",
   "type": "module",
   "exports": {
@@ -19,8 +19,8 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "^0.1.0-alpha.0",
-    "@vultra/grid-core": "^0.1.0-alpha.0"
+    "@vultra/ui": "^0.1.0-alpha.1",
+    "@vultra/grid-core": "^0.1.0-alpha.1"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",

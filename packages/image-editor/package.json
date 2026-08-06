@@ -1,6 +1,6 @@
 {
   "name": "@vultra/image-editor",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "Image editor with filters and effects for Vultra UI",
   "type": "module",
   "exports": {
@@ -16,8 +16,8 @@
     "build": "svelte-package -o dist"
   },
   "dependencies": {
-    "@vultra/ui": "^0.1.0-alpha.0",
-    "@vultra/tokens": "^0.1.0-alpha.0"
+    "@vultra/ui": "^0.1.0-alpha.1",
+    "@vultra/tokens": "^0.1.0-alpha.1"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",
