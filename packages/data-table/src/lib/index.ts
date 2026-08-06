@@ -28,6 +28,8 @@ export {
   clearTableSettings,
 } from '@vultra/grid-core';
 
+export { summaryPresets } from './components/data-table/index.js';
+
 export type {
   CoreTableState,
   ServerSideConfig,
