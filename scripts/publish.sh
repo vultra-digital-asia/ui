@@ -13,7 +13,9 @@ npm whoami || { echo "❌ Not logged in. Run 'npm login' first."; exit 1; }
 # Publish in order (dependencies first)
 PACKAGES=(
   "packages/tokens"
+  "packages/grid-core"
   "packages/core"
+  "packages/data-table"
   "packages/md3"
   "packages/flat"
   "packages/cli"
