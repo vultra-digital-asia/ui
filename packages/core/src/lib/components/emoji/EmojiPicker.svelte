@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Search, X } from 'lucide-svelte';
-  import { Input } from '@vultra/ui';
+  import { Input } from '../input/index.js';
   import { cn } from '@vultra/grid-core/utils';
   import { emojiCategories, searchEmojis, getRecentEmojis, addRecentEmoji } from '../../utils/bidi-emoji.js';
 

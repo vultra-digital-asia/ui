@@ -9,15 +9,18 @@
       "svelte": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "svelte-package -o dist",
     "check": "echo 'no check'",
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "workspace:*",
-    "@vultra/grid-core": "workspace:*",
+    "@vultra/ui": "^0.1.0-alpha.5",
+    "@vultra/grid-core": "^0.1.0-alpha.5",
     "@tanstack/svelte-virtual": "^3.13.35"
   },
   "devDependencies": {
@@ -33,5 +36,9 @@
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",
     "directory": "packages/spreadsheet"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
 }

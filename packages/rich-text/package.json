@@ -31,8 +31,8 @@
     "@tiptap/extension-underline": "^3.22.5",
     "@tiptap/pm": "^3.22.5",
     "@tiptap/starter-kit": "^3.22.5",
-    "@vultra/grid-core": "workspace:*",
-    "@vultra/ui": "workspace:*"
+    "@vultra/grid-core": "^0.1.0-alpha.5",
+    "@vultra/ui": "^0.1.0-alpha.5"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",
@@ -47,5 +47,9 @@
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",
     "directory": "packages/rich-text"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
 }

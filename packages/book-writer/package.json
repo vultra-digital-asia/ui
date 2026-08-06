@@ -19,10 +19,10 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/grid-core": "workspace:*",
-    "@vultra/pdf-viewer": "workspace:*",
-    "@vultra/rich-text": "workspace:*",
-    "@vultra/ui": "workspace:*",
+    "@vultra/grid-core": "^0.1.0-alpha.5",
+    "@vultra/pdf-viewer": "^0.1.0-alpha.5",
+    "@vultra/rich-text": "^0.1.0-alpha.5",
+    "@vultra/ui": "^0.1.0-alpha.5",
     "docx": "^9.7.1",
     "epubjs": "^0.3.93",
     "pdf-lib": "^1.17.1"
@@ -40,5 +40,9 @@
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",
     "directory": "packages/book-writer"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
 }

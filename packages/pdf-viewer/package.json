@@ -9,15 +9,18 @@
       "svelte": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "svelte-package -o dist",
     "check": "echo 'no check'",
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "workspace:*",
-    "@vultra/grid-core": "workspace:*",
+    "@vultra/ui": "^0.1.0-alpha.5",
+    "@vultra/grid-core": "^0.1.0-alpha.5",
     "pdfjs-dist": "^4.10.38",
     "pdf-lib": "^1.17.1"
   },
@@ -34,5 +37,9 @@
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",
     "directory": "packages/pdf-viewer"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
 }
