@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import { loadRegistry } from './registry.js';
+import { loadRegistry, type RegistryComponent } from './registry.js';
 import { installComponents } from './install.js';
 import { initProject } from './init.js';
 import { updateComponents } from './update.js';
@@ -183,12 +183,36 @@ program
 program
 	.command('list')
 	.description('List all available components')
-	.action(async () => {
+	.option('-v, --verbose', 'show component descriptions')
+	.action(async (opts: { verbose?: boolean }) => {
 		try {
 			const registry = await loadRegistry();
-			const names = registry.components.map((c) => c.name).sort();
-			console.log(`${names.length} components available:`);
-			for (const name of names) console.log(`  ${name}`);
+			const { components } = registry;
+			const verbose = Boolean(opts.verbose);
+
+			if (components.length === 0) {
+				console.log('No components available.');
+				return;
+			}
+
+			const groups = new Map<string, RegistryComponent[]>();
+			for (const comp of components) {
+				const cat = comp.category ?? 'uncategorized';
+				if (!groups.has(cat)) groups.set(cat, []);
+				groups.get(cat)!.push(comp);
+			}
+
+			console.log(`${components.length} components available (registry ${registry.schema}):`);
+			for (const [category, list] of [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+				console.log(`\n${category}`);
+				for (const comp of [...list].sort((a, b) => a.name.localeCompare(b.name))) {
+					if (verbose && comp.description) {
+						console.log(`  ${comp.name.padEnd(28)} ${comp.description}`);
+					} else {
+						console.log(`  ${comp.name}`);
+					}
+				}
+			}
 		} catch (err) {
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);

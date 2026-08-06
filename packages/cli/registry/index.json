@@ -1,9 +1,15 @@
 {
-  "schema": "v1",
-  "generatedAt": "2026-08-04T12:51:55.889Z",
+  "schema": "v2",
+  "generatedAt": "2026-08-06T16:52:00.908Z",
   "components": [
     {
       "name": "accordion",
+      "description": "Accordion component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "accordion"
+      ],
       "files": [
         "accordion/accordion-content.svelte",
         "accordion/accordion-item.svelte",
@@ -17,15 +23,33 @@
       "main": "accordion/accordion.svelte",
       "mainTs": "accordion/index.ts",
       "isComponent": true,
-      "entry": "accordion/index.ts"
+      "entry": "accordion/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "alert",
+      "description": "Alert component",
+      "category": "feedback",
+      "tags": [
+        "feedback",
+        "alert"
+      ],
       "files": [
+        "alert/Alert.test.ts",
         "alert/alert-action.svelte",
         "alert/alert-description.svelte",
         "alert/alert-title.svelte",
         "alert/alert.svelte",
+        "alert/context.ts",
         "alert/index.ts"
       ],
       "deps": [
@@ -34,10 +58,32 @@
       "main": "alert/alert.svelte",
       "mainTs": "alert/index.ts",
       "isComponent": true,
-      "entry": "alert/index.ts"
+      "entry": "alert/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "default",
+            "destructive"
+          ]
+        }
+      ]
     },
     {
       "name": "alert-dialog",
+      "description": "Alert Dialog component",
+      "category": "feedback",
+      "tags": [
+        "feedback",
+        "alert",
+        "dialog"
+      ],
       "files": [
         "alert-dialog/alert-dialog-action.svelte",
         "alert-dialog/alert-dialog-cancel.svelte",
@@ -60,10 +106,51 @@
       "main": "alert-dialog/alert-dialog.svelte",
       "mainTs": "alert-dialog/index.ts",
       "isComponent": true,
-      "entry": "alert-dialog/index.ts"
+      "entry": "alert-dialog/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "aside",
+      "description": "Aside component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "aside"
+      ],
+      "files": [
+        "aside/Aside.svelte",
+        "aside/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "aside/index.ts",
+      "isComponent": true,
+      "entry": "aside/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "'aria-label'",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "aspect-ratio",
+      "description": "Aspect Ratio component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "aspect",
+        "ratio"
+      ],
       "files": [
         "aspect-ratio/aspect-ratio.svelte",
         "aspect-ratio/index.ts"
@@ -72,10 +159,17 @@
       "main": "aspect-ratio/aspect-ratio.svelte",
       "mainTs": "aspect-ratio/index.ts",
       "isComponent": true,
-      "entry": "aspect-ratio/index.ts"
+      "entry": "aspect-ratio/index.ts",
+      "props": []
     },
     {
       "name": "avatar",
+      "description": "Avatar component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "avatar"
+      ],
       "files": [
         "avatar/avatar-badge.svelte",
         "avatar/avatar-fallback.svelte",
@@ -91,10 +185,33 @@
       "main": "avatar/avatar.svelte",
       "mainTs": "avatar/index.ts",
       "isComponent": true,
-      "entry": "avatar/index.ts"
+      "entry": "avatar/index.ts",
+      "props": [
+        {
+          "name": "loadingStatus",
+          "type": "any",
+          "default": "loading"
+        },
+        {
+          "name": "size",
+          "type": "any",
+          "default": "default"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "avatar-group",
+      "description": "Avatar Group component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "avatar",
+        "group"
+      ],
       "files": [
         "avatar-group/AvatarGroup.svelte",
         "avatar-group/index.ts"
@@ -102,11 +219,38 @@
       "deps": [],
       "mainTs": "avatar-group/index.ts",
       "isComponent": true,
-      "entry": "avatar-group/index.ts"
+      "entry": "avatar-group/index.ts",
+      "props": [
+        {
+          "name": "avatars",
+          "type": "AvatarItem[]"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": 5
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "md"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "badge",
+      "description": "Badge component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "badge"
+      ],
       "files": [
+        "badge/Badge.test.ts",
         "badge/badge.svelte",
         "badge/index.ts"
       ],
@@ -116,10 +260,40 @@
       "main": "badge/badge.svelte",
       "mainTs": "badge/index.ts",
       "isComponent": true,
-      "entry": "badge/index.ts"
+      "entry": "badge/index.ts",
+      "props": [
+        {
+          "name": "href",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "default",
+            "secondary",
+            "destructive",
+            "outline",
+            "ghost",
+            "link"
+          ]
+        }
+      ]
     },
     {
       "name": "bento-grid",
+      "description": "Bento Grid component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "bento",
+        "grid"
+      ],
       "files": [
         "bento-grid/bento-grid.svelte",
         "bento-grid/index.ts"
@@ -130,10 +304,32 @@
       "main": "bento-grid/bento-grid.svelte",
       "mainTs": "bento-grid/index.ts",
       "isComponent": true,
-      "entry": "bento-grid/index.ts"
+      "entry": "bento-grid/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "cols",
+          "type": "string",
+          "default": "3",
+          "values": [
+            "2",
+            "3",
+            "4"
+          ]
+        }
+      ]
     },
     {
       "name": "breadcrumb",
+      "description": "Breadcrumb component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "breadcrumb"
+      ],
       "files": [
         "breadcrumb/breadcrumb-ellipsis.svelte",
         "breadcrumb/breadcrumb-item.svelte",
@@ -150,12 +346,25 @@
       "main": "breadcrumb/breadcrumb.svelte",
       "mainTs": "breadcrumb/index.ts",
       "isComponent": true,
-      "entry": "breadcrumb/index.ts"
+      "entry": "breadcrumb/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "button",
+      "description": "Button component",
+      "category": "actions",
+      "tags": [
+        "actions",
+        "button"
+      ],
       "files": [
         "button/Button.svelte",
+        "button/Button.test.ts",
         "button/index.ts"
       ],
       "deps": [
@@ -163,12 +372,66 @@
       ],
       "mainTs": "button/index.ts",
       "isComponent": true,
-      "entry": "button/index.ts"
+      "entry": "button/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "default",
+            "outline",
+            "secondary",
+            "ghost",
+            "destructive",
+            "link"
+          ]
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "default",
+            "xs",
+            "sm",
+            "lg",
+            "icon",
+            "icon-xs",
+            "icon-sm",
+            "icon-lg"
+          ]
+        },
+        {
+          "name": "href",
+          "type": "any"
+        },
+        {
+          "name": "type",
+          "type": "any",
+          "default": "button"
+        },
+        {
+          "name": "disabled",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "card",
+      "description": "Card component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "card"
+      ],
       "files": [
         "card/Card.svelte",
+        "card/Card.test.ts",
         "card/CardContent.svelte",
         "card/CardDescription.svelte",
         "card/CardFooter.svelte",
@@ -179,10 +442,22 @@
       "deps": [],
       "mainTs": "card/index.ts",
       "isComponent": true,
-      "entry": "card/index.ts"
+      "entry": "card/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "carousel",
+      "description": "Carousel component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "carousel"
+      ],
       "files": [
         "carousel/carousel.svelte",
         "carousel/index.ts"
@@ -193,10 +468,88 @@
       "main": "carousel/carousel.svelte",
       "mainTs": "carousel/index.ts",
       "isComponent": true,
-      "entry": "carousel/index.ts"
+      "entry": "carousel/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "interval",
+          "type": "number",
+          "default": 4000
+        },
+        {
+          "name": "showDots",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "showArrows",
+          "type": "boolean",
+          "default": true
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "description": "Checkbox component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "checkbox"
+      ],
+      "files": [
+        "checkbox/Checkbox.svelte",
+        "checkbox/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "checkbox/index.ts",
+      "isComponent": true,
+      "entry": "checkbox/index.ts",
+      "props": [
+        {
+          "name": "checked",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "indeterminate",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "required",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "code-block",
+      "description": "Code Block component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "code",
+        "block"
+      ],
       "files": [
         "code-block/CodeBlock.svelte",
         "code-block/index.ts"
@@ -204,10 +557,37 @@
       "deps": [],
       "mainTs": "code-block/index.ts",
       "isComponent": true,
-      "entry": "code-block/index.ts"
+      "entry": "code-block/index.ts",
+      "props": [
+        {
+          "name": "code",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "default": "javascript"
+        },
+        {
+          "name": "showLineNumbers",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "collapsible",
+      "description": "Collapsible component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "collapsible"
+      ],
       "files": [
         "collapsible/collapsible-content.svelte",
         "collapsible/collapsible-trigger.svelte",
@@ -218,10 +598,24 @@
       "main": "collapsible/collapsible.svelte",
       "mainTs": "collapsible/index.ts",
       "isComponent": true,
-      "entry": "collapsible/index.ts"
+      "entry": "collapsible/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
     },
     {
       "name": "color-picker",
+      "description": "Color Picker component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "color",
+        "picker"
+      ],
       "files": [
         "color-picker/ColorPicker.svelte",
         "color-picker/index.ts"
@@ -229,10 +623,85 @@
       "deps": [],
       "mainTs": "color-picker/index.ts",
       "isComponent": true,
-      "entry": "color-picker/index.ts"
+      "entry": "color-picker/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": "#3b82f6"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "description": "Combobox component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "combobox"
+      ],
+      "files": [
+        "combobox/Combobox.svelte",
+        "combobox/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "combobox/index.ts",
+      "isComponent": true,
+      "entry": "combobox/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "options",
+          "type": "any"
+        },
+        {
+          "name": "value",
+          "type": "any",
+          "default": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "any",
+          "default": "Select..."
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "any",
+          "default": "Search..."
+        },
+        {
+          "name": "disabled",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "onChange",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "command",
+      "description": "Command component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "command"
+      ],
       "files": [
         "command/command-dialog.svelte",
         "command/command-empty.svelte",
@@ -255,10 +724,32 @@
       "main": "command/command.svelte",
       "mainTs": "command/index.ts",
       "isComponent": true,
-      "entry": "command/index.ts"
+      "entry": "command/index.ts",
+      "props": [
+        {
+          "name": "api",
+          "type": "any"
+        },
+        {
+          "name": "value",
+          "type": "any",
+          "default": ""
+        },
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "context-menu",
+      "description": "Context Menu component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "context",
+        "menu"
+      ],
       "files": [
         "context-menu/context-menu-checkbox-item.svelte",
         "context-menu/context-menu-content.svelte",
@@ -284,10 +775,25 @@
       "main": "context-menu/context-menu.svelte",
       "mainTs": "context-menu/index.ts",
       "isComponent": true,
-      "entry": "context-menu/index.ts"
+      "entry": "context-menu/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
     },
     {
       "name": "copy-to-clipboard",
+      "description": "Copy To Clipboard component",
+      "category": "utility",
+      "tags": [
+        "utility",
+        "copy",
+        "to",
+        "clipboard"
+      ],
       "files": [
         "copy-to-clipboard/CopyToClipboard.svelte",
         "copy-to-clipboard/index.ts"
@@ -295,10 +801,42 @@
       "deps": [],
       "mainTs": "copy-to-clipboard/index.ts",
       "isComponent": true,
-      "entry": "copy-to-clipboard/index.ts"
+      "entry": "copy-to-clipboard/index.ts",
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'outline' | 'ghost'",
+          "default": "ghost"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md'",
+          "default": "sm"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onCopy",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "cta-section",
+      "description": "Cta Section component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "cta",
+        "section"
+      ],
       "files": [
         "cta-section/cta-section.svelte",
         "cta-section/index.ts"
@@ -309,10 +847,131 @@
       "main": "cta-section/cta-section.svelte",
       "mainTs": "cta-section/index.ts",
       "isComponent": true,
-      "entry": "cta-section/index.ts"
+      "entry": "cta-section/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "primary",
+          "values": [
+            "primary",
+            "outline",
+            "muted"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "data-table",
+      "description": "Data Table component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "data",
+        "table"
+      ],
+      "files": [
+        "data-table/DataTable.svelte",
+        "data-table/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "data-table/index.ts",
+      "isComponent": true,
+      "entry": "data-table/index.ts",
+      "props": [
+        {
+          "name": "data",
+          "type": "any"
+        },
+        {
+          "name": "columns",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any",
+          "default": ""
+        },
+        {
+          "name": "pageSize",
+          "type": "any",
+          "default": 10
+        },
+        {
+          "name": "selectable",
+          "type": "any",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "description": "Convert ISO date string → DateValue | undefined",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "date",
+        "picker"
+      ],
+      "files": [
+        "date-picker/DatePicker.svelte",
+        "date-picker/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "date-picker/index.ts",
+      "isComponent": true,
+      "entry": "date-picker/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Pick a date"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "min",
+          "type": "string"
+        },
+        {
+          "name": "max",
+          "type": "string"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onValueChange",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "datetime-picker",
+      "description": "Datetime Picker component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "datetime",
+        "picker"
+      ],
       "files": [
         "datetime-picker/DateTimePicker.svelte",
         "datetime-picker/index.ts"
@@ -320,10 +979,70 @@
       "deps": [],
       "mainTs": "datetime-picker/index.ts",
       "isComponent": true,
-      "entry": "datetime-picker/index.ts"
+      "entry": "datetime-picker/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "type",
+          "type": "'date' | 'time' | 'datetime-local'",
+          "default": "datetime-local"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onChange",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "details",
+      "description": "Details component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "details"
+      ],
+      "files": [
+        "details/Details.svelte",
+        "details/Summary.svelte",
+        "details/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "details/index.ts",
+      "isComponent": true,
+      "entry": "details/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "dialog",
+      "description": "Dialog component",
+      "category": "feedback",
+      "tags": [
+        "feedback",
+        "dialog"
+      ],
       "files": [
         "dialog/dialog-close.svelte",
         "dialog/dialog-content.svelte",
@@ -344,10 +1063,23 @@
       "main": "dialog/dialog.svelte",
       "mainTs": "dialog/index.ts",
       "isComponent": true,
-      "entry": "dialog/index.ts"
+      "entry": "dialog/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
     },
     {
       "name": "divider",
+      "description": "Divider component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "divider"
+      ],
       "files": [
         "divider/Divider.svelte",
         "divider/index.ts"
@@ -355,10 +1087,66 @@
       "deps": [],
       "mainTs": "divider/index.ts",
       "isComponent": true,
-      "entry": "divider/index.ts"
+      "entry": "divider/index.ts",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "description": "Drawer component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "drawer"
+      ],
+      "files": [
+        "drawer/DrawerClose.svelte",
+        "drawer/DrawerContent.svelte",
+        "drawer/DrawerDescription.svelte",
+        "drawer/DrawerFooter.svelte",
+        "drawer/DrawerHeader.svelte",
+        "drawer/DrawerOverlay.svelte",
+        "drawer/DrawerRoot.svelte",
+        "drawer/DrawerTitle.svelte",
+        "drawer/DrawerTrigger.svelte",
+        "drawer/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "drawer/index.ts",
+      "isComponent": true,
+      "entry": "drawer/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "type",
+          "type": "any",
+          "default": "button"
+        }
+      ]
     },
     {
       "name": "dropdown-menu",
+      "description": "Dropdown Menu component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "dropdown",
+        "menu"
+      ],
       "files": [
         "dropdown-menu/dropdown-menu-checkbox-group.svelte",
         "dropdown-menu/dropdown-menu-checkbox-item.svelte",
@@ -385,18 +1173,48 @@
       "main": "dropdown-menu/dropdown-menu.svelte",
       "mainTs": "dropdown-menu/index.ts",
       "isComponent": true,
-      "entry": "dropdown-menu/index.ts"
+      "entry": "dropdown-menu/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
     },
     {
       "name": "emoji",
+      "description": "Emoji component",
+      "category": "utility",
+      "tags": [
+        "utility",
+        "emoji"
+      ],
       "files": [
         "emoji/EmojiPicker.svelte"
       ],
       "deps": [],
-      "isComponent": true
+      "isComponent": true,
+      "props": [
+        {
+          "name": "onSelect",
+          "type": "any"
+        },
+        {
+          "name": "onClose",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "empty-state",
+      "description": "Empty State component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "empty",
+        "state"
+      ],
       "files": [
         "empty-state/EmptyState.svelte",
         "empty-state/index.ts"
@@ -404,10 +1222,41 @@
       "deps": [],
       "mainTs": "empty-state/index.ts",
       "isComponent": true,
-      "entry": "empty-state/index.ts"
+      "entry": "empty-state/index.ts",
+      "props": [
+        {
+          "name": "icon",
+          "type": "any"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": "No data"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "action",
+          "type": "Snippet"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "feature-grid",
+      "description": "Feature Grid component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "feature",
+        "grid"
+      ],
       "files": [
         "feature-grid/feature-grid.svelte",
         "feature-grid/index.ts"
@@ -418,10 +1267,57 @@
       "main": "feature-grid/feature-grid.svelte",
       "mainTs": "feature-grid/index.ts",
       "isComponent": true,
-      "entry": "feature-grid/index.ts"
+      "entry": "feature-grid/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "cols",
+          "type": "string",
+          "default": "3",
+          "values": [
+            "2",
+            "3",
+            "4"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "figure",
+      "description": "Figure component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "figure"
+      ],
+      "files": [
+        "figure/Figcaption.svelte",
+        "figure/Figure.svelte",
+        "figure/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "figure/index.ts",
+      "isComponent": true,
+      "entry": "figure/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "file-uploader",
+      "description": "File Uploader component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "file",
+        "uploader"
+      ],
       "files": [
         "file-uploader/FileUploader.svelte",
         "file-uploader/index.ts"
@@ -429,10 +1325,54 @@
       "deps": [],
       "mainTs": "file-uploader/index.ts",
       "isComponent": true,
-      "entry": "file-uploader/index.ts"
+      "entry": "file-uploader/index.ts",
+      "props": [
+        {
+          "name": "accept",
+          "type": "string",
+          "default": "*"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "maxFiles",
+          "type": "number",
+          "default": 10
+        },
+        {
+          "name": "maxSize",
+          "type": "number"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onUpload",
+          "type": "any"
+        },
+        {
+          "name": "onFilesChange",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "footer",
+      "description": "Footer component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "footer"
+      ],
       "files": [
         "footer/footer.svelte",
         "footer/index.ts"
@@ -443,10 +1383,22 @@
       "main": "footer/footer.svelte",
       "mainTs": "footer/index.ts",
       "isComponent": true,
-      "entry": "footer/index.ts"
+      "entry": "footer/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "form",
+      "description": "Form component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "form"
+      ],
       "files": [
         "form/form-button.svelte",
         "form/form-description.svelte",
@@ -465,10 +1417,17 @@
       ],
       "mainTs": "form/index.ts",
       "isComponent": true,
-      "entry": "form/index.ts"
+      "entry": "form/index.ts",
+      "props": []
     },
     {
       "name": "hero",
+      "description": "Hero component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "hero"
+      ],
       "files": [
         "hero/hero.svelte",
         "hero/index.ts"
@@ -479,10 +1438,43 @@
       "main": "hero/hero.svelte",
       "mainTs": "hero/index.ts",
       "isComponent": true,
-      "entry": "hero/index.ts"
+      "entry": "hero/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "centered",
+          "values": [
+            "centered",
+            "split",
+            "fullwidth"
+          ]
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        }
+      ]
     },
     {
       "name": "hover-card",
+      "description": "Hover Card component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "hover",
+        "card"
+      ],
       "files": [
         "hover-card/hover-card-content.svelte",
         "hover-card/hover-card-portal.svelte",
@@ -496,11 +1488,25 @@
       "main": "hover-card/hover-card.svelte",
       "mainTs": "hover-card/index.ts",
       "isComponent": true,
-      "entry": "hover-card/index.ts"
+      "entry": "hover-card/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
     },
     {
       "name": "input",
+      "description": "Input component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "input"
+      ],
       "files": [
+        "input/Input.test.ts",
         "input/index.ts",
         "input/input.svelte"
       ],
@@ -510,10 +1516,40 @@
       "main": "input/input.svelte",
       "mainTs": "input/index.ts",
       "isComponent": true,
-      "entry": "input/index.ts"
+      "entry": "input/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "name": "type",
+          "type": "any"
+        },
+        {
+          "name": "files",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "\"data-slot\"",
+          "type": "any",
+          "default": "input"
+        }
+      ]
     },
     {
       "name": "input-group",
+      "description": "Input Group component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "input",
+        "group"
+      ],
       "files": [
         "input-group/index.ts",
         "input-group/input-group-addon.svelte",
@@ -532,10 +1568,22 @@
       "main": "input-group/input-group.svelte",
       "mainTs": "input-group/index.ts",
       "isComponent": true,
-      "entry": "input-group/index.ts"
+      "entry": "input-group/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "label",
+      "description": "Label component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "label"
+      ],
       "files": [
         "label/index.ts",
         "label/label.svelte"
@@ -546,10 +1594,74 @@
       "main": "label/label.svelte",
       "mainTs": "label/index.ts",
       "isComponent": true,
-      "entry": "label/index.ts"
+      "entry": "label/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "logo-cloud",
+      "description": "Logo Cloud component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "logo",
+        "cloud"
+      ],
+      "files": [
+        "logo-cloud/LogoCloud.svelte",
+        "logo-cloud/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "logo-cloud/index.ts",
+      "isComponent": true,
+      "entry": "logo-cloud/index.ts",
+      "props": [
+        {
+          "name": "logos",
+          "type": "LogoItem[]"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "main",
+      "description": "Main component",
+      "category": "utility",
+      "tags": [
+        "utility",
+        "main"
+      ],
+      "files": [
+        "main/Main.svelte",
+        "main/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "main/index.ts",
+      "isComponent": true,
+      "entry": "main/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "markdown-renderer",
+      "description": "Markdown Renderer component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "markdown",
+        "renderer"
+      ],
       "files": [
         "markdown-renderer/MarkdownRenderer.svelte",
         "markdown-renderer/index.ts"
@@ -557,10 +1669,59 @@
       "deps": [],
       "mainTs": "markdown-renderer/index.ts",
       "isComponent": true,
-      "entry": "markdown-renderer/index.ts"
+      "entry": "markdown-renderer/index.ts",
+      "props": [
+        {
+          "name": "content",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "menubar",
+      "description": "Menubar component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "menubar"
+      ],
+      "files": [
+        "menubar/Menubar.svelte",
+        "menubar/MenubarContent.svelte",
+        "menubar/MenubarItem.svelte",
+        "menubar/MenubarLabel.svelte",
+        "menubar/MenubarMenu.svelte",
+        "menubar/MenubarPortal.svelte",
+        "menubar/MenubarSeparator.svelte",
+        "menubar/MenubarTrigger.svelte",
+        "menubar/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "menubar/index.ts",
+      "isComponent": true,
+      "entry": "menubar/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "navbar",
+      "description": "Navbar component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "navbar"
+      ],
       "files": [
         "navbar/index.ts",
         "navbar/navbar.svelte"
@@ -571,10 +1732,30 @@
       "main": "navbar/navbar.svelte",
       "mainTs": "navbar/index.ts",
       "isComponent": true,
-      "entry": "navbar/index.ts"
+      "entry": "navbar/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "brand",
+          "type": "import('svelte').Snippet"
+        },
+        {
+          "name": "links",
+          "type": "import('svelte').Snippet"
+        }
+      ]
     },
     {
       "name": "navigation-menu",
+      "description": "Navigation Menu component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "menu"
+      ],
       "files": [
         "navigation-menu/index.ts",
         "navigation-menu/navigation-menu-content.svelte",
@@ -592,21 +1773,99 @@
       "main": "navigation-menu/navigation-menu.svelte",
       "mainTs": "navigation-menu/index.ts",
       "isComponent": true,
-      "entry": "navigation-menu/index.ts"
+      "entry": "navigation-menu/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "viewport",
+          "type": "any",
+          "default": true
+        }
+      ]
     },
     {
       "name": "number-input",
+      "description": "Number Input component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "number",
+        "input"
+      ],
       "files": [
         "number-input/NumberInput.svelte",
         "number-input/index.ts"
       ],
-      "deps": [],
+      "deps": [
+        "utils"
+      ],
       "mainTs": "number-input/index.ts",
       "isComponent": true,
-      "entry": "number-input/index.ts"
+      "entry": "number-input/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "any",
+          "default": 0
+        },
+        {
+          "name": "min",
+          "type": "any"
+        },
+        {
+          "name": "max",
+          "type": "any"
+        },
+        {
+          "name": "step",
+          "type": "any",
+          "default": 1
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "name": "unit",
+          "type": "any"
+        },
+        {
+          "name": "disabled",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "placeholder",
+          "type": "any"
+        },
+        {
+          "name": "onchange",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "otp-input",
+      "description": "Otp Input component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "otp",
+        "input"
+      ],
       "files": [
         "otp-input/OTPInput.svelte",
         "otp-input/index.ts"
@@ -614,10 +1873,41 @@
       "deps": [],
       "mainTs": "otp-input/index.ts",
       "isComponent": true,
-      "entry": "otp-input/index.ts"
+      "entry": "otp-input/index.ts",
+      "props": [
+        {
+          "name": "length",
+          "type": "number",
+          "default": 6
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onComplete",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "pagination",
+      "description": "Pagination component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "pagination"
+      ],
       "files": [
         "pagination/index.ts",
         "pagination/pagination-content.svelte",
@@ -637,10 +1927,43 @@
       "main": "pagination/pagination.svelte",
       "mainTs": "pagination/index.ts",
       "isComponent": true,
-      "entry": "pagination/index.ts"
+      "entry": "pagination/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "count",
+          "type": "any",
+          "default": 0
+        },
+        {
+          "name": "perPage",
+          "type": "any",
+          "default": 10
+        },
+        {
+          "name": "page",
+          "type": "any",
+          "default": 1
+        },
+        {
+          "name": "siblingCount",
+          "type": "any",
+          "default": 1
+        }
+      ]
     },
     {
       "name": "password-input",
+      "description": "Password Input component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "password",
+        "input"
+      ],
       "files": [
         "password-input/PasswordInput.svelte",
         "password-input/index.ts"
@@ -648,10 +1971,42 @@
       "deps": [],
       "mainTs": "password-input/index.ts",
       "isComponent": true,
-      "entry": "password-input/index.ts"
+      "entry": "password-input/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Enter password..."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "strength",
+          "type": "boolean",
+          "default": false
+        }
+      ]
     },
     {
       "name": "popover",
+      "description": "Popover component",
+      "category": "feedback",
+      "tags": [
+        "feedback",
+        "popover"
+      ],
       "files": [
         "popover/index.ts",
         "popover/popover-close.svelte",
@@ -669,10 +2024,24 @@
       "main": "popover/popover.svelte",
       "mainTs": "popover/index.ts",
       "isComponent": true,
-      "entry": "popover/index.ts"
+      "entry": "popover/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
     },
     {
       "name": "pricing-card",
+      "description": "Pricing Card component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "pricing",
+        "card"
+      ],
       "files": [
         "pricing-card/index.ts",
         "pricing-card/pricing-card.svelte"
@@ -683,10 +2052,87 @@
       "main": "pricing-card/pricing-card.svelte",
       "mainTs": "pricing-card/index.ts",
       "isComponent": true,
-      "entry": "pricing-card/index.ts"
+      "entry": "pricing-card/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "default",
+            "featured"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pricing-table",
+      "description": "Pricing Table component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "pricing",
+        "table"
+      ],
+      "files": [
+        "pricing-table/PricingCard.svelte",
+        "pricing-table/PricingTable.svelte",
+        "pricing-table/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "pricing-table/index.ts",
+      "isComponent": true,
+      "entry": "pricing-table/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "features",
+          "type": "string[]"
+        },
+        {
+          "name": "highlighted",
+          "type": "string",
+          "default": false,
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        {
+          "name": "cta",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "progress",
+      "description": "Progress component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "progress"
+      ],
       "files": [
         "progress/index.ts",
         "progress/progress.svelte"
@@ -697,10 +2143,32 @@
       "main": "progress/progress.svelte",
       "mainTs": "progress/index.ts",
       "isComponent": true,
-      "entry": "progress/index.ts"
+      "entry": "progress/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "max",
+          "type": "any",
+          "default": 100
+        },
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "radio-group",
+      "description": "Radio Group component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "radio",
+        "group"
+      ],
       "files": [
         "radio-group/index.ts",
         "radio-group/radio-group-item.svelte",
@@ -712,10 +2180,27 @@
       "main": "radio-group/radio-group.svelte",
       "mainTs": "radio-group/index.ts",
       "isComponent": true,
-      "entry": "radio-group/index.ts"
+      "entry": "radio-group/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "value",
+          "type": "any",
+          "default": ""
+        }
+      ]
     },
     {
       "name": "rating",
+      "description": "Rating component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "rating"
+      ],
       "files": [
         "rating/Rating.svelte",
         "rating/index.ts"
@@ -723,10 +2208,92 @@
       "deps": [],
       "mainTs": "rating/index.ts",
       "isComponent": true,
-      "entry": "rating/index.ts"
+      "entry": "rating/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": 5
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "md"
+        },
+        {
+          "name": "readonly",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onchange",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "resizable",
+      "description": "Resizable component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "resizable"
+      ],
+      "files": [
+        "resizable/ResizableHandle.svelte",
+        "resizable/ResizablePanel.svelte",
+        "resizable/ResizablePanelGroup.svelte",
+        "resizable/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "resizable/index.ts",
+      "isComponent": true,
+      "entry": "resizable/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onDragStart",
+          "type": "any"
+        },
+        {
+          "name": "onDragEnd",
+          "type": "any"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        }
+      ]
     },
     {
       "name": "scroll-area",
+      "description": "Scroll Area component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "scroll",
+        "area"
+      ],
       "files": [
         "scroll-area/index.ts",
         "scroll-area/scroll-area-scrollbar.svelte",
@@ -738,10 +2305,146 @@
       "main": "scroll-area/scroll-area.svelte",
       "mainTs": "scroll-area/index.ts",
       "isComponent": true,
-      "entry": "scroll-area/index.ts"
+      "entry": "scroll-area/index.ts",
+      "props": [
+        {
+          "name": "viewportRef",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "orientation",
+          "type": "any",
+          "default": "vertical"
+        },
+        {
+          "name": "scrollbarXClasses",
+          "type": "any",
+          "default": ""
+        },
+        {
+          "name": "scrollbarYClasses",
+          "type": "any",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "name": "search-select",
+      "description": "Search Select component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "search",
+        "select"
+      ],
+      "files": [
+        "search-select/SearchSelect.svelte",
+        "search-select/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "search-select/index.ts",
+      "isComponent": true,
+      "entry": "search-select/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "options",
+          "type": "any"
+        },
+        {
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "name": "multiple",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "placeholder",
+          "type": "any",
+          "default": "Select..."
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "any",
+          "default": "Search..."
+        },
+        {
+          "name": "emptyMessage",
+          "type": "any",
+          "default": "No results found."
+        },
+        {
+          "name": "loading",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "remote",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "onChange",
+          "type": "any"
+        },
+        {
+          "name": "onSearch",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "section",
+      "description": "Section component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "section"
+      ],
+      "files": [
+        "section/Section.svelte",
+        "section/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "section/index.ts",
+      "isComponent": true,
+      "entry": "section/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "'aria-labelledby'",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "section-header",
+      "description": "Section Header component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "section",
+        "header"
+      ],
       "files": [
         "section-header/SectionHeader.svelte",
         "section-header/index.ts"
@@ -749,10 +2452,36 @@
       "deps": [],
       "mainTs": "section-header/index.ts",
       "isComponent": true,
-      "entry": "section-header/index.ts"
+      "entry": "section-header/index.ts",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "action",
+          "type": "Snippet"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "select",
+      "description": "Select component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "select"
+      ],
       "files": [
         "select/index.ts",
         "select/select-content.svelte",
@@ -774,10 +2503,27 @@
       "main": "select/select.svelte",
       "mainTs": "select/index.ts",
       "isComponent": true,
-      "entry": "select/index.ts"
+      "entry": "select/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "separator",
+      "description": "Separator component",
+      "category": "layout",
+      "tags": [
+        "layout",
+        "separator"
+      ],
       "files": [
         "separator/index.ts",
         "separator/separator.svelte"
@@ -788,10 +2534,27 @@
       "main": "separator/separator.svelte",
       "mainTs": "separator/index.ts",
       "isComponent": true,
-      "entry": "separator/index.ts"
+      "entry": "separator/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "\"data-slot\"",
+          "type": "any",
+          "default": "separator"
+        }
+      ]
     },
     {
       "name": "sheet",
+      "description": "Sheet component",
+      "category": "feedback",
+      "tags": [
+        "feedback",
+        "sheet"
+      ],
       "files": [
         "sheet/index.ts",
         "sheet/sheet-close.svelte",
@@ -812,10 +2575,61 @@
       "main": "sheet/sheet.svelte",
       "mainTs": "sheet/index.ts",
       "isComponent": true,
-      "entry": "sheet/index.ts"
+      "entry": "sheet/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "description": "Sidebar component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "sidebar"
+      ],
+      "files": [
+        "sidebar/SidebarContent.svelte",
+        "sidebar/SidebarFooter.svelte",
+        "sidebar/SidebarGroup.svelte",
+        "sidebar/SidebarGroupContent.svelte",
+        "sidebar/SidebarGroupLabel.svelte",
+        "sidebar/SidebarHeader.svelte",
+        "sidebar/SidebarInset.svelte",
+        "sidebar/SidebarMenu.svelte",
+        "sidebar/SidebarMenuButton.svelte",
+        "sidebar/SidebarMenuItem.svelte",
+        "sidebar/SidebarRoot.svelte",
+        "sidebar/SidebarTrigger.svelte",
+        "sidebar/context.ts",
+        "sidebar/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "sidebar/index.ts",
+      "isComponent": true,
+      "entry": "sidebar/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "signature-pad",
+      "description": "Signature Pad component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "signature",
+        "pad"
+      ],
       "files": [
         "signature-pad/SignaturePad.svelte",
         "signature-pad/index.ts"
@@ -823,10 +2637,51 @@
       "deps": [],
       "mainTs": "signature-pad/index.ts",
       "isComponent": true,
-      "entry": "signature-pad/index.ts"
+      "entry": "signature-pad/index.ts",
+      "props": [
+        {
+          "name": "width",
+          "type": "number",
+          "default": 400
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "default": 200
+        },
+        {
+          "name": "lineWidth",
+          "type": "number",
+          "default": 2
+        },
+        {
+          "name": "lineColor",
+          "type": "string",
+          "default": "#000000"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onSign",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "skeleton",
+      "description": "Skeleton component",
+      "category": "utility",
+      "tags": [
+        "utility",
+        "skeleton"
+      ],
       "files": [
         "skeleton/index.ts",
         "skeleton/skeleton.svelte"
@@ -837,10 +2692,22 @@
       "main": "skeleton/skeleton.svelte",
       "mainTs": "skeleton/index.ts",
       "isComponent": true,
-      "entry": "skeleton/index.ts"
+      "entry": "skeleton/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "slider",
+      "description": "Show numeric value labels above each thumb",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "slider"
+      ],
       "files": [
         "slider/index.ts",
         "slider/slider.svelte"
@@ -851,10 +2718,66 @@
       "main": "slider/slider.svelte",
       "mainTs": "slider/index.ts",
       "isComponent": true,
-      "entry": "slider/index.ts"
+      "entry": "slider/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "name": "min",
+          "type": "any",
+          "default": 0
+        },
+        {
+          "name": "max",
+          "type": "any",
+          "default": 100
+        },
+        {
+          "name": "step",
+          "type": "any",
+          "default": 1
+        },
+        {
+          "name": "disabled",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "orientation",
+          "type": "any",
+          "default": "horizontal"
+        },
+        {
+          "name": "showLabels",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "labelPosition",
+          "type": "any",
+          "default": "top"
+        },
+        {
+          "name": "labelFormatter",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "stat-card",
+      "description": "Stat Card component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "stat",
+        "card"
+      ],
       "files": [
         "stat-card/StatCard.svelte",
         "stat-card/index.ts"
@@ -862,10 +2785,46 @@
       "deps": [],
       "mainTs": "stat-card/index.ts",
       "isComponent": true,
-      "entry": "stat-card/index.ts"
+      "entry": "stat-card/index.ts",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "value",
+          "type": "string | number",
+          "default": ""
+        },
+        {
+          "name": "change",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "changeLabel",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "icon",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "stats",
+      "description": "Stats component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "stats"
+      ],
       "files": [
         "stats/index.ts",
         "stats/stats.svelte"
@@ -876,10 +2835,77 @@
       "main": "stats/stats.svelte",
       "mainTs": "stats/index.ts",
       "isComponent": true,
-      "entry": "stats/index.ts"
+      "entry": "stats/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "stats",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "stats-counter",
+      "description": "Stats Counter component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "stats",
+        "counter"
+      ],
+      "files": [
+        "stats-counter/StatsCounter.svelte",
+        "stats-counter/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "stats-counter/index.ts",
+      "isComponent": true,
+      "entry": "stats-counter/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "prefix",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": 2000
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "stepper",
+      "description": "Stepper component",
+      "category": "composite",
+      "tags": [
+        "composite",
+        "stepper"
+      ],
       "files": [
         "stepper/Stepper.svelte",
         "stepper/index.ts"
@@ -887,10 +2913,40 @@
       "deps": [],
       "mainTs": "stepper/index.ts",
       "isComponent": true,
-      "entry": "stepper/index.ts"
+      "entry": "stepper/index.ts",
+      "props": [
+        {
+          "name": "steps",
+          "type": "any"
+        },
+        {
+          "name": "currentStep",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "orientation",
+          "type": "'horizontal' | 'vertical'",
+          "default": "horizontal"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onStepChange",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "switch",
+      "description": "Switch component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "switch"
+      ],
       "files": [
         "switch/index.ts",
         "switch/switch.svelte"
@@ -901,10 +2957,32 @@
       "main": "switch/switch.svelte",
       "mainTs": "switch/index.ts",
       "isComponent": true,
-      "entry": "switch/index.ts"
+      "entry": "switch/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "checked",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "size",
+          "type": "any",
+          "default": "default"
+        }
+      ]
     },
     {
       "name": "table",
+      "description": "Table component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "table"
+      ],
       "files": [
         "table/index.ts",
         "table/table-body.svelte",
@@ -922,11 +3000,25 @@
       "main": "table/table.svelte",
       "mainTs": "table/index.ts",
       "isComponent": true,
-      "entry": "table/index.ts"
+      "entry": "table/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "tabs",
+      "description": "Tabs component",
+      "category": "navigation",
+      "tags": [
+        "navigation",
+        "tabs"
+      ],
       "files": [
+        "tabs/Tabs.test.ts",
+        "tabs/TabsTest.svelte",
         "tabs/index.ts",
         "tabs/tabs-content.svelte",
         "tabs/tabs-list.svelte",
@@ -939,10 +3031,27 @@
       "main": "tabs/tabs.svelte",
       "mainTs": "tabs/index.ts",
       "isComponent": true,
-      "entry": "tabs/index.ts"
+      "entry": "tabs/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "any",
+          "default": ""
+        },
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ]
     },
     {
       "name": "testimonial",
+      "description": "Testimonial component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "testimonial"
+      ],
       "files": [
         "testimonial/index.ts",
         "testimonial/testimonial.svelte"
@@ -953,10 +3062,62 @@
       "main": "testimonial/testimonial.svelte",
       "mainTs": "testimonial/index.ts",
       "isComponent": true,
-      "entry": "testimonial/index.ts"
+      "entry": "testimonial/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "testimonial-carousel",
+      "description": "Testimonial Carousel component",
+      "category": "marketing",
+      "tags": [
+        "marketing",
+        "testimonial",
+        "carousel"
+      ],
+      "files": [
+        "testimonial-carousel/TestimonialCarousel.svelte",
+        "testimonial-carousel/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "mainTs": "testimonial-carousel/index.ts",
+      "isComponent": true,
+      "entry": "testimonial-carousel/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "testimonials",
+          "type": "Testimonial[]"
+        },
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "interval",
+          "type": "number",
+          "default": 5000
+        }
+      ]
     },
     {
       "name": "textarea",
+      "description": "Textarea component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "textarea"
+      ],
       "files": [
         "textarea/index.ts",
         "textarea/textarea.svelte"
@@ -967,21 +3128,61 @@
       "main": "textarea/textarea.svelte",
       "mainTs": "textarea/index.ts",
       "isComponent": true,
-      "entry": "textarea/index.ts"
+      "entry": "textarea/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "\"data-slot\"",
+          "type": "any",
+          "default": "textarea"
+        }
+      ]
     },
     {
       "name": "timeline",
+      "description": "Timeline component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "timeline"
+      ],
       "files": [
         "timeline/Timeline.svelte",
+        "timeline/TimelineDot.svelte",
+        "timeline/TimelineItem.svelte",
         "timeline/index.ts"
       ],
       "deps": [],
       "mainTs": "timeline/index.ts",
       "isComponent": true,
-      "entry": "timeline/index.ts"
+      "entry": "timeline/index.ts",
+      "props": [
+        {
+          "name": "alternating",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "toast",
+      "description": "Toast component",
+      "category": "feedback",
+      "tags": [
+        "feedback",
+        "toast"
+      ],
       "files": [
         "toast/Toast.svelte",
         "toast/index.ts"
@@ -989,10 +3190,17 @@
       "deps": [],
       "mainTs": "toast/index.ts",
       "isComponent": true,
-      "entry": "toast/index.ts"
+      "entry": "toast/index.ts",
+      "props": []
     },
     {
       "name": "toggle",
+      "description": "Toggle component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "toggle"
+      ],
       "files": [
         "toggle/index.ts",
         "toggle/toggle.svelte"
@@ -1003,10 +3211,47 @@
       "main": "toggle/toggle.svelte",
       "mainTs": "toggle/index.ts",
       "isComponent": true,
-      "entry": "toggle/index.ts"
+      "entry": "toggle/index.ts",
+      "props": [
+        {
+          "name": "pressed",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "default",
+            "sm",
+            "lg"
+          ]
+        },
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "default",
+          "values": [
+            "default",
+            "outline"
+          ]
+        }
+      ]
     },
     {
       "name": "toggle-group",
+      "description": "Toggle Group component",
+      "category": "forms",
+      "tags": [
+        "forms",
+        "toggle",
+        "group"
+      ],
       "files": [
         "toggle-group/index.ts",
         "toggle-group/toggle-group-item.svelte",
@@ -1019,10 +3264,46 @@
       "main": "toggle-group/toggle-group.svelte",
       "mainTs": "toggle-group/index.ts",
       "isComponent": true,
-      "entry": "toggle-group/index.ts"
+      "entry": "toggle-group/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "size",
+          "type": "any",
+          "default": "default"
+        },
+        {
+          "name": "spacing",
+          "type": "any",
+          "default": 0
+        },
+        {
+          "name": "orientation",
+          "type": "any",
+          "default": "horizontal"
+        },
+        {
+          "name": "variant",
+          "type": "any",
+          "default": "default"
+        }
+      ]
     },
     {
       "name": "tooltip",
+      "description": "Tooltip component",
+      "category": "feedback",
+      "tags": [
+        "feedback",
+        "tooltip"
+      ],
       "files": [
         "tooltip/index.ts",
         "tooltip/tooltip-content.svelte",
@@ -1037,18 +3318,98 @@
       "main": "tooltip/tooltip.svelte",
       "mainTs": "tooltip/index.ts",
       "isComponent": true,
-      "entry": "tooltip/index.ts"
+      "entry": "tooltip/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        }
+      ]
     },
     {
       "name": "tree-view",
+      "description": "Tree View component",
+      "category": "data-display",
+      "tags": [
+        "data-display",
+        "tree",
+        "view"
+      ],
       "files": [
+        "tree-view/TreeNode.svelte",
         "tree-view/TreeView.svelte",
         "tree-view/index.ts"
       ],
       "deps": [],
       "mainTs": "tree-view/index.ts",
       "isComponent": true,
-      "entry": "tree-view/index.ts"
+      "entry": "tree-view/index.ts",
+      "props": [
+        {
+          "name": "node",
+          "type": "TreeViewNode"
+        },
+        {
+          "name": "depth",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "selected",
+          "type": "string[]"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "expandedIds",
+          "type": "Set<string>"
+        },
+        {
+          "name": "onToggle",
+          "type": "any"
+        },
+        {
+          "name": "onSelect",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "validate",
+      "description": "Validate component",
+      "category": "utility",
+      "tags": [
+        "utility",
+        "validate"
+      ],
+      "files": [
+        "validate/FormGroup.svelte",
+        "validate/FormInput.svelte",
+        "validate/FormSelect.svelte",
+        "validate/FormTextarea.svelte",
+        "validate/ValidationMessage.svelte",
+        "validate/index.ts",
+        "validate/validate.ts",
+        "validate/zod-adapter.ts"
+      ],
+      "deps": [],
+      "mainTs": "validate/index.ts",
+      "isComponent": true,
+      "entry": "validate/index.ts",
+      "props": [
+        {
+          "name": "legend",
+          "type": "string"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     }
   ]
 }

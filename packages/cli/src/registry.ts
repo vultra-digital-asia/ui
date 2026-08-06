@@ -1,14 +1,26 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+export interface RegistryProp {
+	name: string;
+	type?: string;
+	default?: string | number | boolean;
+	values?: string[];
+	description?: string;
+}
+
 export interface RegistryComponent {
 	name: string;
+	description?: string;
+	category?: string;
+	tags?: string[];
 	files: string[];
 	deps: string[];
 	main?: string;
 	mainTs?: string;
 	isComponent: boolean;
 	entry?: string;
+	props?: RegistryProp[];
 }
 
 export interface Registry {

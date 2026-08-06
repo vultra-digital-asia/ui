@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /**
- * Registry generator.
+ * Registry generator (v2).
  *
  * Scans packages/core/src/lib/components/* and emits
  * packages/cli/registry/index.json — one entry per component with its
- * source files and transitive $lib dependencies.
+ * source files, transitive $lib dependencies, and rich metadata
+ * (category, tags, description, props) for editor/marketplace use.
  *
  * Usage: node scripts/generate-registry.mjs
  *        (run from packages/cli, or pass repo root as argv[2])
@@ -31,6 +32,379 @@ const IGNORE_SET = new Set([
 	'svelte/events',
 	'svelte/legacy',
 ]);
+
+// ---------------------------------------------------------------------------
+// Categories — matched by component directory name; unknown names fall back
+// to "uncategorized".
+// ---------------------------------------------------------------------------
+const CATEGORIES = {
+	actions: ['button'],
+	layout: [
+		'card', 'aside', 'section', 'divider', 'aspect-ratio', 'scroll-area',
+		'resizable', 'details', 'figure', 'separator',
+	],
+	navigation: [
+		'tabs', 'accordion', 'breadcrumb', 'pagination', 'navigation-menu',
+		'sidebar', 'drawer', 'dropdown-menu', 'menubar',
+	],
+	forms: [
+		'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch',
+		'slider', 'label', 'form', 'input-group', 'number-input', 'otp-input',
+		'date-picker', 'datetime-picker', 'color-picker', 'password-input',
+		'search-select', 'combobox', 'rating', 'toggle', 'toggle-group',
+	],
+	feedback: [
+		'alert', 'alert-dialog', 'dialog', 'toast', 'tooltip', 'popover',
+		'sheet',
+	],
+	'data-display': [
+		'table', 'badge', 'avatar', 'avatar-group', 'timeline', 'tree-view',
+		'stats-counter', 'stat-card', 'code-block', 'markdown-renderer',
+		'progress', 'data-table',
+	],
+	marketing: [
+		'hero', 'pricing-card', 'pricing-table', 'testimonial',
+		'testimonial-carousel', 'feature-grid', 'cta-section', 'stats',
+		'logo-cloud', 'section-header', 'navbar', 'footer',
+	],
+	composite: [
+		'carousel', 'bento-grid', 'stepper', 'command', 'context-menu',
+		'hover-card', 'collapsible', 'empty-state', 'file-uploader',
+		'signature-pad',
+	],
+	utility: [
+		'skeleton', 'copy-to-clipboard', 'emoji', 'validate', 'main',
+	],
+};
+
+function categoryOf(name) {
+	for (const [cat, list] of Object.entries(CATEGORIES)) {
+		if (list.includes(name)) return cat;
+	}
+	return 'uncategorized';
+}
+
+function tagsOf(name, category) {
+	const tokens = name.split('-').filter((t) => t.length >= 2);
+	return [...new Set([category, ...tokens])];
+}
+
+function titleCase(name) {
+	return name
+		.split('-')
+		.map((s) => (s ? s[0].toUpperCase() + s.slice(1) : s))
+		.join(' ');
+}
+
+function simpleDescription(name) {
+	return `${name.split('-').map((s) => (s ? s[0].toUpperCase() + s.slice(1) : s)).join(' ')} component`;
+}
+
+// ---------------------------------------------------------------------------
+// Small tokenizer helpers (best-effort, quote/brace aware).
+// ---------------------------------------------------------------------------
+
+function splitTopLevel(str) {
+	const out = [];
+	let depth = 0;
+	let quote = null;
+	let start = 0;
+	for (let i = 0; i < str.length; i++) {
+		const ch = str[i];
+		if (quote) {
+			if (ch === '\\') i++;
+			else if (ch === quote) quote = null;
+			continue;
+		}
+		if (ch === '"' || ch === "'" || ch === '`') quote = ch;
+		else if (ch === '{' || ch === '[' || ch === '(') depth++;
+		else if (ch === '}' || ch === ']' || ch === ')') depth--;
+		else if ((ch === ',' || ch === ';') && depth === 0) {
+			out.push(str.slice(start, i).trim());
+			start = i + 1;
+		}
+	}
+	const tail = str.slice(start).trim();
+	if (tail) out.push(tail);
+	return out;
+}
+
+function matchBlock(str, openIdx) {
+	const open = str[openIdx];
+	const close = { '{': '}', '[': ']', '(': ')' }[open];
+	if (!close) return null;
+	let depth = 0;
+	let quote = null;
+	for (let i = openIdx; i < str.length; i++) {
+		const ch = str[i];
+		if (quote) {
+			if (ch === '\\') i++;
+			else if (ch === quote) quote = null;
+			continue;
+		}
+		if (ch === '"' || ch === "'" || ch === '`') quote = ch;
+		else if (ch === open) depth++;
+		else if (ch === close) {
+			depth--;
+			if (depth === 0) return { start: openIdx, end: i };
+		}
+	}
+	return null;
+}
+
+function splitObject(obj) {
+	// obj is a string starting/ending with {} (or not). Return key:value pairs.
+	const trimmed = obj.trim();
+	const inner =
+		trimmed.startsWith('{') && trimmed.endsWith('}')
+			? trimmed.slice(1, -1)
+			: trimmed;
+	return splitTopLevel(inner);
+}
+
+function firstColon(str) {
+	let depth = 0;
+	let quote = null;
+	for (let i = 0; i < str.length; i++) {
+		const ch = str[i];
+		if (quote) {
+			if (ch === '\\') i++;
+			else if (ch === quote) quote = null;
+			continue;
+		}
+		if (ch === '"' || ch === "'" || ch === '`') quote = ch;
+		else if (ch === '{' || ch === '[' || ch === '(') depth++;
+		else if (ch === '}' || ch === ']' || ch === ')') depth--;
+		else if (ch === ':' && depth === 0) return i;
+	}
+	return -1;
+}
+
+function parseKeyValues(obj) {
+	const out = new Map();
+	for (const pair of splitObject(obj)) {
+		const c = firstColon(pair);
+		if (c === -1) continue;
+		out.set(pair.slice(0, c).trim(), pair.slice(c + 1).trim());
+	}
+	return out;
+}
+
+function unquote(v) {
+	const m = String(v).match(/^(['"`])([\s\S]*)\1$/);
+	return m ? m[2] : v;
+}
+
+// Extract { variantName: { key: value, ... }, ... } from a tv `variants` body.
+function parseVariantsObject(variantsBody) {
+	const map = new Map();
+	for (const pair of splitObject(variantsBody)) {
+		const c = firstColon(pair);
+		if (c === -1) continue;
+		const variantName = unquote(pair.slice(0, c).trim());
+		const openBrace = pair.indexOf('{', c);
+		const block = openBrace === -1 ? null : matchBlock(pair, openBrace);
+		const values = block
+			? splitObject(pair.slice(openBrace + 1, block.end))
+					.map((m) => {
+						const cc = firstColon(m);
+						return cc === -1 ? null : unquote(m.slice(0, cc).trim());
+					})
+					.filter(Boolean)
+			: [];
+		map.set(variantName, { values });
+	}
+	return map;
+}
+
+// Collect tv() variant definitions across script blocks.
+// Returns Map<variantName, { values: string[], def: string | undefined }>.
+function parseTvDefinitions(scripts) {
+	const variants = new Map();
+	for (const script of scripts) {
+		let idx = 0;
+		while ((idx = script.indexOf('tv(', idx)) !== -1) {
+			const block = matchBlock(script, idx + 3);
+			if (block) {
+				const args = script.slice(idx + 4, block.end);
+				for (const pair of splitObject(args)) {
+					const c = firstColon(pair);
+					if (c === -1) continue;
+					const key = pair.slice(0, c).trim();
+					const val = pair.slice(c + 1).trim();
+					if (key === 'variants') {
+						for (const [vn, data] of parseVariantsObject(val)) {
+							if (!variants.has(vn)) {
+								variants.set(vn, { values: data.values, def: undefined });
+							} else if (variants.get(vn).values.length === 0) {
+								variants.get(vn).values = data.values;
+							}
+						}
+					} else if (key === 'defaultVariants') {
+						for (const [k, v] of parseKeyValues(val)) {
+							const entry = variants.get(k);
+							if (entry) entry.def = unquote(v);
+						}
+					}
+				}
+			}
+			idx = block ? block.end + 1 : idx + 3;
+		}
+	}
+	return variants;
+}
+
+function literalDefault(expr) {
+	if (expr == null) return undefined;
+	let s = String(expr).trim();
+	if (s.startsWith('$bindable(')) s = s.slice('$bindable('.length, -1).trim();
+	if (s === 'undefined' || s === '') return undefined;
+	const quoted = s.match(/^(['"`])([\s\S]*)\1$/);
+	if (quoted) return quoted[2];
+	if (s === 'true') return true;
+	if (s === 'false') return false;
+	if (/^-?\d+(\.\d+)?$/.test(s)) return Number(s);
+	return undefined; // array/object/function references — no static default
+}
+
+function cleanType(type) {
+	if (!type) return undefined;
+	const t = type.trim();
+	if (!t) return undefined;
+	if (t.startsWith('{') || t.startsWith('[') || t.startsWith('(')) return 'any';
+	return t;
+}
+
+function extractJsdoc(pair) {
+	const m = pair.match(/\/\*\*([\s\S]*?)\*\//);
+	if (!m) return undefined;
+	const clean = m[1]
+		.split('\n')
+		.map((l) => l.replace(/^\s*\*+\s?/, '').trim())
+		.filter(Boolean)
+		.filter((l) => !l.startsWith('@'))
+		.join(' ')
+		.trim();
+	return clean || undefined;
+}
+
+// Extract the `let { ... } = $props()` destructure from a script block.
+// Returns { members: string[], typeAnnotation: string[] | string | null }.
+function findDestructure(script) {
+	const idx = script.indexOf('$props()');
+	if (idx === -1) return null;
+	const prefix = script.slice(0, idx);
+	const m = [...prefix.matchAll(/let\s*\{/g)].at(-1);
+	if (!m) return null;
+	const openIdx = m.index + m[0].indexOf('{');
+	const body = matchBlock(script, openIdx);
+	if (!body) return null;
+	const members = splitTopLevel(script.slice(openIdx + 1, body.end));
+	let typeAnnotation = null;
+	const after = script.slice(body.end + 1, idx);
+	if (after.startsWith(':')) {
+		const flat = after.slice(1).trim();
+		if (flat.startsWith('{')) {
+			const openBrace = after.indexOf('{');
+			const tblock = matchBlock(after, openBrace);
+			if (tblock) {
+				typeAnnotation = splitObject(after.slice(tblock.start + 1, tblock.end));
+			}
+		} else {
+			const eq = flat.indexOf('=');
+			typeAnnotation = flat.slice(0, eq === -1 ? flat.length : eq).trim();
+		}
+	}
+	return { members, typeAnnotation };
+}
+
+function findDescription(script) {
+	const m = script.match(/\/\*\*([\s\S]*?)\*\//);
+	if (!m) return null;
+	const lines = m[1]
+		.split('\n')
+		.map((l) => l.replace(/^\s*\*\s*/, '').trim())
+		.filter(Boolean)
+		.filter((l) => !l.startsWith('@'));
+	const text = lines.join(' ');
+	return text || null;
+}
+
+// Extract props metadata (name, type, default, values, description) from a
+// component file. Best-effort — returns [] on failure.
+function extractProps(fileCode, variants) {
+	const scripts = collectScripts(fileCode);
+	if (scripts.length === 0) return [];
+
+	const instance = scripts.find((s) => s.includes('$props()')) ?? scripts.at(-1);
+	const exp = findDestructure(instance);
+	if (!exp) return [];
+
+	// Inline object type annotation: { name?: Type; ... }
+	const typeMap = new Map();
+	if (Array.isArray(exp.typeAnnotation)) {
+		for (const pair of exp.typeAnnotation) {
+			const optional = pair.includes('?');
+			const c = firstColon(pair);
+			const rawName = c === -1 ? pair.replace('?', '').trim() : pair.slice(0, c).trim();
+			const type = c === -1 ? undefined : pair.slice(c + 1).trim();
+			if (!rawName || rawName.startsWith('...')) continue;
+			typeMap.set(rawName.replace('?', '').trim(), {
+				optional,
+				type: cleanType(type),
+				description: extractJsdoc(pair),
+			});
+		}
+	}
+
+	const SKIP = new Set(['restProps', 'children', 'ref']);
+	const out = [];
+	for (const member of exp.members) {
+		const propDesc = extractJsdoc(member);
+		const cleaned = member.replace(/\/\*\*[\s\S]*?\*\//, '').trim();
+		const eq = cleaned.indexOf('=');
+		let lhs = (eq === -1 ? cleaned : cleaned.slice(0, eq)).trim();
+		let rhs = eq === -1 ? undefined : cleaned.slice(eq + 1).trim();
+		let name = lhs;
+		if (lhs.includes(':')) name = lhs.slice(0, lhs.indexOf(':')).trim(); // alias
+		if (!name || name.startsWith('...') || SKIP.has(name)) continue;
+
+		let def = literalDefault(rhs);
+		let type = typeMap.get(name)?.type;
+		let values;
+		let description = propDesc ?? typeMap.get(name)?.description;
+
+		// Variant props via tv() — matched by destructured name (variant/size).
+		if (variants.has(name)) {
+			const v = variants.get(name);
+			type = 'string';
+			values = v.values;
+			if (def === undefined && v.def !== undefined) def = v.def;
+		}
+
+		// Literal-union type → enum values + simple type.
+		if (type && type.includes('"')) {
+			const quoted = [...type.matchAll(/["']([^"']+)["']/g)].map((x) => x[1]);
+			if (quoted.length) {
+				values = values?.length ? values : quoted;
+				type = def === true || def === false ? 'boolean' : 'string';
+			}
+		}
+
+		out.push({
+			name,
+			type: type ?? 'any',
+			default: def,
+			values,
+			description: description || undefined,
+		});
+	}
+	return out;
+}
+
+// ---------------------------------------------------------------------------
+// v1-style dependency scanning (unchanged behavior).
+// ---------------------------------------------------------------------------
 
 function collectScripts(code) {
 	const out = [];
@@ -72,9 +446,6 @@ function depsOf(file) {
 					const seg = rel.split('/');
 					const last = seg.at(-1);
 					const isIndexFile = last === 'index.js' || last === 'index.ts';
-					// "$lib/components/<name>/index.js" → dep <name>  (3+ segments)
-					// "$lib/components/<name>.js"       → dep <name>  (2 segments)
-					// "$lib/components/index.js"         → skip barrel
 					if (isIndexFile && seg.length >= 3) {
 						const name = seg.at(-2);
 						if (name !== 'index' && name) deps.add(name);
@@ -93,6 +464,10 @@ function depsOf(file) {
 	}
 	return [...deps];
 }
+
+// ---------------------------------------------------------------------------
+// Main generation.
+// ---------------------------------------------------------------------------
 
 if (!existsSync(coreDir)) {
 	console.error(`Registry: core components dir not found: ${coreDir}`);
@@ -114,23 +489,41 @@ for (const dir of readdirSync(coreDir, { withFileTypes: true })) {
 	const deps = new Set();
 	for (const f of files) for (const d of depsOf(f)) deps.add(d);
 	deps.delete(name);
+
+	// Rich metadata from the main component file (best-effort).
+	let description = null;
+	let props = [];
+	const propsSource = main ?? files.find((f) => isComponentFile(f)) ?? files.at(-1);
+	if (propsSource && /\.svelte$/.test(propsSource)) {
+		const code = readFileSync(propsSource, 'utf8');
+		const scripts = collectScripts(code);
+		const descScript = scripts.find((s) => s.includes('$props()')) ?? scripts[0];
+		description = findDescription(descScript ?? code);
+		props = extractProps(code, parseTvDefinitions(scripts));
+	}
+	if (!description) description = simpleDescription(name);
+
 	components.push({
 		name,
+		description,
+		category: categoryOf(name),
+		tags: tagsOf(name, categoryOf(name)),
 		files: fileList,
 		deps: [...deps].sort(),
 		main: main ? relative(coreDir, main).split(sep).join('/') : undefined,
 		mainTs: mainTs ? relative(coreDir, mainTs).split(sep).join('/') : undefined,
 		isComponent: isComponentFile(main ?? files[0]),
 		entry: fileList.find((f) => f === `${name}/index.ts`),
+		props,
 	});
 }
 
 components.sort((a, b) => a.name.localeCompare(b.name));
 const payload = {
-	schema: 'v1',
+	schema: 'v2',
 	generatedAt: new Date().toISOString(),
 	components,
 };
 mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, JSON.stringify(payload, null, 2) + '\n');
-console.log(`Registry: ${components.length} components -> ${outPath}`);
+console.log(`Registry v2: ${components.length} components -> ${outPath}`);
