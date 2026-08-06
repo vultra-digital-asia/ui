@@ -93,6 +93,8 @@ export { Section } from './components/section/index.js';
 export { Figure, Figcaption } from './components/figure/index.js';
 export { Details, Summary } from './components/details/index.js';
 export { Main } from './components/main/index.js';
+export { KanbanBoard, KanbanColumn, KanbanCard } from './components/kanban/index.js';
+export type { KanbanCardType, KanbanColumnType } from './components/kanban/index.js';
 
 // Marketing / Composite (from ui.live)
 export { Hero } from './components/hero/index.js';
@@ -107,6 +109,12 @@ export { Stats } from './components/stats/index.js';
 export { Carousel } from './components/carousel/index.js';
 export { TestimonialCarousel } from './components/testimonial-carousel/index.js';
 export { PricingTable, PricingCard as PricingTableCard } from './components/pricing-table/index.js';
+
+// Infinite Scroll
+export { InfiniteScroll } from './components/infinite-scroll/index.js';
+
+// QR Code
+export { QRCode } from './components/qr-code/index.js';
 
 // Utils
 export { cn, formatBytes, formatDate, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from '../utils.js';

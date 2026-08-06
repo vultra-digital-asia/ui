@@ -19,7 +19,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "^0.1.0-alpha.5"
+    "@vultra/ui": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",

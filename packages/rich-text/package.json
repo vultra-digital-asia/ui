@@ -31,8 +31,8 @@
     "@tiptap/extension-underline": "^3.22.5",
     "@tiptap/pm": "^3.22.5",
     "@tiptap/starter-kit": "^3.22.5",
-    "@vultra/grid-core": "^0.1.0-alpha.5",
-    "@vultra/ui": "^0.1.0-alpha.5"
+    "@vultra/grid-core": "workspace:*",
+    "@vultra/ui": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",

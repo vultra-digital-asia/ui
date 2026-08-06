@@ -19,9 +19,9 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "^0.1.0-alpha.5",
-    "@vultra/grid-core": "^0.1.0-alpha.5",
-    "@vultra/rich-text": "^0.1.0-alpha.5",
+    "@vultra/ui": "workspace:*",
+    "@vultra/grid-core": "workspace:*",
+    "@vultra/rich-text": "workspace:*",
     "pdf-lib": "^1.17.1",
     "pptxgenjs": "^3.12.0"
   },
