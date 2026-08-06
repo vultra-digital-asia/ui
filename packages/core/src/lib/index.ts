@@ -128,7 +128,7 @@ export { Mention, type MentionUser } from './components/mention/index.js';
 export { SplitView } from './components/split-view/index.js';
 
 // Utils
-export { cn, formatBytes, formatDate, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from '../utils.js';
+export { cn, formatBytes, formatDate, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from './utils.js';
 
 // Unit conversion
 export {

@@ -1,1 +1,0 @@
-import{D as e,T as t,W as n,at as r,ot as i,v as a}from"./CUAAzzt1.js";import"./xihTtKlq.js";var o=e(`<div class="prose-docs max-w-3xl"><!></div>`);function s(e,s){var c=o(),l=n(c);a(l,()=>s.children??i),r(c),t(e,c)}export{s as t};

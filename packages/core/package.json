@@ -6,7 +6,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./utils": {
       "types": "./dist/utils.d.ts",
@@ -14,7 +15,8 @@
     },
     "./components/*": {
       "types": "./dist/components/*/index.d.ts",
-      "svelte": "./dist/components/*/index.js"
+      "svelte": "./dist/components/*/index.js",
+      "default": "./dist/components/*/index.js"
     }
   },
   "files": [

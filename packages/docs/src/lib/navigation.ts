@@ -10,7 +10,8 @@ export const navigation: NavItem[] = [
 		href: '/docs/getting-started',
 		items: [
 			{ title: 'Installation', href: '/docs/getting-started' },
-			{ title: 'Examples', href: '/examples' }
+			{ title: 'Examples', href: '/examples' },
+			{ title: 'Playground', href: '/playground' }
 		]
 	},
 	{

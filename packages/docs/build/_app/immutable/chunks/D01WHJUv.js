@@ -1,0 +1,1 @@
+import{A as e,C as t,M as n,X as r,dt as i,ft as a}from"./D2MZn17l.js";import"./xihTtKlq.js";var o=n(`<div class="prose-docs max-w-3xl"><!></div>`);function s(n,s){var c=o(),l=r(c);t(l,()=>s.children??a),i(c),e(n,c)}export{s as t};
