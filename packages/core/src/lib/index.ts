@@ -116,9 +116,14 @@ export { InfiniteScroll } from './components/infinite-scroll/index.js';
 // QR Code
 export { QRCode } from './components/qr-code/index.js';
 
+// Barcode
+export { Barcode } from './components/barcode/index.js';
+
 // Virtual List
 export { VirtualList } from './components/virtual-list/index.js';
 
+// Mention
+export { Mention, type MentionUser } from './components/mention/index.js';
 // Split View
 export { SplitView } from './components/split-view/index.js';
 
@@ -145,6 +150,8 @@ export {
 
 // Emoji Picker
 export { default as EmojiPicker } from './components/emoji/EmojiPicker.svelte';
+// Calendar
+export { Calendar } from './components/calendar/index.js';
 
 // Types
 export type { ComponentVariant, ComponentSize } from '../types.js';
