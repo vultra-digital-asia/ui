@@ -134,6 +134,18 @@ export { SplitView } from './components/split-view/index.js';
 export { LocaleProvider, localeStore, setLocale, getLocale, t, formatDate, formatNumber, formatCurrency } from './i18n/index.js';
 export type { LocaleConfig } from './i18n/index.js';
 
+// Mobile components
+export { TabBar, TabBarItem } from './components/tabbar/index.js';
+export { ActionSheet, ActionSheetItem } from './components/actionsheet/index.js';
+export { PullToRefresh } from './components/pulltorefresh/index.js';
+export { SwipeableItem } from './components/swipeableitem/index.js';
+export { ListView, ListItem } from './components/listview/index.js';
+export { FabMenu } from './components/fabmenu/index.js';
+export { SlideMenu } from './components/slidemenu/index.js';
+export { MobileToast } from './components/mobile-toast/index.js';
+export { SegmentedControl } from './components/segmentedcontrol/index.js';
+export { AvatarStack } from './components/avatarstack/index.js';
+
 // Utils
 export { cn, formatBytes, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from './utils.js';
 // Unit conversion
