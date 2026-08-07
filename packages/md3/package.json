@@ -24,7 +24,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/tokens": "workspace:*"
+    "@vultra/tokens": "^0.1.0-alpha.6"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",

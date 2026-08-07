@@ -8,6 +8,10 @@
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js",
       "module": "./dist/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "default": "./dist/utils.js"
     }
   },
   "files": [
@@ -20,7 +24,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "workspace:*",
+    "@vultra/ui": "^0.1.0-alpha.6",
     "@tanstack/table-core": "^8.21.3",
     "@tanstack/svelte-virtual": "^3.13.35"
   },

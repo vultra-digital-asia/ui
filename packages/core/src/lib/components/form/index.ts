@@ -30,4 +30,6 @@ export {
 	Legend as FormLegend,
 	ElementField as FormElementField,
 	Button as FormButton,
+	Field as FormItem,
+	FieldErrors as FormMessage,
 };

@@ -20,8 +20,8 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "workspace:*",
-    "@vultra/grid-core": "workspace:*"
+    "@vultra/ui": "^0.1.0-alpha.6",
+    "@vultra/grid-core": "^0.1.0-alpha.6"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",
