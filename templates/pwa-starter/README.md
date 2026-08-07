@@ -2,7 +2,7 @@
 
 A PWA + Capacitor starter built with SvelteKit, Tailwind CSS v4, [@vultra/ui](https://www.npmjs.com/package/@vultra/ui), and Capacitor 7.
 
-The demo page showcases the mobile component library: TabBar, PullToRefresh, ListView, ActionSheet, FabMenu, SlideMenu, SegmentedControl, AvatarStack, and Toast.
+The demo page showcases the mobile component library: TabBar, PullToRefresh, ListView, ActionSheet, FabMenu, SlideMenu, SegmentedControl, AvatarStack, and MobileToast.
 
 ## Quick start
 
@@ -55,7 +55,7 @@ npm run android:build
 - **appId / appName** — edit `capacitor.config.json` (e.g. `"appId": "com.yourcompany.yourapp"`). The appId must be changed before the first native build; it becomes the native bundle identifier.
 - **PWA identity** — update `static/manifest.json` (`name`, `short_name`, `theme_color`) and the `<meta name="theme-color">` in `src/app.html`.
 - **Icons** — replace `static/icon-192.png` and `static/icon-512.png` (any 192×192 / 512×512 PNGs).
-- **Theme** — swap the token import in `src/routes/+layout.svelte` and `src/app.css`: `@vultra/tokens/base`, `md3`, `flat`, `glass`, `brutalist`, etc. See the tokens package (`@vultra/tokens`).
+- **Theme** — swap the token import in `src/routes/+layout.svelte` (`@vultra/tokens/base`, `md3`, `flat`, `glass`, `brutalist`, etc.). See the tokens package (`@vultra/tokens`).
 - **Dark mode** — add `class="dark"` on `<html>` in `src/app.html`; all components and tokens respond automatically.
 
 ## Project structure
@@ -63,7 +63,7 @@ npm run android:build
 ```
 src/
   app.html          PWA meta: manifest + apple-touch-icon links, viewport-fit=cover
-  app.css           Tailwind v4 + @vultra/tokens import, safe-area + overscroll reset
+  app.css           Tailwind v4 + base body styles, safe-area + overscroll reset
   routes/
     +layout.svelte  Root layout (tokens import)
     +page.svelte    Mobile component demo

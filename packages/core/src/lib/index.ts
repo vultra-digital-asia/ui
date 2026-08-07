@@ -146,6 +146,13 @@ export { MobileToast } from './components/mobile-toast/index.js';
 export { SegmentedControl } from './components/segmentedcontrol/index.js';
 export { AvatarStack } from './components/avatarstack/index.js';
 
+// Device capabilities
+export { Gyroscope } from './components/gyroscope/index.js';
+export { CameraCapture } from './components/camera/index.js';
+export { GalleryPicker } from './components/gallery/index.js';
+export { ClipboardButton } from './components/clipboard/index.js';
+export { NotificationButton } from './components/notification/index.js';
+
 // Utils
 export { cn, formatBytes, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from './utils.js';
 // Unit conversion

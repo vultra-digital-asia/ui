@@ -1,0 +1,48 @@
+{
+  "name": "@vultra/native",
+  "version": "0.1.0-alpha.5",
+  "description": "Capacitor plugin wrappers and web fallbacks for native device capabilities",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "default": "./dist/utils.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "svelte-package -o dist",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "@capacitor/camera": "^7.0.0",
+    "@capacitor/clipboard": "^7.0.0",
+    "@capacitor/device": "^7.0.0",
+    "@capacitor/haptics": "^7.0.0",
+    "@capacitor/local-notifications": "^7.0.0",
+    "@capacitor/preferences": "^7.0.0",
+    "@capacitor/push-notifications": "^7.0.0",
+    "@capacitor/share": "^7.0.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "^2.5.8",
+    "svelte": "^5.55.2",
+    "svelte-check": "^4.4.6",
+    "typescript": "^6.0.2"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vultra-digital-asia/ui.git",
+    "directory": "packages/native"
+  }
+}

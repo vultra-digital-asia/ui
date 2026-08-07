@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Menu, Home, ShoppingBag, User, Camera, Share2, Star } from 'lucide-svelte';
-	import '@vultra/tokens';
 	import '../app.css';
 	import {
 		TabBar,
@@ -14,14 +13,14 @@
 		SlideMenu,
 		SegmentedControl,
 		AvatarStack,
-		Toast
+		MobileToast
 	} from '@vultra/ui';
 
 	let activeTab = $state('home');
 	let menuOpen = $state(false);
 	let sheetOpen = $state(false);
 	let toastOpen = $state(false);
-	let toastVariant: 'default' | 'success' | 'error' | 'warning' = 'success';
+	let toastVariant: 'default' | 'success' | 'error' | 'warning' = $state('success');
 	let toastMessage = $state('');
 	let filter = $state('all');
 
@@ -80,7 +79,7 @@
 
 				<div class="flex items-center gap-2">
 					<span class="text-xs font-medium text-[var(--ui-muted-foreground)]">Team</span>
-					<AvatarStack {avatars} max={4} />
+					<AvatarStack srcs={avatars} max={4} />
 				</div>
 
 				<PullToRefresh onRefresh={refresh}>
@@ -179,7 +178,7 @@
 			label="Edit"
 			onclick={() => {
 				sheetOpen = false;
-				showToast('info', 'Editing');
+				showToast('default', 'Editing');
 			}}
 		/>
 		<ActionSheetItem
@@ -212,10 +211,10 @@
 	</SlideMenu>
 
 	<!-- Toast -->
-	<Toast
+	<MobileToast
 		open={toastOpen}
 		variant={toastVariant}
 		message={toastMessage}
-		onclose={() => (toastOpen = false)}
+		ondismiss={() => (toastOpen = false)}
 	/>
 </div>
