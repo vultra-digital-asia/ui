@@ -1,0 +1,35 @@
+import{$ as e,E as t,N as n,Q as r,dt as i,ft as a,i as o,j as s,s as c}from"../chunks/BnOHUXna.js";import"../chunks/xihTtKlq.js";import"../chunks/CVLMW3vh.js";import{t as l}from"../chunks/RYmkSCZd.js";var u=n(`<h1>Sheet</h1> <p>A modal panel that slides in from an edge of the viewport. Similar to Dialog but used for secondary content like settings or details.</p> <h2>Install</h2> <pre class="language-bash"></pre> <h2>Usage</h2> <pre class="language-svelte"></pre> <h2>Structure</h2> <ul><li><code>Sheet</code> — root wrapper</li> <li><code>SheetTrigger</code> — opens the sheet</li> <li><code>SheetContent</code> — the sliding panel (portal with overlay)</li> <li><code>SheetHeader</code> / <code>SheetFooter</code> — layout regions</li> <li><code>SheetTitle</code> / <code>SheetDescription</code> — accessible labels</li> <li><code>SheetClose</code> — closes the sheet</li></ul> <h2>Props</h2> <table><thead><tr><th>Sub-component</th><th>Description</th></tr></thead><tbody><tr><td><code>SheetContent</code></td><td>Accepts <code>side</code> (<code>'top' \\| 'bottom' \\| 'left' \\| 'right'</code>) — defaults to <code>'right'</code></td></tr><tr><td><code>SheetTrigger</code></td><td>Opens the sheet on click</td></tr><tr><td><code>SheetClose</code></td><td>Closes the sheet on click</td></tr></tbody></table>`,1);function d(n,d){let f=o(d,[`children`,`$$slots`,`$$events`,`$$legacy`]);l(n,c(()=>f,{children:(n,o)=>{var c=u(),l=e(r(c),6);t(l,()=>`<code class="language-bash">npx @vultra/cli <span class="token function">add</span> sheet</code>`,!0),a(l);var d=e(l,4);t(d,()=>`<code class="language-svelte"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+  <span class="token keyword">import</span> <span class="token punctuation">&#123;</span>
+    Sheet<span class="token punctuation">,</span>
+    SheetTrigger<span class="token punctuation">,</span>
+    SheetContent<span class="token punctuation">,</span>
+    SheetHeader<span class="token punctuation">,</span>
+    SheetTitle<span class="token punctuation">,</span>
+    SheetDescription<span class="token punctuation">,</span>
+    SheetFooter<span class="token punctuation">,</span>
+    SheetClose
+  <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'@vultra/ui'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">&#123;</span> Button <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'@vultra/ui'</span><span class="token punctuation">;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Sheet</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SheetTrigger</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span> <span class="token attr-name">variant</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>outline<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Open Sheet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Button</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SheetTrigger</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SheetContent</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SheetHeader</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SheetTitle</span><span class="token punctuation">></span></span>Edit profile<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SheetTitle</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SheetDescription</span><span class="token punctuation">></span></span>
+        Make changes to your profile here. Click save when you're done.
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SheetDescription</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SheetHeader</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grid gap-4 py-4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token comment">&lt;!-- Form content --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SheetFooter</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SheetClose</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span><span class="token punctuation">></span></span>Save changes<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Button</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SheetClose</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SheetFooter</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SheetContent</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>Sheet</span><span class="token punctuation">></span></span></code>`,!0),a(d),i(8),s(n,c)},$$slots:{default:!0}}))}export{d as component};
