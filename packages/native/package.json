@@ -13,7 +13,10 @@
       "default": "./dist/utils.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "svelte-package -o dist",
     "check": "svelte-check --tsconfig ./tsconfig.json"
@@ -44,5 +47,9 @@
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",
     "directory": "packages/native"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
   }
 }
