@@ -9,29 +9,44 @@
 				false: ''
 			}
 		},
-		defaultVariants: {
-			blur: true
-		}
+		defaultVariants: { blur: true }
 	});
 </script>
 
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import { setContext } from 'svelte';
 	import { cn } from '../../utils.js';
+	import { TAB_BAR_KEY } from './context.js';
 
 	let {
-		value,
+		value = $bindable(''),
 		blur = true,
 		class: className,
 		children
 	}: {
-		value: string | number;
+		value?: string | number;
 		blur?: boolean;
 		class?: string;
 		children: Snippet;
 	} = $props();
 
-	let isPressed = $state(false);
+	// Reactive state object — passed via context so children's $derived
+	// subscriptions track it (a plain closure over `value` is not reactive).
+	const valueState = $state({ value });
+
+	$effect(() => {
+		valueState.value = value;
+	});
+
+	setContext(TAB_BAR_KEY, {
+		get value() {
+			return valueState.value;
+		},
+		setValue(v: string | number) {
+			value = v;
+			valueState.value = v;
+		}
+	});
 </script>
 
 <nav

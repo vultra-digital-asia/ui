@@ -102,9 +102,9 @@
 					</div>
 				{/if}
 				<div class="flex flex-col gap-1">
-					{#each yKeys as y, yi (String(y))}
+					{#each labelsY as y, yi (String(y))}
 						<div class="flex gap-1">
-							{#each xKeys as x, xi (String(x))}
+							{#each labelsX as x, xi (String(x))}
 								{@const value = cellValue(x, y)}
 								<div
 									class={cn('rounded-[4px]', cellSize)}

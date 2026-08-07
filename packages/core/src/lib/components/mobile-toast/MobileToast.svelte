@@ -53,10 +53,10 @@
 
 	function hide() {
 		leaving = true;
+		ondismiss?.();
 		setTimeout(() => {
 			visible = false;
 			open = false;
-			ondismiss?.();
 		}, 200);
 	}
 

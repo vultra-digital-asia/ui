@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { cn } from '../../utils.js';
+	import { getTabBar } from './context.js';
 
+	const parent = getTabBar();
 	let {
 		value,
 		label,
@@ -20,22 +22,28 @@
 		active?: boolean;
 		class?: string;
 	} = $props();
+
+	const isActive = $derived(active ?? parent?.value === value);
+
+	function handleClick(e: MouseEvent) {
+		parent?.setValue(value);
+		onclick?.(e);
+	}
 </script>
 
 <button
 	type="button"
 	role="tab"
-	{onclick}
+	onclick={handleClick}
 	class={cn(
 		'group relative flex min-h-11 min-w-0 flex-1 cursor-pointer select-none flex-col items-center justify-center gap-0.5',
 		'px-2 pt-1.5 transition-[color,opacity,transform] duration-[var(--ui-transition-fast)]',
-		'touch-manipulation active:scale-95',
-		active
+		isActive
 			? 'text-[var(--ui-primary)]'
 			: 'text-[var(--ui-muted-foreground)] active:text-[var(--ui-foreground)]',
 		className
 	)}
-	aria-selected={active}
+	aria-selected={isActive}
 >
 	<span class="relative flex items-center justify-center">
 		{#if icon}

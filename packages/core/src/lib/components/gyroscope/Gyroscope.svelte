@@ -104,10 +104,11 @@
 	function onOrientation(event: DeviceOrientationEvent) {
 		// Ignore synthetic events (e.g. Chrome's fake ~90/0/0 on desktop) once
 		// real device data has arrived.
-		if (mode !== 'device') return;
 		if (event.alpha === null && event.beta === null && event.gamma === null) return;
 		// Chrome fires a synthetic null event on desktop with alpha=90, beta=0, gamma=0
 		if (event.alpha === 90 && event.beta === 0 && event.gamma === 0) return;
+		// A real device event switches us out of the mouse-simulation fallback.
+		if (mode !== 'device') mode = 'device';
 		if (!supported) supported = true;
 		emit(
 			applySensitivity({
@@ -119,12 +120,13 @@
 	}
 
 	function onMotion(event: DeviceMotionEvent) {
-		if (mode !== 'device') return;
 		const acc = event.accelerationIncludingGravity;
 		if (!acc) return;
 		// Derive approximate orientation from gravity vector (no-op when
 		// accelerationIncludingGravity is unavailable).
 		if (acc.x === null && acc.y === null && acc.z === null) return;
+		// A real device motion event switches us out of the mouse fallback.
+		if (mode !== 'device') mode = 'device';
 		const x = acc.x ?? 0;
 		const y = acc.y ?? 0;
 		const z = acc.z ?? 0;
