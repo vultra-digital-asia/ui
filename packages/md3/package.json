@@ -1,6 +1,6 @@
 {
   "name": "@vultra/md3",
-  "version": "0.1.0-alpha.6",
+  "version": "0.1.0-alpha.7",
   "description": "Material Design 3 components for Vultra UI",
   "type": "module",
   "exports": {
@@ -24,7 +24,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/tokens": "^0.1.0-alpha.6"
+    "@vultra/tokens": "^0.1.0-alpha.7"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",
