@@ -51,7 +51,7 @@
 		<label for={restProps.id as string | undefined} class="text-sm font-medium">{label}</label>
 	{/if}
 	<Input
-		{value}
+		bind:value
 		onblur={handleBlur}
 		aria-invalid={localError ? 'true' : undefined}
 		{...restProps}

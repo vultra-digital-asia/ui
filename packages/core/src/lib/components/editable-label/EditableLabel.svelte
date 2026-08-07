@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { cn } from '../../utils.js';
 	import type { Snippet } from 'svelte';
 
 	let {
