@@ -2,13 +2,25 @@
 	import '../app.css';
 	import { Search } from 'lucide-svelte';
 	import SearchDialog from '$lib/components/SearchDialog.svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
 	let { children } = $props();
 	let theme = $state<'light' | 'dark'>('light');
 	let searchOpen = $state(false);
 
 	$effect(() => {
+		// Load saved theme on mount, falling back to the system preference
+		const saved = localStorage.getItem('ui-theme');
+		if (saved === 'dark' || saved === 'light') {
+			theme = saved;
+		} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			theme = 'dark';
+		}
+	});
+
+	$effect(() => {
 		document.documentElement.dataset.uiTheme = theme;
+		localStorage.setItem('ui-theme', theme);
 	});
 </script>
 
@@ -46,12 +58,7 @@
 					<span class="hidden sm:inline">Search</span>
 					<kbd class="hidden rounded border border-[var(--ui-border)] bg-[var(--ui-muted)] px-1.5 py-0.5 text-[10px] font-mono sm:inline">⌘K</kbd>
 				</button>
-				<button
-					onclick={() => (theme = theme === 'light' ? 'dark' : 'light')}
-					class="rounded-md border border-[var(--ui-border)] px-3 py-1.5 text-sm"
-				>
-					{theme === 'light' ? '🌙' : '☀️'}
-				</button>
+				<ThemeToggle bind:theme />
 			</div>
 		</div>
 	</header>

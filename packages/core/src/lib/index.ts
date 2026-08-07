@@ -18,6 +18,10 @@ export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './
 export { Collapsible, CollapsibleTrigger, CollapsibleContent } from './components/collapsible/index.js';
 export { AspectRatio } from './components/aspect-ratio/index.js';
 export { ScrollArea, ScrollBar } from './components/scroll-area/index.js';
+export { Flex } from './components/flex/index.js';
+export { Stack } from './components/stack/index.js';
+export { Grid } from './components/grid/index.js';
+export { Box } from './components/box/index.js';
 
 // Navigation
 export { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from './components/breadcrumb/index.js';
