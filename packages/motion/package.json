@@ -1,6 +1,6 @@
 {
   "name": "@vultra/motion",
-  "version": "0.2.0",
+  "version": "0.1.0-alpha.5",
   "description": "Core types, easings, and interpolation for video composition",
   "type": "module",
   "exports": {
@@ -9,7 +9,10 @@
       "svelte": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "svelte-package -o dist",
     "check": "echo 'no check'"
@@ -27,5 +30,9 @@
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",
     "directory": "packages/motion"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
   }
 }

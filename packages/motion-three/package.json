@@ -9,7 +9,10 @@
       "svelte": "./dist/index.js"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "svelte-package -o dist",
     "check": "echo 'no check'",
@@ -25,7 +28,9 @@
     "three": ">=0.160.0"
   },
   "peerDependenciesMeta": {
-    "three": { "optional": false }
+    "three": {
+      "optional": false
+    }
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",
@@ -39,5 +44,9 @@
     "type": "git",
     "url": "git+https://github.com/vultra-digital-asia/ui.git",
     "directory": "packages/motion-three"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
   }
 }
