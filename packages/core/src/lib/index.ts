@@ -153,6 +153,18 @@ export { GalleryPicker } from './components/gallery/index.js';
 export { ClipboardButton } from './components/clipboard/index.js';
 export { NotificationButton } from './components/notification/index.js';
 
+// Social
+export { CommentSection, type CommentItem } from './components/comment/index.js';
+export { ReactionBar, type Reaction } from './components/reaction-bar/index.js';
+export { UserProfileCard, type ProfileStat, type ProfileSocial } from './components/user-profile-card/index.js';
+export { LiveBadge, FollowBadge } from './components/live-badge/index.js';
+export { StatusIndicator } from './components/status-indicator/index.js';
+export { EditableLabel } from './components/editable-label/index.js';
+export { ProgressSteps, type Step } from './components/progress-steps/index.js';
+
+// Data Visualization
+export { Heatmap, type HeatmapCell } from './components/heatmap/index.js';
+
 // Utils
 export { cn, formatBytes, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from './utils.js';
 // Unit conversion
