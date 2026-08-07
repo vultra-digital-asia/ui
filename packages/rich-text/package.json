@@ -1,6 +1,6 @@
 {
   "name": "@vultra/rich-text",
-  "version": "0.1.0-alpha.5",
+  "version": "0.1.0-alpha.6",
   "description": "Rich text editor component powered by TipTap",
   "type": "module",
   "exports": {
