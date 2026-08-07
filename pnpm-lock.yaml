@@ -485,6 +485,46 @@ importers:
         specifier: ^6.0.2
         version: 6.0.3
 
+  packages/mobile:
+    dependencies:
+      '@vultra/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+      lucide-svelte:
+        specifier: ^1.0.1
+        version: 1.0.1(svelte@5.56.8)
+    devDependencies:
+      '@sveltejs/package':
+        specifier: ^2.5.8
+        version: 2.5.8(svelte@5.56.8)(typescript@6.0.3)
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^5.1.1
+        version: 5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0))
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      svelte:
+        specifier: ^5.55.2
+        version: 5.56.8
+      svelte-check:
+        specifier: ^4.4.6
+        version: 4.7.4(picomatch@4.0.5)(svelte@5.56.8)(typescript@6.0.3)
+      tailwind-merge:
+        specifier: ^3.5.0
+        version: 3.6.0
+      tailwind-variants:
+        specifier: ^3.3.0
+        version: 3.3.0(tailwind-merge@3.6.0)(tailwindcss@4.3.3)
+      tailwindcss:
+        specifier: ^4.2.2
+        version: 4.3.3
+      tslib:
+        specifier: ^2.8.0
+        version: 2.8.1
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.3
+
   packages/motion:
     devDependencies:
       '@sveltejs/package':
