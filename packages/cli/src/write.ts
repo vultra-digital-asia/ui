@@ -37,6 +37,7 @@ const IMPORT_RE =
  * Rewrite a component source so it works outside the monorepo:
  *   - "$lib/components/<name>/..." → "<alias>/components/<name>/..."
  *   - "$lib/utils.js" / "$lib/utils.ts" → "<alias>.js"
+ *   - "$lib/i18n/index.ts" → "<lib>/i18n/index.js"
  *   - duplicate identical imports are de-duplicated
  *
  * Relative imports ("./x.svelte") and bare module imports are kept as-is.
@@ -57,13 +58,14 @@ export function rewriteComponentSource(
 		if (spec.startsWith('$lib/')) {
 			const rel = spec.slice('$lib/'.length);
 			const isUtils = rel === 'utils.js' || rel === 'utils.ts';
+			const isI18n = rel === 'i18n/index.js' || rel === 'i18n/index.ts';
 			const newSpec = isUtils
 				? opts.aliases.utils.endsWith('.js') || opts.aliases.utils.endsWith('.ts')
 					? opts.aliases.utils
 					: `${opts.aliases.utils}.js`
-				: `${opts.aliases.components}/${rel.replace(/^components\//, '').replace(/\.ts$/, '.js')}`;
-			s.overwrite(start, end, `${prefix}${quote}${newSpec}${quote}`);
-			continue;
+				: isI18n
+					? `${opts.aliases.lib}/${rel.replace(/\.ts$/, '.js')}`
+					: `${opts.aliases.components}/${rel.replace(/^components\//, '').replace(/\.ts$/, '.js')}`;
 		}
 
 		if (!spec.startsWith('.')) {
@@ -80,6 +82,26 @@ export function rewriteComponentSource(
 
 	return s.toString();
 }
+
+/** Absolute source path inside the monorepo core package for shared lib files. */
+export function sharedLibSourcePath(
+	monorepoRoot: string,
+	relPath: string,
+): string {
+	return join(monorepoRoot, 'packages', 'core', 'src', 'lib', ...relPath.split('/'));
+}
+
+/**
+ * Shared lib files (e.g. i18n/) referenced by components via `$lib/…` imports.
+ * Written into the consumer project's lib dir; shared across components.
+ */
+const SHARED_LIB_FILES: Record<string, string[]> = {
+	i18n: [
+		'i18n/locale.svelte.ts',
+		'i18n/LocaleProvider.svelte',
+		'i18n/index.ts',
+	],
+};
 
 /** Write the component files into the consumer project. */
 export function writeComponent(
@@ -103,6 +125,24 @@ export function writeComponent(
 		mkdirSync(dirname(target), { recursive: true });
 		writeFileSync(target, rewritten);
 		written.push(targetRel);
+	}
+	for (const dep of component.deps) {
+		const shared = SHARED_LIB_FILES[dep];
+		if (!shared) continue;
+		for (const file of shared) {
+			const srcPath = sharedLibSourcePath(monorepoRoot, file);
+			const target = join(opts.root, 'src', 'lib', file);
+			const targetRel = relative(opts.root, target);
+			if (existsSync(target) && !opts.overwrite) {
+				skipped.push(targetRel);
+				continue;
+			}
+			const source = readFileSync(srcPath, 'utf8');
+			const rewritten = rewriteComponentSource(source, opts);
+			mkdirSync(dirname(target), { recursive: true });
+			writeFileSync(target, rewritten);
+			written.push(targetRel);
+		}
 	}
 	return { written, skipped };
 }

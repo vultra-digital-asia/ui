@@ -455,6 +455,8 @@ function depsOf(file) {
 					}
 				} else if (rel === 'utils.js' || rel === 'utils.ts' || rel === 'utils') {
 					deps.add('utils');
+				} else if (rel === 'i18n/index.js' || rel === 'i18n/index.ts') {
+					deps.add('i18n');
 				}
 				continue;
 			}

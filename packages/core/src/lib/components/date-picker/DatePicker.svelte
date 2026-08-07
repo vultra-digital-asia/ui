@@ -6,10 +6,11 @@
     type DateValue,
   } from '@internationalized/date';
   import { cn } from '$lib/utils.js';
+  import { getLocale, t } from '$lib/i18n/index.js';
 
   let {
     value = $bindable(''),
-    placeholder = 'Pick a date',
+    placeholder = t('datepicker.placeholder'),
     disabled = false,
     min,
     max,
@@ -57,7 +58,7 @@
   function formatDate(dv: DateValue | undefined): string {
     if (!dv) return '';
     try {
-      return new Intl.DateTimeFormat('en-US', {
+      return new Intl.DateTimeFormat(getLocale().locale, {
         year: 'numeric',
         month: 'short',
         day: 'numeric',

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ChevronLeft, ChevronRight } from 'lucide-svelte';
 	import { cn } from '../../utils.js';
+	import { formatDate, getLocale } from '../../i18n/index.js';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	interface CalendarDay {
@@ -72,31 +73,33 @@
 	const maxDate = $derived(parseISO(max));
 
 	const weekdayFormatter = $derived(
-		new Intl.DateTimeFormat(undefined, { weekday: 'short' })
-	);
-	const monthFormatter = $derived(
-		new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' })
+		new Intl.DateTimeFormat(getLocale().locale, { weekday: 'short' })
 	);
 
+	const weekStart = $derived(getLocale().weekStartsOn ?? 0);
+
 	const weekdayHeaders = $derived.by(() => {
-		// Anchor the header row to the visible month's first weekday so labels
-		// stay aligned with the grid regardless of locale week start.
+		// Anchor the header row to the locale's first weekday (weekStart) so
+		// labels stay aligned with the grid regardless of locale week start.
 		const firstWeekday = new Date(year, month, 1).getDay();
 		return Array.from({ length: 7 }, (_, i) =>
-			weekdayFormatter.format(new Date(year, month, 1 + ((i - firstWeekday + 7) % 7)))
+			weekdayFormatter.format(
+				new Date(year, month, 1 + ((weekStart + i - firstWeekday + 7) % 7))
+			)
 		);
 	});
 
 	const days = $derived.by(() => {
 		const first = new Date(year, month, 1);
 		const firstWeekday = first.getDay();
+		const leading = (firstWeekday + 7 - weekStart) % 7;
 		const daysInMonth = new Date(year, month + 1, 0).getDate();
 
 		const result: CalendarDay[] = [];
 
 		// Leading days from the previous month (dimmed).
-		for (let i = 0; i < firstWeekday; i++) {
-			const date = new Date(year, month, i - firstWeekday + 1);
+		for (let i = 0; i < leading; i++) {
+			const date = new Date(year, month, i - leading + 1);
 			result.push({ date, iso: toISODate(date), inMonth: false });
 		}
 
@@ -117,7 +120,9 @@
 		return result;
 	});
 
-	const label = $derived(monthFormatter.format(new Date(year, month, 1)));
+	const label = $derived(
+		formatDate(new Date(year, month, 1), { month: 'long', year: 'numeric' })
+	);
 
 	// --- State -----------------------------------------------------------------
 

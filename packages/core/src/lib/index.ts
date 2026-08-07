@@ -130,10 +130,12 @@ export { VirtualList } from './components/virtual-list/index.js';
 export { Mention, type MentionUser } from './components/mention/index.js';
 // Split View
 export { SplitView } from './components/split-view/index.js';
+// i18n
+export { LocaleProvider, localeStore, setLocale, getLocale, t, formatDate, formatNumber, formatCurrency } from './i18n/index.js';
+export type { LocaleConfig } from './i18n/index.js';
 
 // Utils
-export { cn, formatBytes, formatDate, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from './utils.js';
-
+export { cn, formatBytes, formatRelativeDate, getFileExtension, isImageFile, isTextFile } from './utils.js';
 // Unit conversion
 export {
   convertUnit,

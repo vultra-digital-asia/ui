@@ -1,6 +1,6 @@
 {
   "schema": "v2",
-  "generatedAt": "2026-08-06T16:52:00.908Z",
+  "generatedAt": "2026-08-07T02:31:23.575Z",
   "components": [
     {
       "name": "accordion",
@@ -286,6 +286,53 @@
       ]
     },
     {
+      "name": "barcode",
+      "description": "Barcode component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "barcode"
+      ],
+      "files": [
+        "barcode/Barcode.svelte",
+        "barcode/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "barcode/index.ts",
+      "isComponent": true,
+      "entry": "barcode/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "format",
+          "type": "'code128' | 'ean13' | 'upc'",
+          "default": "code128"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "default": 80
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "default": 2
+        },
+        {
+          "name": "displayValue",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "bento-grid",
       "description": "Bento Grid component",
       "category": "composite",
@@ -319,6 +366,39 @@
             "3",
             "4"
           ]
+        }
+      ]
+    },
+    {
+      "name": "box",
+      "description": "Box component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "box"
+      ],
+      "files": [
+        "box/Box.svelte",
+        "box/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "box/index.ts",
+      "isComponent": true,
+      "entry": "box/index.ts",
+      "props": [
+        {
+          "name": "as",
+          "type": "keyof HTMLElementTagNameMap",
+          "default": "div"
+        },
+        {
+          "name": "padding",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "class",
+          "type": "string"
         }
       ]
     },
@@ -422,6 +502,53 @@
       ]
     },
     {
+      "name": "calendar",
+      "description": "Calendar component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "calendar"
+      ],
+      "files": [
+        "calendar/Calendar.svelte",
+        "calendar/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "calendar/index.ts",
+      "isComponent": true,
+      "entry": "calendar/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string | null"
+        },
+        {
+          "name": "month",
+          "type": "number"
+        },
+        {
+          "name": "year",
+          "type": "number"
+        },
+        {
+          "name": "min",
+          "type": "string"
+        },
+        {
+          "name": "max",
+          "type": "string"
+        },
+        {
+          "name": "onDayClick",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "card",
       "description": "Card component",
       "category": "layout",
@@ -493,6 +620,42 @@
           "name": "showArrows",
           "type": "boolean",
           "default": true
+        }
+      ]
+    },
+    {
+      "name": "charts",
+      "description": "Charts component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "charts"
+      ],
+      "files": [
+        "charts/BarChart.svelte",
+        "charts/DonutChart.svelte",
+        "charts/LineChart.svelte",
+        "charts/PieChart.svelte"
+      ],
+      "deps": [],
+      "isComponent": true,
+      "props": [
+        {
+          "name": "data",
+          "type": "any"
+        },
+        {
+          "name": "options",
+          "type": "any"
+        },
+        {
+          "name": "height",
+          "type": "any",
+          "default": 300
+        },
+        {
+          "name": "class",
+          "type": "any"
         }
       ]
     },
@@ -924,6 +1087,7 @@
         "date-picker/index.ts"
       ],
       "deps": [
+        "i18n",
         "utils"
       ],
       "mainTs": "date-picker/index.ts",
@@ -937,8 +1101,7 @@
         },
         {
           "name": "placeholder",
-          "type": "string",
-          "default": "Pick a date"
+          "type": "string"
         },
         {
           "name": "disabled",
@@ -1366,6 +1529,54 @@
       ]
     },
     {
+      "name": "flex",
+      "description": "Flex component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "flex"
+      ],
+      "files": [
+        "flex/Flex.svelte",
+        "flex/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "flex/index.ts",
+      "isComponent": true,
+      "entry": "flex/index.ts",
+      "props": [
+        {
+          "name": "direction",
+          "type": "'row' | 'col'",
+          "default": "row"
+        },
+        {
+          "name": "align",
+          "type": "'start' | 'center' | 'end' | 'stretch' | 'baseline'",
+          "default": "stretch"
+        },
+        {
+          "name": "justify",
+          "type": "'start' | 'center' | 'end' | 'between' | 'around' | 'evenly'",
+          "default": "start"
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "default": 0
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "footer",
       "description": "Footer component",
       "category": "marketing",
@@ -1419,6 +1630,51 @@
       "isComponent": true,
       "entry": "form/index.ts",
       "props": []
+    },
+    {
+      "name": "grid",
+      "description": "Grid component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "grid"
+      ],
+      "files": [
+        "grid/Grid.svelte",
+        "grid/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "grid/index.ts",
+      "isComponent": true,
+      "entry": "grid/index.ts",
+      "props": [
+        {
+          "name": "cols",
+          "type": "1 | 2 | 3 | 4 | 5 | 6",
+          "default": 1
+        },
+        {
+          "name": "sm",
+          "type": "2 | 3 | 4 | 5 | 6"
+        },
+        {
+          "name": "md",
+          "type": "2 | 3 | 4 | 5 | 6"
+        },
+        {
+          "name": "lg",
+          "type": "2 | 3 | 4 | 5 | 6"
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "default": 4
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
     },
     {
       "name": "hero",
@@ -1498,6 +1754,58 @@
       ]
     },
     {
+      "name": "infinite-scroll",
+      "description": "Infinite Scroll component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "infinite",
+        "scroll"
+      ],
+      "files": [
+        "infinite-scroll/InfiniteScroll.svelte",
+        "infinite-scroll/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "infinite-scroll/index.ts",
+      "isComponent": true,
+      "entry": "infinite-scroll/index.ts",
+      "props": [
+        {
+          "name": "hasMore",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "onLoadMore",
+          "type": "any"
+        },
+        {
+          "name": "onRetry",
+          "type": "any"
+        },
+        {
+          "name": "threshold",
+          "type": "number",
+          "default": 200
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "input",
       "description": "Input component",
       "category": "forms",
@@ -1572,6 +1880,39 @@
       "props": [
         {
           "name": "class",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "kanban",
+      "description": "Kanban component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "kanban"
+      ],
+      "files": [
+        "kanban/KanbanBoard.svelte",
+        "kanban/KanbanCard.svelte",
+        "kanban/KanbanColumn.svelte",
+        "kanban/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "kanban/index.ts",
+      "isComponent": true,
+      "entry": "kanban/index.ts",
+      "props": [
+        {
+          "name": "columns",
+          "type": "KanbanColumn[]"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onCardMove",
           "type": "any"
         }
       ]
@@ -1675,6 +2016,47 @@
           "name": "content",
           "type": "string",
           "default": ""
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "mention",
+      "description": "Returns the mention query after the caret ('' for a bare '@', undefined when no mention).",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "mention"
+      ],
+      "files": [
+        "mention/Mention.svelte",
+        "mention/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "mention/index.ts",
+      "isComponent": true,
+      "entry": "mention/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "users",
+          "type": "User[]"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Type @ to mention someone…"
+        },
+        {
+          "name": "onMention",
+          "type": "any"
         },
         {
           "name": "class",
@@ -2156,6 +2538,58 @@
         },
         {
           "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "qr-code",
+      "description": "Qr Code component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "qr",
+        "code"
+      ],
+      "files": [
+        "qr-code/QRCode.svelte",
+        "qr-code/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "qr-code/index.ts",
+      "isComponent": true,
+      "entry": "qr-code/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "default": 200
+        },
+        {
+          "name": "fgColor",
+          "type": "string",
+          "default": "#000000"
+        },
+        {
+          "name": "bgColor",
+          "type": "string",
+          "default": "#ffffff"
+        },
+        {
+          "name": "level",
+          "type": "Level",
+          "default": "M"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onReady",
           "type": "any"
         }
       ]
@@ -2766,6 +3200,91 @@
         {
           "name": "class",
           "type": "any"
+        }
+      ]
+    },
+    {
+      "name": "split-view",
+      "description": "Split View component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "split",
+        "view"
+      ],
+      "files": [
+        "split-view/SplitView.svelte",
+        "split-view/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "split-view/index.ts",
+      "isComponent": true,
+      "entry": "split-view/index.ts",
+      "props": [
+        {
+          "name": "direction",
+          "type": "Direction",
+          "default": "horizontal"
+        },
+        {
+          "name": "defaultSize",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "name": "minSize",
+          "type": "number",
+          "default": 20
+        },
+        {
+          "name": "maxSize",
+          "type": "number",
+          "default": 80
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "first",
+          "type": "import('svelte').Snippet"
+        },
+        {
+          "name": "second",
+          "type": "import('svelte').Snippet"
+        }
+      ]
+    },
+    {
+      "name": "stack",
+      "description": "Stack component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "stack"
+      ],
+      "files": [
+        "stack/Stack.svelte",
+        "stack/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "stack/index.ts",
+      "isComponent": true,
+      "entry": "stack/index.ts",
+      "props": [
+        {
+          "name": "gap",
+          "type": "number",
+          "default": 4
+        },
+        {
+          "name": "divider",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
         }
       ]
     },
@@ -3408,6 +3927,48 @@
         {
           "name": "class",
           "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "virtual-list",
+      "description": "Virtual List component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "virtual",
+        "list"
+      ],
+      "files": [
+        "virtual-list/VirtualList.svelte",
+        "virtual-list/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "virtual-list/index.ts",
+      "isComponent": true,
+      "entry": "virtual-list/index.ts",
+      "props": [
+        {
+          "name": "items",
+          "type": "any[]"
+        },
+        {
+          "name": "itemHeight",
+          "type": "number",
+          "default": 48
+        },
+        {
+          "name": "overscan",
+          "type": "number",
+          "default": 5
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onEndReached",
+          "type": "any"
         }
       ]
     }

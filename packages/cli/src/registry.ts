@@ -84,9 +84,9 @@ export function resolveWithDeps(
 		}
 		seen.add(name);
 		out.push(comp);
-		// utils is a shared file, not a registry component
+		// utils and other shared lib files are not registry components
 		for (const dep of comp.deps) {
-			if (dep !== 'utils' && !seen.has(dep)) queue.push(dep);
+			if (dep !== 'utils' && !seen.has(dep) && byName.has(dep)) queue.push(dep);
 		}
 	}
 	return out;
