@@ -40,7 +40,17 @@ export const navigation: NavItem[] = [
 			{ title: 'Tabs', href: '/docs/components/tabs' },
 			{ title: 'Table', href: '/docs/components/table' },
 			{ title: 'Testimonial', href: '/docs/components/testimonial' },
-			{ title: 'Toast', href: '/docs/components/toast' }
+			{ title: 'Toast', href: '/docs/components/toast' },
+			{ title: 'Barcode', href: '/docs/components/barcode' },
+			{ title: 'Calendar', href: '/docs/components/calendar' },
+			{ title: 'Charts', href: '/docs/components/charts' },
+			{ title: 'Infinite Scroll', href: '/docs/components/infinite-scroll' },
+			{ title: 'Kanban', href: '/docs/components/kanban' },
+			{ title: 'Mention', href: '/docs/components/mention' },
+			{ title: 'QR Code', href: '/docs/components/qr-code' },
+			{ title: 'Split View', href: '/docs/components/split-view' },
+			{ title: 'Validate', href: '/docs/components/validate' },
+			{ title: 'Virtual List', href: '/docs/components/virtual-list' }
 		]
 	},
 	{
