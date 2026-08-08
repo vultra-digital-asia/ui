@@ -22,6 +22,7 @@ export {
 	ElementField,
 	//
 	Field as FormField,
+	Field as Form,
 	Control as FormControl,
 	Description as FormDescription,
 	Label as FormLabel,

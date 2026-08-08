@@ -24,7 +24,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "svelte-package -o dist",
+    "build": "svelte-package -o dist && find dist -name \"*.test.*\" -delete && find dist -name \"*Test.svelte*\" ! -name \"Testimonial*\" -delete && find dist -name \"*Test.svelte*\" ! -name \"Testimonial*\" -delete",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "dev": "svelte-package -o dist -w"
   },
@@ -38,17 +38,17 @@
     "qrcode": "^1.5.4",
     "tailwind-merge": "^3.5.0",
     "tailwind-variants": "^3.3.0",
-    "zod": "^3.24.0"
+    "zod": "^3.24.0",
+    "formsnap": "^2.0.1",
+    "@lucide/svelte": "^1.28.0",
+    "bits-ui": "^2.17.3"
   },
   "devDependencies": {
     "@internationalized/date": "^3.12.0",
-    "@lucide/svelte": "^1.28.0",
     "@sveltejs/package": "^2.5.8",
     "@sveltejs/vite-plugin-svelte": "^5.1.1",
     "@types/qrcode": "^1.5.6",
     "@vultra/tokens": "workspace:*",
-    "bits-ui": "^2.17.3",
-    "formsnap": "^2.0.1",
     "svelte": "^5.55.2",
     "svelte-check": "^4.4.6",
     "sveltekit-superforms": "^2.30.0",
