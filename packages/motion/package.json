@@ -1,6 +1,6 @@
 {
   "name": "@vultra/motion",
-  "version": "0.1.0-alpha.9",
+  "version": "0.1.0-alpha.10",
   "description": "Core types, easings, and interpolation for video composition",
   "type": "module",
   "exports": {
