@@ -1,6 +1,6 @@
 {
   "name": "@vultra/motion-player",
-  "version": "0.1.0-alpha.7",
+  "version": "0.1.0-alpha.8",
   "description": "Player, VideoPlayer, Timeline and renderer for @vultra/motion",
   "type": "module",
   "exports": {

@@ -1,6 +1,6 @@
 {
   "name": "@vultra/ui",
-  "version": "0.1.0-alpha.7",
+  "version": "0.1.0-alpha.8",
   "description": "Svelte 5 component library with design tokens and CLI installer",
   "type": "module",
   "exports": {
