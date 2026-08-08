@@ -1,6 +1,6 @@
 {
   "name": "@vultra/flat",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "Flat color geometric components with clip-path shapes for Vultra UI",
   "type": "module",
   "exports": {
@@ -24,7 +24,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/tokens": "^0.1.0-alpha.8",
+    "@vultra/tokens": "^0.1.0-alpha.9",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.5.0"
   },
