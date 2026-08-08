@@ -26,7 +26,9 @@
   "dependencies": {
     "@vultra/ui": "^0.1.0-alpha.7",
     "@tanstack/table-core": "^8.21.3",
-    "@tanstack/svelte-virtual": "^3.13.35"
+    "@tanstack/svelte-virtual": "^3.13.35",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",

@@ -160,18 +160,27 @@ importers:
 
   packages/core:
     dependencies:
+      '@lucide/svelte':
+        specifier: ^1.28.0
+        version: 1.28.0(svelte@5.56.8)
       '@tanstack/svelte-virtual':
         specifier: ^3.13.35
         version: 3.13.35(svelte@5.56.8)
       '@tanstack/table-core':
         specifier: ^8.21.3
         version: 8.21.3
+      bits-ui:
+        specifier: ^2.17.3
+        version: 2.18.1(@internationalized/date@3.12.3)(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0)))(svelte@5.56.8)
       chart.js:
         specifier: ^4.5.1
         version: 4.5.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      formsnap:
+        specifier: ^2.0.1
+        version: 2.0.1(svelte@5.56.8)(sveltekit-superforms@2.30.2(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3))
       jsbarcode:
         specifier: ^3.12.3
         version: 3.12.3
@@ -194,9 +203,6 @@ importers:
       '@internationalized/date':
         specifier: ^3.12.0
         version: 3.12.3
-      '@lucide/svelte':
-        specifier: ^1.28.0
-        version: 1.28.0(svelte@5.56.8)
       '@sveltejs/package':
         specifier: ^2.5.8
         version: 2.5.8(svelte@5.56.8)(typescript@6.0.3)
@@ -209,12 +215,6 @@ importers:
       '@vultra/tokens':
         specifier: workspace:*
         version: link:../tokens
-      bits-ui:
-        specifier: ^2.17.3
-        version: 2.18.1(@internationalized/date@3.12.3)(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0)))(svelte@5.56.8)
-      formsnap:
-        specifier: ^2.0.1
-        version: 2.0.1(svelte@5.56.8)(sveltekit-superforms@2.30.2(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3))
       svelte:
         specifier: ^5.55.2
         version: 5.56.8
@@ -236,12 +236,24 @@ importers:
 
   packages/data-table:
     dependencies:
+      '@tanstack/svelte-virtual':
+        specifier: ^3.13.35
+        version: 3.13.35(svelte@5.56.8)
+      '@tanstack/table-core':
+        specifier: ^8.21.3
+        version: 8.21.3
       '@vultra/grid-core':
-        specifier: ^0.1.0-alpha.6
-        version: 0.1.0-alpha.6(svelte@5.56.8)
+        specifier: ^0.1.0-alpha.7
+        version: 0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
       '@vultra/ui':
-        specifier: ^0.1.0-alpha.6
-        version: 0.1.0-alpha.6(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
+        specifier: ^0.1.0-alpha.7
+        version: 0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      tailwind-merge:
+        specifier: ^3.5.0
+        version: 3.6.0
     devDependencies:
       '@sveltejs/package':
         specifier: ^2.5.8
@@ -348,8 +360,14 @@ importers:
   packages/flat:
     dependencies:
       '@vultra/tokens':
-        specifier: ^0.1.0-alpha.6
-        version: 0.1.0-alpha.6
+        specifier: ^0.1.0-alpha.7
+        version: 0.1.0-alpha.7
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      tailwind-merge:
+        specifier: ^3.5.0
+        version: 3.6.0
     devDependencies:
       '@sveltejs/package':
         specifier: ^2.5.8
@@ -357,18 +375,12 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.1.1
         version: 5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0))
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       svelte:
         specifier: ^5.55.2
         version: 5.56.8
       svelte-check:
         specifier: ^4.4.6
         version: 4.7.4(picomatch@4.0.5)(svelte@5.56.8)(typescript@6.0.3)
-      tailwind-merge:
-        specifier: ^3.5.0
-        version: 3.6.0
       tailwind-variants:
         specifier: ^3.3.0
         version: 3.3.0(tailwind-merge@3.6.0)(tailwindcss@4.3.3)
@@ -391,8 +403,14 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       '@vultra/ui':
-        specifier: ^0.1.0-alpha.6
-        version: 0.1.0-alpha.6(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
+        specifier: ^0.1.0-alpha.7
+        version: 0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      tailwind-merge:
+        specifier: ^3.5.0
+        version: 3.6.0
     devDependencies:
       '@sveltejs/package':
         specifier: ^2.5.8
@@ -451,8 +469,14 @@ importers:
   packages/md3:
     dependencies:
       '@vultra/tokens':
-        specifier: ^0.1.0-alpha.6
-        version: 0.1.0-alpha.6
+        specifier: ^0.1.0-alpha.7
+        version: 0.1.0-alpha.7
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      tailwind-merge:
+        specifier: ^3.5.0
+        version: 3.6.0
     devDependencies:
       '@sveltejs/package':
         specifier: ^2.5.8
@@ -460,18 +484,12 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.1.1
         version: 5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(jiti@2.7.0))
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       svelte:
         specifier: ^5.55.2
         version: 5.56.8
       svelte-check:
         specifier: ^4.4.6
         version: 4.7.4(picomatch@4.0.5)(svelte@5.56.8)(typescript@6.0.3)
-      tailwind-merge:
-        specifier: ^3.5.0
-        version: 3.6.0
       tailwind-variants:
         specifier: ^3.3.0
         version: 3.3.0(tailwind-merge@3.6.0)(tailwindcss@4.3.3)
@@ -2453,16 +2471,16 @@ packages:
   '@vitest/utils@4.1.10':
     resolution: {integrity: sha512-fy9am/HWxbaGt/Sawrp90vt6Y6jQwf1RX77cz3uwoJwJVMli/e1IEwRPnMNJ7vKfPTwo0diXifkpPvwH9v7nGA==}
 
-  '@vultra/grid-core@0.1.0-alpha.6':
-    resolution: {integrity: sha512-58TzLpAVyo4v7SkBG7/AGxM7BHNQqlSWd5k47IgU5Xjd6jRHEzx/7kq0nR9kAZlApZlr//2fAHWXqApjCecfSQ==}
+  '@vultra/grid-core@0.1.0-alpha.7':
+    resolution: {integrity: sha512-7e8gAL+YUBZyE0mZMO4WD2dD6hkFhPPwoyWVJvkYVJSBNaoL/Qjj2AJElnNFa/in4YtY0JknqBMC2OllHYDkWQ==}
     peerDependencies:
       svelte: ^5.0.0
 
-  '@vultra/tokens@0.1.0-alpha.6':
-    resolution: {integrity: sha512-KT8rSrX/VAyN+WasTw95sjUReg12OGZx44wf5nmBPrnZOxvDTJKnZ6q3U0HS7vnzr0RJs5UFRuH1gAk3AkCuag==}
+  '@vultra/tokens@0.1.0-alpha.7':
+    resolution: {integrity: sha512-WpyyTqIu9WBzHrNVWnSOeRrzGPoEKSrCDsD+wigBwWylj1dDQyITpgPyL0akjeiynr9I+a6KYPkY7hyg7IFuIQ==}
 
-  '@vultra/ui@0.1.0-alpha.6':
-    resolution: {integrity: sha512-UNfRVAB96MMIvYLHWl22pKCo2w+qXVHYKXel6iyQ8fwJ2XIZTAzt1CylEm+h21swEUCW/OK3vfvTKxHhhZndKA==}
+  '@vultra/ui@0.1.0-alpha.7':
+    resolution: {integrity: sha512-y43QQcGf09gOLGt0lfOCyRtW9iMg5nJVmPcdKqk2gaYZEQ3S8KqbxfRYmordPNPDXJLK0CjLpBXI+xbQ8b2quQ==}
     peerDependencies:
       svelte: ^5.0.0
       tailwindcss: ^4.0.0
@@ -5703,16 +5721,19 @@ snapshots:
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.1
 
-  '@vultra/grid-core@0.1.0-alpha.6(svelte@5.56.8)':
+  '@vultra/grid-core@0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)':
     dependencies:
       '@tanstack/svelte-virtual': 3.13.35(svelte@5.56.8)
       '@tanstack/table-core': 8.21.3
-      '@vultra/ui': link:packages/core
+      '@vultra/ui': 0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
       svelte: 5.56.8
+    transitivePeerDependencies:
+      - tailwindcss
+      - zod
 
-  '@vultra/tokens@0.1.0-alpha.6': {}
+  '@vultra/tokens@0.1.0-alpha.7': {}
 
-  '@vultra/ui@0.1.0-alpha.6(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)':
+  '@vultra/ui@0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)':
     dependencies:
       '@tanstack/svelte-virtual': 3.13.35(svelte@5.56.8)
       '@tanstack/table-core': 8.21.3
