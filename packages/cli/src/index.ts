@@ -1,11 +1,28 @@
 #!/usr/bin/env node
 import { program } from 'commander';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { loadRegistry, type RegistryComponent } from './registry.js';
-import { installComponents } from './install.js';
+import { installComponents, syncDependencies } from './install.js';
 import { initProject } from './init.js';
 import { updateComponents } from './update.js';
 import { runDoctor } from './doctor.js';
 
+function toPascal(name: string): string {
+	return name
+		.split('-')
+		.map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+		.join('');
+}
+
+function readPkgVersion(): string | null {
+	try {
+		const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
+		return pkg.dependencies?.['@vultra/ui'] ?? null;
+	} catch {
+		return null;
+	}
+}
 program
 	.name('vultra')
 	.description('Vultra UI component installer for Svelte projects')
@@ -63,46 +80,83 @@ program
 	.argument('<components...>', 'component names, e.g. button card data-table')
 	.option('-y, --yes', 'skip confirmation and overwrite existing files')
 	.option('-o, --overwrite', 'overwrite existing component files')
-	.action(async (components: string[], opts: { yes?: boolean; overwrite?: boolean }) => {
-		const overwrite = opts.yes || opts.overwrite || false;
-		try {
-			const registry = await loadRegistry();
-			const known = new Set(registry.components.map((c) => c.name));
-			const unknown = components.filter((c) => !known.has(c));
-			if (unknown.length > 0) {
-				console.error(
-					`Unknown component${unknown.length > 1 ? 's' : ''}: ${unknown.join(', ')}`,
+	.option('-m, --mode <mode>', 'install mode: copy (default) or npm (add to package.json)', 'copy')
+	.action(
+		async (
+			components: string[],
+			opts: { yes?: boolean; overwrite?: boolean; mode?: string },
+		) => {
+			const overwrite = opts.yes || opts.overwrite || false;
+			const mode = opts.mode ?? 'copy';
+			try {
+				const registry = await loadRegistry();
+				const known = new Set(registry.components.map((c) => c.name));
+				const unknown = components.filter((c) => !known.has(c));
+				if (unknown.length > 0) {
+					console.error(
+						`Unknown component${unknown.length > 1 ? 's' : ''}: ${unknown.join(', ')}`,
+					);
+					console.error(`Available: ${[...known].sort().join(', ')}`);
+					process.exit(1);
+				}
+
+				if (mode === 'npm') {
+					const { added, hasPackageJson } = syncDependencies(
+						process.cwd(),
+						registry,
+						components,
+					);
+					if (!hasPackageJson) {
+						console.error('No package.json found — cannot add npm dependencies.');
+						process.exit(1);
+					}
+					const depNames = Object.keys(added);
+					const uiVer =
+						readPkgVersion() ?? '^0.1.0-alpha.7';
+					if (!depNames.includes('@vultra/ui')) {
+						depNames.unshift('@vultra/ui');
+						added['@vultra/ui'] = uiVer;
+					}
+					console.log(
+						`Added ${depNames.length} dependency(ies) to package.json (npm mode):`,
+					);
+					for (const d of depNames) console.log(`  ${d}@${added[d]}`);
+					console.log('Run `npm install` (or `pnpm install`) to install them.');
+					console.log('');
+					console.log('Import usage:');
+					for (const c of components) {
+						console.log(`  import { ${toPascal(c)} } from '@vultra/ui';`);
+					}
+					return;
+				}
+
+				const { installed, written, skipped, addedDeps } = await installComponents(
+					components,
+					{ overwrite, cwd: process.cwd() },
 				);
-				console.error(`Available: ${[...known].sort().join(', ')}`);
+
+				console.log(`Installed ${installed.length} component(s): ${installed.join(', ')}`);
+				if (written.length > 0) {
+					console.log(`Wrote ${written.length} file(s)`);
+				}
+				if (skipped.length > 0) {
+					console.log(
+						`Skipped ${skipped.length} existing file(s) (use --overwrite to replace):`,
+					);
+					for (const f of skipped) console.log(`  ${f}`);
+				}
+				const depNames = Object.keys(addedDeps);
+				if (depNames.length > 0) {
+					console.log(`Added ${depNames.length} dependency(ies) to package.json:`);
+					for (const d of depNames) console.log(`  ${d}@${addedDeps[d]}`);
+					console.log('Run `pnpm install` to install them.');
+				}
+			} catch (err) {
+				console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 				process.exit(1);
 			}
-
-			const { installed, written, skipped, addedDeps } = await installComponents(
-				components,
-				{ overwrite, cwd: process.cwd() },
-			);
-
-			console.log(`Installed ${installed.length} component(s): ${installed.join(', ')}`);
-			if (written.length > 0) {
-				console.log(`Wrote ${written.length} file(s)`);
-			}
-			if (skipped.length > 0) {
-				console.log(
-					`Skipped ${skipped.length} existing file(s) (use --overwrite to replace):`,
-				);
-				for (const f of skipped) console.log(`  ${f}`);
-			}
-			const depNames = Object.keys(addedDeps);
-			if (depNames.length > 0) {
-				console.log(`Added ${depNames.length} dependency(ies) to package.json:`);
-				for (const d of depNames) console.log(`  ${d}@${addedDeps[d]}`);
-				console.log('Run `pnpm install` to install them.');
-			}
-		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
-			process.exit(1);
-		}
-	});
+		},
+	);
 
 program
 	.command('update')
