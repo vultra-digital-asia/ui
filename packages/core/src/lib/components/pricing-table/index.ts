@@ -1,3 +1,4 @@
-export { default as PricingTable } from './PricingTable.svelte';
-export { default as PricingCard } from './PricingCard.svelte';
-export { default as PricingCard as PricingTableCard } from './PricingCard.svelte';
+import PricingCard from './PricingCard.svelte';
+import PricingTable from './PricingTable.svelte';
+
+export { PricingTable, PricingCard, PricingCard as PricingTableCard };
