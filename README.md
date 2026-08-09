@@ -1,28 +1,54 @@
-# @vultra/ui
+# Vultra UI
 
-Svelte 5 component library with design tokens, CLI installer, and 50+ components.
+**Svelte 5 component library — 100+ components, 9 themes, mobile + native.**
+
+Vultra UI is a complete Svelte 5 component ecosystem: shadcn-style components, Material Design 3, flat/geometric shapes, mobile-first touch components, and native device capabilities — all tree-shakeable from one install.
+
+## Packages
+
+| Package | Description |
+|---------|-------------|
+| [`@vultra/ui`](https://www.npmjs.com/package/@vultra/ui) | 100+ components (web + mobile + device) |
+| [`@vultra/tokens`](https://www.npmjs.com/package/@vultra/tokens) | 9 design themes (CSS variables) |
+| [`@vultra/cli`](https://www.npmjs.com/package/@vultra/cli) | Component installer (`add`/`init`/`update`/`doctor`) |
+| [`@vultra/md3`](https://www.npmjs.com/package/@vultra/md3) | Material Design 3 components |
+| [`@vultra/flat`](https://www.npmjs.com/package/@vultra/flat) | Geometric / clip-path components |
+| [`@vultra/native`](https://www.npmjs.com/package/@vultra/native) | Native device services (Capacitor) |
+| [`@vultra/data-table`](https://www.npmjs.com/package/@vultra/data-table) | Enterprise data grid |
+| [`@vultra/editor-core`](https://www.npmjs.com/package/@vultra/editor-core) | Visual editor engine (Svelte-native DnD) |
+| [`@vultra/image-editor`](https://www.npmjs.com/package/@vultra/image-editor) | Image filters & effects |
+| [`@vultra/rich-text`](https://www.npmjs.com/package/@vultra/rich-text) | Tiptap editor wrapper |
 
 ## Installation
 
+### Option A — npm package (library model)
+
 ```bash
-npm install @vultra/ui
+npm install @vultra/ui @vultra/tokens
 ```
+
+### Option B — CLI copy (shadcn model)
+
+```bash
+npx @vultra/cli add button card badge
+```
+
+Components are copied into your project with rewritten imports.
+
+### Option C — CLI npm mode
+
+```bash
+npx @vultra/cli add button --mode npm
+```
+
+Adds `@vultra/ui` + deps to package.json and prints import snippets.
 
 ## Setup
 
-Import the base tokens in your app's CSS:
+Import tokens in your app's CSS:
 
 ```css
 @import "@vultra/tokens/base";
-```
-
-Or choose a theme:
-
-```css
-@import "@vultra/tokens/md3";     /* Material Design 3 */
-@import "@vultra/tokens/flat";    /* Flat & geometric */
-@import "@vultra/tokens/glass";   /* Glassmorphism */
-@import "@vultra/tokens/brutalist"; /* Brutalist */
 ```
 
 Set a theme on your root element:
@@ -35,40 +61,16 @@ Set a theme on your root element:
 
 ```svelte
 <script>
-  import { Button, Card, CardHeader, CardTitle, CardContent } from '@vultra/ui';
+  import { Button, Card } from '@vultra/ui';
 </script>
 
 <Card>
-  <CardHeader>
-    <CardTitle>Hello World</CardTitle>
-  </CardHeader>
-  <CardContent>
-    <Button variant="primary">Click me</Button>
-  </CardContent>
+  <h2>Hello World</h2>
+  <Button>Click me</Button>
 </Card>
 ```
 
-## CLI Installer
-
-```bash
-npx @vultra/cli add button card badge
-```
-
-Components are copied into your project with rewritten imports.
-
-## Theming
-
-Override CSS custom properties in your project:
-
-```css
-:root {
-  --ui-primary: oklch(0.216 0.006 56.043);
-  --ui-accent: oklch(0.553 0.013 58.071);
-  --ui-radius: 0.625rem;
-}
-```
-
-## Available Themes
+## 9 Themes
 
 | Theme | Import | Style |
 |-------|--------|-------|
@@ -77,6 +79,64 @@ Override CSS custom properties in your project:
 | Flat | `@vultra/tokens/flat` | Bold & geometric |
 | Glass | `@vultra/tokens/glass` | Translucent blur |
 | Brutalist | `@vultra/tokens/brutalist` | Raw & heavy |
+| Neumorphism | `@vultra/tokens/neumorphism` | Soft UI |
+| Retro | `@vultra/tokens/retro` | Vintage |
+| Cyberpunk | `@vultra/tokens/cyberpunk` | Neon futuristic |
+| Minimalist | `@vultra/tokens/minimalist` | Black & white |
+
+```svelte
+<script>
+  import '@vultra/tokens/cyberpunk.css'; // one import = whole app theme
+</script>
+```
+
+## Mobile Components
+
+Touch-optimized, safe-area aware, no hover-dependent features:
+
+```svelte
+<script>
+  import { TabBar, TabBarItem, PullToRefresh, ActionSheet, FabMenu } from '@vultra/ui';
+</script>
+
+<TabBar bind:value={tab}>
+  <TabBarItem value="home" label="Home" />
+  <TabBarItem value="cart" label="Cart" badge={3} />
+</TabBar>
+```
+
+## Native Device Features
+
+```ts
+import { getDeviceInfo, takePhoto, localNotify, watchMotion } from '@vultra/native';
+
+const info = await getDeviceInfo(); // { platform, isNative, ... }
+await localNotify('Hello', 'Push notification body');
+```
+
+## Component Categories
+
+Actions, Layout, Navigation, Forms (with validation + Zod), Feedback, Data Display, Marketing, Composite, Social, Mobile, Device, Utility — 100+ components.
+
+## CLI
+
+```bash
+npx @vultra/cli init        # Setup project (tokens, cn(), components.json)
+npx @vultra/cli add button  # Copy component (or --mode npm)
+npx @vultra/cli update      # Update installed components
+npx @vultra/cli doctor      # Check setup health
+npx @vultra/cli list        # Browse components by category
+```
+
+## PWA / Capacitor
+
+Build responsive web → PWA → native app from one codebase. See `templates/pwa-starter/` for a ready-to-run starter (SvelteKit + Capacitor 7 + @vultra/ui).
+
+## Documentation
+
+- Component docs: [vultra docs](https://github.com/vultra-digital-asia/ui/tree/main/packages/docs)
+- Examples & playground
+- All 26 packages published to npm
 
 ## Development
 
@@ -84,18 +144,17 @@ Override CSS custom properties in your project:
 pnpm install
 pnpm dev           # Start dev server
 pnpm build         # Build library
+pnpm test          # Run tests (230+)
 pnpm check         # Type check
 ```
 
+## CI/CD
+
+GitHub Actions: `ci.yml` (build + test on push/PR), `publish.yml` (manual stage publish to npm).
+
 ## Versioning
 
-This project uses [Changesets](https://github.com/changesets/changesets) for version management.
-
-```bash
-npx changeset      # Add a changeset
-npx changeset version  # Bump versions
-npx changeset publish  # Publish to npm
-```
+All packages use Changesets-compatible versioning, currently `0.1.0-alpha.10` (alpha). Publish flow: `npm stage publish` → approve on npmjs.com (2FA), or direct `npm publish` for new packages.
 
 ## License
 

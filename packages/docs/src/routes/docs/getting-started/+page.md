@@ -1,24 +1,30 @@
 # Getting Started
 
-Vultra UI is a Svelte 5 component library with 120+ components, 9 themes, and a CLI installer.
+Vultra UI is a Svelte 5 component library with 100+ components, 9 themes, and a CLI installer.
 
 ## Installation
 
-```bash
-# Core packages
-npm install @vultra/ui @vultra/tokens
+### Option A — npm package (recommended)
 
-# Or with pnpm
-pnpm add @vultra/ui @vultra/tokens
+```bash
+npm install @vultra/ui @vultra/tokens
 ```
 
-## Add Components
+### Option B — CLI copy (shadcn model)
 
 ```bash
 npx @vultra/cli add button card dialog
 ```
 
 The CLI copies components into your project and rewrites imports automatically.
+
+### Option C — CLI npm mode
+
+```bash
+npx @vultra/cli add button --mode npm
+```
+
+Adds `@vultra/ui` + deps to package.json and prints import snippets (no file copy).
 
 ## Import Tokens
 
@@ -30,44 +36,34 @@ In your root layout:
 </script>
 ```
 
-## Choose a Theme
+Or choose a theme:
 
-```svelte
-<script>
-  // One import changes your entire app
-  import '@vultra/tokens/cyberpunk.css';
-</script>
+```css
+@import '@vultra/tokens/md3.css';
+@import '@vultra/tokens/flat.css';
+@import '@vultra/tokens/cyberpunk.css';
 ```
 
-### Available Themes
+Set a theme on your root element:
 
-| Theme | Import | Style |
-|-------|--------|-------|
-| shadcn | `@vultra/tokens/base` | Clean, muted |
-| MD3 | `@vultra/tokens/md3` | Material Design 3 |
-| Flat | `@vultra/tokens/flat` | Bold, geometric |
-| Glass | `@vultra/tokens/glass` | Translucent blur |
-| Brutalist | `@vultra/tokens/brutalist` | Raw, heavy |
-| Neumorphism | `@vultra/tokens/neumorphism` | Soft UI |
-| Retro | `@vultra/tokens/retro` | Vintage |
-| Cyberpunk | `@vultra/tokens/cyberpunk` | Neon futuristic |
-| Minimalist | `@vultra/tokens/minimalist` | Black/white |
+```html
+<html data-ui-theme="neutral">
+```
 
-## Use Components
+## Use a component
 
 ```svelte
 <script>
-  import { Button, Card, Input } from '@vultra/ui';
+  import { Button, Card } from '@vultra/ui';
 </script>
 
 <Card>
   <h2>Hello World</h2>
-  <Input placeholder="Enter text..." />
   <Button>Click me</Button>
 </Card>
 ```
 
-## MD3 Components
+## MD3 components
 
 ```svelte
 <script>
@@ -77,7 +73,7 @@ In your root layout:
 <FAB onclick={() => alert('Clicked!')}>+</FAB>
 ```
 
-## Flat Geometric Components
+## Flat geometric components
 
 ```svelte
 <script>
@@ -86,20 +82,44 @@ In your root layout:
 
 <HexagonGrid columns={3}>
   <OctagonCard color="blue" title="Feature 1" />
-  <OctagonCard color="green" title="Feature 2" />
-  <OctagonCard color="purple" title="Feature 3" />
 </HexagonGrid>
 ```
 
-## More Packages
+## Mobile components
 
-| Package | Install |
-|---------|---------|
-| CLI | `npx @vultra/cli` |
-| Editor Core | `npm install @vultra/editor-core` |
-| Image Editor | `npm install @vultra/image-editor` |
+Touch-optimized, safe-area aware, no hover-dependent features:
 
-## Next Steps
+```svelte
+<script>
+  import { TabBar, PullToRefresh, ListView, ActionSheet } from '@vultra/ui';
+</script>
 
-- [Components](/docs/components) — Browse all 120+ components
+<TabBar bind:value={tab}>
+  <TabBarItem value="home" label="Home" />
+  <TabBarItem value="cart" label="Cart" badge={3} />
+</TabBar>
+```
+
+## Native device features
+
+```ts
+import { getDeviceInfo, takePhoto, localNotify } from '@vultra/native';
+
+const info = await getDeviceInfo();
+await localNotify('Hello', 'Body text');
+```
+
+## CLI commands
+
+```bash
+npx @vultra/cli init           # Setup project
+npx @vultra/cli add button     # Copy component
+npx @vultra/cli update         # Update components
+npx @vultra/cli doctor         # Check setup
+npx @vultra/cli list           # Browse by category
+```
+
+## Next steps
+
+- [Components](/docs/components) — Browse all 100+ components
 - [Themes](/docs/themes) — Explore 9 theme directions
