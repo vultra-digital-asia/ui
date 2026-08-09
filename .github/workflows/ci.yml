@@ -26,6 +26,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate svelte-kit tsconfig
+        run: |
+          cd packages/core && npx svelte-kit sync
+          cd ../docs && npx svelte-kit sync
+
       - name: Build core packages
         run: |
           pnpm --filter @vultra/ui build
