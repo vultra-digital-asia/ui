@@ -1,0 +1,64 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version bump type (patch/minor/major)'
+        required: true
+        default: 'patch'
+        type: choice
+        options: [patch, minor, major]
+
+jobs:
+  publish:
+    name: Stage Publish to npm
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build core packages
+        run: |
+          pnpm --filter @vultra/ui build
+          pnpm --filter @vultra/md3 build
+          pnpm --filter @vultra/flat build
+          pnpm --filter @vultra/grid-core build
+          pnpm --filter @vultra/data-table build
+          pnpm --filter @vultra/editor-core build
+          pnpm --filter @vultra/cli build
+
+      - name: Stage publish (9 existing packages)
+        run: |
+          for pkg in tokens core md3 flat cli grid-core data-table editor-core image-editor; do
+            cd packages/$pkg
+            npm stage publish --tag alpha
+            cd ../..
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: First-time publish (new packages, if any)
+        run: |
+          # Only runs for packages not yet on npm — staged publishing can't create new ones.
+          # Requires manual npm login + 2FA for brand-new packages (run ./scripts/publish-new.sh locally).
+          echo "New packages require manual 2FA publish. See scripts/publish-new.sh"
+        continue-on-error: true
+
+      - name: Summarize
+        run: |
+          echo "## Packages staged (alpha)" >> $GITHUB_STEP_SUMMARY
+          echo "Approve at https://www.npmjs.com/settings/vultra/packages (Staged Packages)" >> $GITHUB_STEP_SUMMARY
