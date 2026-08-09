@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { DataTable, type DataTableColumnDef } from '@vultra/data-table';
+	import { DataTable, type ColumnDef } from '@vultra/data-table';
 	import { Badge } from '@vultra/ui';
 
 	interface User {
@@ -31,7 +31,7 @@
 		Suspended: 'destructive'
 	} as const;
 
-	const columns: DataTableColumnDef<User, unknown>[] = [
+	const columns: ColumnDef<User, unknown>[] = [
 		{ id: 'name', header: 'Name', accessorKey: 'name' },
 		{ id: 'email', header: 'Email', accessorKey: 'email' },
 		{ id: 'role', header: 'Role', accessorKey: 'role' },
@@ -48,7 +48,7 @@
 	</div>
 
 	<DataTable
-		{data}
+		{users}
 		{columns}
 		title="Team members"
 		description="Search, sort and paginate through your users"

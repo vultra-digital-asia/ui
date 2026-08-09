@@ -1,6 +1,6 @@
 {
   "name": "@vultra/md3",
-  "version": "0.1.0-alpha.10",
+  "version": "0.1.0-alpha.11",
   "description": "Material Design 3 components for Vultra UI",
   "type": "module",
   "exports": {

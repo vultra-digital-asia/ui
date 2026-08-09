@@ -7,3 +7,6 @@ export const summaryPresets: Record<string, (values: unknown[]) => unknown> = {
   min: (values: unknown[]) => Math.min(...values.map(Number)),
   max: (values: unknown[]) => Math.max(...values.map(Number)),
 };
+
+export type { ColumnDef, ColumnFiltersState, SortingState, PaginationState, RowSelectionState, ColumnPinningState, ColumnOrderState, ExpandedState, GroupingState } from '@tanstack/table-core';
+export type { DataTableMeta } from '@vultra/grid-core';

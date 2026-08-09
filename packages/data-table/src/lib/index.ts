@@ -36,3 +36,15 @@ export type {
   DataTableMeta,
   FocusedCell,
 } from '@vultra/grid-core';
+
+export type {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  PaginationState,
+  RowSelectionState,
+  ColumnPinningState,
+  ColumnOrderState,
+  ExpandedState,
+  GroupingState,
+} from '@tanstack/table-core';

@@ -1,6 +1,6 @@
 {
   "name": "@vultra/tokens",
-  "version": "0.1.0-alpha.10",
+  "version": "0.1.0-alpha.11",
   "description": "Design tokens for Vultra UI",
   "type": "module",
   "exports": {

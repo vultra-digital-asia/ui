@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { DataTable, type DataTableColumnDef } from '@vultra/data-table';
+	import { DataTable, type ColumnDef } from '@vultra/data-table';
 
 	interface Product {
 		id: string;
@@ -27,7 +27,7 @@
 	const formatCurrency = (n: number) =>
 		new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
 
-	const columns: DataTableColumnDef<Product, unknown>[] = [
+	const columns: ColumnDef<Product, unknown>[] = [
 		{ id: 'name', header: 'Product', accessorKey: 'name' },
 		{ id: 'price', header: 'Price', accessorKey: 'price', meta: { align: 'right' } },
 		{ id: 'stock', header: 'Stock', accessorKey: 'stock', meta: { align: 'right' } },

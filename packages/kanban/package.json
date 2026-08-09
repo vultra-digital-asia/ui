@@ -1,6 +1,6 @@
 {
   "name": "@vultra/kanban",
-  "version": "0.1.0-alpha.10",
+  "version": "0.1.0-alpha.11",
   "description": "Kanban board component with drag-and-drop",
   "type": "module",
   "exports": {

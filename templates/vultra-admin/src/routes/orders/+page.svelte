@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { DataTable, type DataTableColumnDef } from '@vultra/data-table';
+	import { DataTable, type ColumnDef } from '@vultra/data-table';
 	import { Badge } from '@vultra/ui';
 
 	interface Order {
@@ -35,7 +35,7 @@
 	const formatCurrency = (n: number) =>
 		new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n);
 
-	const columns: DataTableColumnDef<Order, unknown>[] = [
+	const columns: ColumnDef<Order, unknown>[] = [
 		{ id: 'id', header: 'Order', accessorKey: 'id' },
 		{ id: 'customer', header: 'Customer', accessorKey: 'customer' },
 		{ id: 'total', header: 'Total', accessorKey: 'total', meta: { align: 'right' } },
@@ -53,7 +53,7 @@
 	</div>
 
 	<DataTable
-		{data}
+		{orders}
 		{columns}
 		title="Recent orders"
 		description="Search by order ID or customer name"
