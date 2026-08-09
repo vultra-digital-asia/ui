@@ -24,7 +24,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "^0.1.0-alpha.10",
+    "@vultra/ui": "workspace:*",
     "@tanstack/table-core": "^8.21.3",
     "@tanstack/svelte-virtual": "^3.13.35",
     "clsx": "^2.1.1",

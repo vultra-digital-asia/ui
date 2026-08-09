@@ -243,11 +243,11 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       '@vultra/grid-core':
-        specifier: ^0.1.0-alpha.7
-        version: 0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
+        specifier: workspace:*
+        version: link:../grid-core
       '@vultra/ui':
-        specifier: ^0.1.0-alpha.7
-        version: 0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
+        specifier: workspace:*
+        version: link:../core
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -351,8 +351,8 @@ importers:
   packages/flat:
     dependencies:
       '@vultra/tokens':
-        specifier: ^0.1.0-alpha.7
-        version: 0.1.0-alpha.7
+        specifier: workspace:*
+        version: link:../tokens
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -394,8 +394,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3
       '@vultra/ui':
-        specifier: ^0.1.0-alpha.7
-        version: 0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
+        specifier: workspace:*
+        version: link:../core
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -460,8 +460,8 @@ importers:
   packages/md3:
     dependencies:
       '@vultra/tokens':
-        specifier: ^0.1.0-alpha.7
-        version: 0.1.0-alpha.7
+        specifier: workspace:*
+        version: link:../tokens
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -2439,26 +2439,6 @@ packages:
 
   '@vitest/utils@4.1.10':
     resolution: {integrity: sha512-fy9am/HWxbaGt/Sawrp90vt6Y6jQwf1RX77cz3uwoJwJVMli/e1IEwRPnMNJ7vKfPTwo0diXifkpPvwH9v7nGA==}
-
-  '@vultra/grid-core@0.1.0-alpha.7':
-    resolution: {integrity: sha512-7e8gAL+YUBZyE0mZMO4WD2dD6hkFhPPwoyWVJvkYVJSBNaoL/Qjj2AJElnNFa/in4YtY0JknqBMC2OllHYDkWQ==}
-    peerDependencies:
-      svelte: ^5.0.0
-
-  '@vultra/tokens@0.1.0-alpha.7':
-    resolution: {integrity: sha512-WpyyTqIu9WBzHrNVWnSOeRrzGPoEKSrCDsD+wigBwWylj1dDQyITpgPyL0akjeiynr9I+a6KYPkY7hyg7IFuIQ==}
-
-  '@vultra/ui@0.1.0-alpha.7':
-    resolution: {integrity: sha512-y43QQcGf09gOLGt0lfOCyRtW9iMg5nJVmPcdKqk2gaYZEQ3S8KqbxfRYmordPNPDXJLK0CjLpBXI+xbQ8b2quQ==}
-    peerDependencies:
-      svelte: ^5.0.0
-      tailwindcss: ^4.0.0
-      zod: ^3.24.0
-    peerDependenciesMeta:
-      tailwindcss:
-        optional: true
-      zod:
-        optional: true
 
   '@webcontainer/env@1.1.1':
     resolution: {integrity: sha512-6aN99yL695Hi9SuIk1oC88l9o0gmxL1nGWWQ/kNy81HigJ0FoaoTXpytCj6ItzgyCEwA9kF1wixsTuv5cjsgng==}
@@ -5664,34 +5644,6 @@ snapshots:
       '@vitest/pretty-format': 4.1.10
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.1
-
-  '@vultra/grid-core@0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)':
-    dependencies:
-      '@tanstack/svelte-virtual': 3.13.35(svelte@5.56.8)
-      '@tanstack/table-core': 8.21.3
-      '@vultra/ui': 0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)
-      svelte: 5.56.8
-    transitivePeerDependencies:
-      - tailwindcss
-      - zod
-
-  '@vultra/tokens@0.1.0-alpha.7': {}
-
-  '@vultra/ui@0.1.0-alpha.7(svelte@5.56.8)(tailwindcss@4.3.3)(zod@3.25.76)':
-    dependencies:
-      '@tanstack/svelte-virtual': 3.13.35(svelte@5.56.8)
-      '@tanstack/table-core': 8.21.3
-      chart.js: 4.5.1
-      clsx: 2.1.1
-      jsbarcode: 3.12.3
-      lucide-svelte: 1.0.1(svelte@5.56.8)
-      qrcode: 1.5.4
-      svelte: 5.56.8
-      tailwind-merge: 3.6.0
-      tailwind-variants: 3.3.0(tailwind-merge@3.6.0)(tailwindcss@4.3.3)
-    optionalDependencies:
-      tailwindcss: 4.3.3
-      zod: 3.25.76
 
   '@webcontainer/env@1.1.1': {}
 

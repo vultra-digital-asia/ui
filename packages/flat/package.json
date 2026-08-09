@@ -24,7 +24,7 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/tokens": "^0.1.0-alpha.10",
+    "@vultra/tokens": "workspace:*",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.5.0"
   },
