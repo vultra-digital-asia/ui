@@ -1,6 +1,6 @@
 {
   "name": "@vultra/motion-studio",
-  "version": "0.1.0-alpha.11",
+  "version": "0.1.0-alpha.12",
   "description": "Visual video editor for Svelte — like Remotion Studio",
   "type": "module",
   "exports": {

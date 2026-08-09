@@ -1,6 +1,6 @@
 {
   "name": "@vultra/editor-core",
-  "version": "0.1.0-alpha.11",
+  "version": "0.1.0-alpha.12",
   "description": "Visual editor engine for Vultra UI - drag-drop, canvas, state management",
   "type": "module",
   "exports": {
