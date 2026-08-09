@@ -31,5 +31,15 @@
     "typescript": "^6.0.2",
     "vite": "^8.2.0",
     "vitest": "^4.1.10"
+  },
+  "pnpm": {
+    "overrides": {
+      "@vultra/tokens": "link:packages/tokens",
+      "tokens": "link:../../../../Library/pnpm/global/5/node_modules/@vultra/tokens"
+    }
+  },
+  "dependencies": {
+    "@vultra/tokens": "link:packages/tokens",
+    "tokens": "link:../../../../Library/pnpm/global/5/node_modules/@vultra/tokens"
   }
 }
