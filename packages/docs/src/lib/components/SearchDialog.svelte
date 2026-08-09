@@ -11,7 +11,7 @@
 		if (pagefind) return;
 		try {
 			// @ts-ignore — pagefind is generated at build time, not available to Vite bundler
-			const path = '/_pagefind/pagefind.js';
+			const path = '/pagefind/pagefind.js';
 			pagefind = await import(/* @vite-ignore */ path);
 		} catch {
 			// pagefind not built yet
@@ -33,7 +33,6 @@
 		);
 		loading = false;
 	}
-
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') open = false;
 	}
@@ -51,7 +50,11 @@
 		}
 	});
 
+	// Debounced search. Re-runs when query OR pagefind changes so a query
+	// typed before pagefind finishes loading still resolves.
 	$effect(() => {
+		// Read both reactive deps so the effect re-runs on either change.
+		if (!open || !query.trim() && !pagefind) return;
 		const timer = setTimeout(search, 200);
 		return () => clearTimeout(timer);
 	});

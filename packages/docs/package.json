@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 5173",
-    "build": "vite build && npx pagefind --site build",
+    "build": "vite build && npx pagefind --site build && node scripts/copy-pagefind.mjs",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
