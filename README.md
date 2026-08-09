@@ -154,7 +154,33 @@ GitHub Actions: `ci.yml` (build + test on push/PR), `publish.yml` (manual stage 
 
 ## Versioning
 
-All packages use Changesets-compatible versioning, currently `0.1.0-alpha.10` (alpha). Publish flow: `npm stage publish` → approve on npmjs.com (2FA), or direct `npm publish` for new packages.
+All packages use [Changesets](https://github.com/changesets/changesets) for versioning and changelogs:
+
+```bash
+pnpm changeset        # add a changeset
+pnpm version          # bump versions + update changelogs (changeset version)
+pnpm publish          # publish via changeset
+```
+
+Packages currently ship as `0.1.0-alpha.x` (alpha).
+
+### Publishing flow
+
+The repo uses **npm staged publishing** — `npm stage publish` uploads packages to your npm account's Staged Packages queue instead of publishing immediately, so you can review before approving.
+
+```bash
+./scripts/stage-publish.sh          # rewrite workspace deps + stage all packages (tag: alpha)
+./scripts/stage-publish.sh beta     # stage with a different dist-tag
+./scripts/stage-publish.sh --rewrite-only   # CI: only rewrite deps, no publish
+```
+
+Then approve the queue at [npmjs.com/settings/vultra/packages](https://www.npmjs.com/settings/vultra/packages) (Staged Packages) and apply the release with `npm run stage:apply`.
+
+> **Why the rewrite step?** npm does **not** resolve pnpm-style `workspace:*` dependency specifiers when packing/publishing (verified empirically with `npm pack`). Without the rewrite, published packages ship a dependency range of `workspace:*`, which fails on install with `Could not resolve dependency: workspace:* not found in registry`. `scripts/stage-publish.sh` rewrites every `workspace:*` to the current workspace version of that package before staging.
+
+Brand-new packages (never published) can't be created via staged publishing — they require `npm publish` with login + 2FA (`./scripts/publish-new.sh`).
+
+GitHub Actions: `ci.yml` (build + test on push/PR), `publish.yml` (manual stage publish to npm).
 
 ## License
 

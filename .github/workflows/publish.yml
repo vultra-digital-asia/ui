@@ -41,6 +41,9 @@ jobs:
           pnpm --filter @vultra/editor-core build
           pnpm --filter @vultra/cli build
 
+      - name: Rewrite workspace:* deps to versions
+        run: ./scripts/stage-publish.sh --rewrite-only
+
       - name: Stage publish (9 existing packages)
         run: |
           for pkg in tokens core md3 flat cli grid-core data-table editor-core image-editor; do

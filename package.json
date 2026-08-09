@@ -16,6 +16,9 @@
     "lint": "pnpm -r run lint",
     "format": "prettier --write .",
     "version": "changeset version",
+    "changeset": "changeset",
+    "publish": "changeset publish",
+    "stage:apply": "npm stage apply",
     "cli": "pnpm --filter @vultra/cli build",
     "generate:registry": "pnpm --filter @vultra/cli generate:registry"
   },
