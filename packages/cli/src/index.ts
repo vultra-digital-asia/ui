@@ -90,13 +90,14 @@ program
 			const mode = opts.mode ?? 'copy';
 			try {
 				const registry = await loadRegistry();
-				const known = new Set(registry.components.map((c) => c.name));
-				const unknown = components.filter((c) => !known.has(c));
+				const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+				const known = new Set(registry.components.map((c) => norm(c.name)));
+				const unknown = components.filter((c) => !known.has(norm(c)));
 				if (unknown.length > 0) {
 					console.error(
 						`Unknown component${unknown.length > 1 ? 's' : ''}: ${unknown.join(', ')}`,
 					);
-					console.error(`Available: ${[...known].sort().join(', ')}`);
+					console.error(`Available: ${registry.components.map((c) => c.name).sort().join(', ')}`);
 					process.exit(1);
 				}
 

@@ -25,15 +25,32 @@ export function syncDependencies(
 		return { added: {}, hasPackageJson: false };
 	}
 
-	// Map every registry component to its required runtime deps
+	// Map every registry component to its source package's runtime deps.
+	// Components carry their monorepo package (core|md3|flat); deps come
+	// from that package's package.json — not a shared core dep list.
+	const depCache = new Map<string, Record<string, string>>();
+	const pkgDeps = (pkgName: string): Record<string, string> => {
+		if (depCache.has(pkgName)) return depCache.get(pkgName)!;
+		const pj = join(monorepoRoot(), 'packages', pkgName, PKG_JSON);
+		const deps = existsSync(pj)
+			? readJson<{ dependencies?: Record<string, string> }>(pj).dependencies ?? {}
+			: {};
+		depCache.set(pkgName, deps);
+		return deps;
+	};
 	const depMap = new Map<string, Record<string, string>>();
 	for (const comp of registry.components) {
-		const pkg = readJson<{ dependencies?: Record<string, string> }>(
-			join(monorepoRoot(), 'packages', 'core', PKG_JSON),
-		);
-		depMap.set(comp.name, pkg.dependencies ?? {});
+		depMap.set(comp.name, pkgDeps(comp.package ?? 'core'));
 	}
 
+	// Resolve workspace:* specs to concrete versions so consumers installing
+	// from npm can resolve them (workspace:* is pnpm-only).
+	const resolveWorkspace = (spec: string): string => {
+		if (!spec.startsWith('workspace:')) return spec;
+		const rest = spec.slice('workspace:'.length);
+		// workspace:^x.y.z -> ^x.y.z (keep range); wildcard falls back to 'latest'
+		return rest === '*' || rest === '~' || rest === '^' ? 'latest' : rest;
+	};
 	const pkg = readJson<{ dependencies?: Record<string, string> }>(pkgPath);
 	const deps = pkg.dependencies ?? {};
 	const added: Record<string, string> = {};
@@ -41,11 +58,9 @@ export function syncDependencies(
 		const required = depMap.get(name) ?? {};
 		for (const [dep, version] of Object.entries(required)) {
 			if (deps[dep] === undefined && added[dep] === undefined) {
-				added[dep] = version;
+				added[dep] = resolveWorkspace(version);
 			}
 		}
-	}
-	if (Object.keys(added).length > 0) {
 		pkg.dependencies = { ...deps, ...added };
 		writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
 	}

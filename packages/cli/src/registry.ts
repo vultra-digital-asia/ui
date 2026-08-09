@@ -21,6 +21,8 @@ export interface RegistryComponent {
 	isComponent: boolean;
 	entry?: string;
 	props?: RegistryProp[];
+	/** Source package in the monorepo (core|md3|flat); defaults to core. */
+	package?: string;
 }
 
 export interface Registry {
@@ -59,9 +61,7 @@ export async function loadRegistry(): Promise<Registry> {
 	}
 
 	if (!existsSync(DEFAULT_LOCAL_REGISTRY)) {
-		throw new Error(
-			'Registry not found. Run the generator: pnpm --filter @vultra/cli generate:registry',
-		);
+		throw new Error('Local registry not found. Run `pnpm generate:registry` first.');
 	}
 	return JSON.parse(readFileSync(DEFAULT_LOCAL_REGISTRY, 'utf8')) as Registry;
 }

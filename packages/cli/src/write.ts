@@ -14,15 +14,17 @@ export function componentTargetPath(root: string, entry: string): string {
 	return join(root, 'src', 'lib', 'components', ...entry.split('/'));
 }
 
-/** Absolute source path inside the monorepo core package. */
+/** Absolute source path inside the monorepo for a component file entry.
+ * Registry components carry their source package (core|md3|flat). */
 export function coreSourcePath(
 	monorepoRoot: string,
 	entry: string,
+	pkg = 'core',
 ): string {
 	return join(
 		monorepoRoot,
 		'packages',
-		'core',
+		pkg,
 		'src',
 		'lib',
 		'components',
@@ -112,7 +114,7 @@ export function writeComponent(
 	const written: string[] = [];
 	const skipped: string[] = [];
 	for (const entry of component.files) {
-		const srcPath = coreSourcePath(monorepoRoot, entry);
+		const srcPath = coreSourcePath(monorepoRoot, entry, component.package);
 		const target = componentTargetPath(opts.root, entry);
 		const targetRel = relative(opts.root, target);
 
