@@ -17,13 +17,7 @@ const preview = {
       ]
     }
   },
-  decorators: [
-    (story) => {
-      return {
-        template: `<div data-ui-theme="neutral" style="min-height: 100vh; padding: 2rem;">${story()}</div>`
-      };
-    }
-  ]
+  decorators: []
 };
 
 export default preview;

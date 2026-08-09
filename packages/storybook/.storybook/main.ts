@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { dirname, join } from 'path';
-import type { StorybookConfig } from '@storybook/sveltekit';
+import type { StorybookConfig } from '@storybook/svelte-vite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -9,13 +9,11 @@ const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.@(js|ts)'],
   addons: [],
   framework: {
-    name: '@storybook/sveltekit',
+    name: '@storybook/svelte-vite',
     options: {}
   },
   svelte: {
-    compilerOptions: {
-      runes: true
-    }
+    compilerOptions: {}
   },
   viteFinal: async (config) => {
     config.resolve = config.resolve || {};
@@ -24,8 +22,10 @@ const config: StorybookConfig = {
     const storybookDir = __dirname;
     const rootDir = join(storybookDir, '../..');
 
+    // Components inside packages import their own utils via $lib
+    config.resolve.alias['$lib'] = join(rootDir, 'core/src/lib');
     config.resolve.alias['@vultra/tokens'] = join(rootDir, 'tokens/src/base.css');
-    config.resolve.alias['@vultra/ui'] = join(rootDir, 'core/src/lib/index.ts');
+    config.resolve.alias['@vultra/grid-core/utils'] = join(rootDir, 'grid-core/src/lib/utils.ts');
     config.resolve.alias['@vultra/grid-core'] = join(rootDir, 'grid-core/src/lib/index.ts');
     config.resolve.alias['@vultra/data-table'] = join(rootDir, 'data-table/src/lib/index.ts');
     config.resolve.alias['@vultra/charts'] = join(rootDir, 'charts/src/lib/index.ts');

@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@storybook/svelte": "^10.5.5",
-    "@storybook/sveltekit": "^10.5.5",
+    "@storybook/svelte-vite": "10.5.5",
     "@sveltejs/vite-plugin-svelte": "5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
