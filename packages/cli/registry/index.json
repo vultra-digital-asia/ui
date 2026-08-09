@@ -1,6 +1,6 @@
 {
   "schema": "v2",
-  "generatedAt": "2026-08-07T02:31:23.575Z",
+  "generatedAt": "2026-08-09T21:55:21.498Z",
   "components": [
     {
       "name": "accordion",
@@ -33,7 +33,55 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "actionsheet",
+      "description": "Actionsheet component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "actionsheet"
+      ],
+      "files": [
+        "actionsheet/ActionSheet.svelte",
+        "actionsheet/ActionSheetItem.svelte",
+        "actionsheet/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "actionsheet/index.ts",
+      "isComponent": true,
+      "entry": "actionsheet/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "cancelLabel",
+          "type": "string",
+          "default": "Cancel"
+        },
+        {
+          "name": "showCancel",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "onclose",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "alert",
@@ -73,7 +121,8 @@
             "destructive"
           ]
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "alert-dialog",
@@ -113,7 +162,49 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "ArrowCard",
+      "description": "ArrowCard component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "ArrowCard"
+      ],
+      "files": [
+        "ArrowCard/ArrowCard.svelte",
+        "ArrowCard/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "ArrowCard/ArrowCard.svelte",
+      "mainTs": "ArrowCard/index.ts",
+      "isComponent": true,
+      "entry": "ArrowCard/index.ts",
+      "props": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "default": "right"
+        },
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "blue"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "aside",
@@ -140,7 +231,8 @@
           "name": "'aria-label'",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "aspect-ratio",
@@ -160,7 +252,8 @@
       "mainTs": "aspect-ratio/index.ts",
       "isComponent": true,
       "entry": "aspect-ratio/index.ts",
-      "props": []
+      "props": [],
+      "package": "core"
     },
     {
       "name": "avatar",
@@ -201,7 +294,8 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "avatar-group",
@@ -239,7 +333,47 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "avatarstack",
+      "description": "Maximum avatars shown before collapsing into a +N badge.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "avatarstack"
+      ],
+      "files": [
+        "avatarstack/AvatarStack.svelte",
+        "avatarstack/AvatarStack.test.ts",
+        "avatarstack/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "avatarstack/index.ts",
+      "isComponent": true,
+      "entry": "avatarstack/index.ts",
+      "props": [
+        {
+          "name": "srcs",
+          "type": "string[]"
+        },
+        {
+          "name": "max",
+          "type": "any",
+          "default": 5
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "md"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "badge",
@@ -283,7 +417,54 @@
             "link"
           ]
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "Badge",
+      "description": "Badge component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "Badge"
+      ],
+      "files": [
+        "Badge/Badge.svelte",
+        "Badge/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "Badge/Badge.svelte",
+      "mainTs": "Badge/index.ts",
+      "isComponent": true,
+      "entry": "Badge/index.ts",
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "dot",
+          "values": [
+            "dot",
+            "number",
+            "icon"
+          ]
+        },
+        {
+          "name": "count",
+          "type": "number"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "default": 99
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
     },
     {
       "name": "barcode",
@@ -330,7 +511,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "bento-grid",
@@ -367,7 +549,98 @@
             "4"
           ]
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "BlobCard",
+      "description": "BlobCard component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "BlobCard"
+      ],
+      "files": [
+        "BlobCard/BlobCard.svelte",
+        "BlobCard/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "BlobCard/BlobCard.svelte",
+      "mainTs": "BlobCard/index.ts",
+      "isComponent": true,
+      "entry": "BlobCard/index.ts",
+      "props": [
+        {
+          "name": "color",
+          "type": "string",
+          "default": "blue",
+          "values": [
+            "red",
+            "blue",
+            "green",
+            "purple",
+            "pink",
+            "orange",
+            "teal"
+          ]
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
+    },
+    {
+      "name": "BottomSheet",
+      "description": "Whether the bottom sheet is visible",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "BottomSheet"
+      ],
+      "files": [
+        "BottomSheet/BottomSheet.svelte",
+        "BottomSheet/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "BottomSheet/BottomSheet.svelte",
+      "mainTs": "BottomSheet/index.ts",
+      "isComponent": true,
+      "entry": "BottomSheet/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "variant",
+          "type": "any",
+          "default": "standard"
+        },
+        {
+          "name": "title",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ],
+      "package": "md3"
     },
     {
       "name": "box",
@@ -400,7 +673,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "breadcrumb",
@@ -432,7 +706,8 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "button",
@@ -499,7 +774,8 @@
           "name": "disabled",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "calendar",
@@ -546,7 +822,46 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "camera",
+      "description": "Camera component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "camera"
+      ],
+      "files": [
+        "camera/CameraCapture.svelte",
+        "camera/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "camera/index.ts",
+      "isComponent": true,
+      "entry": "camera/index.ts",
+      "props": [
+        {
+          "name": "facing",
+          "type": "'user' | 'environment'",
+          "default": "user"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "default": 640
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onCapture",
+          "type": "any"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "card",
@@ -575,7 +890,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "carousel",
@@ -621,7 +937,8 @@
           "type": "boolean",
           "default": true
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "charts",
@@ -657,7 +974,8 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "checkbox",
@@ -702,7 +1020,198 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "Chip",
+      "description": "Chip component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "Chip"
+      ],
+      "files": [
+        "Chip/Chip.svelte",
+        "Chip/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "Chip/Chip.svelte",
+      "mainTs": "Chip/index.ts",
+      "isComponent": true,
+      "entry": "Chip/index.ts",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'assist' | 'filter' | 'input' | 'suggestion'",
+          "default": "assist"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "icon",
+          "type": "Snippet"
+        },
+        {
+          "name": "trailingIcon",
+          "type": "Snippet"
+        },
+        {
+          "name": "onclick",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
+    },
+    {
+      "name": "CircleAvatar",
+      "description": "CircleAvatar component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "CircleAvatar"
+      ],
+      "files": [
+        "CircleAvatar/CircleAvatar.svelte",
+        "CircleAvatar/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "CircleAvatar/CircleAvatar.svelte",
+      "mainTs": "CircleAvatar/index.ts",
+      "isComponent": true,
+      "entry": "CircleAvatar/index.ts",
+      "props": [
+        {
+          "name": "src",
+          "type": "string"
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "initials",
+          "type": "string"
+        },
+        {
+          "name": "ringColor",
+          "type": "'red' | 'blue' | 'green' | 'purple' | 'pink' | 'orange' | 'teal'",
+          "default": "blue"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg' | 'xl'",
+          "default": "md"
+        },
+        {
+          "name": "ringWidth",
+          "type": "string",
+          "default": "4px"
+        },
+        {
+          "name": "class",
+          "type": "string",
+          "default": ""
+        }
+      ],
+      "package": "flat"
+    },
+    {
+      "name": "CircleGrid",
+      "description": "CircleGrid component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "CircleGrid"
+      ],
+      "files": [
+        "CircleGrid/CircleGrid.svelte",
+        "CircleGrid/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "CircleGrid/CircleGrid.svelte",
+      "mainTs": "CircleGrid/index.ts",
+      "isComponent": true,
+      "entry": "CircleGrid/index.ts",
+      "props": [
+        {
+          "name": "count",
+          "type": "number",
+          "default": 6
+        },
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "blue"
+        },
+        {
+          "name": "size",
+          "type": "Size",
+          "default": "md"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
+    },
+    {
+      "name": "clipboard",
+      "description": "Clipboard component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "clipboard"
+      ],
+      "files": [
+        "clipboard/ClipboardButton.svelte",
+        "clipboard/ClipboardButton.test.ts",
+        "clipboard/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "clipboard/index.ts",
+      "isComponent": true,
+      "entry": "clipboard/index.ts",
+      "props": [
+        {
+          "name": "text",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "Copy"
+        },
+        {
+          "name": "copiedLabel",
+          "type": "string",
+          "default": "Copied!"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onCopied",
+          "type": "any"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "code-block",
@@ -741,7 +1250,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "collapsible",
@@ -768,7 +1278,8 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "color-picker",
@@ -802,7 +1313,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "combobox",
@@ -855,7 +1367,8 @@
           "name": "onChange",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "command",
@@ -902,7 +1415,62 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "comment",
+      "description": "Comment component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "comment"
+      ],
+      "files": [
+        "comment/CommentSection.svelte",
+        "comment/CommentSection.test.ts",
+        "comment/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "comment/index.ts",
+      "isComponent": true,
+      "entry": "comment/index.ts",
+      "props": [
+        {
+          "name": "comments",
+          "type": "CommentItem[]"
+        },
+        {
+          "name": "onAddComment",
+          "type": "any"
+        },
+        {
+          "name": "onLike",
+          "type": "any"
+        },
+        {
+          "name": "onDelete",
+          "type": "any"
+        },
+        {
+          "name": "currentUser",
+          "type": "string"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Add a comment…"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "commentClass",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "context-menu",
@@ -945,7 +1513,8 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "copy-to-clipboard",
@@ -989,7 +1558,49 @@
           "name": "onCopy",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "CrossBadge",
+      "description": "CrossBadge component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "CrossBadge"
+      ],
+      "files": [
+        "CrossBadge/CrossBadge.svelte",
+        "CrossBadge/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "CrossBadge/CrossBadge.svelte",
+      "mainTs": "CrossBadge/index.ts",
+      "isComponent": true,
+      "entry": "CrossBadge/index.ts",
+      "props": [
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "red"
+        },
+        {
+          "name": "size",
+          "type": "Size",
+          "default": "md"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "cta-section",
@@ -1026,7 +1637,8 @@
             "muted"
           ]
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "data-table",
@@ -1071,7 +1683,8 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "date-picker",
@@ -1124,7 +1737,8 @@
           "name": "onValueChange",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "datetime-picker",
@@ -1167,7 +1781,8 @@
           "name": "onChange",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "details",
@@ -1196,7 +1811,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "dialog",
@@ -1233,7 +1849,49 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "DiamondBadge",
+      "description": "DiamondBadge component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "DiamondBadge"
+      ],
+      "files": [
+        "DiamondBadge/DiamondBadge.svelte",
+        "DiamondBadge/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "DiamondBadge/DiamondBadge.svelte",
+      "mainTs": "DiamondBadge/index.ts",
+      "isComponent": true,
+      "entry": "DiamondBadge/index.ts",
+      "props": [
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "red"
+        },
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "size",
+          "type": "Size",
+          "default": "md"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "divider",
@@ -1261,7 +1919,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "drawer",
@@ -1299,7 +1958,8 @@
           "type": "any",
           "default": "button"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "dropdown-menu",
@@ -1343,7 +2003,97 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "editable-label",
+      "description": "Element used to render the label while not editing.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "editable",
+        "label"
+      ],
+      "files": [
+        "editable-label/EditableLabel.svelte",
+        "editable-label/EditableLabel.test.ts",
+        "editable-label/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "editable-label/index.ts",
+      "isComponent": true,
+      "entry": "editable-label/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Click to edit"
+        },
+        {
+          "name": "as",
+          "type": "any",
+          "default": "span"
+        },
+        {
+          "name": "onEdit",
+          "type": "any"
+        },
+        {
+          "name": "maxLength",
+          "type": "number"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
+    },
+    {
+      "name": "EllipseBadge",
+      "description": "EllipseBadge component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "EllipseBadge"
+      ],
+      "files": [
+        "EllipseBadge/EllipseBadge.svelte",
+        "EllipseBadge/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "EllipseBadge/EllipseBadge.svelte",
+      "mainTs": "EllipseBadge/index.ts",
+      "isComponent": true,
+      "entry": "EllipseBadge/index.ts",
+      "props": [
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "blue"
+        },
+        {
+          "name": "size",
+          "type": "Size",
+          "default": "md"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "emoji",
@@ -1367,7 +2117,8 @@
           "name": "onClose",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "empty-state",
@@ -1409,7 +2160,104 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "FAB",
+      "description": "FAB component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "FAB"
+      ],
+      "files": [
+        "FAB/FAB.svelte",
+        "FAB/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "FAB/FAB.svelte",
+      "mainTs": "FAB/index.ts",
+      "isComponent": true,
+      "entry": "FAB/index.ts",
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "elevated",
+          "values": [
+            "elevated",
+            "surface",
+            "tertiary"
+          ]
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "default": "large",
+          "values": [
+            "small",
+            "large"
+          ]
+        },
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "icon",
+          "type": "Snippet"
+        },
+        {
+          "name": "onclick",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
+    },
+    {
+      "name": "fabmenu",
+      "description": "Accessible name for the speed-dial group.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "fabmenu"
+      ],
+      "files": [
+        "fabmenu/FabMenu.svelte",
+        "fabmenu/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "fabmenu/index.ts",
+      "isComponent": true,
+      "entry": "fabmenu/index.ts",
+      "props": [
+        {
+          "name": "items",
+          "type": "any"
+        },
+        {
+          "name": "position",
+          "type": "'bottom-right' | 'bottom-left'",
+          "default": "bottom-right"
+        },
+        {
+          "name": "label",
+          "type": "any",
+          "default": "Actions"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "feature-grid",
@@ -1446,7 +2294,8 @@
             "4"
           ]
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "figure",
@@ -1470,7 +2319,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "file-uploader",
@@ -1526,7 +2376,8 @@
           "name": "onFilesChange",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "flex",
@@ -1538,6 +2389,7 @@
       ],
       "files": [
         "flex/Flex.svelte",
+        "flex/Flex.test.ts",
         "flex/index.ts"
       ],
       "deps": [],
@@ -1574,7 +2426,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "footer",
@@ -1600,7 +2453,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "form",
@@ -1629,7 +2483,51 @@
       "mainTs": "form/index.ts",
       "isComponent": true,
       "entry": "form/index.ts",
-      "props": []
+      "props": [],
+      "package": "core"
+    },
+    {
+      "name": "gallery",
+      "description": "Gallery component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "gallery"
+      ],
+      "files": [
+        "gallery/GalleryPicker.svelte",
+        "gallery/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "gallery/index.ts",
+      "isComponent": true,
+      "entry": "gallery/index.ts",
+      "props": [
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "accept",
+          "type": "string",
+          "default": "image/*"
+        },
+        {
+          "name": "maxFiles",
+          "type": "number",
+          "default": 10
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onSelect",
+          "type": "any"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "grid",
@@ -1641,6 +2539,7 @@
       ],
       "files": [
         "grid/Grid.svelte",
+        "grid/Grid.test.ts",
         "grid/index.ts"
       ],
       "deps": [],
@@ -1674,7 +2573,99 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "gyroscope",
+      "description": "Gyroscope component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "gyroscope"
+      ],
+      "files": [
+        "gyroscope/Gyroscope.svelte",
+        "gyroscope/Gyroscope.test.ts",
+        "gyroscope/gyro-debug.test.ts",
+        "gyroscope/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "gyroscope/index.ts",
+      "isComponent": true,
+      "entry": "gyroscope/index.ts",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "sensitivity",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onReading",
+          "type": "any"
+        }
+      ],
+      "package": "core"
+    },
+    {
+      "name": "heatmap",
+      "description": "CSS color stops used to interpolate cell intensity (low → high).",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "heatmap"
+      ],
+      "files": [
+        "heatmap/Heatmap.svelte",
+        "heatmap/Heatmap.test.ts",
+        "heatmap/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "heatmap/index.ts",
+      "isComponent": true,
+      "entry": "heatmap/index.ts",
+      "props": [
+        {
+          "name": "data",
+          "type": "HeatmapCell[]"
+        },
+        {
+          "name": "colorScale",
+          "type": "any"
+        },
+        {
+          "name": "xLabels",
+          "type": "any"
+        },
+        {
+          "name": "yLabels",
+          "type": "any"
+        },
+        {
+          "name": "showLegend",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "cellSize",
+          "type": "string",
+          "default": "h-8 w-8"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "hero",
@@ -1720,7 +2711,50 @@
             "lg"
           ]
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "HexagonGrid",
+      "description": "HexagonGrid component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "HexagonGrid"
+      ],
+      "files": [
+        "HexagonGrid/HexagonGrid.svelte",
+        "HexagonGrid/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "HexagonGrid/HexagonGrid.svelte",
+      "mainTs": "HexagonGrid/index.ts",
+      "isComponent": true,
+      "entry": "HexagonGrid/index.ts",
+      "props": [
+        {
+          "name": "columns",
+          "type": "string",
+          "default": 3,
+          "values": [
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "name": "gap",
+          "type": "string",
+          "default": "1rem"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "hover-card",
@@ -1751,7 +2785,8 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "infinite-scroll",
@@ -1803,7 +2838,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "input",
@@ -1847,7 +2883,8 @@
           "type": "any",
           "default": "input"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "input-group",
@@ -1882,7 +2919,8 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "kanban",
@@ -1915,7 +2953,8 @@
           "name": "onCardMove",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "label",
@@ -1941,7 +2980,103 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "listview",
+      "description": "Icon or content rendered on the left, before the text.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "listview"
+      ],
+      "files": [
+        "listview/ListItem.svelte",
+        "listview/ListView.svelte",
+        "listview/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "listview/index.ts",
+      "isComponent": true,
+      "entry": "listview/index.ts",
+      "props": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "leading",
+          "type": "any"
+        },
+        {
+          "name": "trailing",
+          "type": "any"
+        },
+        {
+          "name": "chevron",
+          "type": "any",
+          "default": false
+        },
+        {
+          "name": "onclick",
+          "type": "any"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
+    },
+    {
+      "name": "live-badge",
+      "description": "Optional viewer count shown next to the badge.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "live",
+        "badge"
+      ],
+      "files": [
+        "live-badge/LiveBadge.svelte",
+        "live-badge/LiveBadge.test.ts",
+        "live-badge/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "live-badge/index.ts",
+      "isComponent": true,
+      "entry": "live-badge/index.ts",
+      "props": [
+        {
+          "name": "viewers",
+          "type": "any"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": "LIVE"
+        },
+        {
+          "name": "pulsing",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "logo-cloud",
@@ -1969,7 +3104,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "main",
@@ -1992,7 +3128,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "markdown-renderer",
@@ -2021,7 +3158,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "mention",
@@ -2062,7 +3200,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "menubar",
@@ -2094,7 +3233,70 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "mobile-toast",
+      "description": "Mobile Toast component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "mobile",
+        "toast"
+      ],
+      "files": [
+        "mobile-toast/MobileToast.svelte",
+        "mobile-toast/MobileToast.test.ts",
+        "mobile-toast/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "mobile-toast/index.ts",
+      "isComponent": true,
+      "entry": "mobile-toast/index.ts",
+      "props": [
+        {
+          "name": "message",
+          "type": "string"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'success' | 'error' | 'warning'",
+          "default": "default"
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": 4000
+        },
+        {
+          "name": "position",
+          "type": "'bottom' | 'top'",
+          "default": "bottom"
+        },
+        {
+          "name": "action",
+          "type": "string"
+        },
+        {
+          "name": "onAction",
+          "type": "any"
+        },
+        {
+          "name": "ondismiss",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "navbar",
@@ -2128,7 +3330,8 @@
           "name": "links",
           "type": "import('svelte').Snippet"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "navigation-menu",
@@ -2166,7 +3369,116 @@
           "type": "any",
           "default": true
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "NavigationBar",
+      "description": "NavigationBar component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "NavigationBar"
+      ],
+      "files": [
+        "NavigationBar/NavigationBar.svelte",
+        "NavigationBar/NavigationBarItem.svelte",
+        "NavigationBar/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "NavigationBar/NavigationBar.svelte",
+      "mainTs": "NavigationBar/index.ts",
+      "isComponent": true,
+      "entry": "NavigationBar/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
+    },
+    {
+      "name": "NavigationRail",
+      "description": "NavigationRail component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "NavigationRail"
+      ],
+      "files": [
+        "NavigationRail/NavigationRail.svelte",
+        "NavigationRail/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "NavigationRail/NavigationRail.svelte",
+      "mainTs": "NavigationRail/index.ts",
+      "isComponent": true,
+      "entry": "NavigationRail/index.ts",
+      "props": [
+        {
+          "name": "items",
+          "type": "NavigationItem[]"
+        },
+        {
+          "name": "fab",
+          "type": "Snippet"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
+    },
+    {
+      "name": "notification",
+      "description": "Notification component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "notification"
+      ],
+      "files": [
+        "notification/NotificationButton.svelte",
+        "notification/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "notification/index.ts",
+      "isComponent": true,
+      "entry": "notification/index.ts",
+      "props": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "icon",
+          "type": "string"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "onClick",
+          "type": "any"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "number-input",
@@ -2237,7 +3549,48 @@
           "name": "onchange",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "OctagonCard",
+      "description": "OctagonCard component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "OctagonCard"
+      ],
+      "files": [
+        "OctagonCard/OctagonCard.svelte",
+        "OctagonCard/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "OctagonCard/OctagonCard.svelte",
+      "mainTs": "OctagonCard/index.ts",
+      "isComponent": true,
+      "entry": "OctagonCard/index.ts",
+      "props": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "blue"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "otp-input",
@@ -2280,7 +3633,8 @@
           "name": "onComplete",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "pagination",
@@ -2335,7 +3689,44 @@
           "type": "any",
           "default": 1
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "ParallelogramCard",
+      "description": "ParallelogramCard component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "ParallelogramCard"
+      ],
+      "files": [
+        "ParallelogramCard/ParallelogramCard.svelte",
+        "ParallelogramCard/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "ParallelogramCard/ParallelogramCard.svelte",
+      "mainTs": "ParallelogramCard/index.ts",
+      "isComponent": true,
+      "entry": "ParallelogramCard/index.ts",
+      "props": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "blue"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "password-input",
@@ -2379,7 +3770,53 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "PentagonStat",
+      "description": "PentagonStat component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "PentagonStat"
+      ],
+      "files": [
+        "PentagonStat/PentagonStat.svelte",
+        "PentagonStat/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "PentagonStat/PentagonStat.svelte",
+      "mainTs": "PentagonStat/index.ts",
+      "isComponent": true,
+      "entry": "PentagonStat/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "blue"
+        },
+        {
+          "name": "size",
+          "type": "Size",
+          "default": "md"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "popover",
@@ -2413,7 +3850,8 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "pricing-card",
@@ -2449,7 +3887,8 @@
             "featured"
           ]
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "pricing-table",
@@ -2505,7 +3944,8 @@
           "name": "cta",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "progress",
@@ -2540,7 +3980,116 @@
           "name": "value",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "progress-steps",
+      "description": "Currently active (0-based) step index.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "progress",
+        "steps"
+      ],
+      "files": [
+        "progress-steps/ProgressSteps.svelte",
+        "progress-steps/ProgressSteps.test.ts",
+        "progress-steps/ProgressStepsTest.svelte",
+        "progress-steps/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "progress-steps/index.ts",
+      "isComponent": true,
+      "entry": "progress-steps/index.ts",
+      "props": [
+        {
+          "name": "steps",
+          "type": "Step[]"
+        },
+        {
+          "name": "current",
+          "type": "any"
+        },
+        {
+          "name": "completed",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
+    },
+    {
+      "name": "ProgressIndicator",
+      "description": "ProgressIndicator component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "ProgressIndicator"
+      ],
+      "files": [
+        "ProgressIndicator/ProgressIndicator.svelte",
+        "ProgressIndicator/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "ProgressIndicator/ProgressIndicator.svelte",
+      "mainTs": "ProgressIndicator/index.ts",
+      "isComponent": true,
+      "entry": "ProgressIndicator/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "number"
+        },
+        {
+          "name": "variant",
+          "type": "'linear' | 'circular'",
+          "default": "linear"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
+    },
+    {
+      "name": "pulltorefresh",
+      "description": "Pulltorefresh component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "pulltorefresh"
+      ],
+      "files": [
+        "pulltorefresh/PullToRefresh.svelte",
+        "pulltorefresh/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "pulltorefresh/index.ts",
+      "isComponent": true,
+      "entry": "pulltorefresh/index.ts",
+      "props": [
+        {
+          "name": "onRefresh",
+          "type": "any"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "qr-code",
@@ -2592,7 +4141,55 @@
           "name": "onReady",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "Radio",
+      "description": "Radio component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "Radio"
+      ],
+      "files": [
+        "Radio/Radio.svelte",
+        "Radio/RadioGroup.svelte",
+        "Radio/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "Radio/Radio.svelte",
+      "mainTs": "Radio/index.ts",
+      "isComponent": true,
+      "entry": "Radio/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "checked",
+          "type": "string",
+          "default": false,
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
     },
     {
       "name": "radio-group",
@@ -2625,7 +4222,8 @@
           "type": "any",
           "default": ""
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "rating",
@@ -2677,7 +4275,51 @@
           "name": "onchange",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "reaction-bar",
+      "description": "Currently selected reaction id.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "reaction",
+        "bar"
+      ],
+      "files": [
+        "reaction-bar/ReactionBar.svelte",
+        "reaction-bar/ReactionBar.test.ts",
+        "reaction-bar/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "reaction-bar/index.ts",
+      "isComponent": true,
+      "entry": "reaction-bar/index.ts",
+      "props": [
+        {
+          "name": "reactions",
+          "type": "Reaction[]"
+        },
+        {
+          "name": "onReact",
+          "type": "any"
+        },
+        {
+          "name": "selected",
+          "type": "any"
+        },
+        {
+          "name": "allowDeselect",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "resizable",
@@ -2717,7 +4359,40 @@
           "type": "boolean",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "Ripple",
+      "description": "Ripple component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "Ripple"
+      ],
+      "files": [
+        "Ripple/Ripple.svelte",
+        "Ripple/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "Ripple/Ripple.svelte",
+      "mainTs": "Ripple/index.ts",
+      "isComponent": true,
+      "entry": "Ripple/index.ts",
+      "props": [
+        {
+          "name": "color",
+          "type": "any",
+          "default": "currentColor"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        }
+      ],
+      "package": "md3"
     },
     {
       "name": "scroll-area",
@@ -2764,7 +4439,8 @@
           "type": "any",
           "default": ""
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "search-select",
@@ -2841,7 +4517,53 @@
           "name": "onSearch",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "SearchBar",
+      "description": "SearchBar component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "SearchBar"
+      ],
+      "files": [
+        "SearchBar/SearchBar.svelte",
+        "SearchBar/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "SearchBar/SearchBar.svelte",
+      "mainTs": "SearchBar/index.ts",
+      "isComponent": true,
+      "entry": "SearchBar/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": "Search"
+        },
+        {
+          "name": "leadingIcon",
+          "type": "Snippet"
+        },
+        {
+          "name": "trailingIcon",
+          "type": "Snippet"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
     },
     {
       "name": "section",
@@ -2868,7 +4590,8 @@
           "name": "'aria-labelledby'",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "section-header",
@@ -2906,7 +4629,78 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "SegmentedButton",
+      "description": "SegmentedButton component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "SegmentedButton"
+      ],
+      "files": [
+        "SegmentedButton/SegmentedButton.svelte",
+        "SegmentedButton/SegmentedButtonItem.svelte",
+        "SegmentedButton/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "SegmentedButton/SegmentedButton.svelte",
+      "mainTs": "SegmentedButton/index.ts",
+      "isComponent": true,
+      "entry": "SegmentedButton/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string | string[]"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
+    },
+    {
+      "name": "segmentedcontrol",
+      "description": "Segmentedcontrol component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "segmentedcontrol"
+      ],
+      "files": [
+        "segmentedcontrol/SegmentedControl.svelte",
+        "segmentedcontrol/SegmentedControl.test.ts",
+        "segmentedcontrol/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "segmentedcontrol/index.ts",
+      "isComponent": true,
+      "entry": "segmentedcontrol/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string | number"
+        },
+        {
+          "name": "options",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "select",
@@ -2948,7 +4742,8 @@
           "name": "value",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "separator",
@@ -2979,7 +4774,8 @@
           "type": "any",
           "default": "separator"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "sheet",
@@ -3016,7 +4812,8 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "sidebar",
@@ -3053,7 +4850,8 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "signature-pad",
@@ -3106,7 +4904,8 @@
           "name": "onSign",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "skeleton",
@@ -3132,7 +4931,54 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "slidemenu",
+      "description": "Which edge the drawer slides in from.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "slidemenu"
+      ],
+      "files": [
+        "slidemenu/SlideMenu.svelte",
+        "slidemenu/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "slidemenu/index.ts",
+      "isComponent": true,
+      "entry": "slidemenu/index.ts",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean"
+        },
+        {
+          "name": "side",
+          "type": "any",
+          "default": "left"
+        },
+        {
+          "name": "overlay",
+          "type": "any",
+          "default": true
+        },
+        {
+          "name": "title",
+          "type": "any"
+        },
+        {
+          "name": "onclose",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "slider",
@@ -3201,7 +5047,57 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "Snackbar",
+      "description": "Snackbar component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "Snackbar"
+      ],
+      "files": [
+        "Snackbar/Snackbar.svelte",
+        "Snackbar/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "Snackbar/Snackbar.svelte",
+      "mainTs": "Snackbar/index.ts",
+      "isComponent": true,
+      "entry": "Snackbar/index.ts",
+      "props": [
+        {
+          "name": "message",
+          "type": "any"
+        },
+        {
+          "name": "action",
+          "type": "any"
+        },
+        {
+          "name": "onaction",
+          "type": "any"
+        },
+        {
+          "name": "ondismiss",
+          "type": "any"
+        },
+        {
+          "name": "duration",
+          "type": "any",
+          "default": 5000
+        },
+        {
+          "name": "show",
+          "type": "any",
+          "default": false
+        }
+      ],
+      "package": "md3"
     },
     {
       "name": "split-view",
@@ -3253,7 +5149,8 @@
           "name": "second",
           "type": "import('svelte').Snippet"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "stack",
@@ -3265,6 +5162,7 @@
       ],
       "files": [
         "stack/Stack.svelte",
+        "stack/Stack.test.ts",
         "stack/index.ts"
       ],
       "deps": [],
@@ -3286,7 +5184,53 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "StarCard",
+      "description": "StarCard component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "StarCard"
+      ],
+      "files": [
+        "StarCard/StarCard.svelte",
+        "StarCard/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "StarCard/StarCard.svelte",
+      "mainTs": "StarCard/index.ts",
+      "isComponent": true,
+      "entry": "StarCard/index.ts",
+      "props": [
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "'red' | 'blue' | 'green' | 'purple' | 'pink' | 'yellow' | 'orange'",
+          "default": "yellow"
+        },
+        {
+          "name": "size",
+          "type": "'md' | 'lg'",
+          "default": "md"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "stat-card",
@@ -3334,7 +5278,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "stats",
@@ -3364,7 +5309,8 @@
           "name": "stats",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "stats-counter",
@@ -3415,7 +5361,53 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "status-indicator",
+      "description": "Accessible name when no visible label is rendered.",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "status",
+        "indicator"
+      ],
+      "files": [
+        "status-indicator/StatusIndicator.svelte",
+        "status-indicator/StatusIndicator.test.ts",
+        "status-indicator/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "status-indicator/index.ts",
+      "isComponent": true,
+      "entry": "status-indicator/index.ts",
+      "props": [
+        {
+          "name": "status",
+          "type": "Status",
+          "default": "online"
+        },
+        {
+          "name": "label",
+          "type": "any"
+        },
+        {
+          "name": "customColor",
+          "type": "any",
+          "default": "#22c55e"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "md"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "stepper",
@@ -3456,7 +5448,46 @@
           "name": "onStepChange",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "swipeableitem",
+      "description": "Buttons revealed behind the content (e.g. delete, archive).",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "swipeableitem"
+      ],
+      "files": [
+        "swipeableitem/SwipeableItem.svelte",
+        "swipeableitem/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "swipeableitem/index.ts",
+      "isComponent": true,
+      "entry": "swipeableitem/index.ts",
+      "props": [
+        {
+          "name": "actions",
+          "type": "any"
+        },
+        {
+          "name": "threshold",
+          "type": "any",
+          "default": 80
+        },
+        {
+          "name": "direction",
+          "type": "any",
+          "default": "left"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "switch",
@@ -3492,7 +5523,87 @@
           "type": "any",
           "default": "default"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "Switch",
+      "description": "Switch component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "Switch"
+      ],
+      "files": [
+        "Switch/Switch.svelte",
+        "Switch/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "Switch/Switch.svelte",
+      "mainTs": "Switch/index.ts",
+      "isComponent": true,
+      "entry": "Switch/index.ts",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
+    },
+    {
+      "name": "tabbar",
+      "description": "Tabbar component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "tabbar"
+      ],
+      "files": [
+        "tabbar/TabBar.svelte",
+        "tabbar/TabBar.test.ts",
+        "tabbar/TabBarItem.svelte",
+        "tabbar/TabBarTest.svelte",
+        "tabbar/context.ts",
+        "tabbar/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "tabbar/index.ts",
+      "isComponent": true,
+      "entry": "tabbar/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string | number",
+          "default": ""
+        },
+        {
+          "name": "blur",
+          "type": "string",
+          "default": true,
+          "values": [
+            "true",
+            "false"
+          ]
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "table",
@@ -3525,7 +5636,8 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "tabs",
@@ -3561,7 +5673,8 @@
           "name": "class",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "testimonial",
@@ -3587,7 +5700,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "testimonial-carousel",
@@ -3627,7 +5741,8 @@
           "type": "number",
           "default": 5000
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "textarea",
@@ -3662,7 +5777,77 @@
           "type": "any",
           "default": "textarea"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "TextField",
+      "description": "TextField component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "TextField"
+      ],
+      "files": [
+        "TextField/TextField.svelte",
+        "TextField/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "TextField/TextField.svelte",
+      "mainTs": "TextField/index.ts",
+      "isComponent": true,
+      "entry": "TextField/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "variant",
+          "type": "'filled' | 'outlined'",
+          "default": "filled"
+        },
+        {
+          "name": "error",
+          "type": "string"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "class",
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "default": "text"
+        },
+        {
+          "name": "helperText",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
     },
     {
       "name": "timeline",
@@ -3692,7 +5877,49 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "TimePicker",
+      "description": "Time value in HH:MM format (bindable)",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "TimePicker"
+      ],
+      "files": [
+        "TimePicker/TimePicker.svelte",
+        "TimePicker/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "TimePicker/TimePicker.svelte",
+      "mainTs": "TimePicker/index.ts",
+      "isComponent": true,
+      "entry": "TimePicker/index.ts",
+      "props": [
+        {
+          "name": "value",
+          "type": "any",
+          "default": "12:00"
+        },
+        {
+          "name": "format",
+          "type": "any",
+          "default": "24h"
+        },
+        {
+          "name": "class",
+          "type": "any"
+        },
+        {
+          "name": "onchange",
+          "type": "any"
+        }
+      ],
+      "package": "md3"
     },
     {
       "name": "toast",
@@ -3710,7 +5937,8 @@
       "mainTs": "toast/index.ts",
       "isComponent": true,
       "entry": "toast/index.ts",
-      "props": []
+      "props": [],
+      "package": "core"
     },
     {
       "name": "toggle",
@@ -3760,7 +5988,8 @@
             "outline"
           ]
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "toggle-group",
@@ -3813,7 +6042,8 @@
           "type": "any",
           "default": "default"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "tooltip",
@@ -3844,7 +6074,95 @@
           "type": "any",
           "default": false
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "TopAppBar",
+      "description": "TopAppBar component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "TopAppBar"
+      ],
+      "files": [
+        "TopAppBar/TopAppBar.svelte",
+        "TopAppBar/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "TopAppBar/TopAppBar.svelte",
+      "mainTs": "TopAppBar/index.ts",
+      "isComponent": true,
+      "entry": "TopAppBar/index.ts",
+      "props": [
+        {
+          "name": "variant",
+          "type": "string",
+          "default": "small",
+          "values": [
+            "small",
+            "center",
+            "medium",
+            "large"
+          ]
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "default": ""
+        },
+        {
+          "name": "navigationIcon",
+          "type": "Snippet"
+        },
+        {
+          "name": "actions",
+          "type": "Snippet"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "md3"
+    },
+    {
+      "name": "TrapezoidCard",
+      "description": "TrapezoidCard component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "TrapezoidCard"
+      ],
+      "files": [
+        "TrapezoidCard/TrapezoidCard.svelte",
+        "TrapezoidCard/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "TrapezoidCard/TrapezoidCard.svelte",
+      "mainTs": "TrapezoidCard/index.ts",
+      "isComponent": true,
+      "entry": "TrapezoidCard/index.ts",
+      "props": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "blue"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     },
     {
       "name": "tree-view",
@@ -3895,7 +6213,116 @@
           "name": "onSelect",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "TriangleAlert",
+      "description": "TriangleAlert component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "TriangleAlert"
+      ],
+      "files": [
+        "TriangleAlert/TriangleAlert.svelte",
+        "TriangleAlert/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "TriangleAlert/TriangleAlert.svelte",
+      "mainTs": "TriangleAlert/index.ts",
+      "isComponent": true,
+      "entry": "TriangleAlert/index.ts",
+      "props": [
+        {
+          "name": "message",
+          "type": "string"
+        },
+        {
+          "name": "color",
+          "type": "'red' | 'yellow' | 'orange'",
+          "default": "red"
+        },
+        {
+          "name": "dismissable",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "ondismiss",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
+    },
+    {
+      "name": "user-profile-card",
+      "description": "User Profile Card component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "user",
+        "profile",
+        "card"
+      ],
+      "files": [
+        "user-profile-card/UserProfileCard.svelte",
+        "user-profile-card/index.ts"
+      ],
+      "deps": [],
+      "mainTs": "user-profile-card/index.ts",
+      "isComponent": true,
+      "entry": "user-profile-card/index.ts",
+      "props": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "avatar",
+          "type": "string"
+        },
+        {
+          "name": "role",
+          "type": "string"
+        },
+        {
+          "name": "bio",
+          "type": "string"
+        },
+        {
+          "name": "stats",
+          "type": "ProfileStat[]"
+        },
+        {
+          "name": "socials",
+          "type": "ProfileSocial[]"
+        },
+        {
+          "name": "cover",
+          "type": "string"
+        },
+        {
+          "name": "contactLabel",
+          "type": "string",
+          "default": "Contact"
+        },
+        {
+          "name": "onContact",
+          "type": "any"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "core"
     },
     {
       "name": "validate",
@@ -3908,10 +6335,12 @@
       "files": [
         "validate/FormGroup.svelte",
         "validate/FormInput.svelte",
+        "validate/FormInput.test.ts",
         "validate/FormSelect.svelte",
         "validate/FormTextarea.svelte",
         "validate/ValidationMessage.svelte",
         "validate/index.ts",
+        "validate/validate.test.ts",
         "validate/validate.ts",
         "validate/zod-adapter.ts"
       ],
@@ -3928,7 +6357,8 @@
           "name": "class",
           "type": "string"
         }
-      ]
+      ],
+      "package": "core"
     },
     {
       "name": "virtual-list",
@@ -3970,7 +6400,87 @@
           "name": "onEndReached",
           "type": "any"
         }
-      ]
+      ],
+      "package": "core"
+    },
+    {
+      "name": "WaveSection",
+      "description": "WaveSection component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "WaveSection"
+      ],
+      "files": [
+        "WaveSection/WaveSection.svelte",
+        "WaveSection/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "WaveSection/WaveSection.svelte",
+      "mainTs": "WaveSection/index.ts",
+      "isComponent": true,
+      "entry": "WaveSection/index.ts",
+      "props": [
+        {
+          "name": "color",
+          "type": "string",
+          "default": "var(--flat-blue)"
+        },
+        {
+          "name": "flip",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "default": "150px"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
+    },
+    {
+      "name": "ZigzagDivider",
+      "description": "ZigzagDivider component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "ZigzagDivider"
+      ],
+      "files": [
+        "ZigzagDivider/ZigzagDivider.svelte",
+        "ZigzagDivider/index.ts"
+      ],
+      "deps": [
+        "utils"
+      ],
+      "main": "ZigzagDivider/ZigzagDivider.svelte",
+      "mainTs": "ZigzagDivider/index.ts",
+      "isComponent": true,
+      "entry": "ZigzagDivider/index.ts",
+      "props": [
+        {
+          "name": "color",
+          "type": "Color",
+          "default": "blue"
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "default": "24px"
+        },
+        {
+          "name": "class",
+          "type": "string"
+        }
+      ],
+      "package": "flat"
     }
   ]
 }

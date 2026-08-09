@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 /**
  * Registry generator (v2).
- *
- * Scans packages/core/src/lib/components/* and emits
+ * Scans packages/{core,md3,flat}/src/lib/components/* and emits
  * packages/cli/registry/index.json — one entry per component with its
  * source files, transitive $lib dependencies, and rich metadata
  * (category, tags, description, props) for editor/marketplace use.
+ *
+ * $lib import aliases are mapped per-package (md3/flat components
+ * import their own utils via $lib too), so each component's relative
+ * files are computed against its own package root.
  *
  * Usage: node scripts/generate-registry.mjs
  *        (run from packages/cli, or pass repo root as argv[2])
@@ -13,10 +16,12 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, relative, sep, basename, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = process.argv[2] ?? join(here, '..', '..', '..');
-const coreDir = join(repoRoot, 'packages', 'core', 'src', 'lib', 'components');
+const SCAN_PACKAGES = ['core', 'md3', 'flat'];
+const PKG_DIRS = SCAN_PACKAGES.map((p) => ({
+	package: p,
+	dir: join(repoRoot, 'packages', p, 'src', 'lib', 'components'),
+}));
 const outPath = join(repoRoot, 'packages', 'cli', 'registry', 'index.json');
 
 const SVELTE_RE = /<script[^>]*>[\s\S]*?<\/script>/g;
@@ -471,55 +476,56 @@ function depsOf(file) {
 // Main generation.
 // ---------------------------------------------------------------------------
 
-if (!existsSync(coreDir)) {
-	console.error(`Registry: core components dir not found: ${coreDir}`);
-	process.exit(1);
-}
-
 const components = [];
-for (const dir of readdirSync(coreDir, { withFileTypes: true })) {
-	if (!dir.isDirectory()) continue;
-	const name = dir.name;
-	const abs = join(coreDir, name);
-	const files = walkFiles(abs);
-	if (files.length === 0) continue;
-	const main = files.find(
-		(f) => basename(f) === 'index.svelte' || basename(f) === `${name}.svelte`,
-	);
-	const mainTs = files.find((f) => basename(f) === 'index.ts');
-	const fileList = files.map((f) => relative(coreDir, f).split(sep).join('/'));
-	const deps = new Set();
-	for (const f of files) for (const d of depsOf(f)) deps.add(d);
-	deps.delete(name);
-
-	// Rich metadata from the main component file (best-effort).
-	let description = null;
-	let props = [];
-	const propsSource = main ?? files.find((f) => isComponentFile(f)) ?? files.at(-1);
-	if (propsSource && /\.svelte$/.test(propsSource)) {
-		const code = readFileSync(propsSource, 'utf8');
-		const scripts = collectScripts(code);
-		const descScript = scripts.find((s) => s.includes('$props()')) ?? scripts[0];
-		description = findDescription(descScript ?? code);
-		props = extractProps(code, parseTvDefinitions(scripts));
+for (const { package: pkg, dir: pkgDir } of PKG_DIRS) {
+	if (!existsSync(pkgDir)) {
+		console.warn(`Registry: components dir not found: ${pkgDir}`);
+		continue;
 	}
-	if (!description) description = simpleDescription(name);
+	for (const dir of readdirSync(pkgDir, { withFileTypes: true })) {
+		if (!dir.isDirectory()) continue;
+		const name = dir.name;
+		const abs = join(pkgDir, name);
+		const files = walkFiles(abs);
+		if (files.length === 0) continue;
+		const main = files.find(
+			(f) => basename(f) === 'index.svelte' || basename(f) === `${name}.svelte`,
+		);
+		const mainTs = files.find((f) => basename(f) === 'index.ts');
+		const fileList = files.map((f) => relative(pkgDir, f).split(sep).join('/'));
+		const deps = new Set();
+		for (const f of files) for (const d of depsOf(f)) deps.add(d);
+		deps.delete(name);
 
-	components.push({
-		name,
-		description,
-		category: categoryOf(name),
-		tags: tagsOf(name, categoryOf(name)),
-		files: fileList,
-		deps: [...deps].sort(),
-		main: main ? relative(coreDir, main).split(sep).join('/') : undefined,
-		mainTs: mainTs ? relative(coreDir, mainTs).split(sep).join('/') : undefined,
-		isComponent: isComponentFile(main ?? files[0]),
-		entry: fileList.find((f) => f === `${name}/index.ts`),
-		props,
-	});
+		// Rich metadata from the main component file (best-effort).
+		let description = null;
+		let props = [];
+		const propsSource = main ?? files.find((f) => isComponentFile(f)) ?? files.at(-1);
+		if (propsSource && /\.svelte$/.test(propsSource)) {
+			const code = readFileSync(propsSource, 'utf8');
+			const scripts = collectScripts(code);
+			const descScript = scripts.find((s) => s.includes('$props()')) ?? scripts[0];
+			description = findDescription(descScript ?? code);
+			props = extractProps(code, parseTvDefinitions(scripts));
+		}
+		if (!description) description = simpleDescription(name);
+
+		components.push({
+			name,
+			description,
+			category: categoryOf(name),
+			tags: tagsOf(name, categoryOf(name)),
+			files: fileList,
+			deps: [...deps].sort(),
+			main: main ? relative(pkgDir, main).split(sep).join('/') : undefined,
+			mainTs: mainTs ? relative(pkgDir, mainTs).split(sep).join('/') : undefined,
+			isComponent: isComponentFile(main ?? files[0]),
+			entry: fileList.find((f) => f === `${name}/index.ts`),
+			props,
+			package: pkg,
+		});
+	}
 }
-
 components.sort((a, b) => a.name.localeCompare(b.name));
 const payload = {
 	schema: 'v2',

@@ -66,21 +66,39 @@ export async function loadRegistry(): Promise<Registry> {
 	return JSON.parse(readFileSync(DEFAULT_LOCAL_REGISTRY, 'utf8')) as Registry;
 }
 
+/** Normalize a component name for lookup: "FAB" / "fab" / "FaB" -> "fab", "BlobCard" -> "blobcard". */
+
+function normalizeName(name: string): string {
+	return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
 /** Resolve a component and its transitive dependency closure (BFS). */
 export function resolveWithDeps(
 	registry: Registry,
 	root: string,
 ): RegistryComponent[] {
 	const byName = new Map(registry.components.map((c) => [c.name, c]));
+	const byNorm = new Map(
+		registry.components.map((c) => [normalizeName(c.name), c.name]),
+	);
 	const seen = new Set<string>();
 	const out: RegistryComponent[] = [];
 	const queue = [root];
 	while (queue.length > 0) {
-		const name = queue.shift()!;
-		if (seen.has(name)) continue;
-		const comp = byName.get(name);
+		const raw = queue.shift()!;
+		if (seen.has(raw)) continue;
+		let name = raw;
+		let comp = byName.get(name);
 		if (!comp) {
-			throw new Error(`Unknown component: ${name}`);
+			// Case-insensitive / kebab-insensitive lookup (FAB, fab, fab-button...)
+			const canonical = byNorm.get(normalizeName(name));
+			if (canonical) {
+				name = canonical;
+				comp = byName.get(name);
+			}
+		}
+		if (!comp) {
+			throw new Error(`Unknown component: ${raw}`);
 		}
 		seen.add(name);
 		out.push(comp);
