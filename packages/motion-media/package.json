@@ -1,6 +1,6 @@
 {
   "name": "@vultra/motion-media",
-  "version": "0.1.0-alpha.13",
+  "version": "0.1.0-alpha.14",
   "description": "Media utilities, recorder, and upload for @vultra/motion",
   "type": "module",
   "exports": {

@@ -1,6 +1,6 @@
 {
   "name": "@vultra/pdf-viewer",
-  "version": "0.1.0-alpha.13",
+  "version": "0.1.0-alpha.14",
   "description": "PDF viewer component with annotations, form filling, and editing",
   "type": "module",
   "exports": {
