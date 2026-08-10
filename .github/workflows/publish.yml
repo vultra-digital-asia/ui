@@ -3,8 +3,14 @@ name: Publish
 on:
   workflow_dispatch:
     inputs:
+      release-type:
+        description: 'Release type'
+        required: true
+        default: 'alpha'
+        type: choice
+        options: [alpha, beta, stable]
       version:
-        description: 'Version bump type (patch/minor/major)'
+        description: 'Version bump for stable (patch/minor/major); ignored for alpha/beta'
         required: true
         default: 'patch'
         type: choice
@@ -35,22 +41,36 @@ jobs:
         run: |
           node -e "
             const fs = require('fs');
+            const stage = '${{ github.event.inputs.release-type }}';
             const bump = '${{ github.event.inputs.version }}';
             for (const f of fs.readdirSync('packages').map(d => 'packages/' + d + '/package.json')) {
               if (!fs.existsSync(f)) continue;
               const j = JSON.parse(fs.readFileSync(f, 'utf8'));
               if (j.private) continue;
-              const [base, suffix] = j.version.split('-');
+              let [base, suffix] = (j.version || '0.0.0').split('-');
               const v = base.split('.').map(Number);
-              if (suffix) {
-                // Prerelease: bump alpha.N -> alpha.N+1 (0.1.0-alpha.11 -> 0.1.0-alpha.12)
-                const m = suffix.match(/^(alpha|beta|rc)\.(\d+)(.*)$/);
-                j.version = base + '-' + (m ? m[1] + '.' + (Number(m[2]) + 1) : suffix);
-              } else {
+              if (stage === 'stable') {
+                // Drop prerelease suffix, bump the requested segment.
                 if (bump === 'minor') v[1]++;
                 else if (bump === 'major') v[0]++;
-                else v[2]++;
-                j.version = v.join('.') + '-alpha.0';
+                else if (!suffix) v[2]++; // already stable: patch
+                j.version = v.join('.');
+              } else {
+                // Prerelease stage: bump what's there.
+                const m = suffix ? suffix.match(/^(alpha|beta|rc)\.(\d+)(.*)$/) : null;
+                if (m && m[1] === stage) {
+                  // Same stage: increment counter (alpha.15 -> alpha.16)
+                  j.version = base + '-' + stage + '.' + (Number(m[2]) + 1);
+                } else if (m) {
+                  // Different stage: reset to .0 (alpha.15 -> beta.0)
+                  j.version = base + '-' + stage + '.0';
+                } else {
+                  // Stable -> prerelease: bump patch and start stage
+                  if (bump === 'minor') v[1]++;
+                  else if (bump === 'major') v[0]++;
+                  else v[2]++;
+                  j.version = v.join('.') + '-' + stage + '.0';
+                }
               }
               fs.writeFileSync(f, JSON.stringify(j, null, 2) + '\n');
             }
@@ -63,7 +83,7 @@ jobs:
           git config user.name "vultra-bot"
           git config user.email "bot@vultra.dev"
           git add packages/*/package.json pnpm-lock.yaml
-          git commit -m "chore: bump to \${{ github.event.inputs.version }} (pre-publish)" || echo "nothing to commit"
+          git commit -m "chore: bump to \$${{ github.event.inputs.release-type }} (pre-publish)" || echo "nothing to commit"
           git push origin main
 
       - name: Build core packages
@@ -87,10 +107,13 @@ jobs:
                  motion-captions motion-effects motion-media motion-player motion-studio \
                  motion-three book-writer calendar charts collaboration kanban pdf-viewer \
                  slides spreadsheet data-table)
+          STAGE='${{ github.event.inputs.release-type }}'
+          TAG="$STAGE"
+          [ "$STAGE" = "stable" ] && TAG="latest"
           for pkg in "${ORDER[@]}"; do
             if [ -d "packages/$pkg" ]; then
-              echo "--- Publishing @vultra/$pkg ---"
-              (cd packages/$pkg && npm publish --tag alpha)
+              echo "--- Publishing @vultra/$pkg @ $TAG ---"
+              (cd packages/$pkg && npm publish --tag "$TAG")
             fi
           done
         env:
@@ -98,9 +121,12 @@ jobs:
 
       - name: Verify published versions
         run: |
+          STAGE='${{ github.event.inputs.release-type }}'
+          TAG="$STAGE"
+          [ "$STAGE" = "stable" ] && TAG="latest"
           for pkg in tokens grid-core core md3 flat cli editor-core native rich-text motion data-table; do
-            v=$(npm view @vultra/$pkg@alpha version 2>/dev/null | tail -1)
-            echo "@vultra/$pkg: $v"
+            v=$(npm view @vultra/$pkg@$TAG version 2>/dev/null | tail -1)
+            echo "@vultra/$pkg@$TAG: $v"
           done
 
       - name: Tag release
@@ -119,11 +145,11 @@ jobs:
         with:
           tag_name: v${{ steps.tag.outputs.version }}
           generate_release_notes: true
-          prerelease: true
+          prerelease: ${{ github.event.inputs.release-type != 'stable' }}
           name: v${{ steps.tag.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Summarize
         run: |
-          echo "## Packages published (alpha)" >> $GITHUB_STEP_SUMMARY
+          echo "## Packages published (${{ github.event.inputs.release-type }})" >> $GITHUB_STEP_SUMMARY
           echo "Triggered by: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
