@@ -42,30 +42,41 @@ const IGNORE_SET = new Set([
 // Categories — matched by component directory name; unknown names fall back
 // to "uncategorized".
 // ---------------------------------------------------------------------------
+// Kebbab-case name → category map.
+// Covers core, md3, and flat components.
 const CATEGORIES = {
-	actions: ['button'],
+	actions: [
+		'button', 'fab',
+	],
 	layout: [
 		'card', 'aside', 'section', 'divider', 'aspect-ratio', 'scroll-area',
-		'resizable', 'details', 'figure', 'separator',
+		'resizable', 'details', 'figure', 'separator', 'flex', 'box', 'grid',
+		'stack',
 	],
 	navigation: [
 		'tabs', 'accordion', 'breadcrumb', 'pagination', 'navigation-menu',
-		'sidebar', 'drawer', 'dropdown-menu', 'menubar',
+		'sidebar', 'drawer', 'dropdown-menu', 'menubar', 'tabbar',
+		'slide-menu', 'slidemenu', 'navigation-bar', 'navigation-rail', 'top-app-bar',
 	],
 	forms: [
-		'input', 'textarea', 'select', 'checkbox', 'radio-group', 'switch',
+		'input', 'textarea', 'select', 'checkbox', 'radio-group', 'radio',
 		'slider', 'label', 'form', 'input-group', 'number-input', 'otp-input',
 		'date-picker', 'datetime-picker', 'color-picker', 'password-input',
 		'search-select', 'combobox', 'rating', 'toggle', 'toggle-group',
+		'switch', 'segmented-button', 'segmentedcontrol', 'search-bar',
+		'text-field', 'time-picker', 'editable-label', 'chip',
 	],
 	feedback: [
 		'alert', 'alert-dialog', 'dialog', 'toast', 'tooltip', 'popover',
-		'sheet',
+		'sheet', 'bottom-sheet', 'snackbar', 'ripple', 'mobile-toast',
+		'notification', 'status-indicator', 'live-badge',
 	],
 	'data-display': [
-		'table', 'badge', 'avatar', 'avatar-group', 'timeline', 'tree-view',
-		'stats-counter', 'stat-card', 'code-block', 'markdown-renderer',
-		'progress', 'data-table',
+		'table', 'badge', 'badge-md3', 'avatar', 'avatar-group', 'timeline',
+		'tree-view', 'stats-counter', 'stat-card', 'code-block',
+		'markdown-renderer', 'progress', 'data-table', 'avatarstack',
+		'calendar', 'charts', 'heatmap', 'barcode', 'qr-code',
+		'progress-indicator', 'virtual-list', 'clipboard', 'progress-steps',
 	],
 	marketing: [
 		'hero', 'pricing-card', 'pricing-table', 'testimonial',
@@ -75,16 +86,41 @@ const CATEGORIES = {
 	composite: [
 		'carousel', 'bento-grid', 'stepper', 'command', 'context-menu',
 		'hover-card', 'collapsible', 'empty-state', 'file-uploader',
-		'signature-pad',
+		'signature-pad', 'kanban', 'comment', 'mention', 'reaction-bar',
+		'user-profile-card', 'gallery', 'split-view',
+	],
+	mobile: [
+		'actionsheet', 'fabmenu', 'pulltorefresh', 'swipeableitem',
+		'listview', 'infinite-scroll', 'camera', 'gyroscope',
+	],
+	'flat-shape': [
+		'blob-card', 'hexagon-grid', 'diamond-badge', 'wave-section',
+		'pentagon-stat', 'star-card', 'triangle-alert', 'circle-avatar',
+		'arrow-card', 'circle-grid', 'cross-badge', 'ellipse-badge',
+		'octagon-card', 'parallelogram-card', 'trapezoid-card', 'zigzag-divider',
 	],
 	utility: [
 		'skeleton', 'copy-to-clipboard', 'emoji', 'validate', 'main',
 	],
 };
 
+/** Kebab-case a name so PascalCase md3/flat names match lowercase lists.
+ * FAB -> fab (acronyms stay together), BlobCard -> blob-card. */
+function kebab(name) {
+	const acronym = /^[A-Z]{2,}$/.test(name);
+	if (acronym) return name.toLowerCase();
+	return name
+		.replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+		.toLowerCase()
+		.replace(/[^a-z0-9-]/g, '-')
+		.replace(/-+/g, '-')
+		.replace(/^-|-$/g, '');
+}
+
 function categoryOf(name) {
+	const k = kebab(name);
 	for (const [cat, list] of Object.entries(CATEGORIES)) {
-		if (list.includes(name)) return cat;
+		if (list.includes(k)) return cat;
 	}
 	return 'uncategorized';
 }

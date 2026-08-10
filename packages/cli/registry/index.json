@@ -1,6 +1,6 @@
 {
   "schema": "v3",
-  "generatedAt": "2026-08-10T02:32:04.665Z",
+  "generatedAt": "2026-08-10T09:00:04.593Z",
   "components": [
     {
       "name": "accordion",
@@ -52,9 +52,9 @@
     {
       "name": "actionsheet",
       "description": null,
-      "category": "uncategorized",
+      "category": "mobile",
       "tags": [
-        "uncategorized",
+        "mobile",
         "actionsheet"
       ],
       "files": [
@@ -208,9 +208,9 @@
     {
       "name": "ArrowCard",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "ArrowCard"
       ],
       "files": [
@@ -407,9 +407,9 @@
     {
       "name": "avatarstack",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "avatarstack"
       ],
       "files": [
@@ -490,9 +490,9 @@
     {
       "name": "Badge",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "Badge"
       ],
       "files": [
@@ -521,9 +521,9 @@
     {
       "name": "barcode",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "barcode"
       ],
       "files": [
@@ -601,9 +601,9 @@
     {
       "name": "BlobCard",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "BlobCard"
       ],
       "files": [
@@ -632,9 +632,9 @@
     {
       "name": "BottomSheet",
       "description": null,
-      "category": "uncategorized",
+      "category": "feedback",
       "tags": [
-        "uncategorized",
+        "feedback",
         "BottomSheet"
       ],
       "files": [
@@ -663,9 +663,9 @@
     {
       "name": "box",
       "description": null,
-      "category": "uncategorized",
+      "category": "layout",
       "tags": [
-        "uncategorized",
+        "layout",
         "box"
       ],
       "files": [
@@ -796,9 +796,9 @@
     {
       "name": "calendar",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "calendar"
       ],
       "files": [
@@ -834,9 +834,9 @@
     {
       "name": "camera",
       "description": null,
-      "category": "uncategorized",
+      "category": "mobile",
       "tags": [
-        "uncategorized",
+        "mobile",
         "camera"
       ],
       "files": [
@@ -963,9 +963,9 @@
     {
       "name": "charts",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "charts"
       ],
       "files": [
@@ -1043,9 +1043,9 @@
     {
       "name": "Chip",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "Chip"
       ],
       "files": [
@@ -1074,9 +1074,9 @@
     {
       "name": "CircleAvatar",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "CircleAvatar"
       ],
       "files": [
@@ -1105,9 +1105,9 @@
     {
       "name": "CircleGrid",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "CircleGrid"
       ],
       "files": [
@@ -1136,9 +1136,9 @@
     {
       "name": "clipboard",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "clipboard"
       ],
       "files": [
@@ -1400,9 +1400,9 @@
     {
       "name": "comment",
       "description": null,
-      "category": "uncategorized",
+      "category": "composite",
       "tags": [
-        "uncategorized",
+        "composite",
         "comment"
       ],
       "files": [
@@ -1552,9 +1552,9 @@
     {
       "name": "CrossBadge",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "CrossBadge"
       ],
       "files": [
@@ -1847,9 +1847,9 @@
     {
       "name": "DiamondBadge",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "DiamondBadge"
       ],
       "files": [
@@ -2046,9 +2046,9 @@
     {
       "name": "editable-label",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "editable",
         "label"
       ],
@@ -2087,9 +2087,9 @@
     {
       "name": "EllipseBadge",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "EllipseBadge"
       ],
       "files": [
@@ -2191,9 +2191,9 @@
     {
       "name": "FAB",
       "description": null,
-      "category": "uncategorized",
+      "category": "actions",
       "tags": [
-        "uncategorized",
+        "actions",
         "FAB"
       ],
       "files": [
@@ -2222,9 +2222,9 @@
     {
       "name": "fabmenu",
       "description": null,
-      "category": "uncategorized",
+      "category": "mobile",
       "tags": [
-        "uncategorized",
+        "mobile",
         "fabmenu"
       ],
       "files": [
@@ -2381,9 +2381,9 @@
     {
       "name": "flex",
       "description": null,
-      "category": "uncategorized",
+      "category": "layout",
       "tags": [
-        "uncategorized",
+        "layout",
         "flex"
       ],
       "files": [
@@ -2518,9 +2518,9 @@
     {
       "name": "gallery",
       "description": null,
-      "category": "uncategorized",
+      "category": "composite",
       "tags": [
-        "uncategorized",
+        "composite",
         "gallery"
       ],
       "files": [
@@ -2556,9 +2556,9 @@
     {
       "name": "grid",
       "description": null,
-      "category": "uncategorized",
+      "category": "layout",
       "tags": [
-        "uncategorized",
+        "layout",
         "grid"
       ],
       "files": [
@@ -2596,9 +2596,9 @@
     {
       "name": "gyroscope",
       "description": null,
-      "category": "uncategorized",
+      "category": "mobile",
       "tags": [
-        "uncategorized",
+        "mobile",
         "gyroscope"
       ],
       "files": [
@@ -2638,9 +2638,9 @@
     {
       "name": "heatmap",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "heatmap"
       ],
       "files": [
@@ -2719,9 +2719,9 @@
     {
       "name": "HexagonGrid",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "HexagonGrid"
       ],
       "files": [
@@ -2798,9 +2798,9 @@
     {
       "name": "infinite-scroll",
       "description": null,
-      "category": "uncategorized",
+      "category": "mobile",
       "tags": [
-        "uncategorized",
+        "mobile",
         "infinite",
         "scroll"
       ],
@@ -2935,9 +2935,9 @@
     {
       "name": "kanban",
       "description": null,
-      "category": "uncategorized",
+      "category": "composite",
       "tags": [
-        "uncategorized",
+        "composite",
         "kanban"
       ],
       "files": [
@@ -3018,9 +3018,9 @@
     {
       "name": "listview",
       "description": null,
-      "category": "uncategorized",
+      "category": "mobile",
       "tags": [
-        "uncategorized",
+        "mobile",
         "listview"
       ],
       "files": [
@@ -3058,9 +3058,9 @@
     {
       "name": "live-badge",
       "description": null,
-      "category": "uncategorized",
+      "category": "feedback",
       "tags": [
-        "uncategorized",
+        "feedback",
         "live",
         "badge"
       ],
@@ -3215,9 +3215,9 @@
     {
       "name": "mention",
       "description": null,
-      "category": "uncategorized",
+      "category": "composite",
       "tags": [
-        "uncategorized",
+        "composite",
         "mention"
       ],
       "files": [
@@ -3307,9 +3307,9 @@
     {
       "name": "mobile-toast",
       "description": null,
-      "category": "uncategorized",
+      "category": "feedback",
       "tags": [
-        "uncategorized",
+        "feedback",
         "mobile",
         "toast"
       ],
@@ -3444,9 +3444,9 @@
     {
       "name": "NavigationBar",
       "description": null,
-      "category": "uncategorized",
+      "category": "navigation",
       "tags": [
-        "uncategorized",
+        "navigation",
         "NavigationBar"
       ],
       "files": [
@@ -3477,9 +3477,9 @@
     {
       "name": "NavigationRail",
       "description": null,
-      "category": "uncategorized",
+      "category": "navigation",
       "tags": [
-        "uncategorized",
+        "navigation",
         "NavigationRail"
       ],
       "files": [
@@ -3508,9 +3508,9 @@
     {
       "name": "notification",
       "description": null,
-      "category": "uncategorized",
+      "category": "feedback",
       "tags": [
-        "uncategorized",
+        "feedback",
         "notification"
       ],
       "files": [
@@ -3587,9 +3587,9 @@
     {
       "name": "OctagonCard",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "OctagonCard"
       ],
       "files": [
@@ -3715,9 +3715,9 @@
     {
       "name": "ParallelogramCard",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "ParallelogramCard"
       ],
       "files": [
@@ -3785,9 +3785,9 @@
     {
       "name": "PentagonStat",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "PentagonStat"
       ],
       "files": [
@@ -3997,9 +3997,9 @@
     {
       "name": "progress-steps",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "progress",
         "steps"
       ],
@@ -4040,9 +4040,9 @@
     {
       "name": "ProgressIndicator",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "ProgressIndicator"
       ],
       "files": [
@@ -4071,9 +4071,9 @@
     {
       "name": "pulltorefresh",
       "description": null,
-      "category": "uncategorized",
+      "category": "mobile",
       "tags": [
-        "uncategorized",
+        "mobile",
         "pulltorefresh"
       ],
       "files": [
@@ -4109,9 +4109,9 @@
     {
       "name": "qr-code",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "qr",
         "code"
       ],
@@ -4148,9 +4148,9 @@
     {
       "name": "Radio",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "Radio"
       ],
       "files": [
@@ -4263,9 +4263,9 @@
     {
       "name": "reaction-bar",
       "description": null,
-      "category": "uncategorized",
+      "category": "composite",
       "tags": [
-        "uncategorized",
+        "composite",
         "reaction",
         "bar"
       ],
@@ -4348,9 +4348,9 @@
     {
       "name": "Ripple",
       "description": null,
-      "category": "uncategorized",
+      "category": "feedback",
       "tags": [
-        "uncategorized",
+        "feedback",
         "Ripple"
       ],
       "files": [
@@ -4464,9 +4464,9 @@
     {
       "name": "SearchBar",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "SearchBar"
       ],
       "files": [
@@ -4572,9 +4572,9 @@
     {
       "name": "SegmentedButton",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "SegmentedButton"
       ],
       "files": [
@@ -4605,9 +4605,9 @@
     {
       "name": "segmentedcontrol",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "segmentedcontrol"
       ],
       "files": [
@@ -4883,7 +4883,7 @@
         "signature-pad/index.ts"
       ],
       "contents": {
-        "signature-pad/SignaturePad.svelte": "<script lang=\"ts\">\n  import { cn } from '../../utils.js';\n  import { Eraser, Download } from 'lucide-svelte';\n\n  let {\n    width = 400,\n    height = 200,\n    lineWidth = 2,\n    lineColor = '#000000',\n    disabled = false,\n    class: className,\n    onSign,\n  }: {\n    width?: number;\n    height?: number;\n    lineWidth?: number;\n    lineColor?: string;\n    disabled?: boolean;\n    class?: string;\n    onSign?: (dataUrl: string) => void;\n  } = $props();\n\n  let canvas: HTMLCanvasElement | null = null;\n  let isDrawing = $state(false);\n  let hasContent = $state(false);\n\n  onMount(() => {\n    if (!canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n    ctx.fillStyle = '#ffffff';\n    ctx.fillRect(0, 0, width, height);\n    ctx.strokeStyle = lineColor;\n    ctx.lineWidth = lineWidth;\n    ctx.lineCap = 'round';\n    ctx.lineJoin = 'round';\n  });\n\n  import { onMount } from 'svelte';\n\n  function getPos(e: MouseEvent | TouchEvent) {\n    if (!canvas) return { x: 0, y: 0 };\n    const rect = canvas.getBoundingClientRect();\n    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;\n    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;\n    return { x: clientX - rect.left, y: clientY - rect.top };\n  }\n\n  function startDrawing(e: MouseEvent | TouchEvent) {\n    if (disabled) return;\n    isDrawing = true;\n    const ctx = canvas?.getContext('2d');\n    if (!ctx) return;\n    const pos = getPos(e);\n    ctx.beginPath();\n    ctx.moveTo(pos.x, pos.y);\n  }\n\n  function draw(e: MouseEvent | TouchEvent) {\n    if (!isDrawing || !canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n    const pos = getPos(e);\n    ctx.lineTo(pos.x, pos.y);\n    ctx.stroke();\n    hasContent = true;\n  }\n\n  function stopDrawing() { isDrawing = false; }\n\n  function clear() {\n    if (!canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n    ctx.fillStyle = '#ffffff';\n    ctx.fillRect(0, 0, width, height);\n    hasContent = false;\n  }\n\n  function save() {\n    if (!canvas) return;\n    onSign?.(canvas.toDataURL('image/png'));\n  }\n</script>\n\n<div class={cn('space-y-2', className)}>\n  <canvas\n    bind:this={canvas}\n    {width}\n    {height}\n    class=\"rounded-lg border border-[var(--ui-border)] cursor-crosshair\"\n    onmousedown={startDrawing}\n    onmousemove={draw}\n    onmouseup={stopDrawing}\n    onmouseleave={stopDrawing}\n    ontouchstart={startDrawing}\n    ontouchmove={draw}\n    ontouchend={stopDrawing}\n  ></canvas>\n\n  <div class=\"flex items-center justify-between\">\n    <span class=\"text-xs text-[var(--ui-muted-foreground)]\">\n      {hasContent ? 'Sign above' : 'Click and drag to sign'}\n    </span>\n    <div class=\"flex gap-1\">\n      <Button variant=\"ghost\" size=\"sm\" onclick={clear} class=\"h-7 text-xs\">\n        <Eraser class=\"size-3 mr-1\" /> Clear\n      </Button>\n      {#if hasContent}\n        <Button size=\"sm\" onclick={save} class=\"h-7 text-xs\">\n          <Download class=\"size-3 mr-1\" /> Save\n        </Button>\n      {/if}\n    </div>\n  </div>\n</div>\n",
+        "signature-pad/SignaturePad.svelte": "<script lang=\"ts\">\n  import { cn } from '../../utils.js';\n  import { Eraser, Download } from 'lucide-svelte';\n  import { Button } from '../button/index.js';\n\n  let {\n    width = 400,\n    height = 200,\n    lineWidth = 2,\n    lineColor = '#000000',\n    disabled = false,\n    class: className,\n    onSign,\n  }: {\n    width?: number;\n    height?: number;\n    lineWidth?: number;\n    lineColor?: string;\n    disabled?: boolean;\n    class?: string;\n    onSign?: (dataUrl: string) => void;\n  } = $props();\n\n  let canvas: HTMLCanvasElement | null = null;\n  let isDrawing = $state(false);\n  let hasContent = $state(false);\n\n  onMount(() => {\n    if (!canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n    ctx.fillStyle = '#ffffff';\n    ctx.fillRect(0, 0, width, height);\n    ctx.strokeStyle = lineColor;\n    ctx.lineWidth = lineWidth;\n    ctx.lineCap = 'round';\n    ctx.lineJoin = 'round';\n  });\n\n  import { onMount } from 'svelte';\n\n  function getPos(e: MouseEvent | TouchEvent) {\n    if (!canvas) return { x: 0, y: 0 };\n    const rect = canvas.getBoundingClientRect();\n    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;\n    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;\n    return { x: clientX - rect.left, y: clientY - rect.top };\n  }\n\n  function startDrawing(e: MouseEvent | TouchEvent) {\n    if (disabled) return;\n    isDrawing = true;\n    const ctx = canvas?.getContext('2d');\n    if (!ctx) return;\n    const pos = getPos(e);\n    ctx.beginPath();\n    ctx.moveTo(pos.x, pos.y);\n  }\n\n  function draw(e: MouseEvent | TouchEvent) {\n    if (!isDrawing || !canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n    const pos = getPos(e);\n    ctx.lineTo(pos.x, pos.y);\n    ctx.stroke();\n    hasContent = true;\n  }\n\n  function stopDrawing() { isDrawing = false; }\n\n  function clear() {\n    if (!canvas) return;\n    const ctx = canvas.getContext('2d');\n    if (!ctx) return;\n    ctx.fillStyle = '#ffffff';\n    ctx.fillRect(0, 0, width, height);\n    hasContent = false;\n  }\n\n  function save() {\n    if (!canvas) return;\n    onSign?.(canvas.toDataURL('image/png'));\n  }\n</script>\n\n<div class={cn('space-y-2', className)}>\n  <canvas\n    bind:this={canvas}\n    {width}\n    {height}\n    class=\"rounded-lg border border-[var(--ui-border)] cursor-crosshair\"\n    onmousedown={startDrawing}\n    onmousemove={draw}\n    onmouseup={stopDrawing}\n    onmouseleave={stopDrawing}\n    ontouchstart={startDrawing}\n    ontouchmove={draw}\n    ontouchend={stopDrawing}\n  ></canvas>\n\n  <div class=\"flex items-center justify-between\">\n    <span class=\"text-xs text-[var(--ui-muted-foreground)]\">\n      {hasContent ? 'Sign above' : 'Click and drag to sign'}\n    </span>\n    <div class=\"flex gap-1\">\n      <Button variant=\"ghost\" size=\"sm\" onclick={clear} class=\"h-7 text-xs\">\n        <Eraser class=\"size-3 mr-1\" /> Clear\n      </Button>\n      {#if hasContent}\n        <Button size=\"sm\" onclick={save} class=\"h-7 text-xs\">\n          <Download class=\"size-3 mr-1\" /> Save\n        </Button>\n      {/if}\n    </div>\n  </div>\n</div>\n",
         "signature-pad/index.ts": "export { default as SignaturePad } from './SignaturePad.svelte';\n"
       },
       "packageDeps": {
@@ -4952,9 +4952,9 @@
     {
       "name": "slidemenu",
       "description": null,
-      "category": "uncategorized",
+      "category": "navigation",
       "tags": [
-        "uncategorized",
+        "navigation",
         "slidemenu"
       ],
       "files": [
@@ -5031,9 +5031,9 @@
     {
       "name": "Snackbar",
       "description": null,
-      "category": "uncategorized",
+      "category": "feedback",
       "tags": [
-        "uncategorized",
+        "feedback",
         "Snackbar"
       ],
       "files": [
@@ -5062,9 +5062,9 @@
     {
       "name": "split-view",
       "description": null,
-      "category": "uncategorized",
+      "category": "composite",
       "tags": [
-        "uncategorized",
+        "composite",
         "split",
         "view"
       ],
@@ -5101,9 +5101,9 @@
     {
       "name": "stack",
       "description": null,
-      "category": "uncategorized",
+      "category": "layout",
       "tags": [
-        "uncategorized",
+        "layout",
         "stack"
       ],
       "files": [
@@ -5141,9 +5141,9 @@
     {
       "name": "StarCard",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "StarCard"
       ],
       "files": [
@@ -5293,9 +5293,9 @@
     {
       "name": "status-indicator",
       "description": null,
-      "category": "uncategorized",
+      "category": "feedback",
       "tags": [
-        "uncategorized",
+        "feedback",
         "status",
         "indicator"
       ],
@@ -5372,9 +5372,9 @@
     {
       "name": "swipeableitem",
       "description": null,
-      "category": "uncategorized",
+      "category": "mobile",
       "tags": [
-        "uncategorized",
+        "mobile",
         "swipeableitem"
       ],
       "files": [
@@ -5451,9 +5451,9 @@
     {
       "name": "Switch",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "Switch"
       ],
       "files": [
@@ -5482,9 +5482,9 @@
     {
       "name": "tabbar",
       "description": null,
-      "category": "uncategorized",
+      "category": "navigation",
       "tags": [
-        "uncategorized",
+        "navigation",
         "tabbar"
       ],
       "files": [
@@ -5496,7 +5496,7 @@
         "tabbar/index.ts"
       ],
       "contents": {
-        "tabbar/TabBar.svelte": "<script lang=\"ts\" module>\n\timport { tv } from 'tailwind-variants';\n\n\texport const tabBarVariants = tv({\n\t\tbase: 'fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t border-[var(--ui-border)] bg-[var(--ui-background)]',\n\t\tvariants: {\n\t\t\tblur: {\n\t\t\t\ttrue: 'supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--ui-background)_88%,transparent)] supports-[backdrop-filter]:backdrop-blur-xl',\n\t\t\t\tfalse: ''\n\t\t\t}\n\t\t},\n\t\tdefaultVariants: { blur: true }\n\t});\n</script>\n\n<script lang=\"ts\">\n\timport { setContext } from 'svelte';\n\timport { cn } from '../../utils.js';\n\timport { TAB_BAR_KEY } from './context.js';\n\n\tlet {\n\t\tvalue = $bindable(''),\n\t\tblur = true,\n\t\tclass: className,\n\t\tchildren\n\t}: {\n\t\tvalue?: string | number;\n\t\tblur?: boolean;\n\t\tclass?: string;\n\t\tchildren: Snippet;\n\t} = $props();\n\n\t// Reactive state object — passed via context so children's $derived\n\t// subscriptions track it (a plain closure over `value` is not reactive).\n\tconst valueState = $state({ value });\n\n\t$effect(() => {\n\t\tvalueState.value = value;\n\t});\n\n\tsetContext(TAB_BAR_KEY, {\n\t\tget value() {\n\t\t\treturn valueState.value;\n\t\t},\n\t\tsetValue(v: string | number) {\n\t\t\tvalue = v;\n\t\t\tvalueState.value = v;\n\t\t}\n\t});\n</script>\n\n<nav\n\tclass={cn(tabBarVariants({ blur }), 'pb-[env(safe-area-inset-bottom)]', className)}\n\taria-label=\"Primary navigation\"\n>\n\t<div class=\"flex h-14 w-full items-stretch\" role=\"tablist\" aria-label=\"Primary\">\n\t\t{@render children()}\n\t</div>\n</nav>",
+        "tabbar/TabBar.svelte": "<script lang=\"ts\" module>\n\timport { tv } from 'tailwind-variants';\n\n\texport const tabBarVariants = tv({\n\t\tbase: 'fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t border-[var(--ui-border)] bg-[var(--ui-background)]',\n\t\tvariants: {\n\t\t\tblur: {\n\t\t\t\ttrue: 'supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--ui-background)_88%,transparent)] supports-[backdrop-filter]:backdrop-blur-xl',\n\t\t\t\tfalse: ''\n\t\t\t}\n\t\t},\n\t\tdefaultVariants: { blur: true }\n\t});\n</script>\n\n<script lang=\"ts\">\n\timport { setContext } from 'svelte';\n\timport type { Snippet } from 'svelte';\n\timport { cn } from '../../utils.js';\n\timport { TAB_BAR_KEY } from './context.js';\n\n\tlet {\n\t\tvalue = $bindable(''),\n\t\tblur = true,\n\t\tclass: className,\n\t\tchildren\n\t}: {\n\t\tvalue?: string | number;\n\t\tblur?: boolean;\n\t\tclass?: string;\n\t\tchildren: Snippet;\n\t} = $props();\n\n\t// Reactive state object — passed via context so children's $derived\n\t// subscriptions track it (a plain closure over `value` is not reactive).\n\tconst valueState = $state({ value });\n\n\t$effect(() => {\n\t\tvalueState.value = value;\n\t});\n\n\tsetContext(TAB_BAR_KEY, {\n\t\tget value() {\n\t\t\treturn valueState.value;\n\t\t},\n\t\tsetValue(v: string | number) {\n\t\t\tvalue = v;\n\t\t\tvalueState.value = v;\n\t\t}\n\t});\n</script>\n\n<nav\n\tclass={cn(tabBarVariants({ blur }), 'pb-[env(safe-area-inset-bottom)]', className)}\n\taria-label=\"Primary navigation\"\n>\n\t<div class=\"flex h-14 w-full items-stretch\" role=\"tablist\" aria-label=\"Primary\">\n\t\t{@render children()}\n\t</div>\n</nav>",
         "tabbar/TabBar.test.ts": "import { render, screen, fireEvent } from '@testing-library/svelte';\nimport { describe, it, expect } from 'vitest';\nimport { createRawSnippet } from 'svelte';\nimport TabBar from './TabBar.svelte';\nimport TabBarTest from './TabBarTest.svelte';\n\nfunction textSnippet(text: string) {\n\treturn createRawSnippet(() => ({\n\t\trender: () => text\n\t}));\n}\n\ndescribe('TabBar', () => {\n\tit('renders items with labels', () => {\n\t\trender(TabBarTest);\n\t\texpect(screen.getByText('Home')).toBeInTheDocument();\n\t\texpect(screen.getByText('Search')).toBeInTheDocument();\n\t\texpect(screen.getByText('Profile')).toBeInTheDocument();\n\t});\n\n\tit('renders as a navigation landmark with a tablist', () => {\n\t\trender(TabBarTest);\n\t\texpect(screen.getByRole('navigation', { name: 'Primary navigation' })).toBeInTheDocument();\n\t\texpect(screen.getByRole('tablist', { name: 'Primary' })).toBeInTheDocument();\n\t});\n\n\tit('marks items with tab role and aria-selected state', () => {\n\t\trender(TabBarTest);\n\t\tconst tabs = screen.getAllByRole('tab');\n\t\texpect(tabs.length).toBe(3);\n\t\texpect(tabs[0]).toHaveAttribute('aria-selected', 'true');\n\t\texpect(tabs[1]).toHaveAttribute('aria-selected', 'false');\n\t\texpect(tabs[2]).toHaveAttribute('aria-selected', 'false');\n\t});\n\n\tit('applies active styles to the tab matching the parent value', () => {\n\t\trender(TabBarTest);\n\t\tconst active = screen.getByRole('tab', { name: 'Home' });\n\t\texpect(active).toHaveClass('text-[var(--ui-primary)]');\n\t\texpect(active).not.toHaveClass('text-[var(--ui-muted-foreground)]');\n\t});\n\n\tit('updates active tab when parent value changes via click', async () => {\n\t\trender(TabBarTest);\n\t\texpect(screen.getByText('Home').closest('[role=\"tab\"]')).toHaveAttribute('aria-selected', 'true');\n\t\tconst profileTab = screen.getByText('Profile').closest('[role=\"tab\"]');\n\t\tawait fireEvent.click(profileTab!);\n\t\texpect(profileTab).toHaveAttribute('aria-selected', 'true');\n\t\texpect(screen.getByText('Home').closest('[role=\"tab\"]')).toHaveAttribute('aria-selected', 'false');\n\t});\n\n\tit('renders badge count on item', () => {\n\t\trender(TabBarTest);\n\t\texpect(screen.getByText('3')).toBeInTheDocument();\n\t});\n\n\tit('caps badge display at 99+', () => {\n\t\trender(TabBar, {\n\t\t\tvalue: 'home',\n\t\t\tchildren: textSnippet(\n\t\t\t\t'<button type=\"button\" role=\"tab\" aria-selected=\"true\" class=\"group relative flex min-h-11\">' +\n\t\t\t\t\t'<span class=\"relative flex items-center justify-center\">' +\n\t\t\t\t\t'<span class=\"absolute -right-2.5 -top-1 flex min-w-4 items-center justify-center rounded-full bg-[var(--ui-destructive)] px-1 text-[10px] font-semibold leading-4 text-white tabular-nums\">99+</span>' +\n\t\t\t\t\t'</span>' +\n\t\t\t\t\t'<span class=\"max-w-full truncate text-[11px] font-medium leading-none\">Inbox</span>' +\n\t\t\t\t\t'</button>'\n\t\t\t)\n\t\t});\n\t\texpect(screen.getByText('99+')).toBeInTheDocument();\n\t});\n\n\tit('supports the active override prop on items', () => {\n\t\trender(TabBar, {\n\t\t\tvalue: 'home',\n\t\t\tchildren: textSnippet(\n\t\t\t\t'<button type=\"button\" role=\"tab\" aria-selected=\"true\" class=\"text-[var(--ui-primary)]\">Forced</button>'\n\t\t\t)\n\t\t});\n\t\texpect(screen.getByRole('tab', { name: 'Forced' })).toBeInTheDocument();\n\t});\n\n\tit('applies blur class by default and removes it when disabled', async () => {\n\t\tconst { container, rerender } = render(TabBar, {\n\t\t\tvalue: 'home',\n\t\t\tblur: true,\n\t\t\tchildren: textSnippet('<div>nav item</div>')\n\t\t});\n\t\texpect(container.querySelector('nav')).toHaveClass('supports-[backdrop-filter]:backdrop-blur-xl');\n\t\tawait rerender({ blur: false });\n\t\texpect(container.querySelector('nav')).not.toHaveClass('supports-[backdrop-filter]:backdrop-blur-xl');\n\t});\n});\n",
         "tabbar/TabBarItem.svelte": "<script lang=\"ts\">\n\timport type { Snippet } from 'svelte';\n\timport { cn } from '../../utils.js';\n\timport { getTabBar } from './context.js';\n\n\tconst parent = getTabBar();\n\tlet {\n\t\tvalue,\n\t\tlabel,\n\t\ticon,\n\t\tbadge,\n\t\tonclick,\n\t\tactive,\n\t\tclass: className\n\t}: {\n\t\tvalue: string | number;\n\t\tlabel: string;\n\t\ticon?: Snippet;\n\t\tbadge?: number;\n\t\tonclick?: (e: MouseEvent) => void;\n\t\t/** Override the parent TabBar's value comparison. */\n\t\tactive?: boolean;\n\t\tclass?: string;\n\t} = $props();\n\n\tconst isActive = $derived(active ?? parent?.value === value);\n\n\tfunction handleClick(e: MouseEvent) {\n\t\tparent?.setValue(value);\n\t\tonclick?.(e);\n\t}\n</script>\n\n<button\n\ttype=\"button\"\n\trole=\"tab\"\n\tonclick={handleClick}\n\tclass={cn(\n\t\t'group relative flex min-h-11 min-w-0 flex-1 cursor-pointer select-none flex-col items-center justify-center gap-0.5',\n\t\t'px-2 pt-1.5 transition-[color,opacity,transform] duration-[var(--ui-transition-fast)]',\n\t\tisActive\n\t\t\t? 'text-[var(--ui-primary)]'\n\t\t\t: 'text-[var(--ui-muted-foreground)] active:text-[var(--ui-foreground)]',\n\t\tclassName\n\t)}\n\taria-selected={isActive}\n>\n\t<span class=\"relative flex items-center justify-center\">\n\t\t{#if icon}\n\t\t\t<span class=\"flex [&_svg]:h-6 [&_svg]:w-6\" aria-hidden=\"true\">\n\t\t\t\t{@render icon()}\n\t\t\t</span>\n\t\t{/if}\n\t\t{#if badge !== undefined && badge > 0}\n\t\t\t<span\n\t\t\t\tclass=\"absolute -right-2.5 -top-1 flex min-w-4 items-center justify-center rounded-full bg-[var(--ui-destructive)] px-1 text-[10px] font-semibold leading-4 text-white tabular-nums\"\n\t\t\t\t>{badge > 99 ? '99+' : badge}</span\n\t\t\t>\n\t\t{/if}\n\t</span>\n\t<span class=\"max-w-full truncate text-[11px] font-medium leading-none\">{label}</span>\n</button>",
         "tabbar/TabBarTest.svelte": "<script lang=\"ts\">\n\timport TabBar from './TabBar.svelte';\n\timport TabBarItem from './TabBarItem.svelte';\n\n\tlet { value = $bindable('home') }: { value?: string | number } = $props();\n</script>\n\n<TabBar bind:value>\n\t<TabBarItem value=\"home\" label=\"Home\" />\n\t<TabBarItem value=\"search\" label=\"Search\" />\n\t<TabBarItem value=\"profile\" label=\"Profile\" badge={3} />\n</TabBar>",
@@ -5757,9 +5757,9 @@
     {
       "name": "TextField",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "TextField"
       ],
       "files": [
@@ -5830,9 +5830,9 @@
     {
       "name": "TimePicker",
       "description": null,
-      "category": "uncategorized",
+      "category": "forms",
       "tags": [
-        "uncategorized",
+        "forms",
         "TimePicker"
       ],
       "files": [
@@ -5872,7 +5872,7 @@
       ],
       "contents": {
         "toast/Toast.svelte": "<script lang=\"ts\">\n  import { toasts, type Toast } from '../../toast/store.js';\n  import { X, CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-svelte';\n\n  const icons: Record<string, any> = {\n    success: CheckCircle,\n    error: AlertCircle,\n    warning: AlertTriangle,\n    info: Info,\n    default: null,\n  };\n\n  const colors: Record<string, string> = {\n    success: 'border-[var(--ui-success)]/30 bg-[var(--ui-success)]/5',\n    error: 'border-[var(--ui-destructive)]/30 bg-[var(--ui-destructive)]/5',\n    warning: 'border-[var(--ui-warning)]/30 bg-[var(--ui-warning)]/5',\n    info: 'border-[var(--ui-info)]/30 bg-[var(--ui-info)]/5',\n    default: 'border-[var(--ui-border)] bg-[var(--ui-card)]',\n  };\n\n  const iconColors: Record<string, string> = {\n    success: 'text-[var(--ui-success)]',\n    error: 'text-[var(--ui-destructive)]',\n    warning: 'text-[var(--ui-warning)]',\n    info: 'text-[var(--ui-info)]',\n    default: 'text-[var(--ui-muted-foreground)]',\n  };\n</script>\n\n{#snippet toastItem(toast: Toast)}\n  {@const Icon = icons[toast.type]}\n  {@const colorClass = colors[toast.type]}\n  {@const iconColor = iconColors[toast.type]}\n\n  <div\n    class=\"pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-xl border p-4 shadow-lg backdrop-blur-sm transition-all {colorClass}\"\n    role=\"alert\"\n    aria-live=\"polite\"\n  >\n    {#if Icon}\n      <Icon class=\"mt-0.5 size-5 shrink-0 {iconColor}\" />\n    {/if}\n\n    <div class=\"flex-1 min-w-0\">\n      {#if toast.title}\n        <p class=\"text-sm font-semibold text-[var(--ui-foreground)]\">{toast.title}</p>\n      {/if}\n      {#if toast.description}\n        <p class=\"mt-1 text-sm text-[var(--ui-muted-foreground)]\">{toast.description}</p>\n      {/if}\n      {#if toast.action}\n        <button\n          onclick={toast.action.onclick}\n          class=\"mt-2 text-sm font-medium text-[var(--ui-primary)] hover:underline cursor-pointer\"\n        >\n          {toast.action.label}\n        </button>\n      {/if}\n    </div>\n\n    <button\n      onclick={() => toasts.dismiss(toast.id)}\n      class=\"shrink-0 rounded-md p-1 text-[var(--ui-muted-foreground)] hover:text-[var(--ui-foreground)] transition-colors cursor-pointer\"\n      aria-label=\"Dismiss\"\n    >\n      <X class=\"size-4\" />\n    </button>\n  </div>\n{/snippet}\n\n<!-- Toast container -->\n<div class=\"fixed bottom-4 right-4 z-[100] flex flex-col-reverse gap-2 pointer-events-none\">\n  {#each $toasts as toast (toast.id)}\n    <div class=\"pointer-events-auto animate-slide-in-right\">\n      {@render toastItem(toast)}\n    </div>\n  {/each}\n</div>\n\n<style>\n  @keyframes slide-in-right {\n    from {\n      opacity: 0;\n      transform: translateX(100%);\n    }\n    to {\n      opacity: 1;\n      transform: translateX(0);\n    }\n  }\n\n  .animate-slide-in-right {\n    animation: slide-in-right 0.3s ease-out;\n  }\n</style>\n",
-        "toast/index.ts": "export { default as Toast } from './Toast.svelte';\nexport { toasts, type Toast, type ToastType } from '../../toast/store.js';"
+        "toast/index.ts": "export { default as Toast } from './Toast.svelte';\nexport { toasts } from '../../toast/store.js';\nexport type { Toast as ToastData, ToastType } from '../../toast/store.js';"
       },
       "packageDeps": {
         "@tanstack/svelte-virtual": "^3.13.35",
@@ -6034,9 +6034,9 @@
     {
       "name": "TopAppBar",
       "description": null,
-      "category": "uncategorized",
+      "category": "navigation",
       "tags": [
-        "uncategorized",
+        "navigation",
         "TopAppBar"
       ],
       "files": [
@@ -6065,9 +6065,9 @@
     {
       "name": "TrapezoidCard",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "TrapezoidCard"
       ],
       "files": [
@@ -6137,9 +6137,9 @@
     {
       "name": "TriangleAlert",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "TriangleAlert"
       ],
       "files": [
@@ -6168,9 +6168,9 @@
     {
       "name": "user-profile-card",
       "description": null,
-      "category": "uncategorized",
+      "category": "composite",
       "tags": [
-        "uncategorized",
+        "composite",
         "user",
         "profile",
         "card"
@@ -6262,9 +6262,9 @@
     {
       "name": "virtual-list",
       "description": null,
-      "category": "uncategorized",
+      "category": "data-display",
       "tags": [
-        "uncategorized",
+        "data-display",
         "virtual",
         "list"
       ],
@@ -6301,9 +6301,9 @@
     {
       "name": "WaveSection",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "WaveSection"
       ],
       "files": [
@@ -6332,9 +6332,9 @@
     {
       "name": "ZigzagDivider",
       "description": null,
-      "category": "uncategorized",
+      "category": "flat-shape",
       "tags": [
-        "uncategorized",
+        "flat-shape",
         "ZigzagDivider"
       ],
       "files": [
