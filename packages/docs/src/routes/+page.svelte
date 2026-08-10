@@ -4,7 +4,7 @@
 	const features = [
 		{
 			icon: Blocks,
-			title: '50+ components',
+			title: '100+ components',
 			desc: 'Buttons to data tables — every base component you need.'
 		},
 		{
@@ -15,7 +15,7 @@
 		{
 			icon: Palette,
 			title: 'Design tokens',
-			desc: 'Theme everything with CSS custom properties. Five themes included.'
+			desc: 'Theme everything with CSS custom properties. Nine themes included.'
 		},
 		{
 			icon: Moon,
@@ -29,7 +29,11 @@
 		{ name: 'md3', label: 'MD3', desc: 'Material Design 3', color: 'oklch(0.6 0.18 265)' },
 		{ name: 'flat', label: 'Flat', desc: 'Bold & geometric', color: '#3b82f6' },
 		{ name: 'glass', label: 'Glass', desc: 'Translucent blur', color: 'oklch(0.7 0.12 200)' },
-		{ name: 'brutalist', label: 'Brutalist', desc: 'Raw & heavy', color: 'oklch(0.15 0 0)' }
+		{ name: 'brutalist', label: 'Brutalist', desc: 'Raw & heavy', color: 'oklch(0.15 0 0)' },
+		{ name: 'neumorphism', label: 'Neumorphism', desc: 'Soft & tactile', color: 'oklch(0.6 0.12 260)' },
+		{ name: 'retro', label: 'Retro', desc: 'Warm & nostalgic', color: 'oklch(0.6 0.15 25)' },
+		{ name: 'cyberpunk', label: 'Cyberpunk', desc: 'Neon & electric', color: 'oklch(0.55 0.2 180)' },
+		{ name: 'minimalist', label: 'Minimalist', desc: 'Mono & airy', color: 'oklch(0.1 0 0)' }
 	];
 
 	let activeTheme = $state('shadcn');
@@ -39,7 +43,7 @@
 
 <svelte:head>
 	<title>Vultra UI — Svelte 5 component library</title>
-	<meta name="description" content="Vultra UI is a Svelte 5 component library with design tokens, CLI installer, and 50+ components." />
+	<meta name="description" content="Vultra UI is a Svelte 5 component library with design tokens, CLI installer, and 100+ components." />
 </svelte:head>
 
 <section class="mx-auto max-w-7xl px-4 pt-20 pb-16 text-center">
@@ -66,6 +70,14 @@
 			class="inline-flex items-center gap-2 rounded-lg border border-[var(--ui-border)] px-5 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--ui-muted)]"
 		>
 			Browse components
+		</a>
+		<a
+			href="https://ui.vultra.id"
+			target="_blank"
+			rel="noreferrer"
+			class="inline-flex items-center gap-2 rounded-lg border border-[var(--ui-border)] px-5 py-2.5 text-sm font-medium transition-colors hover:bg-[var(--ui-muted)]"
+		>
+			Live docs
 		</a>
 	</div>
 </section>
@@ -121,8 +133,8 @@
 				<div class="mb-3 flex size-10 items-center justify-center rounded-lg bg-[var(--ui-primary)] text-[var(--ui-primary-foreground)]">
 					<Blocks class="size-5" />
 				</div>
-				<h3 class="font-semibold">5 themes included</h3>
-				<p class="mt-1 text-sm text-[var(--ui-muted-foreground)]">Shadcn, MD3, Flat, Glass, Brutalist</p>
+				<h3 class="font-semibold">9 themes included</h3>
+				<p class="mt-1 text-sm text-[var(--ui-muted-foreground)]">Shadcn, MD3, Flat, Glass, Brutalist, Neumorphism, Retro, Cyberpunk, Minimalist</p>
 			</div>
 			<div class="rounded-xl border border-[var(--ui-border)] bg-[var(--ui-muted)] p-6">
 				<div class="mb-3 flex size-10 items-center justify-center rounded-lg bg-[var(--ui-primary)] text-[var(--ui-primary-foreground)]">
