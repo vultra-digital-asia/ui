@@ -15,6 +15,7 @@
 
 <script lang="ts">
 	import { setContext } from 'svelte';
+	import type { Snippet } from 'svelte';
 	import { cn } from '../../utils.js';
 	import { TAB_BAR_KEY } from './context.js';
 

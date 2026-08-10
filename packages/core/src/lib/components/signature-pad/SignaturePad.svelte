@@ -1,6 +1,7 @@
 <script lang="ts">
   import { cn } from '../../utils.js';
   import { Eraser, Download } from 'lucide-svelte';
+  import { Button } from '../button/index.js';
 
   let {
     width = 400,

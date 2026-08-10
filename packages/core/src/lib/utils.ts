@@ -9,7 +9,13 @@ export function cn(...inputs: ClassValue[]): string {
 // Helper types for component props
 export type WithoutChildren<T> = T extends { children?: unknown } ? Omit<T, 'children'> : T;
 
-export type WithElementRef<T extends HTMLAttributes<HTMLElement>, E extends HTMLElement = HTMLElement> = T & {
+export type WithoutChild<T> = WithoutChildren<T>;
+
+export type WithoutChildrenOrChild<T> = T extends { children?: unknown }
+	? Omit<T, 'children' | 'child'>
+	: T;
+
+export type WithElementRef<T, E extends HTMLElement = HTMLElement> = T & {
   ref?: E | null;
 };
 
