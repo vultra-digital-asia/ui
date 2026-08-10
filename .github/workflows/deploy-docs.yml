@@ -33,6 +33,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build packages
+        run: |
+          pnpm --filter @vultra/tokens build
+          pnpm --filter @vultra/ui build
+          pnpm --filter @vultra/md3 build
+          pnpm --filter @vultra/flat build
+
       - name: Build docs
         run: pnpm --filter @vultra/docs build
 
