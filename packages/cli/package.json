@@ -1,13 +1,14 @@
 {
   "name": "@vultra/cli",
-  "version": "0.1.0-alpha.12",
+  "version": "0.1.0-alpha.14",
   "description": "CLI to add Vultra UI components to your Svelte project",
   "type": "module",
   "bin": {
     "vultra": "./dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "registry"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
