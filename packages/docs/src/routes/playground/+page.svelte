@@ -14,6 +14,18 @@
 		CardFooter
 	} from '@vultra/ui/components/card';
 	import { Alert, AlertTitle, AlertDescription } from '@vultra/ui/components/alert';
+	import { Switch } from '@vultra/ui/components/switch';
+	import {
+		Select,
+		SelectTrigger,
+		SelectValue,
+		SelectContent,
+		SelectItem
+	} from '@vultra/ui/components/select';
+	import { SliderRoot, SliderRange, SliderThumb } from '@vultra/ui/components/slider';
+	import { Progress } from '@vultra/ui/components/progress';
+	import { Checkbox } from '@vultra/ui/components/checkbox';
+
 	const buttonProps: PlaygroundProp[] = [
 		{
 			name: 'variant',
@@ -84,6 +96,41 @@
 			default: 'You can add content to the alert.'
 		}
 	];
+
+	const switchProps: PlaygroundProp[] = [
+		{ name: 'checked', label: 'Checked', type: 'boolean', default: true },
+		{ name: 'disabled', label: 'Disabled', type: 'boolean', default: false },
+		{ name: 'label', label: 'Label', type: 'string', default: 'Airplane mode' }
+	];
+
+	const selectProps: PlaygroundProp[] = [
+		{
+			name: 'size',
+			label: 'Size',
+			type: 'enum',
+			default: 'default',
+			values: ['xs', 'sm', 'default', 'lg']
+		},
+		{ name: 'placeholder', label: 'Placeholder', type: 'string', default: 'Select a fruit…' },
+		{ name: 'disabled', label: 'Disabled', type: 'boolean', default: false }
+	];
+
+	const sliderProps: PlaygroundProp[] = [
+		{ name: 'value', label: 'Value', type: 'number', default: 50, min: 0, max: 100 },
+		{ name: 'step', label: 'Step', type: 'number', default: 5, min: 1, max: 25 },
+		{ name: 'disabled', label: 'Disabled', type: 'boolean', default: false }
+	];
+
+	const progressProps: PlaygroundProp[] = [
+		{ name: 'value', label: 'Value', type: 'number', default: 65, min: 0, max: 100 },
+		{ name: 'indeterminate', label: 'Indeterminate', type: 'boolean', default: false }
+	];
+
+	const checkboxProps: PlaygroundProp[] = [
+		{ name: 'checked', label: 'Checked', type: 'boolean', default: true },
+		{ name: 'disabled', label: 'Disabled', type: 'boolean', default: false },
+		{ name: 'label', label: 'Label', type: 'string', default: 'Accept terms' }
+	];
 </script>
 
 <svelte:head>
@@ -93,15 +140,15 @@
 
 <section class="mx-auto max-w-5xl px-4 py-12">
 	<div class="mb-10">
-		<h1 class="text-3xl font-bold tracking-tight">Playground</h1>
+		<h1 class="text-3xl font-bold">Playground</h1>
 		<p class="mt-2 text-[var(--ui-muted-foreground)]">
-			Tweak props on the right and watch the preview update live. Switch to the
-			<strong class="font-medium text-[var(--ui-foreground)]">Code</strong> tab to copy the generated
+			Tweak props live. Switch to the <strong class="font-medium text-[var(--ui-foreground)]">Code</strong> tab to copy the generated
 			snippet.
 		</p>
 	</div>
 
 	<div class="space-y-8">
+		<!-- Button -->
 		<Playground
 			title="Button"
 			description="Variants, sizes, disabled state"
@@ -114,6 +161,7 @@
 			{/snippet}
 		</Playground>
 
+		<!-- Badge -->
 		<Playground
 			title="Badge"
 			description="Status and label badges"
@@ -125,6 +173,7 @@
 			{/snippet}
 		</Playground>
 
+		<!-- Input -->
 		<Playground
 			title="Input"
 			description="Input types, placeholder, disabled"
@@ -139,6 +188,7 @@
 			{/snippet}
 		</Playground>
 
+		<!-- Card -->
 		<Playground
 			title="Card"
 			description="Content container with header and footer"
@@ -152,8 +202,7 @@
   <CardContent>
     <p>Some body content lives here.</p>
   </CardContent>${v.footer
-					? `
-  <CardFooter class="flex justify-end gap-2">
+					? `\n  <CardFooter class="flex justify-end gap-2">
     <Button variant="outline" size="sm">Cancel</Button>
     <Button size="sm">Save</Button>
   </CardFooter>`
@@ -179,6 +228,7 @@
 			{/snippet}
 		</Playground>
 
+		<!-- Alert -->
 		<Playground
 			title="Alert"
 			description="Feedback messages"
@@ -194,6 +244,118 @@
 					<AlertTitle>{v.title}</AlertTitle>
 					<AlertDescription>{v.description}</AlertDescription>
 				</Alert>
+			{/snippet}
+		</Playground>
+
+		<!-- Switch -->
+		<Playground
+			title="Switch"
+			description="Toggle between two states"
+			props={switchProps}
+			getCode={(v) =>
+				`<div class="flex items-center gap-2">
+  <Switch checked={${v.checked}}${v.disabled ? ' disabled' : ''} />
+  <Label>${v.label}</Label>
+</div>`}
+		>
+			{#snippet render(v)}
+				<div class="flex items-center gap-3">
+					<Switch checked={v.checked} disabled={v.disabled} />
+					<span class="text-sm">{v.label}</span>
+				</div>
+			{/snippet}
+		</Playground>
+
+		<!-- Select -->
+		<Playground
+			title="Select"
+			description="Dropdown selection"
+			props={selectProps}
+			getCode={(v) =>
+				`<Select disabled={${v.disabled}} size="${v.size}">
+  <SelectTrigger>
+    <SelectValue placeholder="${v.placeholder}" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="apple">Apple</SelectItem>
+    <SelectItem value="banana">Banana</SelectItem>
+    <SelectItem value="cherry">Cherry</SelectItem>
+  </SelectContent>
+</Select>`}
+		>
+			{#snippet render(v)}
+				<div class="w-56">
+					<Select disabled={v.disabled}>
+						<SelectTrigger>
+							<SelectValue placeholder={v.placeholder} />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectItem value="apple">Apple</SelectItem>
+							<SelectItem value="banana">Banana</SelectItem>
+							<SelectItem value="cherry">Cherry</SelectItem>
+						</SelectContent>
+					</Select>
+				</div>
+			{/snippet}
+		</Playground>
+
+		<!-- Slider -->
+		<Playground
+			title="Slider"
+			description="Value selector on a track"
+			props={sliderProps}
+			getCode={(v) =>
+				`<Slider defaultValue={[${v.value}]} step={${v.step}} max={100}${v.disabled ? ' disabled' : ''} />`}
+		>
+			{#snippet render(v)}
+				<div class="w-64">
+					<SliderRoot
+						value={[v.value]}
+						step={v.step}
+						max={100}
+						disabled={v.disabled}
+						class="relative flex h-5 w-full touch-none select-none items-center"
+					>
+						<SliderRange class="absolute h-full rounded-full bg-[var(--ui-primary)]" />
+						<SliderThumb class="block size-4 rounded-full bg-[var(--ui-primary)] shadow transition-colors focus-visible:outline-2 focus-visible:outline-[var(--ui-ring)]" />
+					</SliderRoot>
+				</div>
+			{/snippet}
+		</Playground>
+
+		<!-- Progress -->
+		<Playground
+			title="Progress"
+			description="Visual progress indicator"
+			props={progressProps}
+			getCode={(v) =>
+				v.indeterminate
+					? `<Progress value={null} />`
+					: `<Progress value={${v.value}} />`}
+		>
+			{#snippet render(v)}
+				<div class="w-64">
+					<Progress value={v.indeterminate ? null : v.value} />
+				</div>
+			{/snippet}
+		</Playground>
+
+		<!-- Checkbox -->
+		<Playground
+			title="Checkbox"
+			description="Binary choice with label"
+			props={checkboxProps}
+			getCode={(v) =>
+				`<div class="flex items-center gap-2">
+  <Checkbox checked={${v.checked}}${v.disabled ? ' disabled' : ''} />
+  <Label>${v.label}</Label>
+</div>`}
+		>
+			{#snippet render(v)}
+				<div class="flex items-center gap-3">
+					<Checkbox checked={v.checked} disabled={v.disabled} />
+					<span class="text-sm">{v.label}</span>
+				</div>
 			{/snippet}
 		</Playground>
 	</div>
