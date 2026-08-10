@@ -1,6 +1,6 @@
 {
   "name": "@vultra/image-editor",
-  "version": "0.1.0-alpha.14",
+  "version": "0.1.0-alpha.15",
   "description": "Image editor with filters and effects for Vultra UI",
   "type": "module",
   "exports": {
