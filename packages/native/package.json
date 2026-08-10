@@ -1,6 +1,6 @@
 {
   "name": "@vultra/native",
-  "version": "0.1.0-alpha.15",
+  "version": "0.1.0",
   "description": "Capacitor plugin wrappers and web fallbacks for native device capabilities",
   "type": "module",
   "exports": {

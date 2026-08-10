@@ -1,6 +1,6 @@
 {
   "name": "@vultra/flat",
-  "version": "0.1.0-alpha.15",
+  "version": "0.1.0",
   "description": "Flat color geometric components with clip-path shapes for Vultra UI",
   "type": "module",
   "exports": {
