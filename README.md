@@ -2,7 +2,16 @@
 
 **Svelte 5 component library — 100+ components, 9 themes, mobile + native.**
 
+[![npm version](https://img.shields.io/npm/v/@vultra/ui?style=flat-square&color=7c3aed)](https://www.npmjs.com/package/@vultra/ui)
+[![npm downloads](https://img.shields.io/npm/dm/@vultra/ui?style=flat-square&color=7c3aed)](https://www.npmjs.com/package/@vultra/ui)
+[![Docs](https://img.shields.io/badge/docs-ui.vultra.id-7c3aed?style=flat-square&labelColor=1a1a1a)](https://ui.vultra.id)
+[![License MIT](https://img.shields.io/npm/l/@vultra/ui?style=flat-square&color=7c3aed)](https://github.com/vultra-digital-asia/ui/blob/main/LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/vultra-digital-asia/ui/ci.yml?style=flat-square&color=7c3aed)](https://github.com/vultra-digital-asia/ui/actions)
+[![GitHub Release](https://img.shields.io/github/v/release/vultra-digital-asia/ui?style=flat-square&color=7c3aed)](https://github.com/vultra-digital-asia/ui/releases)
+
 Vultra UI is a complete Svelte 5 component ecosystem: shadcn-style components, Material Design 3, flat/geometric shapes, mobile-first touch components, and native device capabilities — all tree-shakeable from one install.
+
+**📚 Live docs: [ui.vultra.id](https://ui.vultra.id)**
 
 ## Packages
 
@@ -134,8 +143,8 @@ Build responsive web → PWA → native app from one codebase. See `templates/pw
 
 ## Documentation
 
-- Component docs: [vultra docs](https://github.com/vultra-digital-asia/ui/tree/main/packages/docs)
-- Examples & playground
+- **Live docs: [ui.vultra.id](https://ui.vultra.id)** — components, themes, getting started, search (⌘K)
+- Source: [`packages/docs/`](https://github.com/vultra-digital-asia/ui/tree/main/packages/docs)
 - All 26 packages published to npm
 
 ## Development
@@ -150,37 +159,26 @@ pnpm check         # Type check
 
 ## CI/CD
 
-GitHub Actions: `ci.yml` (build + test on push/PR), `publish.yml` (manual stage publish to npm).
+GitHub Actions:
+- `ci.yml` — build + test on push/PR
+- `publish.yml` — release to npm (alpha/beta/stable) + GitHub Release + tag
+- `deploy-docs.yml` — auto-deploy docs to [ui.vultra.id](https://ui.vultra.id)
 
-## Versioning
+## Versioning & Publishing
 
-All packages use [Changesets](https://github.com/changesets/changesets) for versioning and changelogs:
+All 26 packages versioned together and released as one unit.
 
-```bash
-pnpm changeset        # add a changeset
-pnpm version          # bump versions + update changelogs (changeset version)
-pnpm publish          # publish via changeset
-```
+### Release types
 
-Packages currently ship as `0.1.0-alpha.x` (alpha).
+| Type | Command | npm tag |
+|------|---------|---------|
+| Alpha | `gh workflow run publish.yml -f release-type=alpha` | `alpha` |
+| Beta | `gh workflow run publish.yml -f release-type=beta` | `beta` |
+| Stable | `gh workflow run publish.yml -f release-type=stable -f version=patch\|minor\|major` | `latest` |
 
-### Publishing flow
+The workflow bumps versions, commits, builds, publishes in dependency order, tags (`v<version>`) and creates a GitHub Release with auto-generated notes.
 
-The repo uses **npm staged publishing** — `npm stage publish` uploads packages to your npm account's Staged Packages queue instead of publishing immediately, so you can review before approving.
-
-```bash
-./scripts/stage-publish.sh          # rewrite workspace deps + stage all packages (tag: alpha)
-./scripts/stage-publish.sh beta     # stage with a different dist-tag
-./scripts/stage-publish.sh --rewrite-only   # CI: only rewrite deps, no publish
-```
-
-Then approve the queue at [npmjs.com/settings/vultra/packages](https://www.npmjs.com/settings/vultra/packages) (Staged Packages) and apply the release with `npm run stage:apply`.
-
-> **Why the rewrite step?** npm does **not** resolve pnpm-style `workspace:*` dependency specifiers when packing/publishing (verified empirically with `npm pack`). Without the rewrite, published packages ship a dependency range of `workspace:*`, which fails on install with `Could not resolve dependency: workspace:* not found in registry`. `scripts/stage-publish.sh` rewrites every `workspace:*` to the current workspace version of that package before staging.
-
-Brand-new packages (never published) can't be created via staged publishing — they require `npm publish` with login + 2FA (`./scripts/publish-new.sh`).
-
-GitHub Actions: `ci.yml` (build + test on push/PR), `publish.yml` (manual stage publish to npm).
+> **Why the rewrite step?** npm does **not** resolve pnpm-style `workspace:*` dependency specifiers when packing/publishing (verified empirically with `npm pack`). Without the rewrite, published packages ship a dependency range of `workspace:*`, which fails on install. `scripts/stage-publish.sh` rewrites every `workspace:*` to the current workspace version before publishing.
 
 ## License
 
