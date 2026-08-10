@@ -105,7 +105,10 @@ const SHARED_LIB_FILES: Record<string, string[]> = {
 	],
 };
 
-/** Write the component files into the consumer project. */
+/** Write the component files into the consumer project.
+ * Sources come from the registry's embedded contents (v3) so the CLI
+ * works from npm without the monorepo source tree. Falls back to reading
+ * from the monorepo when contents are absent (v2 registries). */
 export function writeComponent(
 	component: RegistryComponent,
 	opts: WriteOptions,
@@ -113,8 +116,8 @@ export function writeComponent(
 ): { written: string[]; skipped: string[] } {
 	const written: string[] = [];
 	const skipped: string[] = [];
+	const contents = component.contents;
 	for (const entry of component.files) {
-		const srcPath = coreSourcePath(monorepoRoot, entry, component.package);
 		const target = componentTargetPath(opts.root, entry);
 		const targetRel = relative(opts.root, target);
 
@@ -122,7 +125,10 @@ export function writeComponent(
 			skipped.push(targetRel);
 			continue;
 		}
-		const source = readFileSync(srcPath, 'utf8');
+		const source = contents?.[entry] ?? readFileSync(
+			coreSourcePath(monorepoRoot, entry, component.package),
+			'utf8',
+		);
 		const rewritten = rewriteComponentSource(source, opts);
 		mkdirSync(dirname(target), { recursive: true });
 		writeFileSync(target, rewritten);
@@ -132,14 +138,13 @@ export function writeComponent(
 		const shared = SHARED_LIB_FILES[dep];
 		if (!shared) continue;
 		for (const file of shared) {
-			const srcPath = sharedLibSourcePath(monorepoRoot, file);
 			const target = join(opts.root, 'src', 'lib', file);
 			const targetRel = relative(opts.root, target);
 			if (existsSync(target) && !opts.overwrite) {
 				skipped.push(targetRel);
 				continue;
 			}
-			const source = readFileSync(srcPath, 'utf8');
+			const source = readFileSync(sharedLibSourcePath(monorepoRoot, file), 'utf8');
 			const rewritten = rewriteComponentSource(source, opts);
 			mkdirSync(dirname(target), { recursive: true });
 			writeFileSync(target, rewritten);

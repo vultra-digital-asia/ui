@@ -493,6 +493,16 @@ for (const { package: pkg, dir: pkgDir } of PKG_DIRS) {
 		);
 		const mainTs = files.find((f) => basename(f) === 'index.ts');
 		const fileList = files.map((f) => relative(pkgDir, f).split(sep).join('/'));
+		const contents = {};
+		for (const f of files) {
+			contents[relative(pkgDir, f).split(sep).join('/')] = readFileSync(f, 'utf8');
+		}
+		// Runtime deps come from the component's source package.json, embedded
+		// so the CLI resolves them from npm without the monorepo.
+		const pkgJson = JSON.parse(
+			readFileSync(join(repoRoot, 'packages', pkg, 'package.json'), 'utf8'),
+		);
+		const packageDeps = pkgJson.dependencies ?? {};
 		const deps = new Set();
 		for (const f of files) for (const d of depsOf(f)) deps.add(d);
 		deps.delete(name);
@@ -501,21 +511,14 @@ for (const { package: pkg, dir: pkgDir } of PKG_DIRS) {
 		let description = null;
 		let props = [];
 		const propsSource = main ?? files.find((f) => isComponentFile(f)) ?? files.at(-1);
-		if (propsSource && /\.svelte$/.test(propsSource)) {
-			const code = readFileSync(propsSource, 'utf8');
-			const scripts = collectScripts(code);
-			const descScript = scripts.find((s) => s.includes('$props()')) ?? scripts[0];
-			description = findDescription(descScript ?? code);
-			props = extractProps(code, parseTvDefinitions(scripts));
-		}
-		if (!description) description = simpleDescription(name);
-
 		components.push({
 			name,
 			description,
 			category: categoryOf(name),
 			tags: tagsOf(name, categoryOf(name)),
 			files: fileList,
+			contents,
+			packageDeps,
 			deps: [...deps].sort(),
 			main: main ? relative(pkgDir, main).split(sep).join('/') : undefined,
 			mainTs: mainTs ? relative(pkgDir, mainTs).split(sep).join('/') : undefined,
@@ -526,12 +529,13 @@ for (const { package: pkg, dir: pkgDir } of PKG_DIRS) {
 		});
 	}
 }
+
+
 components.sort((a, b) => a.name.localeCompare(b.name));
 const payload = {
-	schema: 'v2',
+	schema: 'v3',
 	generatedAt: new Date().toISOString(),
 	components,
 };
-mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, JSON.stringify(payload, null, 2) + '\n');
-console.log(`Registry v2: ${components.length} components -> ${outPath}`);
+console.log(`Registry v3: ${components.length} components -> ${outPath}`);

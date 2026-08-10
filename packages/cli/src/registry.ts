@@ -15,6 +15,10 @@ export interface RegistryComponent {
 	category?: string;
 	tags?: string[];
 	files: string[];
+	/** Embedded file contents (registry v3) — keyed by files[] entry. */
+	contents?: Record<string, string>;
+	/** Embedded runtime deps (registry v3) from the source package. */
+	packageDeps?: Record<string, string>;
 	deps: string[];
 	main?: string;
 	mainTs?: string;

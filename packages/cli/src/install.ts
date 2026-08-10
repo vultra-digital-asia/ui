@@ -25,22 +25,21 @@ export function syncDependencies(
 		return { added: {}, hasPackageJson: false };
 	}
 
-	// Map every registry component to its source package's runtime deps.
-	// Components carry their monorepo package (core|md3|flat); deps come
-	// from that package's package.json — not a shared core dep list.
-	const depCache = new Map<string, Record<string, string>>();
-	const pkgDeps = (pkgName: string): Record<string, string> => {
-		if (depCache.has(pkgName)) return depCache.get(pkgName)!;
-		const pj = join(monorepoRoot(), 'packages', pkgName, PKG_JSON);
+	// Map every registry component to its runtime deps. v3 registries embed
+	// the source package's dependencies (packageDeps); older registries fall
+	// back to reading the monorepo package.json.
+	const depMap = new Map<string, Record<string, string>>();
+	for (const comp of registry.components) {
+		const embedded = comp.packageDeps;
+		if (embedded) {
+			depMap.set(comp.name, embedded);
+			continue;
+		}
+		const pj = join(monorepoRoot(), 'packages', comp.package ?? 'core', PKG_JSON);
 		const deps = existsSync(pj)
 			? readJson<{ dependencies?: Record<string, string> }>(pj).dependencies ?? {}
 			: {};
-		depCache.set(pkgName, deps);
-		return deps;
-	};
-	const depMap = new Map<string, Record<string, string>>();
-	for (const comp of registry.components) {
-		depMap.set(comp.name, pkgDeps(comp.package ?? 'core'));
+		depMap.set(comp.name, deps);
 	}
 
 	// Resolve workspace:* specs to concrete versions so consumers installing
