@@ -25,22 +25,8 @@
 </script>
 
 <svelte:head>
-	<title>Vultra UI — Svelte 5 Component Library</title>
+	<title>Vultra UI — Docs</title>
 	<meta name="description" content="Vultra UI component library — 100+ Svelte 5 components, 9 themes, CLI installer, mobile + native." />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="canonical" href="https://ui.vultra.id/" />
-	<meta property="og:title" content="Vultra UI — Svelte 5 Component Library" />
-	<meta property="og:description" content="100+ Svelte 5 components, 9 themes, CLI installer. Mobile-first + native device features." />
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://ui.vultra.id/" />
-	<meta property="og:image" content="https://ui.vultra.id/og.png" />
-	<meta property="og:site_name" content="Vultra UI" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Vultra UI — Svelte 5 Component Library" />
-	<meta name="twitter:description" content="100+ Svelte 5 components, 9 themes, CLI installer." />
-	<meta name="twitter:image" content="https://ui.vultra.id/og.png" />
-	<link rel="sitemap" type="application/xml" href="https://ui.vultra.id/sitemap.xml" />
-	<meta name="robots" content="index, follow" />
 </svelte:head>
 
 <div class="min-h-screen">
