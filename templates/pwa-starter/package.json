@@ -15,10 +15,10 @@
   },
   "dependencies": {
     "@sveltejs/kit": "^2.70.2",
-    "@vultra/tokens": "^0.1.0-alpha.11",
+    "@vultra/tokens": "^0.1.1-alpha.0",
     "lucide-svelte": "^1.0.1",
     "svelte": "^5.55.2",
-    "@vultra/ui": "^0.1.0-alpha.11"
+    "@vultra/ui": "^0.1.1-alpha.0"
   },
   "devDependencies": {
     "@capacitor/cli": "^7.0.0",
