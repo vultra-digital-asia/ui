@@ -6,7 +6,6 @@ settings:
 
 overrides:
   '@vultra/tokens': link:packages/tokens
-  tokens: link:../../../../Library/pnpm/global/5/node_modules/@vultra/tokens
 
 importers:
 
@@ -15,9 +14,6 @@ importers:
       '@vultra/tokens':
         specifier: link:packages/tokens
         version: link:packages/tokens
-      tokens:
-        specifier: link:../../../../Library/pnpm/global/5/node_modules/@vultra/tokens
-        version: link:../../../../Library/pnpm/global/5/node_modules/@vultra/tokens
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.0
