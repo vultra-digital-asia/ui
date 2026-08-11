@@ -5,13 +5,17 @@
 [![npm version](https://img.shields.io/npm/v/@vultra/ui?style=flat-square&color=7c3aed)](https://www.npmjs.com/package/@vultra/ui)
 [![npm downloads](https://img.shields.io/npm/dm/@vultra/ui?style=flat-square&color=7c3aed)](https://www.npmjs.com/package/@vultra/ui)
 [![Docs](https://img.shields.io/badge/docs-ui.vultra.id-7c3aed?style=flat-square&labelColor=1a1a1a)](https://ui.vultra.id)
+[![Storybook](https://img.shields.io/badge/stories-stories.vultra.id-orange?style=flat-square&labelColor=1a1a1a)](https://stories.vultra.id)
 [![License MIT](https://img.shields.io/npm/l/@vultra/ui?style=flat-square&color=7c3aed)](https://github.com/vultra-digital-asia/ui/blob/main/LICENSE)
+
 [![CI](https://img.shields.io/github/actions/workflow/status/vultra-digital-asia/ui/ci.yml?style=flat-square&color=7c3aed)](https://github.com/vultra-digital-asia/ui/actions)
 [![GitHub Release](https://img.shields.io/github/v/release/vultra-digital-asia/ui?style=flat-square&color=7c3aed)](https://github.com/vultra-digital-asia/ui/releases)
 
 Vultra UI is a complete Svelte 5 component ecosystem: shadcn-style components, Material Design 3, flat/geometric shapes, mobile-first touch components, and native device capabilities — all tree-shakeable from one install.
 
 **📚 Live docs: [ui.vultra.id](https://ui.vultra.id)**
+
+**🎨 Component explorer: [stories.vultra.id](https://stories.vultra.id)**
 
 ## Packages
 
