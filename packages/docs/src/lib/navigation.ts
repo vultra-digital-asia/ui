@@ -10,6 +10,10 @@ export const navigation: NavItem[] = [
 		href: '/docs/getting-started',
 		items: [
 			{ title: 'Installation', href: '/docs/getting-started' },
+			{ title: 'Guides', href: '/docs/guides/theming' },
+			{ title: '— Theming', href: '/docs/guides/theming' },
+			{ title: '— Mobile apps', href: '/docs/guides/mobile' },
+			{ title: '— CLI workflow', href: '/docs/guides/cli' },
 			{ title: 'Examples', href: '/examples' },
 			{ title: 'Playground', href: '/playground' }
 		]
