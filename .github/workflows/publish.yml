@@ -86,15 +86,8 @@ jobs:
           git commit -m "chore: bump to \$${{ github.event.inputs.release-type }} (pre-publish)" || echo "nothing to commit"
           git push origin main
 
-      - name: Build core packages
-        run: |
-          pnpm --filter @vultra/ui build
-          pnpm --filter @vultra/md3 build
-          pnpm --filter @vultra/flat build
-          pnpm --filter @vultra/grid-core build
-          pnpm --filter @vultra/data-table build
-          pnpm --filter @vultra/editor-core build
-          pnpm --filter @vultra/cli build
+      - name: Build all packages
+        run: pnpm -r run build
 
       - name: Rewrite workspace:* deps to versions
         run: ./scripts/stage-publish.sh --rewrite-only
@@ -106,7 +99,7 @@ jobs:
           ORDER=(tokens grid-core core md3 flat cli editor-core native rich-text motion \
                  motion-captions motion-effects motion-media motion-player motion-studio \
                  motion-three book-writer calendar charts collaboration kanban pdf-viewer \
-                 slides spreadsheet data-table)
+                 slides spreadsheet data-table image-editor)
           STAGE='${{ github.event.inputs.release-type }}'
           TAG="$STAGE"
           [ "$STAGE" = "stable" ] && TAG="latest"

@@ -16,6 +16,7 @@
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, relative, sep, basename, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = process.argv[2] ?? join(here, '..', '..', '..');
 const SCAN_PACKAGES = ['core', 'md3', 'flat'];
 const PKG_DIRS = SCAN_PACKAGES.map((p) => ({
@@ -547,6 +548,18 @@ for (const { package: pkg, dir: pkgDir } of PKG_DIRS) {
 		let description = null;
 		let props = [];
 		const propsSource = main ?? files.find((f) => isComponentFile(f)) ?? files.at(-1);
+		if (propsSource) {
+			const code = contents[relative(pkgDir, propsSource).split(sep).join('/')];
+			if (code) {
+				const scripts = collectScripts(code);
+				for (const script of scripts) {
+					description = findDescription(script);
+					if (description) break;
+				}
+				props = extractProps(code, parseTvDefinitions(scripts));
+			}
+		}
+		if (!description) description = simpleDescription(name);
 		components.push({
 			name,
 			description,

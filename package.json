@@ -38,12 +38,10 @@
   },
   "pnpm": {
     "overrides": {
-      "@vultra/tokens": "link:packages/tokens",
-      "tokens": "link:../../../../Library/pnpm/global/5/node_modules/@vultra/tokens"
+      "@vultra/tokens": "link:packages/tokens"
     }
   },
   "dependencies": {
-    "@vultra/tokens": "link:packages/tokens",
-    "tokens": "link:../../../../Library/pnpm/global/5/node_modules/@vultra/tokens"
+    "@vultra/tokens": "link:packages/tokens"
   }
 }
