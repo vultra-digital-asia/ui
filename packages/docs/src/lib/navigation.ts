@@ -82,6 +82,7 @@ export const navigation: NavItem[] = [
 			{ title: 'Split View', href: '/docs/components/split-view' },
 			{ title: 'Validate', href: '/docs/components/validate' },
 			{ title: 'Virtual List', href: '/docs/components/virtual-list' },
+			{ title: 'MD3 Badge', href: '/docs/components/md3-badge' },
 			{ title: 'MD3 Bottom Sheet', href: '/docs/components/md3-bottom-sheet' },
 			{ title: 'MD3 Chip', href: '/docs/components/md3-chip' },
 			{ title: 'MD3 FAB', href: '/docs/components/md3-fab' },
@@ -94,7 +95,8 @@ export const navigation: NavItem[] = [
 			{ title: 'MD3 Segmented Button', href: '/docs/components/md3-segmented-button' },
 			{ title: 'MD3 Snackbar', href: '/docs/components/md3-snackbar' },
 			{ title: 'MD3 Text Field', href: '/docs/components/md3-text-field' },
-			{ title: 'MD3 Time Picker', href: '/docs/components/md3-time-picker' },
+			{ title: 'MD3 Switch', href: '/docs/components/md3-switch' },
+
 			{ title: 'MD3 Top App Bar', href: '/docs/components/md3-top-app-bar' },
 			{ title: 'Flat Arrow Card', href: '/docs/components/flat-arrow-card' },
 			{ title: 'Flat Blob Card', href: '/docs/components/flat-blob-card' },
