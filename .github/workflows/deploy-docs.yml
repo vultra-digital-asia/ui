@@ -9,6 +9,7 @@ on:
       - 'packages/core/**'
       - 'packages/md3/**'
       - 'packages/flat/**'
+      - 'packages/storybook/**'
   workflow_dispatch:
 
 jobs:
@@ -47,6 +48,19 @@ jobs:
         run: |
           pnpm dlx wrangler pages deploy packages/docs/build \
             --project-name=vultra-docs \
+            --branch=main \
+            --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Build storybook
+        run: pnpm --filter @vultra/storybook build-storybook
+
+      - name: Deploy storybook to Cloudflare Pages
+        run: |
+          pnpm dlx wrangler pages deploy packages/storybook/storybook-static \
+            --project-name=vultra-storybook \
             --branch=main \
             --commit-dirty=true
         env:
