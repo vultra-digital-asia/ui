@@ -24,25 +24,25 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Generate svelte-kit tsconfig
         run: |
           npx svelte-kit sync
           cd packages/core && npx svelte-kit sync
           cd ../docs && npx svelte-kit sync
-      - name: Build core packages
-        run: |
-          pnpm --filter @vultra/ui build
-          pnpm --filter @vultra/md3 build
-          pnpm --filter @vultra/flat build
-          pnpm --filter @vultra/grid-core build
-          pnpm --filter @vultra/data-table build
-          pnpm --filter @vultra/editor-core build
-          pnpm --filter @vultra/cli build
+
+      - name: Build library packages
+        run: pnpm --filter '!@vultra/docs' --filter '!@vultra/storybook' --filter '!@vultra/template-*' run build
 
       - name: Run tests
         run: pnpm --filter @vultra/ui test
 
       - name: Build docs
         run: pnpm --filter @vultra/docs build
+
+      - name: Build starter templates
+        run: |
+          pnpm --filter @vultra/template-saas build
+          pnpm --filter @vultra/template-commerce build
+          pnpm --filter @vultra/template-flutter-web build
