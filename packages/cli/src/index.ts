@@ -10,7 +10,7 @@ import { updateComponents } from './update.js';
 import { runDoctor } from './doctor.js';
 import { generateStitchSpec } from './stitch.js';
 import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
-import { generateScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
+import { generateScreen, generateAiScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
 
 function toPascal(name: string): string {
 	return name
@@ -435,8 +435,10 @@ program
 	.option('-p, --platform <platform>', 'Platform: svelte5 or flutter')
 	.option('-a, --archetype <archetype>', 'Archetype: datatable, dashboard, paywall, checkout, settings, auth_otp')
 	.option('-e, --entity <name>', 'Entity name (e.g. Invoice, Customer)')
+	.option('--ai <prompt>', 'Generate custom screen via AI prompt using local 9Router')
+	.option('--model <model>', 'AI model override (default: opencode-combo)')
 	.option('-o, --out <path>', 'Output directory (default: current directory)', '.')
-	.action(async (opts: { platform?: string; archetype?: string; entity?: string; out?: string }) => {
+	.action(async (opts: { platform?: string; archetype?: string; entity?: string; ai?: string; model?: string; out?: string }) => {
 		try {
 			let platform = opts.platform as GeneratorPlatform | undefined;
 			let archetype = opts.archetype as GeneratorArchetype | undefined;
@@ -456,6 +458,43 @@ program
 				platform = res.platform;
 			}
 
+			if (!entity) {
+				const res = await prompts({
+					type: 'text',
+					name: 'entity',
+					message: 'Masukkan nama entitas (e.g. AuditLog, Customer, Transaction):',
+					initial: 'AuditLog',
+				});
+				if (!res.entity) return;
+				entity = res.entity;
+			}
+
+			const outDir = opts.out ?? '.';
+
+			if (opts.ai) {
+				if (!platform || !entity) {
+					console.log('Platform dan nama entitas wajib diisi.');
+					return;
+				}
+				console.log(`\nSynthesizing ${platform} screen via AI for "${entity}"...`);
+				console.log(`Prompt: "${opts.ai}"`);
+				const aiResult = await generateAiScreen({
+					prompt: opts.ai,
+					platform,
+					entityName: entity,
+					model: opts.model,
+				});
+
+				for (const file of aiResult.files) {
+					const targetPath = join(outDir, file.path);
+					mkdirSync(dirname(targetPath), { recursive: true });
+					writeFileSync(targetPath, file.content, 'utf8');
+					console.log(`  ✓ AI Generated: ${targetPath} (${file.description})`);
+				}
+				console.log(`\nSukses AI generate ${aiResult.files.length} file untuk feature ${entity}.\n`);
+				return;
+			}
+
 			if (!archetype) {
 				const res = await prompts({
 					type: 'select',
@@ -473,23 +512,11 @@ program
 				archetype = res.archetype;
 			}
 
-			if (!entity) {
-				const res = await prompts({
-					type: 'text',
-					name: 'entity',
-					message: 'Masukkan nama entitas (e.g. Invoice, Customer, Order):',
-					initial: 'Customer',
-				});
-				if (!res.entity) return;
-				entity = res.entity;
-			}
-
 			if (!platform || !archetype || !entity) {
 				console.log('Semua parameter (platform, archetype, entity) wajib diisi.');
 				return;
 			}
 
-			const outDir = opts.out ?? '.';
 			console.log(`\nGenerating ${platform} [${archetype}] for "${entity}"...`);
 			const result = generateScreen({
 				platform,

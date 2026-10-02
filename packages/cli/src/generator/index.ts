@@ -5,6 +5,7 @@ import { generateSvelteFeature } from './svelte.js';
 export * from './types.js';
 export * from './flutter.js';
 export * from './svelte.js';
+export * from './ai.js';
 
 /**
  * Universal Benchmark UI Code Generator.

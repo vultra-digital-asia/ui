@@ -1,6 +1,6 @@
 {
   "schema": "v3",
-  "generatedAt": "2026-10-02T01:33:11.477Z",
+  "generatedAt": "2026-10-02T04:53:16.343Z",
   "components": [
     {
       "name": "accordion",
@@ -6876,6 +6876,56 @@
       "package": "md3"
     },
     {
+      "name": "screen-analytics",
+      "description": "Screen Analytics component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "screen",
+        "analytics"
+      ],
+      "files": [
+        "screen-analytics/ScreenAnalytics.svelte",
+        "screen-analytics/index.ts"
+      ],
+      "contents": {
+        "screen-analytics/ScreenAnalytics.svelte": "<script lang=\"ts\">\n  import {\n    Calendar,\n    TrendingUp,\n    TrendingDown,\n    Users,\n    Eye,\n    Clock,\n    ArrowUpRight,\n    Globe,\n    Laptop,\n    Smartphone,\n    Download,\n    Share2,\n  } from 'lucide-svelte';\n\n  interface Metric {\n    label: string;\n    value: string;\n    change: number;\n    trend: 'up' | 'down';\n  }\n\n  let {\n    timeRange = $bindable('30d'),\n    metrics = [\n      { label: 'Unique Visitors', value: '128,420', change: 14.8, trend: 'up' },\n      { label: 'Total Pageviews', value: '492,108', change: 8.2, trend: 'up' },\n      { label: 'Avg Session Duration', value: '3m 42s', change: -2.1, trend: 'down' },\n      { label: 'Bounce Rate', value: '41.2%', change: -4.5, trend: 'up' },\n    ] as Metric[],\n    topPages = [\n      { path: '/pricing', visitors: '42,109', percentage: 78 },\n      { path: '/docs/components/screen-paywall', visitors: '28,490', percentage: 54 },\n      { path: '/templates/saas', visitors: '19,230', percentage: 38 },\n      { path: '/blog/anti-slop-ui-principles', visitors: '14,810', percentage: 29 },\n      { path: '/login', visitors: '11,402', percentage: 21 },\n    ],\n    topReferrers = [\n      { source: 'Google Organic', count: '68,200', pct: '53.1%' },\n      { source: 'GitHub / vultra-ui', count: '31,400', pct: '24.4%' },\n      { source: 'Twitter / X', count: '14,100', pct: '11.0%' },\n      { source: 'Direct / Bookmarks', count: '9,800', pct: '7.6%' },\n      { source: 'Hacker News', count: '4,920', pct: '3.9%' },\n    ],\n  } = $props();\n\n  const timeOptions = [\n    { id: '7d', label: '7 Days' },\n    { id: '30d', label: '30 Days' },\n    { id: '90d', label: '90 Days' },\n    { id: '12m', label: '12 Months' },\n  ];\n</script>\n\n<div class=\"flex h-full w-full flex-col bg-[#FBF9F9] text-[#1B1C1C]\">\n  <!-- Header Bar -->\n  <header class=\"flex flex-wrap items-center justify-between gap-4 border-b border-[#E8E4DF] bg-white px-6 py-4\">\n    <div>\n      <h1 class=\"text-xl font-bold tracking-tight text-[#1B1C1C]\">Analytics Overview</h1>\n      <p class=\"mt-0.5 text-xs text-[#6B6761]\">Privacy-first traffic and conversion telemetry</p>\n    </div>\n\n    <div class=\"flex items-center gap-3\">\n      <!-- Time Selector -->\n      <div class=\"inline-flex rounded-xl border border-[#E8E4DF] bg-[#FBF9F9] p-0.5\">\n        {#each timeOptions as opt}\n          <button\n            onclick={() => (timeRange = opt.id)}\n            class=\"rounded-lg px-3 py-1.5 text-xs font-semibold transition-all {timeRange === opt.id ? 'bg-white text-[#1B1C1C] shadow-xs' : 'text-[#6B6761] hover:text-[#1B1C1C]'}\"\n          >\n            {opt.label}\n          </button>\n        {/each}\n      </div>\n\n      <button class=\"inline-flex h-9 items-center gap-1.5 rounded-xl border border-[#E8E4DF] bg-white px-3 text-xs font-semibold text-[#1B1C1C] hover:bg-stone-50\">\n        <Download class=\"h-3.5 w-3.5 text-stone-500\" />\n        Export\n      </button>\n    </div>\n  </header>\n\n  <div class=\"flex flex-1 flex-col gap-6 p-6\">\n    <!-- Top 4 Metrics -->\n    <div class=\"grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4\">\n      {#each metrics as m}\n        <div class=\"flex flex-col justify-between rounded-2xl border border-[#E8E4DF] bg-white p-5 shadow-xs\">\n          <span class=\"text-xs font-semibold text-[#6B6761]\">{m.label}</span>\n          <div class=\"mt-3 flex items-baseline justify-between\">\n            <span class=\"font-mono text-2xl font-bold tracking-tight text-[#1B1C1C] tabular-nums\">\n              {m.value}\n            </span>\n            <span\n              class=\"inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold {m.change >= 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}\"\n            >\n              {#if m.change >= 0}\n                <TrendingUp class=\"h-3 w-3\" />\n                +{m.change}%\n              {:else}\n                <TrendingDown class=\"h-3 w-3\" />\n                {m.change}%\n              {/if}\n            </span>\n          </div>\n        </div>\n      {/each}\n    </div>\n\n    <!-- Breakdown Grid -->\n    <div class=\"grid grid-cols-1 gap-6 lg:grid-cols-2\">\n      <!-- Top Visited Pages -->\n      <div class=\"flex flex-col rounded-2xl border border-[#E8E4DF] bg-white p-6 shadow-xs\">\n        <div class=\"mb-4 flex items-center justify-between\">\n          <div>\n            <h2 class=\"text-sm font-bold text-[#1B1C1C]\">Top Pages</h2>\n            <p class=\"text-xs text-[#6B6761]\">Ranked by total page visitors</p>\n          </div>\n          <span class=\"text-xs font-semibold text-stone-400\">Visitors</span>\n        </div>\n\n        <div class=\"flex flex-col gap-3\">\n          {#each topPages as page}\n            <div class=\"flex flex-col gap-1.5\">\n              <div class=\"flex items-center justify-between text-xs\">\n                <span class=\"font-mono font-medium text-[#1B1C1C]\">{page.path}</span>\n                <span class=\"font-mono font-bold text-stone-600 tabular-nums\">{page.visitors}</span>\n              </div>\n              <div class=\"h-2 w-full overflow-hidden rounded-full bg-stone-100\">\n                <div\n                  class=\"h-full rounded-full bg-[#A13F20]\"\n                  style=\"width: {page.percentage}%;\"\n                ></div>\n              </div>\n            </div>\n          {/each}\n        </div>\n      </div>\n\n      <!-- Top Referrers -->\n      <div class=\"flex flex-col rounded-2xl border border-[#E8E4DF] bg-white p-6 shadow-xs\">\n        <div class=\"mb-4 flex items-center justify-between\">\n          <div>\n            <h2 class=\"text-sm font-bold text-[#1B1C1C]\">Top Referrers</h2>\n            <p class=\"text-xs text-[#6B6761]\">Acquisition sources by inbound traffic</p>\n          </div>\n          <span class=\"text-xs font-semibold text-stone-400\">Share</span>\n        </div>\n\n        <div class=\"flex flex-col divide-y divide-[#E8E4DF]\">\n          {#each topReferrers as ref}\n            <div class=\"flex items-center justify-between py-3 first:pt-0 last:pb-0\">\n              <div class=\"flex items-center gap-2.5\">\n                <div class=\"flex h-7 w-7 items-center justify-center rounded-lg bg-stone-100 text-stone-600\">\n                  <Globe class=\"h-3.5 w-3.5\" />\n                </div>\n                <span class=\"text-xs font-semibold text-[#1B1C1C]\">{ref.source}</span>\n              </div>\n\n              <div class=\"flex items-center gap-3\">\n                <span class=\"font-mono text-xs text-stone-600 tabular-nums\">{ref.count}</span>\n                <span class=\"w-12 text-right font-mono text-xs font-bold text-[#A13F20] tabular-nums\">\n                  {ref.pct}\n                </span>\n              </div>\n            </div>\n          {/each}\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n",
+        "screen-analytics/index.ts": "export { default as ScreenAnalytics } from './ScreenAnalytics.svelte';\n"
+      },
+      "packageDeps": {
+        "@ark-ui/svelte": "^5.24.1",
+        "@vultra/tokens": "workspace:*",
+        "clsx": "^2.1.1",
+        "lucide-svelte": "^1.0.1",
+        "tailwind-merge": "^3.5.0",
+        "tailwind-variants": "^3.3.0"
+      },
+      "deps": [],
+      "mainTs": "screen-analytics/index.ts",
+      "isComponent": true,
+      "entry": "screen-analytics/index.ts",
+      "props": [
+        {
+          "name": "timeRange",
+          "type": "any",
+          "default": "30d"
+        },
+        {
+          "name": "metrics",
+          "type": "any"
+        },
+        {
+          "name": "topPages",
+          "type": "any"
+        },
+        {
+          "name": "topReferrers",
+          "type": "any"
+        }
+      ],
+      "package": "screens"
+    },
+    {
       "name": "screen-checkout-modal",
       "description": "Screen Checkout Modal component",
       "category": "screens",
@@ -6997,6 +7047,51 @@
         },
         {
           "name": "onRowClick",
+          "type": "any"
+        }
+      ],
+      "package": "screens"
+    },
+    {
+      "name": "screen-kanban",
+      "description": "Screen Kanban component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "screen",
+        "kanban"
+      ],
+      "files": [
+        "screen-kanban/ScreenKanban.svelte",
+        "screen-kanban/index.ts"
+      ],
+      "contents": {
+        "screen-kanban/ScreenKanban.svelte": "<script lang=\"ts\">\n  import {\n    Plus,\n    MoreHorizontal,\n    Search,\n    Filter,\n    Calendar,\n    MessageSquare,\n    AlertCircle,\n    CheckCircle2,\n    Clock,\n    Circle,\n    ChevronDown,\n  } from 'lucide-svelte';\n\n  interface Task {\n    id: string;\n    title: string;\n    description?: string;\n    tag: string;\n    priority: 'urgent' | 'high' | 'medium' | 'low';\n    assignee: { name: string; avatar: string };\n    commentsCount: number;\n    dueDate?: string;\n  }\n\n  interface Column {\n    id: string;\n    title: string;\n    tasks: Task[];\n  }\n\n  let {\n    columns = $bindable([\n      {\n        id: 'backlog',\n        title: 'Backlog',\n        tasks: [\n          {\n            id: 'TASK-101',\n            title: 'Design token export format for Google Stitch',\n            tag: 'Design System',\n            priority: 'high',\n            assignee: { name: 'Alex M', avatar: 'AM' },\n            commentsCount: 3,\n            dueDate: 'Oct 12',\n          },\n          {\n            id: 'TASK-102',\n            title: 'Audit accessibility of continuous squircle cards',\n            tag: 'A11y',\n            priority: 'low',\n            assignee: { name: 'Sarah K', avatar: 'SK' },\n            commentsCount: 0,\n          },\n        ],\n      },\n      {\n        id: 'in_progress',\n        title: 'In Progress',\n        tasks: [\n          {\n            id: 'TASK-103',\n            title: 'Refactor BLoC Freezed generators for Flutter mobile',\n            tag: 'Mobile Architecture',\n            priority: 'urgent',\n            assignee: { name: 'Ant J', avatar: 'AJ' },\n            commentsCount: 7,\n            dueDate: 'Tomorrow',\n          },\n          {\n            id: 'TASK-104',\n            title: 'Migrate Tailwind v4 @theme CSS variable bindings',\n            tag: 'Frontend',\n            priority: 'medium',\n            assignee: { name: 'Davin W', avatar: 'DW' },\n            commentsCount: 2,\n            dueDate: 'Oct 8',\n          },\n        ],\n      },\n      {\n        id: 'review',\n        title: 'In Review',\n        tasks: [\n          {\n            id: 'TASK-105',\n            title: 'PR #142: Zero-emoji icon policy enforcement in CI',\n            tag: 'DevOps',\n            priority: 'high',\n            assignee: { name: 'Alex M', avatar: 'AM' },\n            commentsCount: 5,\n            dueDate: 'Today',\n          },\n        ],\n      },\n      {\n        id: 'done',\n        title: 'Done',\n        tasks: [\n          {\n            id: 'TASK-106',\n            title: 'Postgres MCP Server for UI Vault retrieval',\n            tag: 'Backend',\n            priority: 'medium',\n            assignee: { name: 'Ant J', avatar: 'AJ' },\n            commentsCount: 11,\n          },\n        ],\n      },\n    ] as Column[]),\n    onTaskClick = (task: Task) => {},\n    onAddTask = (columnId: string) => {},\n  } = $props();\n\n  let searchQuery = $state('');\n  let selectedTag = $state('all');\n\n  function getPriorityColor(priority: Task['priority']) {\n    switch (priority) {\n      case 'urgent':\n        return 'text-rose-600 bg-rose-50 border-rose-200';\n      case 'high':\n        return 'text-amber-700 bg-amber-50 border-amber-200';\n      case 'medium':\n        return 'text-sky-700 bg-sky-50 border-sky-200';\n      case 'low':\n        return 'text-stone-600 bg-stone-100 border-stone-200';\n    }\n  }\n</script>\n\n<div class=\"flex h-full w-full flex-col bg-[#FBF9F9] text-[#1B1C1C]\">\n  <!-- Header Bar -->\n  <header class=\"flex flex-wrap items-center justify-between gap-4 border-b border-[#E8E4DF] bg-white px-6 py-4\">\n    <div>\n      <div class=\"flex items-center gap-2\">\n        <h1 class=\"text-xl font-bold tracking-tight text-[#1B1C1C]\">Sprint Board</h1>\n        <span class=\"rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold text-stone-600\">Sprint 14</span>\n      </div>\n      <p class=\"mt-0.5 text-xs text-[#6B6761]\">Linear-style high-craft task tracking with priority badges</p>\n    </div>\n\n    <div class=\"flex items-center gap-3\">\n      <!-- Search -->\n      <div class=\"relative\">\n        <Search class=\"absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400\" />\n        <input\n          type=\"text\"\n          placeholder=\"Filter tasks...\"\n          bind:value={searchQuery}\n          class=\"h-9 w-52 rounded-xl border border-[#E8E4DF] bg-[#FBF9F9] pl-9 pr-3 text-xs text-[#1B1C1C] placeholder:text-stone-400 focus:border-[#A13F20] focus:outline-none\"\n        />\n      </div>\n\n      <!-- Action -->\n      <button\n        onclick={() => onAddTask('backlog')}\n        class=\"inline-flex h-9 items-center gap-1.5 rounded-xl bg-[#A13F20] px-3.5 text-xs font-semibold text-white shadow-xs transition-colors hover:bg-[#8B3519]\"\n      >\n        <Plus class=\"h-3.5 w-3.5\" />\n        New Task\n      </button>\n    </div>\n  </header>\n\n  <!-- Columns Canvas -->\n  <div class=\"flex flex-1 gap-6 overflow-x-auto p-6\">\n    {#each columns as col (col.id)}\n      <div class=\"flex w-80 shrink-0 flex-col rounded-2xl border border-[#E8E4DF] bg-stone-50/70 p-3\">\n        <!-- Column Header -->\n        <div class=\"mb-3 flex items-center justify-between px-2\">\n          <div class=\"flex items-center gap-2\">\n            <span class=\"text-xs font-bold uppercase tracking-wider text-[#6B6761]\">{col.title}</span>\n            <span class=\"flex h-5 w-5 items-center justify-center rounded-full bg-[#E8E4DF] text-[11px] font-bold text-[#1B1C1C]\">\n              {col.tasks.length}\n            </span>\n          </div>\n          <button\n            onclick={() => onAddTask(col.id)}\n            class=\"rounded-lg p-1 text-stone-400 hover:bg-stone-200/60 hover:text-stone-700\"\n          >\n            <Plus class=\"h-4 w-4\" />\n          </button>\n        </div>\n\n        <!-- Task List -->\n        <div class=\"flex flex-1 flex-col gap-2.5 overflow-y-auto pr-0.5\">\n          {#each col.tasks as task (task.id)}\n            <div\n              role=\"button\"\n              tabindex=\"0\"\n              onclick={() => onTaskClick(task)}\n              onkeydown={(e) => e.key === 'Enter' && onTaskClick(task)}\n              class=\"group relative flex cursor-pointer flex-col gap-2.5 rounded-xl border border-[#E8E4DF] bg-white p-3.5 shadow-xs transition-all hover:border-[#A13F20]/40 hover:shadow-sm\"\n            >\n              <!-- Card Top -->\n              <div class=\"flex items-start justify-between gap-2\">\n                <span class=\"font-mono text-[11px] font-bold text-stone-400\">{task.id}</span>\n                <span class=\"rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider {getPriorityColor(task.priority)}\">\n                  {task.priority}\n                </span>\n              </div>\n\n              <!-- Title -->\n              <h2 class=\"text-xs font-medium leading-snug text-[#1B1C1C] group-hover:text-[#A13F20]\">\n                {task.title}\n              </h2>\n\n              <!-- Tag -->\n              <div>\n                <span class=\"rounded-md bg-stone-100 px-2 py-0.5 text-[10px] font-semibold text-stone-600\">\n                  {task.tag}\n                </span>\n              </div>\n\n              <!-- Card Footer -->\n              <div class=\"mt-1 flex items-center justify-between border-t border-stone-100 pt-2 text-[11px] text-stone-400\">\n                <div class=\"flex items-center gap-3\">\n                  {#if task.dueDate}\n                    <span class=\"flex items-center gap-1 font-mono text-[10px] text-stone-600\">\n                      <Calendar class=\"h-3 w-3 text-stone-400\" />\n                      {task.dueDate}\n                    </span>\n                  {/if}\n                  {#if task.commentsCount > 0}\n                    <span class=\"flex items-center gap-1 text-[10px]\">\n                      <MessageSquare class=\"h-3 w-3\" />\n                      {task.commentsCount}\n                    </span>\n                  {/if}\n                </div>\n\n                <div class=\"flex h-6 w-6 items-center justify-center rounded-full bg-[#A13F20]/10 text-[10px] font-bold text-[#A13F20]\">\n                  {task.assignee.avatar}\n                </div>\n              </div>\n            </div>\n          {/each}\n        </div>\n      </div>\n    {/each}\n  </div>\n</div>\n",
+        "screen-kanban/index.ts": "export { default as ScreenKanban } from './ScreenKanban.svelte';\n"
+      },
+      "packageDeps": {
+        "@ark-ui/svelte": "^5.24.1",
+        "@vultra/tokens": "workspace:*",
+        "clsx": "^2.1.1",
+        "lucide-svelte": "^1.0.1",
+        "tailwind-merge": "^3.5.0",
+        "tailwind-variants": "^3.3.0"
+      },
+      "deps": [],
+      "mainTs": "screen-kanban/index.ts",
+      "isComponent": true,
+      "entry": "screen-kanban/index.ts",
+      "props": [
+        {
+          "name": "columns",
+          "type": "any"
+        },
+        {
+          "name": "onTaskClick",
+          "type": "any"
+        },
+        {
+          "name": "onAddTask",
           "type": "any"
         }
       ],
@@ -7210,6 +7305,52 @@
         },
         {
           "name": "onLogout",
+          "type": "any"
+        }
+      ],
+      "package": "screens"
+    },
+    {
+      "name": "screen-team-settings",
+      "description": "Screen Team Settings component",
+      "category": "uncategorized",
+      "tags": [
+        "uncategorized",
+        "screen",
+        "team",
+        "settings"
+      ],
+      "files": [
+        "screen-team-settings/ScreenTeamSettings.svelte",
+        "screen-team-settings/index.ts"
+      ],
+      "contents": {
+        "screen-team-settings/ScreenTeamSettings.svelte": "<script lang=\"ts\">\n  import {\n    Users,\n    UserPlus,\n    Mail,\n    Shield,\n    MoreHorizontal,\n    Trash2,\n    Check,\n    Copy,\n    AlertTriangle,\n  } from 'lucide-svelte';\n\n  interface TeamMember {\n    id: string;\n    name: string;\n    email: string;\n    role: 'Owner' | 'Admin' | 'Developer' | 'Member';\n    avatar: string;\n    joinedAt: string;\n  }\n\n  let {\n    members = $bindable([\n      {\n        id: 'mem_1',\n        name: 'Ant Joshua',\n        email: 'antoniusjoshua47@gmail.com',\n        role: 'Owner',\n        avatar: 'AJ',\n        joinedAt: 'Jan 2026',\n      },\n      {\n        id: 'mem_2',\n        name: 'Sarah Connor',\n        email: 'sarah.c@vultra.id',\n        role: 'Admin',\n        avatar: 'SC',\n        joinedAt: 'Mar 2026',\n      },\n      {\n        id: 'mem_3',\n        name: 'Davin W',\n        email: 'davin@vultra.id',\n        role: 'Developer',\n        avatar: 'DW',\n        joinedAt: 'Aug 2026',\n      },\n    ] as TeamMember[]),\n    onInvite = (email: string, role: string) => {},\n    onRemove = (memberId: string) => {},\n  } = $props();\n\n  let inviteEmail = $state('');\n  let inviteRole = $state('Developer');\n  let copiedLink = $state(false);\n\n  function copyInviteLink() {\n    navigator.clipboard?.writeText('https://ui.vultra.id/join/team-vultra-asia');\n    copiedLink = true;\n    setTimeout(() => (copiedLink = false), 2000);\n  }\n</script>\n\n<div class=\"flex h-full w-full flex-col bg-[#FBF9F9] text-[#1B1C1C]\">\n  <!-- Header Bar -->\n  <header class=\"flex flex-wrap items-center justify-between gap-4 border-b border-[#E8E4DF] bg-white px-6 py-4\">\n    <div>\n      <h1 class=\"text-xl font-bold tracking-tight text-[#1B1C1C]\">Team & Permissions</h1>\n      <p class=\"mt-0.5 text-xs text-[#6B6761]\">Manage workspace members, role hierarchy, and access keys</p>\n    </div>\n\n    <div class=\"flex items-center gap-3\">\n      <button\n        onclick={copyInviteLink}\n        class=\"inline-flex h-9 items-center gap-1.5 rounded-xl border border-[#E8E4DF] bg-white px-3.5 text-xs font-semibold text-[#1B1C1C] hover:bg-stone-50\"\n      >\n        {#if copiedLink}\n          <Check class=\"h-3.5 w-3.5 text-emerald-600\" />\n          <span class=\"text-emerald-700\">Link Copied</span>\n        {:else}\n          <Copy class=\"h-3.5 w-3.5 text-stone-500\" />\n          Copy Invite Link\n        {/if}\n      </button>\n    </div>\n  </header>\n\n  <div class=\"mx-auto flex w-full max-w-4xl flex-1 flex-col gap-6 p-6\">\n    <!-- Invite Box -->\n    <div class=\"flex flex-col gap-4 rounded-2xl border border-[#E8E4DF] bg-white p-6 shadow-xs\">\n      <div>\n        <h2 class=\"text-sm font-bold text-[#1B1C1C]\">Invite new collaborator</h2>\n        <p class=\"text-xs text-[#6B6761]\">Send invitation email with pre-configured workspace permissions</p>\n      </div>\n\n      <div class=\"flex flex-wrap items-center gap-3\">\n        <div class=\"relative min-w-[260px] flex-1\">\n          <Mail class=\"absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400\" />\n          <input\n            type=\"email\"\n            placeholder=\"colleague@company.com\"\n            bind:value={inviteEmail}\n            class=\"h-10 w-full rounded-xl border border-[#E8E4DF] bg-[#FBF9F9] pl-9 pr-3 text-xs text-[#1B1C1C] placeholder:text-stone-400 focus:border-[#A13F20] focus:outline-none\"\n          />\n        </div>\n\n        <select\n          bind:value={inviteRole}\n          class=\"h-10 rounded-xl border border-[#E8E4DF] bg-[#FBF9F9] px-3 text-xs font-semibold text-[#1B1C1C] focus:border-[#A13F20] focus:outline-none\"\n        >\n          <option value=\"Admin\">Admin</option>\n          <option value=\"Developer\">Developer</option>\n          <option value=\"Member\">Member</option>\n        </select>\n\n        <button\n          onclick={() => {\n            if (inviteEmail) {\n              onInvite(inviteEmail, inviteRole);\n              inviteEmail = '';\n            }\n          }}\n          class=\"inline-flex h-10 items-center gap-1.5 rounded-xl bg-[#A13F20] px-4 text-xs font-semibold text-white shadow-xs hover:bg-[#8B3519]\"\n        >\n          <UserPlus class=\"h-3.5 w-3.5\" />\n          Send Invite\n        </button>\n      </div>\n    </div>\n\n    <!-- Active Members Table -->\n    <div class=\"flex flex-col overflow-hidden rounded-2xl border border-[#E8E4DF] bg-white shadow-xs\">\n      <div class=\"border-b border-[#E8E4DF] px-6 py-4\">\n        <div class=\"flex items-center justify-between\">\n          <h2 class=\"text-sm font-bold text-[#1B1C1C]\">Active Workspace Members ({members.length})</h2>\n          <span class=\"text-xs text-[#6B6761]\">3 seats used of 10</span>\n        </div>\n      </div>\n\n      <div class=\"divide-y divide-[#E8E4DF]\">\n        {#each members as m (m.id)}\n          <div class=\"flex items-center justify-between px-6 py-4 hover:bg-[#FBF9F9]\">\n            <div class=\"flex items-center gap-3.5\">\n              <div class=\"flex h-9 w-9 items-center justify-center rounded-full bg-stone-100 text-xs font-bold text-[#1B1C1C]\">\n                {m.avatar}\n              </div>\n              <div class=\"flex flex-col\">\n                <span class=\"text-xs font-bold text-[#1B1C1C]\">{m.name}</span>\n                <span class=\"font-mono text-[11px] text-[#6B6761]\">{m.email}</span>\n              </div>\n            </div>\n\n            <div class=\"flex items-center gap-4\">\n              <span class=\"hidden font-mono text-xs text-stone-400 sm:inline-block\">Joined {m.joinedAt}</span>\n\n              {#if m.role === 'Owner'}\n                <span class=\"rounded-full bg-stone-100 px-3 py-1 text-xs font-bold text-stone-700\">Owner</span>\n              {:else}\n                <select\n                  bind:value={m.role}\n                  class=\"rounded-lg border border-[#E8E4DF] bg-white px-2.5 py-1 text-xs font-semibold text-[#1B1C1C]\"\n                >\n                  <option value=\"Admin\">Admin</option>\n                  <option value=\"Developer\">Developer</option>\n                  <option value=\"Member\">Member</option>\n                </select>\n\n                <button\n                  onclick={() => onRemove(m.id)}\n                  class=\"rounded-lg p-1.5 text-stone-400 hover:bg-rose-50 hover:text-rose-600\"\n                >\n                  <Trash2 class=\"h-4 w-4\" />\n                </button>\n              {/if}\n            </div>\n          </div>\n        {/each}\n      </div>\n    </div>\n  </div>\n</div>\n",
+        "screen-team-settings/index.ts": "export { default as ScreenTeamSettings } from './ScreenTeamSettings.svelte';\n"
+      },
+      "packageDeps": {
+        "@ark-ui/svelte": "^5.24.1",
+        "@vultra/tokens": "workspace:*",
+        "clsx": "^2.1.1",
+        "lucide-svelte": "^1.0.1",
+        "tailwind-merge": "^3.5.0",
+        "tailwind-variants": "^3.3.0"
+      },
+      "deps": [],
+      "mainTs": "screen-team-settings/index.ts",
+      "isComponent": true,
+      "entry": "screen-team-settings/index.ts",
+      "props": [
+        {
+          "name": "members",
+          "type": "any"
+        },
+        {
+          "name": "onInvite",
+          "type": "any"
+        },
+        {
+          "name": "onRemove",
           "type": "any"
         }
       ],
