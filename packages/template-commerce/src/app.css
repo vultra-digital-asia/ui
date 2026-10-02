@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-background: var(--ui-background);
+  --color-foreground: var(--ui-foreground);
+  --color-card: var(--ui-card);
+  --color-card-foreground: var(--ui-card-foreground);
+  --color-popover: var(--ui-popover);
+  --color-popover-foreground: var(--ui-popover-foreground);
+  --color-primary: var(--ui-primary);
+  --color-primary-foreground: var(--ui-primary-foreground);
+  --color-secondary: var(--ui-secondary);
+  --color-secondary-foreground: var(--ui-secondary-foreground);
+  --color-muted: var(--ui-muted);
+  --color-muted-foreground: var(--ui-muted-foreground);
+  --color-accent: var(--ui-accent);
+  --color-accent-foreground: var(--ui-accent-foreground);
+  --color-destructive: var(--ui-destructive);
+  --color-destructive-foreground: var(--ui-destructive-foreground);
+  --color-border: var(--ui-border);
+  --color-input: var(--ui-input);
+  --color-ring: var(--ui-ring);
+
+  --radius-sm: 12px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}
+
+:root {
+  --ui-radius: 16px;
+  --ui-background: #FBF9F9;
+  --ui-foreground: #1B1C1C;
+  --ui-card: #FFFFFF;
+  --ui-card-foreground: #1B1C1C;
+  --ui-popover: #FFFFFF;
+  --ui-popover-foreground: #1B1C1C;
+  --ui-primary: #A13F20;
+  --ui-primary-foreground: #FFFFFF;
+  --ui-secondary: #F2EFEB;
+  --ui-secondary-foreground: #1B1C1C;
+  --ui-muted: #F5F2F0;
+  --ui-muted-foreground: #767575;
+  --ui-accent: #E97451;
+  --ui-accent-foreground: #FFFFFF;
+  --ui-destructive: #BA1A1A;
+  --ui-destructive-foreground: #FFFFFF;
+  --ui-border: #E8E4E1;
+  --ui-input: #E8E4E1;
+  --ui-ring: #A13F20;
+}

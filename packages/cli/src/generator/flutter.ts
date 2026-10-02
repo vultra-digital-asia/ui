@@ -57,6 +57,12 @@ export function generateFlutterFeature(options: GeneratorOptions): GeneratorResu
   // 6. Presentation Feature Widgets (Separated from business logic)
   files.push(generateWidgetFile(pascal, snake, camel, archetype, defaultFields));
 
+  // 7. Optional Unit & Golden Tests
+  if (options.generateTests) {
+    files.push(generateBlocTestFile(pascal, snake));
+    files.push(generateWidgetTestFile(pascal, snake));
+  }
+
   return {
     entityName: pascal,
     platform: 'flutter',
@@ -674,5 +680,106 @@ class _EmptyStateView extends StatelessWidget {
     path: `lib/features/${snake}/presentation/widgets/${snake}_content_widget.dart`,
     content,
     description: `Presentational widget separating UI from domain logic for ${pascal}`,
+  };
+}
+
+function generateBlocTestFile(pascal: string, snake: string): GeneratedFile {
+  const content = `import 'package:flutter_test/flutter_test.dart';
+import 'package:bloc_test/bloc_test.dart';
+import 'package:app/features/${snake}/bloc/${snake}_bloc.dart';
+import 'package:app/features/${snake}/bloc/${snake}_event.dart';
+import 'package:app/features/${snake}/bloc/${snake}_state.dart';
+
+void main() {
+  group('${pascal}Bloc Tests', () {
+    late ${pascal}Bloc bloc;
+
+    setUp(() {
+      bloc = ${pascal}Bloc();
+    });
+
+    tearDown(() {
+      bloc.close();
+    });
+
+    test('initial state is ${pascal}State.initial()', () {
+      expect(bloc.state, const ${pascal}State.initial());
+    });
+
+    blocTest<${pascal}Bloc, ${pascal}State>(
+      'emits [loading, loaded] when load event is dispatched',
+      build: () => ${pascal}Bloc(),
+      act: (b) => b.add(const ${pascal}Event.load()),
+      expect: () => [
+        const ${pascal}State.loading(),
+        isA<${pascal}State>().having(
+          (s) => s.maybeWhen(loaded: (items, _) => items.length, orElse: () => -1),
+          'items count',
+          greaterThan(0),
+        ),
+      ],
+    );
+
+    blocTest<${pascal}Bloc, ${pascal}State>(
+      'filters items when filterQueryChanged event is dispatched',
+      build: () => ${pascal}Bloc(),
+      act: (b) async {
+        b.add(const ${pascal}Event.load());
+        await Future.delayed(const Duration(milliseconds: 10));
+        b.add(const ${pascal}Event.filterQueryChanged('nonexistent_filter_query_xyz'));
+      },
+      skip: 2, // skip loading and initial loaded states
+      expect: () => [
+        isA<${pascal}State>().having(
+          (s) => s.maybeWhen(loaded: (items, _) => items.length, orElse: () => -1),
+          'filtered items count',
+          equals(0),
+        ),
+      ],
+    );
+  });
+}
+`;
+
+  return {
+    path: `test/features/${snake}/bloc/${snake}_bloc_test.dart`,
+    content,
+    description: `BLoC unit test verifying state transitions with bloc_test for ${pascal}`,
+  };
+}
+
+function generateWidgetTestFile(pascal: string, snake: string): GeneratedFile {
+  const content = `import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:app/features/${snake}/presentation/${snake}_page.dart';
+import 'package:app/features/${snake}/presentation/widgets/${snake}_content_widget.dart';
+
+void main() {
+  group('${pascal}Page Golden & Widget Tests', () {
+    testWidgets('renders ${pascal}Page with clean typography and squircle layout', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: ${pascal}Page(),
+        ),
+      );
+
+      // Verify structure
+      expect(find.byType(${pascal}Page), findsOneWidget);
+      expect(find.byType(${pascal}ContentWidget), findsOneWidget);
+
+      // Settle simulated animations
+      await tester.pumpAndSettle();
+
+      // Anti-slop checks: verify clean textual header exists
+      expect(find.text('${pascal} Directory'), findsOneWidget);
+    });
+  });
+}
+`;
+
+  return {
+    path: `test/features/${snake}/presentation/${snake}_page_test.dart`,
+    content,
+    description: `Golden and widget integration test verifying layout for ${pascal}`,
   };
 }

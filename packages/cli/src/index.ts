@@ -12,6 +12,7 @@ import { generateStitchSpec, compileStitchSpec } from './stitch.js';
 import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
 import { generateScreen, generateAiScreen, generateVisionScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
 import { runAntiSlopLinter } from './linter.js';
+import { syncTokens, TOKEN_PRESETS } from './tokens.js';
 
 function toPascal(name: string): string {
 	return name
@@ -460,10 +461,11 @@ program
 	.option('-p, --platform <platform>', 'Platform: svelte5 or flutter')
 	.option('-a, --archetype <archetype>', 'Archetype: datatable, dashboard, paywall, checkout, settings, auth_otp')
 	.option('-e, --entity <name>', 'Entity name (e.g. Invoice, Customer)')
+	.option('-t, --test', 'Generate unit and golden test suites')
 	.option('--ai <prompt>', 'Generate custom screen via AI prompt using local 9Router')
 	.option('--model <model>', 'AI model override (default: opencode-combo)')
 	.option('-o, --out <path>', 'Output directory (default: current directory)', '.')
-	.action(async (opts: { platform?: string; archetype?: string; entity?: string; ai?: string; model?: string; out?: string }) => {
+	.action(async (opts: { platform?: string; archetype?: string; entity?: string; test?: boolean; ai?: string; model?: string; out?: string }) => {
 		try {
 			let platform = opts.platform as GeneratorPlatform | undefined;
 			let archetype = opts.archetype as GeneratorArchetype | undefined;
@@ -542,11 +544,12 @@ program
 				return;
 			}
 
-			console.log(`\nGenerating ${platform} [${archetype}] for "${entity}"...`);
+			console.log(`\nGenerating ${platform} [${archetype}] for "${entity}"${opts.test ? ' with test suites' : ''}...`);
 			const result = generateScreen({
 				platform,
 				archetype,
 				entityName: entity,
+				generateTests: opts.test,
 			});
 
 			for (const file of result.files) {
@@ -614,6 +617,45 @@ program
 				console.log(`  ✓ Reconstructed: ${targetPath} (${file.description})`);
 			}
 			console.log(`\nSukses vision reconstruct ${res.files.length} file.\n`);
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
+
+program
+	.command('tokens')
+	.description('Design token management and multiplatform synchronization')
+	.command('sync [specFile]')
+	.description('Sync design tokens to Tailwind v4 CSS and Flutter Dart tokens')
+	.option('--preset <preset>', 'Preset: ethereal-sand, atelier-zinc', 'ethereal-sand')
+	.option('--web <path>', 'Output path for Tailwind v4 CSS (e.g. src/app.css)')
+	.option('--flutter <path>', 'Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)')
+	.action(async (specFile?: string, opts?: { preset?: string; web?: string; flutter?: string }) => {
+		try {
+			console.log('\nSynchronizing multiplatform design tokens...');
+			const result = await syncTokens({
+				inputPath: specFile,
+				preset: opts?.preset,
+				outWeb: opts?.web,
+				outFlutter: opts?.flutter,
+			});
+
+			if (opts?.web) {
+				console.log(`  ✓ Synced Web Tailwind v4 tokens: ${opts.web}`);
+			}
+			if (opts?.flutter) {
+				console.log(`  ✓ Synced Flutter Native tokens: ${opts.flutter}`);
+			}
+			if (!opts?.web && !opts?.flutter) {
+				console.log('\n--- Tailwind v4 CSS Preview ---');
+				console.log(result.webCss.slice(0, 400) + '...\n');
+				console.log('--- Flutter Dart Preview ---');
+				console.log(result.flutterDart.slice(0, 400) + '...\n');
+				console.log('Tip: Pass --web <path> and --flutter <path> to write to files.\n');
+			} else {
+				console.log('\nTokens synchronized successfully.\n');
+			}
 		} catch (err) {
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);

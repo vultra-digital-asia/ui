@@ -23,6 +23,7 @@ export interface GeneratorOptions {
   fields?: FieldDefinition[];
   title?: string;
   description?: string;
+  generateTests?: boolean;
 }
 
 export interface GeneratedFile {
