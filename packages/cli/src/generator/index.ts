@@ -6,6 +6,7 @@ export * from './types.js';
 export * from './flutter.js';
 export * from './svelte.js';
 export * from './ai.js';
+export * from './vision.js';
 
 /**
  * Universal Benchmark UI Code Generator.

@@ -1,3 +1,5 @@
+import { generateScreen } from './generator/index.js';
+
 export function generateStitchSpec(themeName: string = 'neutral'): string {
   const themeSpecs: Record<string, {
     atmosphere: string;
@@ -107,4 +109,29 @@ ${spec.atmosphere}
 - NO pure black (\`#000000\`).
 - NO ungrounded placeholder names (use real contextual domain terms).
 `;
+}
+
+export function compileStitchSpec(
+  specMarkdown: string,
+  platform: 'svelte5' | 'flutter' = 'svelte5',
+  entityName: string = 'Screen'
+): { files: Array<{ path: string; content: string; description: string }> } {
+  const isDataTable = /datatable|table|tabular|list/i.test(specMarkdown);
+  const isDashboard = /dashboard|kpi|overview/i.test(specMarkdown);
+  const isPaywall = /paywall|pricing|subscription|tier/i.test(specMarkdown);
+  const isSettings = /setting|profile|team|permission/i.test(specMarkdown);
+
+  let archetype: any = 'datatable';
+  if (isDashboard) archetype = 'dashboard';
+  else if (isPaywall) archetype = 'paywall';
+  else if (isSettings) archetype = 'settings';
+  else if (isDataTable) archetype = 'datatable';
+
+  const result = generateScreen({
+    platform,
+    archetype,
+    entityName,
+  });
+
+  return { files: result.files };
 }

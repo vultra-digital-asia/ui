@@ -8,9 +8,10 @@ import { installComponents, syncDependencies } from './install.js';
 import { initProject } from './init.js';
 import { updateComponents } from './update.js';
 import { runDoctor } from './doctor.js';
-import { generateStitchSpec } from './stitch.js';
+import { generateStitchSpec, compileStitchSpec } from './stitch.js';
 import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
-import { generateScreen, generateAiScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
+import { generateScreen, generateAiScreen, generateVisionScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
+import { runAntiSlopLinter } from './linter.js';
 
 function toPascal(name: string): string {
 	return name
@@ -243,9 +244,9 @@ program
 		}
 	});
 
-program
+const stitchCmd = program
 	.command('stitch')
-	.description('Generate Google Stitch DESIGN.md specification from Vultra tokens')
+	.description('Generate or compile Google Stitch DESIGN.md specification from Vultra tokens')
 	.argument('[theme]', 'theme name: neutral, ethereal-sand, md3, cyberpunk (default: neutral)')
 	.option('-o, --out <path>', 'output file path (default: stdout)')
 	.action((theme = 'neutral', opts: { out?: string }) => {
@@ -257,6 +258,30 @@ program
 			} else {
 				console.log(spec);
 			}
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
+
+stitchCmd
+	.command('compile <specFile>')
+	.description('Compile Google Stitch markdown specification into production code')
+	.option('-p, --platform <platform>', 'Platform: svelte5 or flutter', 'svelte5')
+	.option('-e, --entity <name>', 'Entity name', 'StitchScreen')
+	.option('-o, --out <path>', 'Output directory', '.')
+	.action((specFile: string, opts: { platform: any; entity: string; out: string }) => {
+		try {
+			const specContent = readFileSync(specFile, 'utf8');
+			console.log(`\nCompiling Stitch spec "${specFile}" to ${opts.platform}...`);
+			const res = compileStitchSpec(specContent, opts.platform, opts.entity);
+			for (const file of res.files) {
+				const targetPath = join(opts.out, file.path);
+				mkdirSync(dirname(targetPath), { recursive: true });
+				writeFileSync(targetPath, file.content, 'utf8');
+				console.log(`  ✓ Compiled: ${targetPath} (${file.description})`);
+			}
+			console.log(`\nSukses compile ${res.files.length} file dari Stitch spec.\n`);
 		} catch (err) {
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);
@@ -535,6 +560,102 @@ program
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);
 		}
+	});
+
+program
+	.command('lint [dir]')
+	.description('Run Vultra Anti-Slop static analyzer (checks emoji, purple gradients, radius consistency, thin-page)')
+	.action((dir?: string) => {
+		const targetDir = dir ?? process.cwd();
+		console.log(`\nScanning codebase for UI slop in: ${targetDir}...\n`);
+		const { totalFiles, violations } = runAntiSlopLinter(targetDir);
+
+		if (violations.length === 0) {
+			console.log(`✓ Clean! Scanned ${totalFiles} files. Zero anti-slop violations found.\n`);
+			return;
+		}
+
+		console.log(`⚠️  Found ${violations.length} anti-slop violation(s) across ${totalFiles} files:\n`);
+		for (const v of violations) {
+			const tag = v.severity === 'error' ? '🔴 ERROR' : '🟡 WARN';
+			console.log(`  ${tag} [${v.rule}] ${v.file}:${v.line}`);
+			console.log(`    Message: ${v.message}`);
+			console.log(`    Snippet: ${v.snippet.slice(0, 80)}\n`);
+		}
+
+		const errors = violations.filter((v) => v.severity === 'error');
+		if (errors.length > 0) {
+			console.error(`Process failed: ${errors.length} error-level violations must be resolved.\n`);
+			process.exit(1);
+		}
+	});
+
+program
+	.command('vision <image>')
+	.description('Convert screenshot image (PNG/JPG) to Svelte 5 or Flutter code via 9Router Vision')
+	.option('-p, --platform <platform>', 'Platform: svelte5 or flutter', 'svelte5')
+	.option('-e, --entity <name>', 'Entity name', 'GeneratedScreen')
+	.option('-o, --out <path>', 'Output directory', '.')
+	.option('--prompt <text>', 'Additional guidance prompt')
+	.action(async (image: string, opts: { platform: any; entity: string; out: string; prompt?: string }) => {
+		try {
+			console.log(`\nAnalyzing screenshot "${image}" via Vision AI...`);
+			const res = await generateVisionScreen({
+				imagePath: image,
+				platform: opts.platform,
+				entityName: opts.entity,
+				prompt: opts.prompt,
+			});
+
+			for (const file of res.files) {
+				const targetPath = join(opts.out, file.path);
+				mkdirSync(dirname(targetPath), { recursive: true });
+				writeFileSync(targetPath, file.content, 'utf8');
+				console.log(`  ✓ Reconstructed: ${targetPath} (${file.description})`);
+			}
+			console.log(`\nSukses vision reconstruct ${res.files.length} file.\n`);
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
+
+program
+	.command('setup-agent')
+	.description('Generate IDE & Agent Pack (.cursorrules, .windsurfrules, .claude/mcp.json) for anti-slop rules')
+	.action(() => {
+		const cursorRules = `# VULTRA DESIGN SYSTEM & ANTI-SLOP RULES
+
+## Prime Directives
+1. Zero Emoji in UI chrome: NEVER use emoji for status, actions, tabs or badges. Use Lucide icons (Web) or SF Symbols / Material Symbols (Mobile).
+2. Anti-Slop: NO generic purple/indigo AI glow gradients. Stick to 1 locked accent: Terracotta #A13F20 or specified theme.
+3. Continuous Squircles: 16px radius on cards, 12px on inputs/buttons.
+4. Canvas: Light mode first (#FBF9F9) with ink text (#1B1C1C) and subtle borders (#E8E4DF).
+5. Tabular numbers: Use 'tabular-nums font-mono' on numeric columns, IDs, currency.
+
+## Architecture
+- Svelte 5: Thin-page pattern. State and logic in src/lib/features/<name>/<name>.svelte.ts ($state, $derived). View markup in src/routes/<name>/+page.svelte.
+- Flutter: Clean architecture. BLoC (flutter_bloc) + Freezed (@freezed). Pure separation between models/, bloc/, and presentation/widgets/.
+`;
+		writeFileSync(join(process.cwd(), '.cursorrules'), cursorRules, 'utf8');
+		writeFileSync(join(process.cwd(), '.windsurfrules'), cursorRules, 'utf8');
+
+		const mcpDir = join(process.cwd(), '.claude');
+		mkdirSync(mcpDir, { recursive: true });
+		const mcpJson = {
+			mcpServers: {
+				'ui-vault': {
+					command: '/usr/bin/bun',
+					args: ['run', '/root/workspace/ui-vault/src/mcp/index.ts'],
+				},
+			},
+		};
+		writeFileSync(join(mcpDir, 'mcp.json'), JSON.stringify(mcpJson, null, 2), 'utf8');
+
+		console.log('\n✓ Generated .cursorrules');
+		console.log('✓ Generated .windsurfrules');
+		console.log('✓ Generated .claude/mcp.json');
+		console.log('\nAgent pack configured successfully.\n');
 	});
 
 program.parse();
