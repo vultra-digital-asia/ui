@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import { readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { join, dirname } from 'node:path';
 import prompts from 'prompts';
 import { loadRegistry, type RegistryComponent } from './registry.js';
 import { installComponents, syncDependencies } from './install.js';
@@ -10,6 +10,7 @@ import { updateComponents } from './update.js';
 import { runDoctor } from './doctor.js';
 import { generateStitchSpec } from './stitch.js';
 import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
+import { generateScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
 
 function toPascal(name: string): string {
 	return name
@@ -425,6 +426,88 @@ flutterCmd
 			process.exit(1);
 		}
 		console.log(`Successfully generated Flutter screen at: ${result.path}`);
+	});
+
+program
+	.command('generate')
+	.alias('gen')
+	.description('Generate production-ready feature screens (Svelte 5 Runes or Flutter BLoC + Freezed)')
+	.option('-p, --platform <platform>', 'Platform: svelte5 or flutter')
+	.option('-a, --archetype <archetype>', 'Archetype: datatable, dashboard, paywall, checkout, settings, auth_otp')
+	.option('-e, --entity <name>', 'Entity name (e.g. Invoice, Customer)')
+	.option('-o, --out <path>', 'Output directory (default: current directory)', '.')
+	.action(async (opts: { platform?: string; archetype?: string; entity?: string; out?: string }) => {
+		try {
+			let platform = opts.platform as GeneratorPlatform | undefined;
+			let archetype = opts.archetype as GeneratorArchetype | undefined;
+			let entity = opts.entity;
+
+			if (!platform) {
+				const res = await prompts({
+					type: 'select',
+					name: 'platform',
+					message: 'Pilih target platform:',
+					choices: [
+						{ title: 'Flutter (BLoC + Freezed + Clean Architecture)', value: 'flutter' },
+						{ title: 'Svelte 5 (Runes + Thin-Page Composable + Tailwind v4)', value: 'svelte5' },
+					],
+				});
+				if (!res.platform) return;
+				platform = res.platform;
+			}
+
+			if (!archetype) {
+				const res = await prompts({
+					type: 'select',
+					name: 'archetype',
+					message: 'Pilih archetype layar:',
+					choices: [
+						{ title: 'Data Table / List (Search, facet filter, actions)', value: 'datatable' },
+						{ title: 'Dashboard (KPI summary cards, action strip)', value: 'dashboard' },
+						{ title: 'Paywall (Comparison tiers, annual/monthly toggle, sticky CTA)', value: 'paywall' },
+						{ title: 'Checkout Modal (Package selector + QRIS/VA payment)', value: 'checkout' },
+						{ title: 'Auth OTP (6-box auto-focus keypad + cooldown timer)', value: 'auth_otp' },
+					],
+				});
+				if (!res.archetype) return;
+				archetype = res.archetype;
+			}
+
+			if (!entity) {
+				const res = await prompts({
+					type: 'text',
+					name: 'entity',
+					message: 'Masukkan nama entitas (e.g. Invoice, Customer, Order):',
+					initial: 'Customer',
+				});
+				if (!res.entity) return;
+				entity = res.entity;
+			}
+
+			if (!platform || !archetype || !entity) {
+				console.log('Semua parameter (platform, archetype, entity) wajib diisi.');
+				return;
+			}
+
+			const outDir = opts.out ?? '.';
+			console.log(`\nGenerating ${platform} [${archetype}] for "${entity}"...`);
+			const result = generateScreen({
+				platform,
+				archetype,
+				entityName: entity,
+			});
+
+			for (const file of result.files) {
+				const targetPath = join(outDir, file.path);
+				mkdirSync(dirname(targetPath), { recursive: true });
+				writeFileSync(targetPath, file.content, 'utf8');
+				console.log(`  ✓ Created: ${targetPath} (${file.description})`);
+			}
+			console.log(`\nSukses generate ${result.files.length} file untuk feature ${entity}.\n`);
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
 	});
 
 program.parse();
