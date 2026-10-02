@@ -1208,6 +1208,55 @@ importers:
         specifier: '6'
         version: 6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)
 
+  packages/template-saas:
+    dependencies:
+      '@vultra/screens':
+        specifier: workspace:*
+        version: link:../screens
+      '@vultra/tokens':
+        specifier: link:../tokens
+        version: link:../tokens
+      '@vultra/ui':
+        specifier: workspace:*
+        version: link:../core
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      lucide-svelte:
+        specifier: ^1.0.1
+        version: 1.0.1(svelte@5.56.8)
+      tailwind-merge:
+        specifier: ^3.5.0
+        version: 3.6.0
+    devDependencies:
+      '@sveltejs/adapter-static':
+        specifier: ^3.0.0
+        version: 3.0.10(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)))
+      '@sveltejs/kit':
+        specifier: ^2.50.2
+        version: 2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0))
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^5.1.1
+        version: 5.1.1(svelte@5.56.8)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0))
+      '@tailwindcss/vite':
+        specifier: ^4.2.2
+        version: 4.3.3(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0))
+      svelte:
+        specifier: ^5.55.2
+        version: 5.56.8
+      svelte-check:
+        specifier: ^4.4.6
+        version: 4.7.4(picomatch@4.0.7)(svelte@5.56.8)(typescript@6.0.3)
+      tailwindcss:
+        specifier: ^4.2.2
+        version: 4.3.3
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.3
+      vite:
+        specifier: ^6.4.3
+        version: 6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)
+
   packages/tokens:
     devDependencies:
       tailwindcss:
@@ -6433,9 +6482,33 @@ snapshots:
     dependencies:
       acorn: 8.18.0
 
+  '@sveltejs/adapter-static@3.0.10(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)))':
+    dependencies:
+      '@sveltejs/kit': 2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0))
+
   '@sveltejs/adapter-static@3.0.10(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.27.7)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.27.7)(jiti@2.7.0)))':
     dependencies:
       '@sveltejs/kit': 2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.27.7)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.27.7)(jiti@2.7.0))
+
+  '@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0))':
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      '@sveltejs/acorn-typescript': 1.0.11(acorn@8.18.0)
+      '@sveltejs/vite-plugin-svelte': 5.1.1(svelte@5.56.8)(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0))
+      '@types/cookie': 0.6.0
+      acorn: 8.18.0
+      cookie: 0.6.0
+      devalue: 5.9.0
+      esm-env: 1.2.2
+      kleur: 4.1.5
+      magic-string: 0.30.21
+      mrmime: 2.0.1
+      set-cookie-parser: 3.1.2
+      sirv: 3.0.2
+      svelte: 5.56.8
+      vite: 6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)
+    optionalDependencies:
+      typescript: 6.0.3
 
   '@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.56.8)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.27.7)(jiti@2.7.0)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.2.0(@types/node@25.9.5)(esbuild@0.27.7)(jiti@2.7.0))':
     dependencies:
@@ -6607,6 +6680,13 @@ snapshots:
       '@tailwindcss/oxide-wasm32-wasi': 4.3.3
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.3
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.3
+
+  '@tailwindcss/vite@4.3.3(vite@6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0))':
+    dependencies:
+      '@tailwindcss/node': 4.3.3
+      '@tailwindcss/oxide': 4.3.3
+      tailwindcss: 4.3.3
+      vite: 6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)
 
   '@tailwindcss/vite@4.3.3(vite@8.2.0(@types/node@25.9.5)(esbuild@0.27.7)(jiti@2.7.0))':
     dependencies:
