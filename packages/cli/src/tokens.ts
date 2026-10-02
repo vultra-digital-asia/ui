@@ -254,3 +254,48 @@ export async function syncTokens(options: {
 
   return { webCss, flutterDart };
 }
+
+/**
+ * Watch mode: continuously monitors input token file and auto-compiles to Web and Flutter
+ */
+export function watchTokens(options: {
+  inputPath: string;
+  outWeb?: string;
+  outFlutter?: string;
+  onUpdate?: () => void;
+}): () => void {
+  const resolvedInput = path.resolve(options.inputPath);
+  if (!fs.existsSync(resolvedInput)) {
+    throw new Error(`Token file not found: ${resolvedInput}`);
+  }
+
+  console.log(`[vultra tokens watch] Monitoring ${options.inputPath} for changes...`);
+  let debounceTimer: NodeJS.Timeout | null = null;
+
+  const watcher = fs.watch(resolvedInput, (eventType) => {
+    if (eventType === 'change') {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(async () => {
+        try {
+          const now = new Date().toLocaleTimeString();
+          console.log(`[${now}] Token change detected. Recompiling...`);
+          await syncTokens({
+            inputPath: resolvedInput,
+            outWeb: options.outWeb,
+            outFlutter: options.outFlutter,
+          });
+          if (options.outWeb) console.log(`  ✓ Rebuilt Web Tailwind v4 tokens: ${options.outWeb}`);
+          if (options.outFlutter) console.log(`  ✓ Rebuilt Flutter Dart tokens: ${options.outFlutter}`);
+          options.onUpdate?.();
+        } catch (err) {
+          console.error(`  ✗ Recompile failed: ${err instanceof Error ? err.message : String(err)}`);
+        }
+      }, 150);
+    }
+  });
+
+  return () => {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    watcher.close();
+  };
+}

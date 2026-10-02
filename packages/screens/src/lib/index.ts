@@ -8,3 +8,4 @@ export * from './components/screen-onboarding/index.js';
 export * from './components/screen-kanban/index.js';
 export * from './components/screen-analytics/index.js';
 export * from './components/screen-team-settings/index.js';
+export * from './components/theme-switcher/index.js';

@@ -12,7 +12,7 @@ import { generateStitchSpec, compileStitchSpec } from './stitch.js';
 import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
 import { generateScreen, generateAiScreen, generateVisionScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
 import { runAntiSlopLinter } from './linter.js';
-import { syncTokens, TOKEN_PRESETS } from './tokens.js';
+import { syncTokens, watchTokens, TOKEN_PRESETS } from './tokens.js';
 
 function toPascal(name: string): string {
 	return name
@@ -623,9 +623,11 @@ program
 		}
 	});
 
-program
+const tokensCmd = program
 	.command('tokens')
-	.description('Design token management and multiplatform synchronization')
+	.description('Design token management and multiplatform synchronization');
+
+tokensCmd
 	.command('sync [specFile]')
 	.description('Sync design tokens to Tailwind v4 CSS and Flutter Dart tokens')
 	.option('--preset <preset>', 'Preset: ethereal-sand, atelier-zinc', 'ethereal-sand')
@@ -656,6 +658,24 @@ program
 			} else {
 				console.log('\nTokens synchronized successfully.\n');
 			}
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
+
+tokensCmd
+	.command('watch <specFile>')
+	.description('Watch design token file and recompile to Web and Flutter on save')
+	.option('--web <path>', 'Output path for Tailwind v4 CSS (e.g. src/app.css)')
+	.option('--flutter <path>', 'Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)')
+	.action((specFile: string, opts?: { web?: string; flutter?: string }) => {
+		try {
+			watchTokens({
+				inputPath: specFile,
+				outWeb: opts?.web,
+				outFlutter: opts?.flutter,
+			});
 		} catch (err) {
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);

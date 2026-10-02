@@ -2,6 +2,7 @@
 	import '../app.css';
 	import { Search } from 'lucide-svelte';
 	import SearchDialog from '$lib/components/SearchDialog.svelte';
+	import { ThemeSwitcher } from '@vultra/screens';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
 	let { children } = $props();
@@ -52,6 +53,7 @@
 					<span class="hidden sm:inline">Search</span>
 					<kbd class="hidden rounded border border-[var(--ui-border)] bg-[var(--ui-muted)] px-1.5 py-0.5 text-[10px] font-mono sm:inline">⌘K</kbd>
 				</button>
+				<ThemeSwitcher />
 				<ThemeToggle bind:theme />
 			</div>
 		</div>
