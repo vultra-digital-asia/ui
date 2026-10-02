@@ -9,6 +9,7 @@ import { initProject } from './init.js';
 import { updateComponents } from './update.js';
 import { runDoctor } from './doctor.js';
 import { generateStitchSpec } from './stitch.js';
+import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
 
 function toPascal(name: string): string {
 	return name
@@ -374,6 +375,56 @@ program
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);
 		}
+	});
+
+const flutterCmd = program
+	.command('flutter')
+	.description('Manage Flutter benchmark screen templates');
+
+flutterCmd
+	.command('list')
+	.description('List available Flutter benchmark screens')
+	.action(() => {
+		console.log(`Available Flutter benchmark screens (${Object.keys(FLUTTER_SCREENS).length} total):\n`);
+		for (const [key, t] of Object.entries(FLUTTER_SCREENS)) {
+			console.log(`  ${key.padEnd(28)} ${t.filename.padEnd(32)} ${t.description}`);
+		}
+		console.log('\nUsage:');
+		console.log('  vultra flutter add <screen_name>');
+	});
+
+flutterCmd
+	.command('add')
+	.description('Copy a Flutter benchmark screen into your Flutter project (./lib/screens)')
+	.argument('[name]', 'Screen name (e.g. mob-paywall-wise-01)')
+	.option('-o, --overwrite', 'Overwrite existing file if present')
+	.action(async (name?: string, opts?: { overwrite?: boolean }) => {
+		let screenKey = name;
+		if (!screenKey) {
+			const choices = Object.entries(FLUTTER_SCREENS).map(([key, t]) => ({
+				title: `${key} (${t.pattern})`,
+				value: key,
+				description: t.description,
+			}));
+			const res = await prompts({
+				type: 'select',
+				name: 'screen',
+				message: 'Pilih Flutter benchmark screen:',
+				choices,
+			});
+			if (!res.screen) {
+				console.log('Batal.');
+				return;
+			}
+			screenKey = res.screen as string;
+		}
+
+		const result = copyFlutterScreen(process.cwd(), screenKey, { overwrite: opts?.overwrite });
+		if (!result.success) {
+			console.error(`Error: ${result.error}`);
+			process.exit(1);
+		}
+		console.log(`Successfully generated Flutter screen at: ${result.path}`);
 	});
 
 program.parse();
