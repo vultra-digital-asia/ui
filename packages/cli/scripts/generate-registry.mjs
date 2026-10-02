@@ -18,7 +18,7 @@ import { join, relative, sep, basename, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = process.argv[2] ?? join(here, '..', '..', '..');
-const SCAN_PACKAGES = ['core', 'md3', 'flat'];
+const SCAN_PACKAGES = ['core', 'md3', 'flat', 'screens'];
 const PKG_DIRS = SCAN_PACKAGES.map((p) => ({
 	package: p,
 	dir: join(repoRoot, 'packages', p, 'src', 'lib', 'components'),
@@ -101,6 +101,13 @@ const CATEGORIES = {
 		'pentagon-stat', 'star-card', 'triangle-alert', 'circle-avatar',
 		'arrow-card', 'circle-grid', 'cross-badge', 'ellipse-badge',
 		'octagon-card', 'parallelogram-card', 'trapezoid-card', 'zigzag-divider',
+	],
+	screens: [
+		'screen-paywall',
+		'screen-datatable',
+		'screen-checkout-modal',
+		'screen-sidebar-shell',
+		'screen-onboarding',
 	],
 	utility: [
 		'skeleton', 'copy-to-clipboard', 'emoji', 'validate', 'main',
