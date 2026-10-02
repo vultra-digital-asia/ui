@@ -299,3 +299,69 @@ export function watchTokens(options: {
     watcher.close();
   };
 }
+
+/**
+ * Exports tokens to Figma Tokens Studio compliant JSON schema
+ */
+export function exportTokensStudioJson(options: {
+  preset?: string;
+  inputPath?: string;
+  outputPath?: string;
+}): string {
+  let spec: TokenSpec;
+
+  if (options.inputPath && fs.existsSync(options.inputPath)) {
+    const content = fs.readFileSync(options.inputPath, 'utf8');
+    spec = parseTokenData(JSON.parse(content));
+  } else if (options.preset && TOKEN_PRESETS[options.preset]) {
+    spec = TOKEN_PRESETS[options.preset];
+  } else {
+    spec = TOKEN_PRESETS['ethereal-sand'];
+  }
+
+  const colorsObj: Record<string, { $value: string; $type: string }> = {};
+  for (const [k, v] of Object.entries(spec.colors)) {
+    colorsObj[k] = { $value: v, $type: 'color' };
+  }
+
+  const radiusObj: Record<string, { $value: string; $type: string }> = {};
+  if (spec.radius) {
+    for (const [k, v] of Object.entries(spec.radius)) {
+      radiusObj[k] = { $value: v, $type: 'borderRadius' };
+    }
+  }
+
+  const figmaPayload = {
+    global: {
+      color: colorsObj,
+      borderRadius: radiusObj,
+      fontFamilies: {
+        sans: { $value: spec.fonts?.sans || 'Plus Jakarta Sans', $type: 'fontFamilies' },
+        mono: { $value: spec.fonts?.mono || 'JetBrains Mono', $type: 'fontFamilies' },
+      },
+    },
+    $themes: [
+      {
+        id: options.preset || 'ethereal-sand',
+        name: (options.preset || 'ethereal-sand')
+          .split('-')
+          .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(' '),
+        selectedTokenSets: { global: 'enabled' },
+      },
+    ],
+    $metadata: {
+      tokenSetOrder: ['global'],
+    },
+  };
+
+  const jsonStr = JSON.stringify(figmaPayload, null, 2);
+
+  if (options.outputPath) {
+    const resolvedOut = path.resolve(options.outputPath);
+    fs.mkdirSync(path.dirname(resolvedOut), { recursive: true });
+    fs.writeFileSync(resolvedOut, jsonStr, 'utf8');
+  }
+
+  return jsonStr;
+}

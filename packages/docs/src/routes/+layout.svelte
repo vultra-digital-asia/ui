@@ -2,6 +2,7 @@
 	import '../app.css';
 	import { Search } from 'lucide-svelte';
 	import SearchDialog from '$lib/components/SearchDialog.svelte';
+	import LiveDemosDropdown from '$lib/components/LiveDemosDropdown.svelte';
 	import { ThemeSwitcher } from '@vultra/screens';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
@@ -42,6 +43,7 @@
 				<a href="/docs/components" class="rounded-md px-3 py-1.5 text-sm hover:bg-[var(--ui-muted)]">Components</a>
 				<a href="/screens" class="rounded-md px-3 py-1.5 text-sm font-semibold text-[#A13F20] hover:bg-[var(--ui-muted)]">Screens</a>
 				<a href="/studio" class="rounded-md px-3 py-1.5 text-sm font-semibold text-[#A13F20] hover:bg-[var(--ui-muted)]">Studio</a>
+				<LiveDemosDropdown />
 				<a href="https://github.com/vultra-digital-asia/ui" target="_blank" class="rounded-md px-3 py-1.5 text-sm hover:bg-[var(--ui-muted)]">GitHub</a>
 			</nav>
 			<div class="flex items-center gap-2">

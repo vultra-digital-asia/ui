@@ -12,7 +12,7 @@ import { generateStitchSpec, compileStitchSpec } from './stitch.js';
 import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
 import { generateScreen, generateAiScreen, generateVisionScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
 import { runAntiSlopLinter } from './linter.js';
-import { syncTokens, watchTokens, TOKEN_PRESETS } from './tokens.js';
+import { syncTokens, watchTokens, exportTokensStudioJson, TOKEN_PRESETS } from './tokens.js';
 
 function toPascal(name: string): string {
 	return name
@@ -676,6 +676,30 @@ tokensCmd
 				outWeb: opts?.web,
 				outFlutter: opts?.flutter,
 			});
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
+
+tokensCmd
+	.command('export [specFile]')
+	.description('Export tokens to Figma Tokens Studio compliant JSON format')
+	.option('--preset <preset>', 'Preset: ethereal-sand, atelier-zinc', 'ethereal-sand')
+	.option('-o, --out <path>', 'Output file path (default: stdout)')
+	.action((specFile?: string, opts?: { preset?: string; out?: string }) => {
+		try {
+			const jsonStr = exportTokensStudioJson({
+				inputPath: specFile,
+				preset: opts?.preset,
+				outputPath: opts?.out,
+			});
+			if (opts?.out) {
+				console.log(`\n✓ Exported Figma Tokens Studio JSON to: ${opts.out}\n`);
+			} else {
+				console.log('\n--- Figma Tokens Studio JSON ---');
+				console.log(jsonStr);
+			}
 		} catch (err) {
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);
