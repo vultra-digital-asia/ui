@@ -1,22 +1,29 @@
 <script lang="ts">
-  import { ExternalLink, ChevronDown, Sparkles, Building2, ShoppingBag, BookOpen } from 'lucide-svelte';
+  import { ExternalLink, ChevronDown, Sparkles, Building2, ShoppingBag, BookOpen, Smartphone } from 'lucide-svelte';
 
   let open = $state(false);
 
   const demos = [
     {
+      title: 'Flutter BLoC Starter',
+      desc: 'Clean Architecture, Freezed, Stream inspector',
+      url: 'https://flutter.vultra.id',
+      icon: Smartphone,
+      badge: 'Mobile Live',
+    },
+    {
       title: 'B2B SaaS Starter',
       desc: 'Thin-page runes, audit logs, paywall, data table',
       url: 'https://saas.vultra.id',
       icon: Building2,
-      badge: 'Production',
+      badge: 'Web App',
     },
     {
       title: 'Consumer Commerce',
       desc: 'Editorial storefront, bag drawer, QRIS/VA checkout',
       url: 'https://shop.vultra.id',
       icon: ShoppingBag,
-      badge: 'New',
+      badge: 'Storefront',
     },
     {
       title: 'Storybook Component Lab',

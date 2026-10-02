@@ -42,6 +42,7 @@
 				<a href="/docs" class="rounded-md px-3 py-1.5 text-sm hover:bg-[var(--ui-muted)]">Docs</a>
 				<a href="/docs/components" class="rounded-md px-3 py-1.5 text-sm hover:bg-[var(--ui-muted)]">Components</a>
 				<a href="/screens" class="rounded-md px-3 py-1.5 text-sm font-semibold text-[#A13F20] hover:bg-[var(--ui-muted)]">Screens</a>
+				<a href="/tokens" class="rounded-md px-3 py-1.5 text-sm font-semibold text-[#A13F20] hover:bg-[var(--ui-muted)]">Tokens</a>
 				<a href="/studio" class="rounded-md px-3 py-1.5 text-sm font-semibold text-[#A13F20] hover:bg-[var(--ui-muted)]">Studio</a>
 				<LiveDemosDropdown />
 				<a href="https://github.com/vultra-digital-asia/ui" target="_blank" class="rounded-md px-3 py-1.5 text-sm hover:bg-[var(--ui-muted)]">GitHub</a>

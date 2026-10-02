@@ -1,4 +1,4 @@
-import { readdirSync, statSync, readFileSync } from 'node:fs';
+import { readdirSync, statSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, extname, relative } from 'node:path';
 
 export interface SlopViolation {
@@ -125,4 +125,46 @@ export function runAntiSlopLinter(targetDir: string): { totalFiles: number; viol
   }
 
   return { totalFiles: files.length, violations: allViolations };
+}
+
+export function fixSlop(content: string): { fixedContent: string; fixCount: number } {
+  let fixCount = 0;
+  const lines = content.split('\n');
+  const fixedLines = lines.map((line) => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('//') || trimmed.startsWith('*') || trimmed.startsWith('<!--')) {
+      return line;
+    }
+    if (EMOJI_REGEX.test(line)) {
+      const cleaned = line.replace(new RegExp(EMOJI_REGEX.source, 'gu'), '');
+      const normalized = cleaned.replace(/\s{2,}/g, ' ');
+      if (normalized !== line) {
+        fixCount++;
+        return normalized;
+      }
+    }
+    return line;
+  });
+
+  return { fixedContent: fixedLines.join('\n'), fixCount };
+}
+
+export function runAntiSlopFixer(targetDir: string): { totalFiles: number; filesModified: number; totalFixes: number } {
+  const files = scanDirectory(targetDir);
+  let filesModified = 0;
+  let totalFixes = 0;
+
+  for (const file of files) {
+    try {
+      const content = readFileSync(file, 'utf8');
+      const { fixedContent, fixCount } = fixSlop(content);
+      if (fixCount > 0 && fixedContent !== content) {
+        writeFileSync(file, fixedContent, 'utf8');
+        filesModified++;
+        totalFixes += fixCount;
+      }
+    } catch {}
+  }
+
+  return { totalFiles: files.length, filesModified, totalFixes };
 }

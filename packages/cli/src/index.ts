@@ -11,8 +11,9 @@ import { runDoctor } from './doctor.js';
 import { generateStitchSpec, compileStitchSpec } from './stitch.js';
 import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
 import { generateScreen, generateAiScreen, generateVisionScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
-import { runAntiSlopLinter } from './linter.js';
+import { runAntiSlopLinter, runAntiSlopFixer } from './linter.js';
 import { syncTokens, watchTokens, exportTokensStudioJson, TOKEN_PRESETS } from './tokens.js';
+import { fetchFigmaTokens, compileFigmaTokensToWebCss, compileFigmaTokensToDart } from './figma.js';
 
 function toPascal(name: string): string {
 	return name
@@ -568,9 +569,17 @@ program
 program
 	.command('lint [dir]')
 	.description('Run Vultra Anti-Slop static analyzer (checks emoji, purple gradients, radius consistency, thin-page)')
-	.action((dir?: string) => {
+	.option('-f, --fix', 'Automatically fix safe anti-slop violations (strip emojis from UI text)')
+	.action((dir?: string, opts?: { fix?: boolean }) => {
 		const targetDir = dir ?? process.cwd();
-		console.log(`\nScanning codebase for UI slop in: ${targetDir}...\n`);
+
+		if (opts?.fix) {
+			console.log(`\nAuto-fixing anti-slop violations in: ${targetDir}...\n`);
+			const { totalFiles, filesModified, totalFixes } = runAntiSlopFixer(targetDir);
+			console.log(`✓ Processed ${totalFiles} files. Modified ${filesModified} files with ${totalFixes} fixes.\n`);
+		}
+
+		console.log(`Scanning codebase for UI slop in: ${targetDir}...\n`);
 		const { totalFiles, violations } = runAntiSlopLinter(targetDir);
 
 		if (violations.length === 0) {
@@ -700,6 +709,50 @@ tokensCmd
 				console.log('\n--- Figma Tokens Studio JSON ---');
 				console.log(jsonStr);
 			}
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
+
+program
+	.command('figma <fileKey>')
+	.description('Import design tokens directly from Figma file via Figma REST API')
+	.option('-t, --token <token>', 'Figma Personal Access Token (or set FIGMA_TOKEN env var)')
+	.option('--web <path>', 'Output path for Tailwind v4 CSS (e.g. src/app.css)')
+	.option('--flutter <path>', 'Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)')
+	.action(async (fileKey: string, opts?: { token?: string; web?: string; flutter?: string }) => {
+		try {
+			const token = opts?.token || process.env.FIGMA_TOKEN;
+			if (!token) {
+				console.error('\nError: Figma Personal Access Token is required.');
+				console.error('Pass via `--token <token>` or set environment variable `FIGMA_TOKEN`.');
+				console.error('Get your token at: https://www.figma.com/developers/api#access-tokens\n');
+				process.exit(1);
+			}
+
+			console.log(`\nFetching design tokens from Figma file: ${fileKey}...`);
+			const tokens = await fetchFigmaTokens(fileKey, token);
+			console.log(`✓ Successfully extracted ${Object.keys(tokens.colors).length} colors and ${Object.keys(tokens.radii).length} radii from Figma!\n`);
+
+			if (opts?.web) {
+				const css = compileFigmaTokensToWebCss(tokens);
+				writeFileSync(opts.web, css, 'utf8');
+				console.log(`  ✓ Wrote Tailwind v4 CSS to: ${opts.web}`);
+			}
+			if (opts?.flutter) {
+				const dart = compileFigmaTokensToDart(tokens);
+				writeFileSync(opts.flutter, dart, 'utf8');
+				console.log(`  ✓ Wrote Flutter Dart tokens to: ${opts.flutter}`);
+			}
+
+			if (!opts?.web && !opts?.flutter) {
+				console.log('--- Tailwind v4 CSS (@theme) ---');
+				console.log(compileFigmaTokensToWebCss(tokens));
+				console.log('\n--- Flutter Dart Tokens (AppColors) ---');
+				console.log(compileFigmaTokensToDart(tokens));
+			}
+			console.log('');
 		} catch (err) {
 			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
 			process.exit(1);
