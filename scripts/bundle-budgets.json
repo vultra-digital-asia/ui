@@ -1,0 +1,15 @@
+{
+  "@vultra/ui": { "maxSizeKb": 500, "warningSizeKb": 350 },
+  "@vultra/data-table": { "maxSizeKb": 350, "warningSizeKb": 250 },
+  "@vultra/file-manager": { "maxSizeKb": 200, "warningSizeKb": 150 },
+  "@vultra/calendar": { "maxSizeKb": 250, "warningSizeKb": 180 },
+  "@vultra/grid-core": { "maxSizeKb": 100, "warningSizeKb": 70 },
+  "@vultra/kanban": { "maxSizeKb": 120, "warningSizeKb": 80 },
+  "@vultra/notion-database": { "maxSizeKb": 200, "warningSizeKb": 150 },
+  "@vultra/rich-text": { "maxSizeKb": 300, "warningSizeKb": 220 },
+  "@vultra/spreadsheet": { "maxSizeKb": 300, "warningSizeKb": 200 },
+  "@vultra/charts": { "maxSizeKb": 250, "warningSizeKb": 180 },
+  "@vultra/flat": { "maxSizeKb": 150, "warningSizeKb": 100 },
+  "@vultra/md3": { "maxSizeKb": 150, "warningSizeKb": 100 },
+  "@vultra/book-writer": { "maxSizeKb": 200, "warningSizeKb": 150 }
+}

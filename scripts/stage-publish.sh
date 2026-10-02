@@ -25,6 +25,7 @@ fi
 PACKAGES=(
   tokens
   core
+  diagram
   grid-core
   data-table
   md3
@@ -50,6 +51,10 @@ PACKAGES=(
   slides
   spreadsheet
   screens
+  react
+  react-data-table
+  notion-database
+  file-manager
 )
 
 

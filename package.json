@@ -18,6 +18,8 @@
     "version": "changeset version",
     "changeset": "changeset",
     "publish": "changeset publish",
+    "release": "pnpm build && changeset publish",
+    "budget:check": "node scripts/check-bundle-budgets.mjs",
     "stage:apply": "npm stage apply",
     "cli": "pnpm --filter @vultra/cli build",
     "generate:registry": "pnpm --filter @vultra/cli generate:registry"
