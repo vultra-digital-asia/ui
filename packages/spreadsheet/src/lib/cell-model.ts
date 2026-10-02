@@ -4,78 +4,119 @@
 
 export type CellValue = string | number | boolean | null;
 export type CellStyle = {
-  bold?: boolean;
-  italic?: boolean;
-  underline?: boolean;
-  align?: 'left' | 'center' | 'right';
-  verticalAlign?: 'top' | 'middle' | 'bottom';
-  textColor?: string;
-  bgColor?: string;
-  fontSize?: number;
-  fontFamily?: string;
-  format?: 'plain' | 'currency' | 'percent' | 'date' | 'number';
+	bold?: boolean;
+	italic?: boolean;
+	underline?: boolean;
+	align?: "left" | "center" | "right";
+	verticalAlign?: "top" | "middle" | "bottom";
+	textColor?: string;
+	bgColor?: string;
+	fontSize?: number;
+	fontFamily?: string;
+	format?: "plain" | "currency" | "percent" | "date" | "number";
 };
 
 export type Cell = {
-  value: CellValue;
-  formula?: string;
-  display?: string;
-  style?: CellStyle;
+	value: CellValue;
+	formula?: string;
+	display?: string;
+	style?: CellStyle;
 };
 
 export type CellMap = Map<string, Cell>;
 
 export function createCell(value: CellValue = null, formula?: string): Cell {
-  return { value, formula };
+	return { value, formula };
 }
 
 export function createCellMap(): CellMap {
-  return new Map();
+	return new Map();
 }
 
 export function getCellValue(cells: CellMap, cellId: string): CellValue {
-  return cells.get(cellId)?.value ?? null;
+	return cells.get(cellId)?.value ?? null;
 }
 
-export function setCellValue(cells: CellMap, cellId: string, value: CellValue, formula?: string): CellMap {
-  const next = new Map(cells);
-  const existing = next.get(cellId);
-  if (value === null && !formula) {
-    next.delete(cellId);
-  } else {
-    next.set(cellId, { ...existing, value, formula });
-  }
-  return next;
+export function setCellValue(
+	cells: CellMap,
+	cellId: string,
+	value: CellValue,
+	formula?: string,
+): CellMap {
+	const next = new Map(cells);
+	const existing = next.get(cellId);
+	if (value === null && !formula) {
+		next.delete(cellId);
+	} else {
+		next.set(cellId, { ...existing, value, formula });
+	}
+	return next;
+}
+/** Apply multiple value updates with one map clone. */
+export function setCellValues(
+	cells: CellMap,
+	updates: Iterable<[string, CellValue]>,
+): CellMap {
+	const next = new Map(cells);
+	for (const [cellId, value] of updates) {
+		const existing = next.get(cellId);
+		if (value === null) {
+			next.delete(cellId);
+		} else {
+			next.set(cellId, { ...existing, value, formula: undefined });
+		}
+	}
+	return next;
+}
+/** Apply multiple styles with one map clone. */
+export function setCellStyles(
+	cells: CellMap,
+	updates: Iterable<[string, Partial<CellStyle>]>,
+): CellMap {
+	const next = new Map(cells);
+	for (const [cellId, style] of updates) {
+		const existing = next.get(cellId) ?? { value: null };
+		next.set(cellId, { ...existing, style: { ...existing.style, ...style } });
+	}
+	return next;
 }
 
-export function setCellStyle(cells: CellMap, cellId: string, style: Partial<CellStyle>): CellMap {
-  const next = new Map(cells);
-  const existing = next.get(cellId) ?? { value: null };
-  next.set(cellId, { ...existing, style: { ...existing.style, ...style } });
-  return next;
+export function setCellStyle(
+	cells: CellMap,
+	cellId: string,
+	style: Partial<CellStyle>,
+): CellMap {
+	const next = new Map(cells);
+	const existing = next.get(cellId) ?? { value: null };
+	next.set(cellId, { ...existing, style: { ...existing.style, ...style } });
+	return next;
 }
 
 /** Format cell value for display */
 export function formatCellDisplay(value: CellValue, format?: string): string {
-  if (value === null || value === undefined) return '';
-  if (typeof value === 'boolean') return value ? 'TRUE' : 'FALSE';
-  if (typeof value === 'number') {
-    switch (format) {
-      case 'currency': return `$${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-      case 'percent': return `${(value * 100).toFixed(1)}%`;
-      case 'number': return value.toLocaleString('en-US');
-      default: return String(value);
-    }
-  }
-  return String(value);
+	if (value === null || value === undefined) return "";
+	if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
+	if (typeof value === "number") {
+		switch (format) {
+			case "currency":
+				return `$${value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+			case "percent":
+				return `${(value * 100).toFixed(1)}%`;
+			case "number":
+				return value.toLocaleString("en-US");
+			default:
+				return String(value);
+		}
+	}
+	return String(value);
 }
 
 /** Detect numeric string and convert */
 export function coerceValue(value: string): CellValue {
-  if (value === '' || value === null) return null;
-  if (value === 'TRUE') return true;
-  if (value === 'FALSE') return false;
-  const num = Number(value);
-  if (!isNaN(num) && value.trim() !== '') return num;
-  return value;
+	if (value === "" || value === null) return null;
+	if (value === "TRUE") return true;
+	if (value === "FALSE") return false;
+	const num = Number(value);
+	if (!isNaN(num) && value.trim() !== "") return num;
+	return value;
 }

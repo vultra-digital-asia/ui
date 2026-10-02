@@ -1,14 +1,14 @@
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
-import { loadRegistry, resolveWithDeps, type Registry } from './registry.js';
-import { resolveProjectConfig } from './project.js';
-import { writeComponent, type WriteOptions } from './write.js';
-import { monorepoRoot } from './paths.js';
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
+import { loadRegistry, resolveWithDeps, type Registry } from "./registry.js";
+import { resolveProjectConfig } from "./project.js";
+import { writeComponent, type WriteOptions } from "./write.js";
+import { monorepoRoot } from "./paths.js";
 
-const PKG_JSON = 'package.json';
+const PKG_JSON = "package.json";
 
 function readJson<T>(path: string): T {
-	return JSON.parse(readFileSync(path, 'utf8')) as T;
+	return JSON.parse(readFileSync(path, "utf8")) as T;
 }
 
 /**
@@ -35,9 +35,15 @@ export function syncDependencies(
 			depMap.set(comp.name, embedded);
 			continue;
 		}
-		const pj = join(monorepoRoot(), 'packages', comp.package ?? 'core', PKG_JSON);
+		const pj = join(
+			monorepoRoot(),
+			"packages",
+			comp.package ?? "core",
+			PKG_JSON,
+		);
 		const deps = existsSync(pj)
-			? readJson<{ dependencies?: Record<string, string> }>(pj).dependencies ?? {}
+			? (readJson<{ dependencies?: Record<string, string> }>(pj).dependencies ??
+				{})
 			: {};
 		depMap.set(comp.name, deps);
 	}
@@ -45,10 +51,10 @@ export function syncDependencies(
 	// Resolve workspace:* specs to concrete versions so consumers installing
 	// from npm can resolve them (workspace:* is pnpm-only).
 	const resolveWorkspace = (spec: string): string => {
-		if (!spec.startsWith('workspace:')) return spec;
-		const rest = spec.slice('workspace:'.length);
+		if (!spec.startsWith("workspace:")) return spec;
+		const rest = spec.slice("workspace:".length);
 		// workspace:^x.y.z -> ^x.y.z (keep range); wildcard falls back to 'latest'
-		return rest === '*' || rest === '~' || rest === '^' ? 'latest' : rest;
+		return rest === "*" || rest === "~" || rest === "^" ? "latest" : rest;
 	};
 	const pkg = readJson<{ dependencies?: Record<string, string> }>(pkgPath);
 	const deps = pkg.dependencies ?? {};
@@ -61,7 +67,7 @@ export function syncDependencies(
 			}
 		}
 		pkg.dependencies = { ...deps, ...added };
-		writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+		writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
 	}
 	return { added, hasPackageJson: true };
 }
@@ -73,7 +79,12 @@ export function syncDependencies(
 export async function installComponents(
 	names: string[],
 	opts: { overwrite: boolean; cwd: string },
-): Promise<{ installed: string[]; written: string[]; skipped: string[]; addedDeps: Record<string, string> }> {
+): Promise<{
+	installed: string[];
+	written: string[];
+	skipped: string[];
+	addedDeps: Record<string, string>;
+}> {
 	const registry = await loadRegistry();
 	const resolved: string[] = [];
 	for (const name of names) {

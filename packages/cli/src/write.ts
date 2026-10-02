@@ -1,7 +1,7 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { join, relative, dirname } from 'node:path';
-import MagicString from 'magic-string';
-import type { RegistryComponent } from './registry.js';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { join, relative, dirname } from "node:path";
+import MagicString from "magic-string";
+import type { RegistryComponent } from "./registry.js";
 
 export interface WriteOptions {
 	root: string;
@@ -11,7 +11,7 @@ export interface WriteOptions {
 
 /** Absolute target path for a component file entry in the consumer project. */
 export function componentTargetPath(root: string, entry: string): string {
-	return join(root, 'src', 'lib', 'components', ...entry.split('/'));
+	return join(root, "src", "lib", "components", ...entry.split("/"));
 }
 
 /** Absolute source path inside the monorepo for a component file entry.
@@ -19,21 +19,20 @@ export function componentTargetPath(root: string, entry: string): string {
 export function coreSourcePath(
 	monorepoRoot: string,
 	entry: string,
-	pkg = 'core',
+	pkg = "core",
 ): string {
 	return join(
 		monorepoRoot,
-		'packages',
+		"packages",
 		pkg,
-		'src',
-		'lib',
-		'components',
-		...entry.split('/'),
+		"src",
+		"lib",
+		"components",
+		...entry.split("/"),
 	);
 }
 
-const IMPORT_RE =
-	/(import\s+(?:[\w$*{},\s]+?\s+from\s+)?)(['"])([^'"]+)\2/g;
+const IMPORT_RE = /(import\s+(?:[\w$*{},\s]+?\s+from\s+)?)(['"])([^'"]+)\2/g;
 
 /**
  * Rewrite a component source so it works outside the monorepo:
@@ -57,24 +56,25 @@ export function rewriteComponentSource(
 		const spec = match[3];
 		const start = match.index;
 		const end = IMPORT_RE.lastIndex;
-		if (spec.startsWith('$lib/')) {
-			const rel = spec.slice('$lib/'.length);
-			const isUtils = rel === 'utils.js' || rel === 'utils.ts';
-			const isI18n = rel === 'i18n/index.js' || rel === 'i18n/index.ts';
+		if (spec.startsWith("$lib/")) {
+			const rel = spec.slice("$lib/".length);
+			const isUtils = rel === "utils.js" || rel === "utils.ts";
+			const isI18n = rel === "i18n/index.js" || rel === "i18n/index.ts";
 			const newSpec = isUtils
-				? opts.aliases.utils.endsWith('.js') || opts.aliases.utils.endsWith('.ts')
+				? opts.aliases.utils.endsWith(".js") ||
+					opts.aliases.utils.endsWith(".ts")
 					? opts.aliases.utils
 					: `${opts.aliases.utils}.js`
 				: isI18n
-					? `${opts.aliases.lib}/${rel.replace(/\.ts$/, '.js')}`
-					: `${opts.aliases.components}/${rel.replace(/^components\//, '').replace(/\.ts$/, '.js')}`;
+					? `${opts.aliases.lib}/${rel.replace(/\.ts$/, ".js")}`
+					: `${opts.aliases.components}/${rel.replace(/^components\//, "").replace(/\.ts$/, ".js")}`;
 		}
 
-		if (!spec.startsWith('.')) {
+		if (!spec.startsWith(".")) {
 			if (seenBare.has(spec)) {
 				// drop the whole duplicate import line
-				const lineStart = source.lastIndexOf('\n', start) + 1;
-				const lineEnd = source.indexOf('\n', end);
+				const lineStart = source.lastIndexOf("\n", start) + 1;
+				const lineEnd = source.indexOf("\n", end);
 				s.remove(lineStart, lineEnd === -1 ? source.length : lineEnd);
 			} else {
 				seenBare.add(spec);
@@ -90,7 +90,14 @@ export function sharedLibSourcePath(
 	monorepoRoot: string,
 	relPath: string,
 ): string {
-	return join(monorepoRoot, 'packages', 'core', 'src', 'lib', ...relPath.split('/'));
+	return join(
+		monorepoRoot,
+		"packages",
+		"core",
+		"src",
+		"lib",
+		...relPath.split("/"),
+	);
 }
 
 /**
@@ -99,9 +106,9 @@ export function sharedLibSourcePath(
  */
 const SHARED_LIB_FILES: Record<string, string[]> = {
 	i18n: [
-		'i18n/locale.svelte.ts',
-		'i18n/LocaleProvider.svelte',
-		'i18n/index.ts',
+		"i18n/locale.svelte.ts",
+		"i18n/LocaleProvider.svelte",
+		"i18n/index.ts",
 	],
 };
 
@@ -125,10 +132,12 @@ export function writeComponent(
 			skipped.push(targetRel);
 			continue;
 		}
-		const source = contents?.[entry] ?? readFileSync(
-			coreSourcePath(monorepoRoot, entry, component.package),
-			'utf8',
-		);
+		const source =
+			contents?.[entry] ??
+			readFileSync(
+				coreSourcePath(monorepoRoot, entry, component.package),
+				"utf8",
+			);
 		const rewritten = rewriteComponentSource(source, opts);
 		mkdirSync(dirname(target), { recursive: true });
 		writeFileSync(target, rewritten);
@@ -138,13 +147,16 @@ export function writeComponent(
 		const shared = SHARED_LIB_FILES[dep];
 		if (!shared) continue;
 		for (const file of shared) {
-			const target = join(opts.root, 'src', 'lib', file);
+			const target = join(opts.root, "src", "lib", file);
 			const targetRel = relative(opts.root, target);
 			if (existsSync(target) && !opts.overwrite) {
 				skipped.push(targetRel);
 				continue;
 			}
-			const source = readFileSync(sharedLibSourcePath(monorepoRoot, file), 'utf8');
+			const source = readFileSync(
+				sharedLibSourcePath(monorepoRoot, file),
+				"utf8",
+			);
 			const rewritten = rewriteComponentSource(source, opts);
 			mkdirSync(dirname(target), { recursive: true });
 			writeFileSync(target, rewritten);

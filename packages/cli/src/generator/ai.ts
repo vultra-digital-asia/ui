@@ -1,33 +1,35 @@
-import { readFileSync } from 'node:fs';
-import type { GeneratedFile, GeneratorPlatform } from './types.js';
+import { readFileSync } from "node:fs";
+import type { GeneratedFile, GeneratorPlatform } from "./types.js";
 
 function getApiKey(): string {
-  if (process.env.NINEROUTER_API_KEY) return process.env.NINEROUTER_API_KEY;
-  if (process.env.OPENAI_API_KEY) return process.env.OPENAI_API_KEY;
+	if (process.env.NINEROUTER_API_KEY) return process.env.NINEROUTER_API_KEY;
+	if (process.env.OPENAI_API_KEY) return process.env.OPENAI_API_KEY;
 
-  try {
-    const yaml = readFileSync('/root/.hermes/config.yaml', 'utf8');
-    const match = yaml.match(/api_key:\s*['"]?(sk-[^'"\s]+)/);
-    if (match?.[1]) return match[1];
-  } catch {}
+	try {
+		const yaml = readFileSync("/root/.hermes/config.yaml", "utf8");
+		const match = yaml.match(/api_key:\s*['"]?(sk-[^'"\s]+)/);
+		if (match?.[1]) return match[1];
+	} catch {}
 
-  return '';
+	return "";
 }
 
 export interface AiGenerateOptions {
-  prompt: string;
-  platform: GeneratorPlatform;
-  entityName: string;
-  baseUrl?: string;
-  model?: string;
+	prompt: string;
+	platform: GeneratorPlatform;
+	entityName: string;
+	baseUrl?: string;
+	model?: string;
 }
 
-export async function generateAiScreen(opts: AiGenerateOptions): Promise<{ files: GeneratedFile[] }> {
-  const apiKey = getApiKey();
-  const baseUrl = opts.baseUrl || 'http://127.0.0.1:20128/v1';
-  const model = opts.model || 'opencode-combo';
+export async function generateAiScreen(
+	opts: AiGenerateOptions,
+): Promise<{ files: GeneratedFile[] }> {
+	const apiKey = getApiKey();
+	const baseUrl = opts.baseUrl || "http://127.0.0.1:20128/v1";
+	const model = opts.model || "opencode-combo";
 
-  const systemPrompt = `You are Vultra AI, an elite UI/UX engineer and code generator.
+	const systemPrompt = `You are Vultra AI, an elite UI/UX engineer and code generator.
 You generate production-ready code adhering to these STRICT anti-slop laws:
 1. Anti-Slop Rules:
    - NO generic purple/indigo glow gradients.
@@ -65,63 +67,64 @@ Return JSON ONLY with this exact structure:
   ]
 }`;
 
-  const userPrompt = `Target Platform: ${opts.platform}
+	const userPrompt = `Target Platform: ${opts.platform}
 Entity Name: ${opts.entityName}
 User Prompt: ${opts.prompt}
 
 Generate all necessary production files now. Respond in valid raw JSON only.`;
 
-  const res = await fetch(`${baseUrl}/chat/completions`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      temperature: 0.2,
-      response_format: { type: 'json_object' },
-    }),
-  });
+	const res = await fetch(`${baseUrl}/chat/completions`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${apiKey}`,
+		},
+		body: JSON.stringify({
+			model,
+			messages: [
+				{ role: "system", content: systemPrompt },
+				{ role: "user", content: userPrompt },
+			],
+			temperature: 0.2,
+			response_format: { type: "json_object" },
+		}),
+	});
 
-  if (!res.ok) {
-    const errText = await res.text();
-    throw new Error(`9Router API error (${res.status}): ${errText}`);
-  }
+	if (!res.ok) {
+		const errText = await res.text();
+		throw new Error(`9Router API error (${res.status}): ${errText}`);
+	}
 
-  const rawText = await res.text();
-  let content = '';
+	const rawText = await res.text();
+	let content = "";
 
-  if (rawText.includes('data: ')) {
-    for (const line of rawText.split('\n')) {
-      const trimmed = line.trim();
-      if (trimmed.startsWith('data: ') && !trimmed.includes('[DONE]')) {
-        try {
-          const json = JSON.parse(trimmed.slice(6));
-          content += json.choices?.[0]?.delta?.content || json.choices?.[0]?.text || '';
-        } catch {}
-      }
-    }
-  } else {
-    try {
-      const data = JSON.parse(rawText);
-      content = data.choices?.[0]?.message?.content || '';
-    } catch {
-      content = rawText;
-    }
-  }
+	if (rawText.includes("data: ")) {
+		for (const line of rawText.split("\n")) {
+			const trimmed = line.trim();
+			if (trimmed.startsWith("data: ") && !trimmed.includes("[DONE]")) {
+				try {
+					const json = JSON.parse(trimmed.slice(6));
+					content +=
+						json.choices?.[0]?.delta?.content || json.choices?.[0]?.text || "";
+				} catch {}
+			}
+		}
+	} else {
+		try {
+			const data = JSON.parse(rawText);
+			content = data.choices?.[0]?.message?.content || "";
+		} catch {
+			content = rawText;
+		}
+	}
 
-  // Extract JSON block from markdown fences if any
-  let cleanJson = content.trim();
-  const matchFence = cleanJson.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-  if (matchFence) {
-    cleanJson = matchFence[1].trim();
-  }
+	// Extract JSON block from markdown fences if any
+	let cleanJson = content.trim();
+	const matchFence = cleanJson.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+	if (matchFence) {
+		cleanJson = matchFence[1].trim();
+	}
 
-  const parsed = JSON.parse(cleanJson);
-  return { files: parsed.files ?? [] };
+	const parsed = JSON.parse(cleanJson);
+	return { files: parsed.files ?? [] };
 }

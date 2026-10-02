@@ -1,26 +1,27 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
 
-const TOKENS_PKG = '@vultra/tokens';
-const TOKENS_VERSION = '^0.1.0-alpha.5';
-const CN_DEPS = { clsx: '^2.1.1', 'tailwind-merge': '^3.5.0' } as const;
+const TOKENS_PKG = "@vultra/tokens";
+const TOKENS_VERSION = "^0.1.0-alpha.5";
+const CN_DEPS = { clsx: "^2.1.1", "tailwind-merge": "^3.5.0" } as const;
 
 const DEFAULT_COMPONENTS_JSON = {
-	$schema: 'https://vultra-digital-asia.github.io/ui/schema.json',
-	style: 'default',
+	$schema: "https://vultra-digital-asia.github.io/ui/schema.json",
+	style: "default",
 	tailwind: {
-		config: '',
-		css: 'src/app.css',
+		config: "",
+		css: "src/app.css",
 	},
 	aliases: {
-		components: '$lib/components',
-		utils: '$lib/utils',
-		ui: '$lib/components/ui',
-		lib: '$lib',
+		components: "$lib/components",
+		utils: "$lib/utils",
+		ui: "$lib/components/ui",
+		lib: "$lib",
 	},
 };
 
-export type ProjectType = 'SvelteKit' | 'Svelte' | 'Vite' | 'other';
+export type ProjectType =
+	"SvelteKit" | "Svelte" | "Next.js" | "React" | "Vite" | "other";
 
 interface PkgLike {
 	dependencies?: Record<string, string>;
@@ -30,10 +31,12 @@ interface PkgLike {
 /** Detect the consumer framework from a package.json manifest. */
 export function detectProjectType(pkg: PkgLike): ProjectType {
 	const all = { ...(pkg.dependencies ?? {}), ...(pkg.devDependencies ?? {}) };
-	if (all['@sveltejs/kit']) return 'SvelteKit';
-	if (all['svelte']) return 'Svelte';
-	if (all['vite']) return 'Vite';
-	return 'other';
+	if (all["@sveltejs/kit"]) return "SvelteKit";
+	if (all["next"]) return "Next.js";
+	if (all["react"]) return "React";
+	if (all["svelte"]) return "Svelte";
+	if (all["vite"]) return "Vite";
+	return "other";
 }
 
 /** Walk up from a directory looking for a file name (package.json, …). */
@@ -52,21 +55,27 @@ export function findUp(names: string[], start: string): string | undefined {
 
 /** Resolve the consumer project root (nearest package.json walking up). */
 export function projectRoot(cwd: string): string {
-	const pkg = findUp(['package.json'], cwd);
+	const pkg = findUp(["package.json"], cwd);
 	return pkg ? dirname(pkg) : cwd;
 }
 
 /** Pick the project's main CSS entry, preferring existing files. */
 function resolveCssPath(root: string, configured?: string): string {
 	if (configured) {
-		if (configured.startsWith('src/')) return join(root, 'src', configured.slice(4));
+		if (configured.startsWith("src/"))
+			return join(root, "src", configured.slice(4));
 		return join(root, configured);
 	}
-	const candidates = ['src/app.css', 'src/styles.css', 'src/app.pcss', 'src/styles.pcss'];
+	const candidates = [
+		"src/app.css",
+		"src/styles.css",
+		"src/app.pcss",
+		"src/styles.pcss",
+	];
 	for (const c of candidates) {
 		if (existsSync(join(root, c))) return c;
 	}
-	return join(root, 'src/app.css');
+	return join(root, "src/app.css");
 }
 
 const CN_IMPORT = `import { clsx, type ClassValue } from 'clsx';\nimport { twMerge } from 'tailwind-merge';\n`;
@@ -79,7 +88,7 @@ const CN_FN = `export function cn(...inputs: ClassValue[]) {
 export interface InitResult {
 	projectRoot: string;
 	projectType: ProjectType;
-	componentsJson: 'created' | 'updated' | 'error';
+	componentsJson: "created" | "updated" | "error";
 	cssPath: string | null;
 	cssTouched: boolean;
 	utilsPath: string | null;
@@ -98,21 +107,21 @@ export interface InitResult {
 export function initProject(cwd: string): InitResult {
 	const root = projectRoot(cwd);
 
-	const pkgPath = join(root, 'package.json');
+	const pkgPath = join(root, "package.json");
 	const pkg = existsSync(pkgPath)
-		? (JSON.parse(readFileSync(pkgPath, 'utf8')) as PkgLike)
+		? (JSON.parse(readFileSync(pkgPath, "utf8")) as PkgLike)
 		: {};
 	const projectType = detectProjectType(pkg);
 
 	// 1. components.json
-	const componentsPath = join(root, 'components.json');
+	const componentsPath = join(root, "components.json");
 	const existing = existsSync(componentsPath);
-	let componentsJson: 'created' | 'updated' | 'error' = 'created';
+	let componentsJson: "created" | "updated" | "error" = "created";
 	let cssConfigured: string | undefined;
 	try {
 		let cfg: typeof DEFAULT_COMPONENTS_JSON;
 		if (existing) {
-			const raw = JSON.parse(readFileSync(componentsPath, 'utf8')) as Partial<
+			const raw = JSON.parse(readFileSync(componentsPath, "utf8")) as Partial<
 				typeof DEFAULT_COMPONENTS_JSON
 			> & { tailwind?: { config?: string; css?: string } };
 			cfg = structuredClone(DEFAULT_COMPONENTS_JSON);
@@ -128,16 +137,16 @@ export function initProject(cwd: string): InitResult {
 			cfg = structuredClone(DEFAULT_COMPONENTS_JSON);
 			cssConfigured = cfg.tailwind.css;
 		}
-		writeFileSync(componentsPath, JSON.stringify(cfg, null, 2) + '\n');
-		componentsJson = existing ? 'updated' : 'created';
+		writeFileSync(componentsPath, JSON.stringify(cfg, null, 2) + "\n");
+		componentsJson = existing ? "updated" : "created";
 	} catch {
-		componentsJson = 'error';
+		componentsJson = "error";
 	}
 
 	// 2. dependencies
 	const depsAdded: string[] = [];
 	if (existsSync(pkgPath)) {
-		const pkgJson = JSON.parse(readFileSync(pkgPath, 'utf8')) as {
+		const pkgJson = JSON.parse(readFileSync(pkgPath, "utf8")) as {
 			dependencies?: Record<string, string>;
 		};
 		const deps = pkgJson.dependencies ?? {};
@@ -150,7 +159,7 @@ export function initProject(cwd: string): InitResult {
 		}
 		if (depsAdded.length > 0) {
 			pkgJson.dependencies = { ...deps };
-			writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2) + '\n');
+			writeFileSync(pkgPath, JSON.stringify(pkgJson, null, 2) + "\n");
 		}
 	}
 
@@ -158,7 +167,7 @@ export function initProject(cwd: string): InitResult {
 	const cssPath = resolveCssPath(root, cssConfigured);
 	let cssTouched = false;
 	if (existsSync(cssPath)) {
-		const css = readFileSync(cssPath, 'utf8');
+		const css = readFileSync(cssPath, "utf8");
 		if (!css.includes(TOKENS_PKG)) {
 			const importLine = `@import "${TOKENS_PKG}";\n\n`;
 			writeFileSync(cssPath, importLine + css);
@@ -167,7 +176,7 @@ export function initProject(cwd: string): InitResult {
 	}
 
 	// 4. cn() utils
-	const utilsPath = join(root, 'src', 'lib', 'utils.ts');
+	const utilsPath = join(root, "src", "lib", "utils.ts");
 	let utilsCreated = false;
 	if (!existsSync(utilsPath)) {
 		mkdirSync(dirname(utilsPath), { recursive: true });

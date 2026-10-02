@@ -1,14 +1,22 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { join, relative, dirname } from 'node:path';
-import { loadRegistry, resolveWithDeps, type RegistryComponent } from './registry.js';
-import { resolveProjectConfig } from './project.js';
-import { rewriteComponentSource, componentTargetPath, coreSourcePath } from './write.js';
-import { syncDependencies } from './install.js';
-import { monorepoRoot } from './paths.js';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { join, relative, dirname } from "node:path";
+import {
+	loadRegistry,
+	resolveWithDeps,
+	type RegistryComponent,
+} from "./registry.js";
+import { resolveProjectConfig } from "./project.js";
+import {
+	rewriteComponentSource,
+	componentTargetPath,
+	coreSourcePath,
+} from "./write.js";
+import { syncDependencies } from "./install.js";
+import { monorepoRoot } from "./paths.js";
 
 /** True if the component is installed in the consumer project. */
 export function isInstalled(root: string, name: string): boolean {
-	return existsSync(join(root, 'src', 'lib', 'components', name));
+	return existsSync(join(root, "src", "lib", "components", name));
 }
 
 /**
@@ -38,7 +46,7 @@ export async function updateComponents(
 		const unknown = names.filter((n) => !byName.has(n));
 		if (unknown.length > 0) {
 			throw new Error(
-				`Unknown component${unknown.length > 1 ? 's' : ''}: ${unknown.join(', ')}`,
+				`Unknown component${unknown.length > 1 ? "s" : ""}: ${unknown.join(", ")}`,
 			);
 		}
 		targets = names;
@@ -65,21 +73,18 @@ export async function updateComponents(
 			const target = componentTargetPath(config.root, entry);
 			const targetRel = relative(config.root, target);
 			if (!existsSync(srcPath)) continue;
-			const latest = rewriteComponentSource(
-				readFileSync(srcPath, 'utf8'),
-				{
-					root: config.root,
-					aliases: config.aliases,
-					overwrite: true,
-				},
-			);
+			const latest = rewriteComponentSource(readFileSync(srcPath, "utf8"), {
+				root: config.root,
+				aliases: config.aliases,
+				overwrite: true,
+			});
 			if (!existsSync(target)) {
 				mkdirSync(dirname(target), { recursive: true });
 				writeFileSync(target, latest);
 				added.push(targetRel);
 				continue;
 			}
-			if (readFileSync(target, 'utf8') !== latest) {
+			if (readFileSync(target, "utf8") !== latest) {
 				mkdirSync(dirname(target), { recursive: true });
 				writeFileSync(target, latest);
 				updated.push(targetRel);

@@ -1,5 +1,5 @@
-import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { join } from "node:path";
 
 export interface FlutterScreenTemplate {
 	name: string;
@@ -10,11 +10,12 @@ export interface FlutterScreenTemplate {
 }
 
 export const FLUTTER_SCREENS: Record<string, FlutterScreenTemplate> = {
-	'mob-paywall-wise-01': {
-		name: 'mob-paywall-wise-01',
-		filename: 'subscription_paywall_screen.dart',
-		description: 'Dual-Plan Comparison Paywall with Annual Discount Badge and Continuous Squircles',
-		pattern: 'Dual-Plan Comparison Paywall',
+	"mob-paywall-wise-01": {
+		name: "mob-paywall-wise-01",
+		filename: "subscription_paywall_screen.dart",
+		description:
+			"Dual-Plan Comparison Paywall with Annual Discount Badge and Continuous Squircles",
+		pattern: "Dual-Plan Comparison Paywall",
 		code: `import "package:flutter/material.dart";
 
 class SubscriptionPaywallScreen extends StatefulWidget {
@@ -183,11 +184,12 @@ class _SubscriptionPaywallScreenState extends State<SubscriptionPaywallScreen> {
 }
 `,
 	},
-	'mob-bottom-nav-shell-01': {
-		name: 'mob-bottom-nav-shell-01',
-		filename: 'bottom_nav_shell.dart',
-		description: 'Material 3 Bottom Navigation Shell with Active Pill Indicator & Safe Area Insets',
-		pattern: 'Tabbed Navigation Shell',
+	"mob-bottom-nav-shell-01": {
+		name: "mob-bottom-nav-shell-01",
+		filename: "bottom_nav_shell.dart",
+		description:
+			"Material 3 Bottom Navigation Shell with Active Pill Indicator & Safe Area Insets",
+		pattern: "Tabbed Navigation Shell",
 		code: `import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
@@ -234,11 +236,12 @@ class _AppBottomNavShellState extends State<AppBottomNavShell> {
 }
 `,
 	},
-	'mob-onboarding-step1-intro': {
-		name: 'mob-onboarding-step1-intro',
-		filename: 'onboarding_carousel_screen.dart',
-		description: 'Engaging Onboarding Welcome Carousel with Vector Artwork & Dynamic Progress Dots',
-		pattern: 'Value Prop Onboarding Screen',
+	"mob-onboarding-step1-intro": {
+		name: "mob-onboarding-step1-intro",
+		filename: "onboarding_carousel_screen.dart",
+		description:
+			"Engaging Onboarding Welcome Carousel with Vector Artwork & Dynamic Progress Dots",
+		pattern: "Value Prop Onboarding Screen",
 		code: `import "package:flutter/material.dart";
 
 class OnboardingCarouselStep extends StatelessWidget {
@@ -312,11 +315,12 @@ class OnboardingCarouselStep extends StatelessWidget {
 }
 `,
 	},
-	'mob-auth-step2-otp': {
-		name: 'mob-auth-step2-otp',
-		filename: 'otp_verification_screen.dart',
-		description: '6-Digit Auto-Focusing OTP Keypad Screen with Resend Cooldown Timer',
-		pattern: 'OTP Verification Screen',
+	"mob-auth-step2-otp": {
+		name: "mob-auth-step2-otp",
+		filename: "otp_verification_screen.dart",
+		description:
+			"6-Digit Auto-Focusing OTP Keypad Screen with Resend Cooldown Timer",
+		pattern: "OTP Verification Screen",
 		code: `import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
@@ -388,11 +392,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 }
 `,
 	},
-	'mob-home-feed': {
-		name: 'mob-home-feed',
-		filename: 'home_feed_screen.dart',
-		description: 'Financial Home Feed (Wise style) with total balance card and quick action pills',
-		pattern: 'Financial Dashboard Feed',
+	"mob-home-feed": {
+		name: "mob-home-feed",
+		filename: "home_feed_screen.dart",
+		description:
+			"Financial Home Feed (Wise style) with total balance card and quick action pills",
+		pattern: "Financial Dashboard Feed",
 		code: `import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
@@ -577,11 +582,12 @@ class _HomeFeedScreenState extends State<HomeFeedScreen> {
 }
 `,
 	},
-	'mob-grouped-settings': {
-		name: 'mob-grouped-settings',
-		filename: 'grouped_settings_screen.dart',
-		description: 'Grouped Card Settings (Apple iOS HIG) with Cupertino switches and profile badge',
-		pattern: 'Settings / Profile Screen',
+	"mob-grouped-settings": {
+		name: "mob-grouped-settings",
+		filename: "grouped_settings_screen.dart",
+		description:
+			"Grouped Card Settings (Apple iOS HIG) with Cupertino switches and profile badge",
+		pattern: "Settings / Profile Screen",
 		code: `import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
@@ -704,11 +710,12 @@ class _GroupedSettingsScreenState extends State<GroupedSettingsScreen> {
 }
 `,
 	},
-	'mob-bottom-sheet-detents': {
-		name: 'mob-bottom-sheet-detents',
-		filename: 'detent_sheet_screen.dart',
-		description: 'Interactive Modal Bottom Sheet with 25%, 50%, 90% Snap Detents',
-		pattern: 'Modal Bottom Sheet',
+	"mob-bottom-sheet-detents": {
+		name: "mob-bottom-sheet-detents",
+		filename: "detent_sheet_screen.dart",
+		description:
+			"Interactive Modal Bottom Sheet with 25%, 50%, 90% Snap Detents",
+		pattern: "Modal Bottom Sheet",
 		code: `import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
@@ -838,12 +845,12 @@ export function copyFlutterScreen(
 	if (!template) {
 		return {
 			success: false,
-			path: '',
-			error: `Unknown Flutter screen: ${screenKey}. Available: ${Object.keys(FLUTTER_SCREENS).join(', ')}`,
+			path: "",
+			error: `Unknown Flutter screen: ${screenKey}. Available: ${Object.keys(FLUTTER_SCREENS).join(", ")}`,
 		};
 	}
 
-	const destDir = join(targetDir, 'lib', 'screens');
+	const destDir = join(targetDir, "lib", "screens");
 	if (!existsSync(destDir)) {
 		mkdirSync(destDir, { recursive: true });
 	}
@@ -857,6 +864,6 @@ export function copyFlutterScreen(
 		};
 	}
 
-	writeFileSync(filePath, template.code, 'utf8');
+	writeFileSync(filePath, template.code, "utf8");
 	return { success: true, path: filePath };
 }

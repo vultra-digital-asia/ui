@@ -1,166 +1,178 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
 export interface TokenSpec {
-  colors: Record<string, string>;
-  radius?: Record<string, string>;
-  fonts?: Record<string, string>;
+	colors: Record<string, string>;
+	radius?: Record<string, string>;
+	fonts?: Record<string, string>;
 }
 
 export const TOKEN_PRESETS: Record<string, TokenSpec> = {
-  'ethereal-sand': {
-    colors: {
-      background: '#FBF9F9',
-      foreground: '#1B1C1C',
-      card: '#FFFFFF',
-      'card-foreground': '#1B1C1C',
-      popover: '#FFFFFF',
-      'popover-foreground': '#1B1C1C',
-      primary: '#A13F20',
-      'primary-foreground': '#FFFFFF',
-      secondary: '#F0ECE9',
-      'secondary-foreground': '#1B1C1C',
-      muted: '#F5F2F0',
-      'muted-foreground': '#767575',
-      accent: '#E97451',
-      'accent-foreground': '#FFFFFF',
-      destructive: '#BA1A1A',
-      'destructive-foreground': '#FFFFFF',
-      border: '#E8E4E1',
-      input: '#E8E4E1',
-      ring: '#A13F20',
-    },
-    radius: {
-      base: '16px',
-      sm: '12px',
-      md: '14px',
-      lg: '16px',
-      xl: '20px',
-    },
-    fonts: {
-      sans: '"Plus Jakarta Sans", "Inter Variable", sans-serif',
-      mono: '"JetBrains Mono", monospace',
-    },
-  },
-  'atelier-zinc': {
-    colors: {
-      background: '#FAFAFA',
-      foreground: '#18181B',
-      card: '#FFFFFF',
-      'card-foreground': '#18181B',
-      popover: '#FFFFFF',
-      'popover-foreground': '#18181B',
-      primary: '#18181B',
-      'primary-foreground': '#FAFAFA',
-      secondary: '#F4F4F5',
-      'secondary-foreground': '#18181B',
-      muted: '#F4F4F5',
-      'muted-foreground': '#71717A',
-      accent: '#27272A',
-      'accent-foreground': '#FAFAFA',
-      destructive: '#DC2626',
-      'destructive-foreground': '#FFFFFF',
-      border: '#E4E4E7',
-      input: '#E4E4E7',
-      ring: '#18181B',
-    },
-    radius: {
-      base: '16px',
-      sm: '12px',
-      md: '14px',
-      lg: '16px',
-      xl: '20px',
-    },
-    fonts: {
-      sans: '"Inter Variable", -apple-system, sans-serif',
-      mono: '"SFMono-Regular", monospace',
-    },
-  },
+	"ethereal-sand": {
+		colors: {
+			background: "#FBF9F9",
+			foreground: "#1B1C1C",
+			card: "#FFFFFF",
+			"card-foreground": "#1B1C1C",
+			popover: "#FFFFFF",
+			"popover-foreground": "#1B1C1C",
+			primary: "#A13F20",
+			"primary-foreground": "#FFFFFF",
+			secondary: "#F0ECE9",
+			"secondary-foreground": "#1B1C1C",
+			muted: "#F5F2F0",
+			"muted-foreground": "#767575",
+			accent: "#E97451",
+			"accent-foreground": "#FFFFFF",
+			destructive: "#BA1A1A",
+			"destructive-foreground": "#FFFFFF",
+			border: "#E8E4E1",
+			input: "#E8E4E1",
+			ring: "#A13F20",
+		},
+		radius: {
+			base: "16px",
+			sm: "12px",
+			md: "14px",
+			lg: "16px",
+			xl: "20px",
+		},
+		fonts: {
+			sans: '"Plus Jakarta Sans", "Inter Variable", sans-serif',
+			mono: '"JetBrains Mono", monospace',
+		},
+	},
+	"atelier-zinc": {
+		colors: {
+			background: "#FAFAFA",
+			foreground: "#18181B",
+			card: "#FFFFFF",
+			"card-foreground": "#18181B",
+			popover: "#FFFFFF",
+			"popover-foreground": "#18181B",
+			primary: "#18181B",
+			"primary-foreground": "#FAFAFA",
+			secondary: "#F4F4F5",
+			"secondary-foreground": "#18181B",
+			muted: "#F4F4F5",
+			"muted-foreground": "#71717A",
+			accent: "#27272A",
+			"accent-foreground": "#FAFAFA",
+			destructive: "#DC2626",
+			"destructive-foreground": "#FFFFFF",
+			border: "#E4E4E7",
+			input: "#E4E4E7",
+			ring: "#18181B",
+		},
+		radius: {
+			base: "16px",
+			sm: "12px",
+			md: "14px",
+			lg: "16px",
+			xl: "20px",
+		},
+		fonts: {
+			sans: '"Inter Variable", -apple-system, sans-serif',
+			mono: '"SFMono-Regular", monospace',
+		},
+	},
 };
 
 /**
  * Normalizes input raw token data from JSON (flat or W3C DTCG nested format)
  */
 export function parseTokenData(raw: any): TokenSpec {
-  const result: TokenSpec = {
-    colors: {},
-    radius: { base: '16px', sm: '12px', md: '14px', lg: '16px', xl: '20px' },
-    fonts: { sans: 'sans-serif' },
-  };
+	const result: TokenSpec = {
+		colors: {},
+		radius: { base: "16px", sm: "12px", md: "14px", lg: "16px", xl: "20px" },
+		fonts: { sans: "sans-serif" },
+	};
 
-  // Helper to extract value from DTCG { value: ... } or string
-  function resolveValue(val: any): string {
-    if (typeof val === 'string') return val;
-    if (val && typeof val === 'object') {
-      if (typeof val.value === 'string') return val.value;
-      if (typeof val.$value === 'string') return val.$value;
-    }
-    return '';
-  }
+	// Helper to extract value from DTCG { value: ... } or string
+	function resolveValue(val: any): string {
+		if (typeof val === "string") return val;
+		if (val && typeof val === "object") {
+			if (typeof val.value === "string") return val.value;
+			if (typeof val.$value === "string") return val.$value;
+		}
+		return "";
+	}
 
-  // If DTCG group "color" or "colors" exists
-  const colorSource = raw.color || raw.colors || raw;
-  for (const [key, val] of Object.entries(colorSource)) {
-    if (key === 'color' || key === 'colors' || key === 'radius' || key === 'font' || key === 'fonts') continue;
-    const strVal = resolveValue(val);
-    if (strVal && (strVal.startsWith('#') || strVal.startsWith('rgb') || strVal.startsWith('hsl'))) {
-      result.colors[key] = strVal;
-    }
-  }
+	// If DTCG group "color" or "colors" exists
+	const colorSource = raw.color || raw.colors || raw;
+	for (const [key, val] of Object.entries(colorSource)) {
+		if (
+			key === "color" ||
+			key === "colors" ||
+			key === "radius" ||
+			key === "font" ||
+			key === "fonts"
+		)
+			continue;
+		const strVal = resolveValue(val);
+		if (
+			strVal &&
+			(strVal.startsWith("#") ||
+				strVal.startsWith("rgb") ||
+				strVal.startsWith("hsl"))
+		) {
+			result.colors[key] = strVal;
+		}
+	}
 
-  // Radius source
-  const radSource = raw.radius || raw.borderRadius || raw.radii;
-  if (radSource && typeof radSource === 'object') {
-    for (const [k, v] of Object.entries(radSource)) {
-      const s = resolveValue(v);
-      if (s) result.radius![k] = s;
-    }
-  }
+	// Radius source
+	const radSource = raw.radius || raw.borderRadius || raw.radii;
+	if (radSource && typeof radSource === "object") {
+		for (const [k, v] of Object.entries(radSource)) {
+			const s = resolveValue(v);
+			if (s) result.radius![k] = s;
+		}
+	}
 
-  // Font source
-  const fontSource = raw.font || raw.fonts || raw.fontFamily;
-  if (fontSource && typeof fontSource === 'object') {
-    for (const [k, v] of Object.entries(fontSource)) {
-      const s = resolveValue(v);
-      if (s) result.fonts![k] = s;
-    }
-  }
+	// Font source
+	const fontSource = raw.font || raw.fonts || raw.fontFamily;
+	if (fontSource && typeof fontSource === "object") {
+		for (const [k, v] of Object.entries(fontSource)) {
+			const s = resolveValue(v);
+			if (s) result.fonts![k] = s;
+		}
+	}
 
-  // If no primary provided, set default
-  if (!result.colors.primary) result.colors.primary = '#A13F20';
-  if (!result.colors.background) result.colors.background = '#FBF9F9';
-  if (!result.colors.foreground) result.colors.foreground = '#1B1C1C';
-  if (!result.colors.card) result.colors.card = '#FFFFFF';
-  if (!result.colors.border) result.colors.border = '#E8E4E1';
+	// If no primary provided, set default
+	if (!result.colors.primary) result.colors.primary = "#A13F20";
+	if (!result.colors.background) result.colors.background = "#FBF9F9";
+	if (!result.colors.foreground) result.colors.foreground = "#1B1C1C";
+	if (!result.colors.card) result.colors.card = "#FFFFFF";
+	if (!result.colors.border) result.colors.border = "#E8E4E1";
 
-  return result;
+	return result;
 }
 
 /**
  * Generates Tailwind v4 CSS string with @theme block
  */
 export function generateTailwindV4Css(tokens: TokenSpec): string {
-  const cssVars = Object.entries(tokens.colors)
-    .map(([k, v]) => `  --ui-${k}: ${v};`)
-    .join('\n');
+	const cssVars = Object.entries(tokens.colors)
+		.map(([k, v]) => `  --ui-${k}: ${v};`)
+		.join("\n");
 
-  const themeColors = Object.keys(tokens.colors)
-    .map((k) => `  --color-${k}: var(--ui-${k});`)
-    .join('\n');
+	const themeColors = Object.keys(tokens.colors)
+		.map((k) => `  --color-${k}: var(--ui-${k});`)
+		.join("\n");
 
-  const radiusVar = tokens.radius?.base || '16px';
+	const radiusVar = tokens.radius?.base || "16px";
 
-  return `/* Generated by @vultra/cli tokens sync — Tailwind v4 Unified Tokens */
+	return `/* Generated by @vultra/cli tokens sync — Tailwind v4 Unified Tokens */
 @theme inline {
   --font-sans: ${tokens.fonts?.sans || 'var(--ui-font-sans, "Plus Jakarta Sans", sans-serif)'};
-  --font-mono: ${tokens.fonts?.mono || 'var(--ui-font-mono, monospace)'};
+  --font-mono: ${tokens.fonts?.mono || "var(--ui-font-mono, monospace)"};
 
 ${themeColors}
 
-  --radius-sm: ${tokens.radius?.sm || 'calc(var(--ui-radius) - 4px)'};
-  --radius-md: ${tokens.radius?.md || 'calc(var(--ui-radius) - 2px)'};
+  --radius-sm: ${tokens.radius?.sm || "calc(var(--ui-radius) - 4px)"};
+  --radius-md: ${tokens.radius?.md || "calc(var(--ui-radius) - 2px)"};
   --radius-lg: var(--ui-radius);
-  --radius-xl: ${tokens.radius?.xl || 'calc(var(--ui-radius) + 4px)'};
+  --radius-xl: ${tokens.radius?.xl || "calc(var(--ui-radius) + 4px)"};
 }
 
 :root {
@@ -174,28 +186,31 @@ ${cssVars}
  * Generates Flutter Dart code with AppColors and AppRadii
  */
 export function generateFlutterTokens(tokens: TokenSpec): string {
-  function hexToColor(hex: string): string {
-    const clean = hex.replace('#', '').trim();
-    if (clean.length === 6) {
-      return `Color(0xFF${clean.toUpperCase()})`;
-    } else if (clean.length === 8) {
-      return `Color(0x${clean.toUpperCase()})`;
-    } else if (clean.length === 3) {
-      const full = clean.split('').map(c => c + c).join('');
-      return `Color(0xFF${full.toUpperCase()})`;
-    }
-    return `Color(0xFF1B1C1C)`;
-  }
+	function hexToColor(hex: string): string {
+		const clean = hex.replace("#", "").trim();
+		if (clean.length === 6) {
+			return `Color(0xFF${clean.toUpperCase()})`;
+		} else if (clean.length === 8) {
+			return `Color(0x${clean.toUpperCase()})`;
+		} else if (clean.length === 3) {
+			const full = clean
+				.split("")
+				.map((c) => c + c)
+				.join("");
+			return `Color(0xFF${full.toUpperCase()})`;
+		}
+		return `Color(0xFF1B1C1C)`;
+	}
 
-  function camelCase(str: string): string {
-    return str.replace(/-([a-z])/g, (_, g) => g.toUpperCase());
-  }
+	function camelCase(str: string): string {
+		return str.replace(/-([a-z])/g, (_, g) => g.toUpperCase());
+	}
 
-  const dartColors = Object.entries(tokens.colors)
-    .map(([k, v]) => `  static const Color ${camelCase(k)} = ${hexToColor(v)};`)
-    .join('\n');
+	const dartColors = Object.entries(tokens.colors)
+		.map(([k, v]) => `  static const Color ${camelCase(k)} = ${hexToColor(v)};`)
+		.join("\n");
 
-  return `// Generated by @vultra/cli tokens sync — Flutter Native Design Tokens
+	return `// Generated by @vultra/cli tokens sync — Flutter Native Design Tokens
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -220,148 +235,164 @@ class AppRadii {
  * Main sync orchestrator
  */
 export async function syncTokens(options: {
-  inputPath?: string;
-  preset?: string;
-  outWeb?: string;
-  outFlutter?: string;
+	inputPath?: string;
+	preset?: string;
+	outWeb?: string;
+	outFlutter?: string;
 }): Promise<{ webCss: string; flutterDart: string }> {
-  let spec: TokenSpec;
+	let spec: TokenSpec;
 
-  if (options.inputPath && fs.existsSync(options.inputPath)) {
-    const content = fs.readFileSync(options.inputPath, 'utf8');
-    const parsed = JSON.parse(content);
-    spec = parseTokenData(parsed);
-  } else if (options.preset && TOKEN_PRESETS[options.preset]) {
-    spec = TOKEN_PRESETS[options.preset];
-  } else {
-    spec = TOKEN_PRESETS['ethereal-sand'];
-  }
+	if (options.inputPath && fs.existsSync(options.inputPath)) {
+		const content = fs.readFileSync(options.inputPath, "utf8");
+		const parsed = JSON.parse(content);
+		spec = parseTokenData(parsed);
+	} else if (options.preset && TOKEN_PRESETS[options.preset]) {
+		spec = TOKEN_PRESETS[options.preset];
+	} else {
+		spec = TOKEN_PRESETS["ethereal-sand"];
+	}
 
-  const webCss = generateTailwindV4Css(spec);
-  const flutterDart = generateFlutterTokens(spec);
+	const webCss = generateTailwindV4Css(spec);
+	const flutterDart = generateFlutterTokens(spec);
 
-  if (options.outWeb) {
-    const resolvedWeb = path.resolve(options.outWeb);
-    fs.mkdirSync(path.dirname(resolvedWeb), { recursive: true });
-    fs.writeFileSync(resolvedWeb, webCss, 'utf8');
-  }
+	if (options.outWeb) {
+		const resolvedWeb = path.resolve(options.outWeb);
+		fs.mkdirSync(path.dirname(resolvedWeb), { recursive: true });
+		fs.writeFileSync(resolvedWeb, webCss, "utf8");
+	}
 
-  if (options.outFlutter) {
-    const resolvedFlutter = path.resolve(options.outFlutter);
-    fs.mkdirSync(path.dirname(resolvedFlutter), { recursive: true });
-    fs.writeFileSync(resolvedFlutter, flutterDart, 'utf8');
-  }
+	if (options.outFlutter) {
+		const resolvedFlutter = path.resolve(options.outFlutter);
+		fs.mkdirSync(path.dirname(resolvedFlutter), { recursive: true });
+		fs.writeFileSync(resolvedFlutter, flutterDart, "utf8");
+	}
 
-  return { webCss, flutterDart };
+	return { webCss, flutterDart };
 }
 
 /**
  * Watch mode: continuously monitors input token file and auto-compiles to Web and Flutter
  */
 export function watchTokens(options: {
-  inputPath: string;
-  outWeb?: string;
-  outFlutter?: string;
-  onUpdate?: () => void;
+	inputPath: string;
+	outWeb?: string;
+	outFlutter?: string;
+	onUpdate?: () => void;
 }): () => void {
-  const resolvedInput = path.resolve(options.inputPath);
-  if (!fs.existsSync(resolvedInput)) {
-    throw new Error(`Token file not found: ${resolvedInput}`);
-  }
+	const resolvedInput = path.resolve(options.inputPath);
+	if (!fs.existsSync(resolvedInput)) {
+		throw new Error(`Token file not found: ${resolvedInput}`);
+	}
 
-  console.log(`[vultra tokens watch] Monitoring ${options.inputPath} for changes...`);
-  let debounceTimer: NodeJS.Timeout | null = null;
+	console.log(
+		`[vultra tokens watch] Monitoring ${options.inputPath} for changes...`,
+	);
+	let debounceTimer: NodeJS.Timeout | null = null;
 
-  const watcher = fs.watch(resolvedInput, (eventType) => {
-    if (eventType === 'change') {
-      if (debounceTimer) clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(async () => {
-        try {
-          const now = new Date().toLocaleTimeString();
-          console.log(`[${now}] Token change detected. Recompiling...`);
-          await syncTokens({
-            inputPath: resolvedInput,
-            outWeb: options.outWeb,
-            outFlutter: options.outFlutter,
-          });
-          if (options.outWeb) console.log(`  ✓ Rebuilt Web Tailwind v4 tokens: ${options.outWeb}`);
-          if (options.outFlutter) console.log(`  ✓ Rebuilt Flutter Dart tokens: ${options.outFlutter}`);
-          options.onUpdate?.();
-        } catch (err) {
-          console.error(`  ✗ Recompile failed: ${err instanceof Error ? err.message : String(err)}`);
-        }
-      }, 150);
-    }
-  });
+	const watcher = fs.watch(resolvedInput, (eventType) => {
+		if (eventType === "change") {
+			if (debounceTimer) clearTimeout(debounceTimer);
+			debounceTimer = setTimeout(async () => {
+				try {
+					const now = new Date().toLocaleTimeString();
+					console.log(`[${now}] Token change detected. Recompiling...`);
+					await syncTokens({
+						inputPath: resolvedInput,
+						outWeb: options.outWeb,
+						outFlutter: options.outFlutter,
+					});
+					if (options.outWeb)
+						console.log(
+							`  ✓ Rebuilt Web Tailwind v4 tokens: ${options.outWeb}`,
+						);
+					if (options.outFlutter)
+						console.log(
+							`  ✓ Rebuilt Flutter Dart tokens: ${options.outFlutter}`,
+						);
+					options.onUpdate?.();
+				} catch (err) {
+					console.error(
+						`  ✗ Recompile failed: ${err instanceof Error ? err.message : String(err)}`,
+					);
+				}
+			}, 150);
+		}
+	});
 
-  return () => {
-    if (debounceTimer) clearTimeout(debounceTimer);
-    watcher.close();
-  };
+	return () => {
+		if (debounceTimer) clearTimeout(debounceTimer);
+		watcher.close();
+	};
 }
 
 /**
  * Exports tokens to Figma Tokens Studio compliant JSON schema
  */
 export function exportTokensStudioJson(options: {
-  preset?: string;
-  inputPath?: string;
-  outputPath?: string;
+	preset?: string;
+	inputPath?: string;
+	outputPath?: string;
 }): string {
-  let spec: TokenSpec;
+	let spec: TokenSpec;
 
-  if (options.inputPath && fs.existsSync(options.inputPath)) {
-    const content = fs.readFileSync(options.inputPath, 'utf8');
-    spec = parseTokenData(JSON.parse(content));
-  } else if (options.preset && TOKEN_PRESETS[options.preset]) {
-    spec = TOKEN_PRESETS[options.preset];
-  } else {
-    spec = TOKEN_PRESETS['ethereal-sand'];
-  }
+	if (options.inputPath && fs.existsSync(options.inputPath)) {
+		const content = fs.readFileSync(options.inputPath, "utf8");
+		spec = parseTokenData(JSON.parse(content));
+	} else if (options.preset && TOKEN_PRESETS[options.preset]) {
+		spec = TOKEN_PRESETS[options.preset];
+	} else {
+		spec = TOKEN_PRESETS["ethereal-sand"];
+	}
 
-  const colorsObj: Record<string, { $value: string; $type: string }> = {};
-  for (const [k, v] of Object.entries(spec.colors)) {
-    colorsObj[k] = { $value: v, $type: 'color' };
-  }
+	const colorsObj: Record<string, { $value: string; $type: string }> = {};
+	for (const [k, v] of Object.entries(spec.colors)) {
+		colorsObj[k] = { $value: v, $type: "color" };
+	}
 
-  const radiusObj: Record<string, { $value: string; $type: string }> = {};
-  if (spec.radius) {
-    for (const [k, v] of Object.entries(spec.radius)) {
-      radiusObj[k] = { $value: v, $type: 'borderRadius' };
-    }
-  }
+	const radiusObj: Record<string, { $value: string; $type: string }> = {};
+	if (spec.radius) {
+		for (const [k, v] of Object.entries(spec.radius)) {
+			radiusObj[k] = { $value: v, $type: "borderRadius" };
+		}
+	}
 
-  const figmaPayload = {
-    global: {
-      color: colorsObj,
-      borderRadius: radiusObj,
-      fontFamilies: {
-        sans: { $value: spec.fonts?.sans || 'Plus Jakarta Sans', $type: 'fontFamilies' },
-        mono: { $value: spec.fonts?.mono || 'JetBrains Mono', $type: 'fontFamilies' },
-      },
-    },
-    $themes: [
-      {
-        id: options.preset || 'ethereal-sand',
-        name: (options.preset || 'ethereal-sand')
-          .split('-')
-          .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(' '),
-        selectedTokenSets: { global: 'enabled' },
-      },
-    ],
-    $metadata: {
-      tokenSetOrder: ['global'],
-    },
-  };
+	const figmaPayload = {
+		global: {
+			color: colorsObj,
+			borderRadius: radiusObj,
+			fontFamilies: {
+				sans: {
+					$value: spec.fonts?.sans || "Plus Jakarta Sans",
+					$type: "fontFamilies",
+				},
+				mono: {
+					$value: spec.fonts?.mono || "JetBrains Mono",
+					$type: "fontFamilies",
+				},
+			},
+		},
+		$themes: [
+			{
+				id: options.preset || "ethereal-sand",
+				name: (options.preset || "ethereal-sand")
+					.split("-")
+					.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+					.join(" "),
+				selectedTokenSets: { global: "enabled" },
+			},
+		],
+		$metadata: {
+			tokenSetOrder: ["global"],
+		},
+	};
 
-  const jsonStr = JSON.stringify(figmaPayload, null, 2);
+	const jsonStr = JSON.stringify(figmaPayload, null, 2);
 
-  if (options.outputPath) {
-    const resolvedOut = path.resolve(options.outputPath);
-    fs.mkdirSync(path.dirname(resolvedOut), { recursive: true });
-    fs.writeFileSync(resolvedOut, jsonStr, 'utf8');
-  }
+	if (options.outputPath) {
+		const resolvedOut = path.resolve(options.outputPath);
+		fs.mkdirSync(path.dirname(resolvedOut), { recursive: true });
+		fs.writeFileSync(resolvedOut, jsonStr, "utf8");
+	}
 
-  return jsonStr;
+	return jsonStr;
 }

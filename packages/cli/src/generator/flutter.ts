@@ -1,86 +1,102 @@
-import type { GeneratorOptions, GeneratorResult, GeneratedFile, FieldDefinition } from './types.js';
+import type {
+	GeneratorOptions,
+	GeneratorResult,
+	GeneratedFile,
+	FieldDefinition,
+} from "./types.js";
 
 function toSnake(str: string): string {
-  return str
-    .replace(/([a-z])([A-Z])/g, '$1_$2')
-    .replace(/[\s-]+/g, '_')
-    .toLowerCase();
+	return str
+		.replace(/([a-z])([A-Z])/g, "$1_$2")
+		.replace(/[\s-]+/g, "_")
+		.toLowerCase();
 }
 
 function toPascal(str: string): string {
-  const s = toSnake(str);
-  return s
-    .split('_')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join('');
+	const s = toSnake(str);
+	return s
+		.split("_")
+		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+		.join("");
 }
 
 function toCamel(str: string): string {
-  const p = toPascal(str);
-  return p.charAt(0).toLowerCase() + p.slice(1);
+	const p = toPascal(str);
+	return p.charAt(0).toLowerCase() + p.slice(1);
 }
 
-export function generateFlutterFeature(options: GeneratorOptions): GeneratorResult {
-  const rawName = options.entityName || 'Item';
-  const pascal = toPascal(rawName);
-  const snake = toSnake(rawName);
-  const camel = toCamel(rawName);
-  const archetype = options.archetype;
+export function generateFlutterFeature(
+	options: GeneratorOptions,
+): GeneratorResult {
+	const rawName = options.entityName || "Item";
+	const pascal = toPascal(rawName);
+	const snake = toSnake(rawName);
+	const camel = toCamel(rawName);
+	const archetype = options.archetype;
 
-  const defaultFields: FieldDefinition[] = options.fields && options.fields.length > 0
-    ? options.fields
-    : [
-        { name: 'id', type: 'string', label: 'ID' },
-        { name: 'name', type: 'string', label: 'Name' },
-        { name: 'email', type: 'string', label: 'Email' },
-        { name: 'status', type: 'string', label: 'Status' },
-        { name: 'amount', type: 'number', label: 'Amount' },
-      ];
+	const defaultFields: FieldDefinition[] =
+		options.fields && options.fields.length > 0
+			? options.fields
+			: [
+					{ name: "id", type: "string", label: "ID" },
+					{ name: "name", type: "string", label: "Name" },
+					{ name: "email", type: "string", label: "Email" },
+					{ name: "status", type: "string", label: "Status" },
+					{ name: "amount", type: "number", label: "Amount" },
+				];
 
-  const files: GeneratedFile[] = [];
+	const files: GeneratedFile[] = [];
 
-  // 1. Model (Freezed)
-  files.push(generateModelFile(pascal, snake, defaultFields));
+	// 1. Model (Freezed)
+	files.push(generateModelFile(pascal, snake, defaultFields));
 
-  // 2. Event (Freezed)
-  files.push(generateEventFile(pascal, snake, archetype));
+	// 2. Event (Freezed)
+	files.push(generateEventFile(pascal, snake, archetype));
 
-  // 3. State (Freezed)
-  files.push(generateStateFile(pascal, snake, archetype));
+	// 3. State (Freezed)
+	files.push(generateStateFile(pascal, snake, archetype));
 
-  // 4. BLoC
-  files.push(generateBlocFile(pascal, snake, camel, archetype, defaultFields));
+	// 4. BLoC
+	files.push(generateBlocFile(pascal, snake, camel, archetype, defaultFields));
 
-  // 5. Presentation Page (BlocProvider & BlocBuilder)
-  files.push(generatePageFile(pascal, snake, camel, archetype));
+	// 5. Presentation Page (BlocProvider & BlocBuilder)
+	files.push(generatePageFile(pascal, snake, camel, archetype));
 
-  // 6. Presentation Feature Widgets (Separated from business logic)
-  files.push(generateWidgetFile(pascal, snake, camel, archetype, defaultFields));
+	// 6. Presentation Feature Widgets (Separated from business logic)
+	files.push(
+		generateWidgetFile(pascal, snake, camel, archetype, defaultFields),
+	);
 
-  // 7. Optional Unit & Golden Tests
-  if (options.generateTests) {
-    files.push(generateBlocTestFile(pascal, snake));
-    files.push(generateWidgetTestFile(pascal, snake));
-  }
+	// 7. Optional Unit & Golden Tests
+	if (options.generateTests) {
+		files.push(generateBlocTestFile(pascal, snake));
+		files.push(generateWidgetTestFile(pascal, snake));
+	}
 
-  return {
-    entityName: pascal,
-    platform: 'flutter',
-    archetype,
-    files,
-  };
+	return {
+		entityName: pascal,
+		platform: "flutter",
+		archetype,
+		files,
+	};
 }
 
-function generateModelFile(pascal: string, snake: string, fields: FieldDefinition[]): GeneratedFile {
-  const fieldLines = fields.map((f) => {
-    let dartType = 'String';
-    if (f.type === 'number') dartType = 'double';
-    else if (f.type === 'boolean') dartType = 'bool';
-    else if (f.type === 'date') dartType = 'DateTime';
-    return `    required ${dartType} ${f.name},`;
-  }).join('\n');
+function generateModelFile(
+	pascal: string,
+	snake: string,
+	fields: FieldDefinition[],
+): GeneratedFile {
+	const fieldLines = fields
+		.map((f) => {
+			let dartType = "String";
+			if (f.type === "number") dartType = "double";
+			else if (f.type === "boolean") dartType = "bool";
+			else if (f.type === "date") dartType = "DateTime";
+			return `    required ${dartType} ${f.name},`;
+		})
+		.join("\n");
 
-  const content = `import 'package:freezed_annotation/freezed_annotation.dart';
+	const content = `import 'package:freezed_annotation/freezed_annotation.dart';
 
 part '${snake}_model.freezed.dart';
 part '${snake}_model.g.dart';
@@ -98,37 +114,41 @@ ${fieldLines}
 }
 `;
 
-  return {
-    path: `lib/features/${snake}/models/${snake}_model.dart`,
-    content,
-    description: `Freezed model definition for ${pascal}`,
-  };
+	return {
+		path: `lib/features/${snake}/models/${snake}_model.dart`,
+		content,
+		description: `Freezed model definition for ${pascal}`,
+	};
 }
 
-function generateEventFile(pascal: string, snake: string, archetype: string): GeneratedFile {
-  let events = `  const factory ${pascal}Event.load() = _Load;
+function generateEventFile(
+	pascal: string,
+	snake: string,
+	archetype: string,
+): GeneratedFile {
+	let events = `  const factory ${pascal}Event.load() = _Load;
   const factory ${pascal}Event.refresh() = _Refresh;
   const factory ${pascal}Event.searchChanged(String query) = _SearchChanged;
   const factory ${pascal}Event.filterChanged(String status) = _FilterChanged;
   const factory ${pascal}Event.deleteRequested(String id) = _DeleteRequested;`;
 
-  if (archetype === 'paywall') {
-    events = `  const factory ${pascal}Event.load() = _Load;
+	if (archetype === "paywall") {
+		events = `  const factory ${pascal}Event.load() = _Load;
   const factory ${pascal}Event.selectPlan(int planIndex) = _SelectPlan;
   const factory ${pascal}Event.startCheckout() = _StartCheckout;
   const factory ${pascal}Event.restorePurchases() = _RestorePurchases;`;
-  } else if (archetype === 'auth_otp') {
-    events = `  const factory ${pascal}Event.otpDigitEntered(int index, String digit) = _OtpDigitEntered;
+	} else if (archetype === "auth_otp") {
+		events = `  const factory ${pascal}Event.otpDigitEntered(int index, String digit) = _OtpDigitEntered;
   const factory ${pascal}Event.submitOtp(String code) = _SubmitOtp;
   const factory ${pascal}Event.resendCode() = _ResendCode;
   const factory ${pascal}Event.tickCountdown() = _TickCountdown;`;
-  } else if (archetype === 'dashboard') {
-    events = `  const factory ${pascal}Event.load() = _Load;
+	} else if (archetype === "dashboard") {
+		events = `  const factory ${pascal}Event.load() = _Load;
   const factory ${pascal}Event.refresh() = _Refresh;
   const factory ${pascal}Event.periodChanged(String period) = _PeriodChanged;`;
-  }
+	}
 
-  const content = `import 'package:freezed_annotation/freezed_annotation.dart';
+	const content = `import 'package:freezed_annotation/freezed_annotation.dart';
 
 part '${snake}_event.freezed.dart';
 
@@ -139,37 +159,41 @@ ${events}
 }
 `;
 
-  return {
-    path: `lib/features/${snake}/bloc/${snake}_event.dart`,
-    content,
-    description: `Freezed BLoC events for ${pascal}`,
-  };
+	return {
+		path: `lib/features/${snake}/bloc/${snake}_event.dart`,
+		content,
+		description: `Freezed BLoC events for ${pascal}`,
+	};
 }
 
-function generateStateFile(pascal: string, snake: string, archetype: string): GeneratedFile {
-  let loadedFields = `    required List<${pascal}Model> items,
+function generateStateFile(
+	pascal: string,
+	snake: string,
+	archetype: string,
+): GeneratedFile {
+	let loadedFields = `    required List<${pascal}Model> items,
     required List<${pascal}Model> filteredItems,
     @Default('') String searchQuery,
     @Default('all') String statusFilter,`;
 
-  if (archetype === 'paywall') {
-    loadedFields = `    required List<${pascal}Model> plans,
+	if (archetype === "paywall") {
+		loadedFields = `    required List<${pascal}Model> plans,
     @Default(0) int selectedPlanIndex,
     @Default(false) bool isProcessing,`;
-  } else if (archetype === 'auth_otp') {
-    loadedFields = `    required String phoneNumber,
+	} else if (archetype === "auth_otp") {
+		loadedFields = `    required String phoneNumber,
     @Default(['', '', '', '', '', '']) List<String> digits,
     @Default(60) int countdownSeconds,
     @Default(false) bool isSubmitting,`;
-  } else if (archetype === 'dashboard') {
-    loadedFields = `    required double totalRevenue,
+	} else if (archetype === "dashboard") {
+		loadedFields = `    required double totalRevenue,
     required int activeCount,
     required double growthRate,
     required List<${pascal}Model> recentActivity,
     @Default('monthly') String selectedPeriod,`;
-  }
+	}
 
-  const content = `import 'package:freezed_annotation/freezed_annotation.dart';
+	const content = `import 'package:freezed_annotation/freezed_annotation.dart';
 import '../models/${snake}_model.dart';
 
 part '${snake}_state.freezed.dart';
@@ -186,21 +210,21 @@ ${loadedFields}
 }
 `;
 
-  return {
-    path: `lib/features/${snake}/bloc/${snake}_state.dart`,
-    content,
-    description: `Freezed BLoC state for ${pascal}`,
-  };
+	return {
+		path: `lib/features/${snake}/bloc/${snake}_state.dart`,
+		content,
+		description: `Freezed BLoC state for ${pascal}`,
+	};
 }
 
 function generateBlocFile(
-  pascal: string,
-  snake: string,
-  camel: string,
-  archetype: string,
-  fields: FieldDefinition[]
+	pascal: string,
+	snake: string,
+	camel: string,
+	archetype: string,
+	fields: FieldDefinition[],
 ): GeneratedFile {
-  const content = `import 'package:flutter_bloc/flutter_bloc.dart';
+	const content = `import 'package:flutter_bloc/flutter_bloc.dart';
 import '${snake}_event.dart';
 import '${snake}_state.dart';
 import '../models/${snake}_model.dart';
@@ -317,20 +341,20 @@ class ${pascal}Bloc extends Bloc<${pascal}Event, ${pascal}State> {
 }
 `;
 
-  return {
-    path: `lib/features/${snake}/bloc/${snake}_bloc.dart`,
-    content,
-    description: `BLoC controller implementation for ${pascal}`,
-  };
+	return {
+		path: `lib/features/${snake}/bloc/${snake}_bloc.dart`,
+		content,
+		description: `BLoC controller implementation for ${pascal}`,
+	};
 }
 
 function generatePageFile(
-  pascal: string,
-  snake: string,
-  camel: string,
-  archetype: string
+	pascal: string,
+	snake: string,
+	camel: string,
+	archetype: string,
 ): GeneratedFile {
-  const content = `import 'package:flutter/material.dart';
+	const content = `import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/${snake}_bloc.dart';
 import '../bloc/${snake}_event.dart';
@@ -411,21 +435,21 @@ class _${pascal}View extends StatelessWidget {
 }
 `;
 
-  return {
-    path: `lib/features/${snake}/presentation/${snake}_page.dart`,
-    content,
-    description: `Presentation page wrapping BlocProvider and routing view states for ${pascal}`,
-  };
+	return {
+		path: `lib/features/${snake}/presentation/${snake}_page.dart`,
+		content,
+		description: `Presentation page wrapping BlocProvider and routing view states for ${pascal}`,
+	};
 }
 
 function generateWidgetFile(
-  pascal: string,
-  snake: string,
-  camel: string,
-  archetype: string,
-  fields: FieldDefinition[]
+	pascal: string,
+	snake: string,
+	camel: string,
+	archetype: string,
+	fields: FieldDefinition[],
 ): GeneratedFile {
-  const content = `import 'package:flutter/material.dart';
+	const content = `import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/${snake}_bloc.dart';
@@ -676,15 +700,15 @@ class _EmptyStateView extends StatelessWidget {
 }
 `;
 
-  return {
-    path: `lib/features/${snake}/presentation/widgets/${snake}_content_widget.dart`,
-    content,
-    description: `Presentational widget separating UI from domain logic for ${pascal}`,
-  };
+	return {
+		path: `lib/features/${snake}/presentation/widgets/${snake}_content_widget.dart`,
+		content,
+		description: `Presentational widget separating UI from domain logic for ${pascal}`,
+	};
 }
 
 function generateBlocTestFile(pascal: string, snake: string): GeneratedFile {
-  const content = `import 'package:flutter_test/flutter_test.dart';
+	const content = `import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:app/features/${snake}/bloc/${snake}_bloc.dart';
 import 'package:app/features/${snake}/bloc/${snake}_event.dart';
@@ -741,15 +765,15 @@ void main() {
 }
 `;
 
-  return {
-    path: `test/features/${snake}/bloc/${snake}_bloc_test.dart`,
-    content,
-    description: `BLoC unit test verifying state transitions with bloc_test for ${pascal}`,
-  };
+	return {
+		path: `test/features/${snake}/bloc/${snake}_bloc_test.dart`,
+		content,
+		description: `BLoC unit test verifying state transitions with bloc_test for ${pascal}`,
+	};
 }
 
 function generateWidgetTestFile(pascal: string, snake: string): GeneratedFile {
-  const content = `import 'package:flutter/material.dart';
+	const content = `import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:app/features/${snake}/presentation/${snake}_page.dart';
 import 'package:app/features/${snake}/presentation/widgets/${snake}_content_widget.dart';
@@ -777,9 +801,9 @@ void main() {
 }
 `;
 
-  return {
-    path: `test/features/${snake}/presentation/${snake}_page_test.dart`,
-    content,
-    description: `Golden and widget integration test verifying layout for ${pascal}`,
-  };
+	return {
+		path: `test/features/${snake}/presentation/${snake}_page_test.dart`,
+		content,
+		description: `Golden and widget integration test verifying layout for ${pascal}`,
+	};
 }

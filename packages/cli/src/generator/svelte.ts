@@ -1,74 +1,86 @@
-import type { GeneratorOptions, GeneratorResult, GeneratedFile, FieldDefinition } from './types.js';
+import type {
+	GeneratorOptions,
+	GeneratorResult,
+	GeneratedFile,
+	FieldDefinition,
+} from "./types.js";
 
 function toKebab(str: string): string {
-  return str
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .replace(/[\s_]+/g, '-')
-    .toLowerCase();
+	return str
+		.replace(/([a-z])([A-Z])/g, "$1-$2")
+		.replace(/[\s_]+/g, "-")
+		.toLowerCase();
 }
 
 function toPascal(str: string): string {
-  const k = toKebab(str);
-  return k
-    .split('-')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join('');
+	const k = toKebab(str);
+	return k
+		.split("-")
+		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+		.join("");
 }
 
 function toCamel(str: string): string {
-  const p = toPascal(str);
-  return p.charAt(0).toLowerCase() + p.slice(1);
+	const p = toPascal(str);
+	return p.charAt(0).toLowerCase() + p.slice(1);
 }
 
-export function generateSvelteFeature(options: GeneratorOptions): GeneratorResult {
-  const rawName = options.entityName || 'Item';
-  const pascal = toPascal(rawName);
-  const kebab = toKebab(rawName);
-  const camel = toCamel(rawName);
-  const archetype = options.archetype;
+export function generateSvelteFeature(
+	options: GeneratorOptions,
+): GeneratorResult {
+	const rawName = options.entityName || "Item";
+	const pascal = toPascal(rawName);
+	const kebab = toKebab(rawName);
+	const camel = toCamel(rawName);
+	const archetype = options.archetype;
 
-  const defaultFields: FieldDefinition[] = options.fields && options.fields.length > 0
-    ? options.fields
-    : [
-        { name: 'id', type: 'string', label: 'ID' },
-        { name: 'name', type: 'string', label: 'Name' },
-        { name: 'email', type: 'string', label: 'Email' },
-        { name: 'status', type: 'string', label: 'Status' },
-        { name: 'amount', type: 'number', label: 'Amount' },
-      ];
+	const defaultFields: FieldDefinition[] =
+		options.fields && options.fields.length > 0
+			? options.fields
+			: [
+					{ name: "id", type: "string", label: "ID" },
+					{ name: "name", type: "string", label: "Name" },
+					{ name: "email", type: "string", label: "Email" },
+					{ name: "status", type: "string", label: "Status" },
+					{ name: "amount", type: "number", label: "Amount" },
+				];
 
-  const files: GeneratedFile[] = [];
+	const files: GeneratedFile[] = [];
 
-  // 1. Feature Composable (Svelte 5 Runes)
-  files.push(generateFeatureComposable(pascal, kebab, camel, archetype, defaultFields));
+	// 1. Feature Composable (Svelte 5 Runes)
+	files.push(
+		generateFeatureComposable(pascal, kebab, camel, archetype, defaultFields),
+	);
 
-  // 2. Thin Page Component (+page.svelte)
-  files.push(generateThinPageComponent(pascal, kebab, camel, archetype));
+	// 2. Thin Page Component (+page.svelte)
+	files.push(generateThinPageComponent(pascal, kebab, camel, archetype));
 
-  return {
-    entityName: pascal,
-    platform: 'svelte5',
-    archetype,
-    files,
-  };
+	return {
+		entityName: pascal,
+		platform: "svelte5",
+		archetype,
+		files,
+	};
 }
 
 function generateFeatureComposable(
-  pascal: string,
-  kebab: string,
-  camel: string,
-  archetype: string,
-  fields: FieldDefinition[]
+	pascal: string,
+	kebab: string,
+	camel: string,
+	archetype: string,
+	fields: FieldDefinition[],
 ): GeneratedFile {
-  const interfaceFields = fields.map((f) => {
-    let tsType = 'string';
-    if (f.type === 'number') tsType = 'number';
-    else if (f.type === 'boolean') tsType = 'boolean';
-    else if (f.type === 'date') tsType = 'string';
-    return `  ${f.name}: ${tsType};`;
-  }).join('\n');
+	const interfaceFields = fields
+		.map((f) => {
+			let tsType = "string";
+			if (f.type === "number") tsType = "number";
+			else if (f.type === "boolean") tsType = "boolean";
+			else if (f.type === "date") tsType = "string";
+			return `  ${f.name}: ${tsType};`;
+		})
+		.join("\n");
 
-  const content = `export interface ${pascal} {
+	const content = `export interface ${pascal} {
 ${interfaceFields}
   createdAt?: string;
 }
@@ -127,20 +139,20 @@ export function create${pascal}Feature() {
 }
 `;
 
-  return {
-    path: `src/lib/features/${kebab}/${kebab}.svelte.ts`,
-    content,
-    description: `Svelte 5 Runes feature composable for ${pascal}`,
-  };
+	return {
+		path: `src/lib/features/${kebab}/${kebab}.svelte.ts`,
+		content,
+		description: `Svelte 5 Runes feature composable for ${pascal}`,
+	};
 }
 
 function generateThinPageComponent(
-  pascal: string,
-  kebab: string,
-  camel: string,
-  archetype: string
+	pascal: string,
+	kebab: string,
+	camel: string,
+	archetype: string,
 ): GeneratedFile {
-  const content = `<script lang="ts">
+	const content = `<script lang="ts">
   import { Search, Plus, Trash2, ArrowUpDown, Filter, Download } from 'lucide-svelte';
   import { create${pascal}Feature } from '$lib/features/${kebab}/${kebab}.svelte.js';
 
@@ -264,9 +276,9 @@ function generateThinPageComponent(
 </div>
 `;
 
-  return {
-    path: `src/routes/${kebab}/+page.svelte`,
-    content,
-    description: `Thin-page Svelte 5 view component for ${pascal}`,
-  };
+	return {
+		path: `src/routes/${kebab}/+page.svelte`,
+		content,
+		description: `Thin-page Svelte 5 view component for ${pascal}`,
+	};
 }

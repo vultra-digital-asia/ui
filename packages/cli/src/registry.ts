@@ -1,5 +1,5 @@
-import { readFileSync, existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { readFileSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 export interface RegistryProp {
 	name: string;
@@ -36,7 +36,7 @@ export interface Registry {
 }
 
 const DEFAULT_LOCAL_REGISTRY = fileURLToPath(
-	new URL('../registry/index.json', import.meta.url),
+	new URL("../registry/index.json", import.meta.url),
 );
 
 /**
@@ -59,21 +59,23 @@ export async function loadRegistry(): Promise<Registry> {
 			return (await res.json()) as Registry;
 		}
 		if (existsSync(override)) {
-			return JSON.parse(readFileSync(override, 'utf8')) as Registry;
+			return JSON.parse(readFileSync(override, "utf8")) as Registry;
 		}
 		throw new Error(`VULTRA_REGISTRY points to a missing file: ${override}`);
 	}
 
 	if (!existsSync(DEFAULT_LOCAL_REGISTRY)) {
-		throw new Error('Local registry not found. Run `pnpm generate:registry` first.');
+		throw new Error(
+			"Local registry not found. Run `pnpm generate:registry` first.",
+		);
 	}
-	return JSON.parse(readFileSync(DEFAULT_LOCAL_REGISTRY, 'utf8')) as Registry;
+	return JSON.parse(readFileSync(DEFAULT_LOCAL_REGISTRY, "utf8")) as Registry;
 }
 
 /** Normalize a component name for lookup: "FAB" / "fab" / "FaB" -> "fab", "BlobCard" -> "blobcard". */
 
 function normalizeName(name: string): string {
-	return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+	return name.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
 /** Resolve a component and its transitive dependency closure (BFS). */
@@ -108,7 +110,7 @@ export function resolveWithDeps(
 		out.push(comp);
 		// utils and other shared lib files are not registry components
 		for (const dep of comp.deps) {
-			if (dep !== 'utils' && !seen.has(dep) && byName.has(dep)) queue.push(dep);
+			if (dep !== "utils" && !seen.has(dep) && byName.has(dep)) queue.push(dep);
 		}
 	}
 	return out;

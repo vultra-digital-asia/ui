@@ -1,101 +1,127 @@
 #!/usr/bin/env node
-import { program } from 'commander';
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import prompts from 'prompts';
-import { loadRegistry, type RegistryComponent } from './registry.js';
-import { installComponents, syncDependencies } from './install.js';
-import { initProject } from './init.js';
-import { updateComponents } from './update.js';
-import { runDoctor } from './doctor.js';
-import { generateStitchSpec, compileStitchSpec } from './stitch.js';
-import { FLUTTER_SCREENS, copyFlutterScreen } from './flutter.js';
-import { generateScreen, generateAiScreen, generateVisionScreen, type GeneratorPlatform, type GeneratorArchetype } from './generator/index.js';
-import { runAntiSlopLinter, runAntiSlopFixer } from './linter.js';
-import { syncTokens, watchTokens, exportTokensStudioJson, TOKEN_PRESETS } from './tokens.js';
-import { fetchFigmaTokens, compileFigmaTokensToWebCss, compileFigmaTokensToDart } from './figma.js';
+import { program } from "commander";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { join, dirname } from "node:path";
+import prompts from "prompts";
+import { loadRegistry, type RegistryComponent } from "./registry.js";
+import { installComponents, syncDependencies } from "./install.js";
+import { initProject } from "./init.js";
+import { updateComponents } from "./update.js";
+import { runDoctor } from "./doctor.js";
+import { generateStitchSpec, compileStitchSpec } from "./stitch.js";
+import { FLUTTER_SCREENS, copyFlutterScreen } from "./flutter.js";
+import {
+	generateScreen,
+	generateAiScreen,
+	generateVisionScreen,
+	type GeneratorPlatform,
+	type GeneratorArchetype,
+} from "./generator/index.js";
+import { runAntiSlopLinter, runAntiSlopFixer } from "./linter.js";
+import {
+	syncTokens,
+	watchTokens,
+	exportTokensStudioJson,
+	TOKEN_PRESETS,
+} from "./tokens.js";
+import {
+	fetchFigmaTokens,
+	compileFigmaTokensToWebCss,
+	compileFigmaTokensToDart,
+} from "./figma.js";
 
 function toPascal(name: string): string {
 	return name
-		.split('-')
+		.split("-")
 		.map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-		.join('');
+		.join("");
 }
 
 function readPkgVersion(): string | null {
 	try {
-		const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
-		return pkg.dependencies?.['@vultra/ui'] ?? null;
+		const pkg = JSON.parse(
+			readFileSync(join(process.cwd(), "package.json"), "utf8"),
+		);
+		return pkg.dependencies?.["@vultra/ui"] ?? null;
 	} catch {
 		return null;
 	}
 }
 
 program
-	.name('vultra')
-	.description('Vultra UI component installer for Svelte projects')
-	.version('0.1.1');
+	.name("vultra")
+	.description("Vultra UI component installer for Svelte projects")
+	.version("0.1.1");
 
 program
-	.command('init')
-	.description('Initialize Vultra UI in your project')
+	.command("init")
+	.description("Initialize Vultra UI in your project")
 	.action(async () => {
 		try {
 			const result = initProject(process.cwd());
 			console.log(`Detected project type: ${result.projectType}`);
 			switch (result.componentsJson) {
-				case 'created':
-					console.log('Created components.json');
+				case "created":
+					console.log("Created components.json");
 					break;
-				case 'updated':
-					console.log('Updated components.json');
+				case "updated":
+					console.log("Updated components.json");
 					break;
-				case 'error':
-					console.error('Warning: could not write components.json');
+				case "error":
+					console.error("Warning: could not write components.json");
 					break;
 			}
 			if (result.depsAdded.length > 0) {
 				console.log(
-					`Added ${result.depsAdded.length} dependency(ies) to package.json: ${result.depsAdded.join(', ')}`,
+					`Added ${result.depsAdded.length} dependency(ies) to package.json: ${result.depsAdded.join(", ")}`,
 				);
-				console.log('Run `pnpm install` (or `npm install`) to install them.');
+				console.log("Run `pnpm install` (or `npm install`) to install them.");
 			} else {
-				console.log('Dependencies already present in package.json');
+				console.log("Dependencies already present in package.json");
 			}
 			if (result.cssTouched) {
 				console.log(`Added token import to ${result.cssPath}`);
 			} else if (result.cssPath) {
 				console.log(`Token import already present in ${result.cssPath}`);
 			} else {
-				console.log('Could not find a CSS entry file to add the token import.');
+				console.log("Could not find a CSS entry file to add the token import.");
 			}
 			if (result.utilsCreated) {
 				console.log(`Created cn() utils at ${result.utilsPath}`);
 			}
-			console.log('\nVultra UI is ready. Next steps:');
-			console.log('  1. Install dependencies: pnpm install');
-			console.log('  2. Add a component: npx @vultra/cli add button');
-			console.log('  3. Check setup: npx @vultra/cli doctor');
+			console.log("\nVultra UI is ready. Next steps:");
+			console.log("  1. Install dependencies: pnpm install");
+			console.log("  2. Add a component: npx @vultra/cli add button");
+			console.log("  3. Check setup: npx @vultra/cli doctor");
 		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			console.error(
+				`Error: ${err instanceof Error ? err.message : String(err)}`,
+			);
 			process.exit(1);
 		}
 	});
 
 program
-	.command('add')
-	.description('Add a Vultra UI component or benchmark screen to your project')
-	.argument('[components...]', 'component names, e.g. button card screen-paywall')
-	.option('-y, --yes', 'skip confirmation and overwrite existing files')
-	.option('-o, --overwrite', 'overwrite existing component files')
-	.option('-m, --mode <mode>', 'install mode: copy (default) or npm (add to package.json)', 'copy')
+	.command("add")
+	.description("Add a Vultra UI component or benchmark screen to your project")
+	.argument(
+		"[components...]",
+		"component names, e.g. button card screen-paywall",
+	)
+	.option("-y, --yes", "skip confirmation and overwrite existing files")
+	.option("-o, --overwrite", "overwrite existing component files")
+	.option(
+		"-m, --mode <mode>",
+		"install mode: copy (default) or npm (add to package.json)",
+		"copy",
+	)
 	.action(
 		async (
 			rawComponents: string[],
 			opts: { yes?: boolean; overwrite?: boolean; mode?: string },
 		) => {
 			const overwrite = opts.yes || opts.overwrite || false;
-			const mode = opts.mode ?? 'copy';
+			const mode = opts.mode ?? "copy";
 			try {
 				const registry = await loadRegistry();
 				let components = rawComponents;
@@ -103,72 +129,82 @@ program
 				// If no components specified in interactive mode, prompt user
 				if (components.length === 0) {
 					const choices = registry.components.map((c) => ({
-						title: `${c.name} [${c.category || 'core'}]`,
+						title: `${c.name} [${c.category || "core"}]`,
 						value: c.name,
-						description: c.description || '',
+						description: c.description || "",
 					}));
 
 					const res = await prompts({
-						type: 'autocompleteMultiselect',
-						name: 'selected',
-						message: 'Pilih komponen atau screen untuk di-install:',
+						type: "autocompleteMultiselect",
+						name: "selected",
+						message: "Pilih komponen atau screen untuk di-install:",
 						choices,
-						hint: '- Space to select. Return to submit',
+						hint: "- Space to select. Return to submit",
 					});
 
 					if (!res.selected || res.selected.length === 0) {
-						console.log('Tidak ada komponen yang dipilih.');
+						console.log("Tidak ada komponen yang dipilih.");
 						return;
 					}
 					components = res.selected;
 				}
 
-				const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+				const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 				const known = new Set(registry.components.map((c) => norm(c.name)));
 				const unknown = components.filter((c) => !known.has(norm(c)));
 				if (unknown.length > 0) {
 					console.error(
-						`Unknown component${unknown.length > 1 ? 's' : ''}: ${unknown.join(', ')}`,
+						`Unknown component${unknown.length > 1 ? "s" : ""}: ${unknown.join(", ")}`,
 					);
-					console.error(`Available: ${registry.components.map((c) => c.name).sort().join(', ')}`);
+					console.error(
+						`Available: ${registry.components
+							.map((c) => c.name)
+							.sort()
+							.join(", ")}`,
+					);
 					process.exit(1);
 				}
 
-				if (mode === 'npm') {
+				if (mode === "npm") {
 					const { added, hasPackageJson } = syncDependencies(
 						process.cwd(),
 						registry,
 						components,
 					);
 					if (!hasPackageJson) {
-						console.error('No package.json found — cannot add npm dependencies.');
+						console.error(
+							"No package.json found — cannot add npm dependencies.",
+						);
 						process.exit(1);
 					}
 					const depNames = Object.keys(added);
-					const uiVer = readPkgVersion() ?? '^0.1.0-alpha.7';
-					if (!depNames.includes('@vultra/ui')) {
-						depNames.unshift('@vultra/ui');
-						added['@vultra/ui'] = uiVer;
+					const uiVer = readPkgVersion() ?? "^0.1.0-alpha.7";
+					if (!depNames.includes("@vultra/ui")) {
+						depNames.unshift("@vultra/ui");
+						added["@vultra/ui"] = uiVer;
 					}
 					console.log(
 						`Added ${depNames.length} dependency(ies) to package.json (npm mode):`,
 					);
 					for (const d of depNames) console.log(`  ${d}@${added[d]}`);
-					console.log('Run `npm install` (or `pnpm install`) to install them.');
-					console.log('');
-					console.log('Import usage:');
+					console.log("Run `npm install` (or `pnpm install`) to install them.");
+					console.log("");
+					console.log("Import usage:");
 					for (const c of components) {
 						console.log(`  import { ${toPascal(c)} } from '@vultra/ui';`);
 					}
 					return;
 				}
 
-				const { installed, written, skipped, addedDeps } = await installComponents(
-					components,
-					{ overwrite, cwd: process.cwd() },
-				);
+				const { installed, written, skipped, addedDeps } =
+					await installComponents(components, {
+						overwrite,
+						cwd: process.cwd(),
+					});
 
-				console.log(`Installed ${installed.length} component(s): ${installed.join(', ')}`);
+				console.log(
+					`Installed ${installed.length} component(s): ${installed.join(", ")}`,
+				);
 				if (written.length > 0) {
 					console.log(`Wrote ${written.length} file(s)`);
 				}
@@ -180,56 +216,68 @@ program
 				}
 				const depNames = Object.keys(addedDeps);
 				if (depNames.length > 0) {
-					console.log(`Added ${depNames.length} dependency(ies) to package.json:`);
+					console.log(
+						`Added ${depNames.length} dependency(ies) to package.json:`,
+					);
 					for (const d of depNames) console.log(`  ${d}@${addedDeps[d]}`);
-					console.log('Run `pnpm install` to install them.');
+					console.log("Run `pnpm install` to install them.");
 				}
 			} catch (err) {
-				console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+				console.error(
+					`Error: ${err instanceof Error ? err.message : String(err)}`,
+				);
 				process.exit(1);
 			}
 		},
 	);
 
 program
-	.command('screen')
-	.description('Install ready-to-use benchmark full-page screens')
-	.argument('[name]', 'screen name, e.g. paywall, datatable, checkout-modal, sidebar-shell, onboarding')
-	.option('-y, --yes', 'skip confirmation and overwrite existing files')
+	.command("screen")
+	.description("Install ready-to-use benchmark full-page screens")
+	.argument(
+		"[name]",
+		"screen name, e.g. paywall, datatable, checkout-modal, sidebar-shell, onboarding",
+	)
+	.option("-y, --yes", "skip confirmation and overwrite existing files")
 	.action(async (name?: string, opts?: { yes?: boolean }) => {
 		try {
 			const registry = await loadRegistry();
-			const screenComponents = registry.components.filter((c) => c.category === 'screens');
+			const screenComponents = registry.components.filter(
+				(c) => c.category === "screens",
+			);
 
 			let targetName = name;
 			if (!targetName) {
 				const res = await prompts({
-					type: 'select',
-					name: 'screen',
-					message: 'Pilih benchmark screen untuk dipasang:',
+					type: "select",
+					name: "screen",
+					message: "Pilih benchmark screen untuk dipasang:",
 					choices: screenComponents.map((s) => ({
-						title: `${s.name.replace(/^screen-/, '')} (${s.description || 'Full-page pattern'})`,
+						title: `${s.name.replace(/^screen-/, "")} (${s.description || "Full-page pattern"})`,
 						value: s.name,
 					})),
 				});
 
 				if (!res.screen) {
-					console.log('Batal memilih screen.');
+					console.log("Batal memilih screen.");
 					return;
 				}
 				targetName = res.screen as string;
-			} else if (!targetName.startsWith('screen-')) {
+			} else if (!targetName.startsWith("screen-")) {
 				targetName = `screen-${targetName}`;
 			}
 
 			if (!targetName) return;
 
-			const { installed, written, addedDeps } = await installComponents([targetName], {
-				overwrite: opts?.yes ?? false,
-				cwd: process.cwd(),
-			});
+			const { installed, written, addedDeps } = await installComponents(
+				[targetName],
+				{
+					overwrite: opts?.yes ?? false,
+					cwd: process.cwd(),
+				},
+			);
 
-			console.log(`Berhasil memasang screen: ${installed.join(', ')}`);
+			console.log(`Berhasil memasang screen: ${installed.join(", ")}`);
 			if (written.length > 0) {
 				console.log(`File tersalin ke project (${written.length} files):`);
 				for (const f of written) console.log(`  ✓ ${f}`);
@@ -238,138 +286,169 @@ program
 			if (depNames.length > 0) {
 				console.log(`Dependency ditambahkan ke package.json:`);
 				for (const d of depNames) console.log(`  + ${d}@${addedDeps[d]}`);
-				console.log('Jalankan `pnpm install` untuk mengaktifkan.');
+				console.log("Jalankan `pnpm install` untuk mengaktifkan.");
 			}
 		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			console.error(
+				`Error: ${err instanceof Error ? err.message : String(err)}`,
+			);
 			process.exit(1);
 		}
 	});
 
 const stitchCmd = program
-	.command('stitch')
-	.description('Generate or compile Google Stitch DESIGN.md specification from Vultra tokens')
-	.argument('[theme]', 'theme name: neutral, ethereal-sand, md3, cyberpunk (default: neutral)')
-	.option('-o, --out <path>', 'output file path (default: stdout)')
-	.action((theme = 'neutral', opts: { out?: string }) => {
+	.command("stitch")
+	.description(
+		"Generate or compile Google Stitch DESIGN.md specification from Vultra tokens",
+	)
+	.argument(
+		"[theme]",
+		"theme name: neutral, ethereal-sand, md3, cyberpunk (default: neutral)",
+	)
+	.option("-o, --out <path>", "output file path (default: stdout)")
+	.action((theme = "neutral", opts: { out?: string }) => {
 		try {
 			const spec = generateStitchSpec(theme);
 			if (opts.out) {
-				writeFileSync(opts.out, spec, 'utf8');
+				writeFileSync(opts.out, spec, "utf8");
 				console.log(`Google Stitch DESIGN.md spec written to ${opts.out}`);
 			} else {
 				console.log(spec);
 			}
 		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			console.error(
+				`Error: ${err instanceof Error ? err.message : String(err)}`,
+			);
 			process.exit(1);
 		}
 	});
 
 stitchCmd
-	.command('compile <specFile>')
-	.description('Compile Google Stitch markdown specification into production code')
-	.option('-p, --platform <platform>', 'Platform: svelte5 or flutter', 'svelte5')
-	.option('-e, --entity <name>', 'Entity name', 'StitchScreen')
-	.option('-o, --out <path>', 'Output directory', '.')
-	.action((specFile: string, opts: { platform: any; entity: string; out: string }) => {
-		try {
-			const specContent = readFileSync(specFile, 'utf8');
-			console.log(`\nCompiling Stitch spec "${specFile}" to ${opts.platform}...`);
-			const res = compileStitchSpec(specContent, opts.platform, opts.entity);
-			for (const file of res.files) {
-				const targetPath = join(opts.out, file.path);
-				mkdirSync(dirname(targetPath), { recursive: true });
-				writeFileSync(targetPath, file.content, 'utf8');
-				console.log(`  ✓ Compiled: ${targetPath} (${file.description})`);
-			}
-			console.log(`\nSukses compile ${res.files.length} file dari Stitch spec.\n`);
-		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
-			process.exit(1);
-		}
-	});
-
-program
-	.command('update')
-	.description('Update installed Vultra UI components to the latest version')
-	.argument('[components...]', 'component names to update, e.g. button card')
-	.option('-a, --all', 'update every installed component')
+	.command("compile <specFile>")
+	.description(
+		"Compile Google Stitch markdown specification into production code",
+	)
+	.option(
+		"-p, --platform <platform>",
+		"Platform: svelte5 or flutter",
+		"svelte5",
+	)
+	.option("-e, --entity <name>", "Entity name", "StitchScreen")
+	.option("-o, --out <path>", "Output directory", ".")
 	.action(
-		async (
-			components: string[],
-			opts: { all?: boolean },
+		(
+			specFile: string,
+			opts: { platform: any; entity: string; out: string },
 		) => {
-			if (components.length === 0 && !opts.all) {
-				console.error('Specify components to update, or use --all to update everything.');
-				process.exit(1);
-			}
 			try {
-				const result = await updateComponents(components, {
-					all: opts.all ?? false,
-					cwd: process.cwd(),
-				});
-
-				if (result.missing.length > 0) {
-					console.log(
-						`Component(s) not installed, skipping: ${result.missing.join(', ')}`,
-					);
-					console.log('  Tip: use `npx @vultra/cli add <name>` to install them.');
+				const specContent = readFileSync(specFile, "utf8");
+				console.log(
+					`\nCompiling Stitch spec "${specFile}" to ${opts.platform}...`,
+				);
+				const res = compileStitchSpec(specContent, opts.platform, opts.entity);
+				for (const file of res.files) {
+					const targetPath = join(opts.out, file.path);
+					mkdirSync(dirname(targetPath), { recursive: true });
+					writeFileSync(targetPath, file.content, "utf8");
+					console.log(`  ✓ Compiled: ${targetPath} (${file.description})`);
 				}
-				if (result.updated.length > 0) {
-					console.log(`Updated ${result.updated.length} file(s):`);
-					for (const f of result.updated) console.log(`  ${f}`);
-				}
-				if (result.added.length > 0) {
-					console.log(`Added ${result.added.length} missing file(s):`);
-					for (const f of result.added) console.log(`  ${f}`);
-				}
-				if (result.upToDate.length > 0) {
-					console.log(
-						`${result.upToDate.length} file(s) already up to date (skipped).`,
-					);
-				}
-				const depNames = Object.keys(result.addedDeps);
-				if (depNames.length > 0) {
-					console.log(`Added ${depNames.length} dependency(ies) to package.json:`);
-					for (const d of depNames) console.log(`  ${d}@${result.addedDeps[d]}`);
-					console.log('Run `pnpm install` to install them.');
-				}
+				console.log(
+					`\nSukses compile ${res.files.length} file dari Stitch spec.\n`,
+				);
 			} catch (err) {
-				console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+				console.error(
+					`Error: ${err instanceof Error ? err.message : String(err)}`,
+				);
 				process.exit(1);
 			}
 		},
 	);
 
 program
-	.command('doctor')
-	.description('Check that Vultra UI is set up correctly in your project')
+	.command("update")
+	.description("Update installed Vultra UI components to the latest version")
+	.argument("[components...]", "component names to update, e.g. button card")
+	.option("-a, --all", "update every installed component")
+	.action(async (components: string[], opts: { all?: boolean }) => {
+		if (components.length === 0 && !opts.all) {
+			console.error(
+				"Specify components to update, or use --all to update everything.",
+			);
+			process.exit(1);
+		}
+		try {
+			const result = await updateComponents(components, {
+				all: opts.all ?? false,
+				cwd: process.cwd(),
+			});
+
+			if (result.missing.length > 0) {
+				console.log(
+					`Component(s) not installed, skipping: ${result.missing.join(", ")}`,
+				);
+				console.log("  Tip: use `npx @vultra/cli add <name>` to install them.");
+			}
+			if (result.updated.length > 0) {
+				console.log(`Updated ${result.updated.length} file(s):`);
+				for (const f of result.updated) console.log(`  ${f}`);
+			}
+			if (result.added.length > 0) {
+				console.log(`Added ${result.added.length} missing file(s):`);
+				for (const f of result.added) console.log(`  ${f}`);
+			}
+			if (result.upToDate.length > 0) {
+				console.log(
+					`${result.upToDate.length} file(s) already up to date (skipped).`,
+				);
+			}
+			const depNames = Object.keys(result.addedDeps);
+			if (depNames.length > 0) {
+				console.log(
+					`Added ${depNames.length} dependency(ies) to package.json:`,
+				);
+				for (const d of depNames) console.log(`  ${d}@${result.addedDeps[d]}`);
+				console.log("Run `pnpm install` to install them.");
+			}
+		} catch (err) {
+			console.error(
+				`Error: ${err instanceof Error ? err.message : String(err)}`,
+			);
+			process.exit(1);
+		}
+	});
+
+program
+	.command("doctor")
+	.description("Check that Vultra UI is set up correctly in your project")
 	.action(async () => {
 		try {
 			const { checks, root } = runDoctor(process.cwd());
 			console.log(`Checking Vultra UI setup in ${root}`);
 			let okCount = 0;
 			for (const check of checks) {
-				console.log(`${check.ok ? '✅' : '❌'} ${check.label}${check.ok ? '' : ' — ' + check.detail}`);
+				console.log(
+					`${check.ok ? "✅" : "❌"} ${check.label}${check.ok ? "" : " — " + check.detail}`,
+				);
 				if (check.ok) okCount++;
 			}
 			console.log(
 				`\n${okCount}/${checks.length} check(s) passed.` +
 					(okCount === checks.length
-						? ' Vultra UI is set up correctly.'
-						: ' Run `npx @vultra/cli init` to fix the failing checks.'),
+						? " Vultra UI is set up correctly."
+						: " Run `npx @vultra/cli init` to fix the failing checks."),
 			);
 		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			console.error(
+				`Error: ${err instanceof Error ? err.message : String(err)}`,
+			);
 			process.exit(1);
 		}
 	});
 
 program
-	.command('list')
-	.description('List all available components')
-	.option('-v, --verbose', 'show component descriptions')
+	.command("list")
+	.description("List all available components")
+	.option("-v, --verbose", "show component descriptions")
 	.action(async (opts: { verbose?: boolean }) => {
 		try {
 			const registry = await loadRegistry();
@@ -377,21 +456,27 @@ program
 			const verbose = Boolean(opts.verbose);
 
 			if (components.length === 0) {
-				console.log('No components available.');
+				console.log("No components available.");
 				return;
 			}
 
 			const groups = new Map<string, RegistryComponent[]>();
 			for (const comp of components) {
-				const cat = comp.category ?? 'uncategorized';
+				const cat = comp.category ?? "uncategorized";
 				if (!groups.has(cat)) groups.set(cat, []);
 				groups.get(cat)!.push(comp);
 			}
 
-			console.log(`${components.length} components available (registry ${registry.schema}):`);
-			for (const [category, list] of [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+			console.log(
+				`${components.length} components available (registry ${registry.schema}):`,
+			);
+			for (const [category, list] of [...groups.entries()].sort((a, b) =>
+				a[0].localeCompare(b[0]),
+			)) {
 				console.log(`\n${category}`);
-				for (const comp of [...list].sort((a, b) => a.name.localeCompare(b.name))) {
+				for (const comp of [...list].sort((a, b) =>
+					a.name.localeCompare(b.name),
+				)) {
 					if (verbose && comp.description) {
 						console.log(`  ${comp.name.padEnd(28)} ${comp.description}`);
 					} else {
@@ -400,32 +485,40 @@ program
 				}
 			}
 		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			console.error(
+				`Error: ${err instanceof Error ? err.message : String(err)}`,
+			);
 			process.exit(1);
 		}
 	});
 
 const flutterCmd = program
-	.command('flutter')
-	.description('Manage Flutter benchmark screen templates');
+	.command("flutter")
+	.description("Manage Flutter benchmark screen templates");
 
 flutterCmd
-	.command('list')
-	.description('List available Flutter benchmark screens')
+	.command("list")
+	.description("List available Flutter benchmark screens")
 	.action(() => {
-		console.log(`Available Flutter benchmark screens (${Object.keys(FLUTTER_SCREENS).length} total):\n`);
+		console.log(
+			`Available Flutter benchmark screens (${Object.keys(FLUTTER_SCREENS).length} total):\n`,
+		);
 		for (const [key, t] of Object.entries(FLUTTER_SCREENS)) {
-			console.log(`  ${key.padEnd(28)} ${t.filename.padEnd(32)} ${t.description}`);
+			console.log(
+				`  ${key.padEnd(28)} ${t.filename.padEnd(32)} ${t.description}`,
+			);
 		}
-		console.log('\nUsage:');
-		console.log('  vultra flutter add <screen_name>');
+		console.log("\nUsage:");
+		console.log("  vultra flutter add <screen_name>");
 	});
 
 flutterCmd
-	.command('add')
-	.description('Copy a Flutter benchmark screen into your Flutter project (./lib/screens)')
-	.argument('[name]', 'Screen name (e.g. mob-paywall-wise-01)')
-	.option('-o, --overwrite', 'Overwrite existing file if present')
+	.command("add")
+	.description(
+		"Copy a Flutter benchmark screen into your Flutter project (./lib/screens)",
+	)
+	.argument("[name]", "Screen name (e.g. mob-paywall-wise-01)")
+	.option("-o, --overwrite", "Overwrite existing file if present")
 	.action(async (name?: string, opts?: { overwrite?: boolean }) => {
 		let screenKey = name;
 		if (!screenKey) {
@@ -435,19 +528,21 @@ flutterCmd
 				description: t.description,
 			}));
 			const res = await prompts({
-				type: 'select',
-				name: 'screen',
-				message: 'Pilih Flutter benchmark screen:',
+				type: "select",
+				name: "screen",
+				message: "Pilih Flutter benchmark screen:",
 				choices,
 			});
 			if (!res.screen) {
-				console.log('Batal.');
+				console.log("Batal.");
 				return;
 			}
 			screenKey = res.screen as string;
 		}
 
-		const result = copyFlutterScreen(process.cwd(), screenKey, { overwrite: opts?.overwrite });
+		const result = copyFlutterScreen(process.cwd(), screenKey, {
+			overwrite: opts?.overwrite,
+		});
 		if (!result.success) {
 			console.error(`Error: ${result.error}`);
 			process.exit(1);
@@ -456,228 +551,335 @@ flutterCmd
 	});
 
 program
-	.command('generate')
-	.alias('gen')
-	.description('Generate production-ready feature screens (Svelte 5 Runes or Flutter BLoC + Freezed)')
-	.option('-p, --platform <platform>', 'Platform: svelte5 or flutter')
-	.option('-a, --archetype <archetype>', 'Archetype: datatable, dashboard, paywall, checkout, settings, auth_otp')
-	.option('-e, --entity <name>', 'Entity name (e.g. Invoice, Customer)')
-	.option('-t, --test', 'Generate unit and golden test suites')
-	.option('--ai <prompt>', 'Generate custom screen via AI prompt using local 9Router')
-	.option('--model <model>', 'AI model override (default: opencode-combo)')
-	.option('-o, --out <path>', 'Output directory (default: current directory)', '.')
-	.action(async (opts: { platform?: string; archetype?: string; entity?: string; test?: boolean; ai?: string; model?: string; out?: string }) => {
-		try {
-			let platform = opts.platform as GeneratorPlatform | undefined;
-			let archetype = opts.archetype as GeneratorArchetype | undefined;
-			let entity = opts.entity;
+	.command("generate")
+	.alias("gen")
+	.description(
+		"Generate production-ready feature screens (Svelte 5 Runes or Flutter BLoC + Freezed)",
+	)
+	.option("-p, --platform <platform>", "Platform: svelte5 or flutter")
+	.option(
+		"-a, --archetype <archetype>",
+		"Archetype: datatable, dashboard, paywall, checkout, settings, auth_otp",
+	)
+	.option("-e, --entity <name>", "Entity name (e.g. Invoice, Customer)")
+	.option("-t, --test", "Generate unit and golden test suites")
+	.option(
+		"--ai <prompt>",
+		"Generate custom screen via AI prompt using local 9Router",
+	)
+	.option("--model <model>", "AI model override (default: opencode-combo)")
+	.option(
+		"-o, --out <path>",
+		"Output directory (default: current directory)",
+		".",
+	)
+	.action(
+		async (opts: {
+			platform?: string;
+			archetype?: string;
+			entity?: string;
+			test?: boolean;
+			ai?: string;
+			model?: string;
+			out?: string;
+		}) => {
+			try {
+				let platform = opts.platform as GeneratorPlatform | undefined;
+				let archetype = opts.archetype as GeneratorArchetype | undefined;
+				let entity = opts.entity;
 
-			if (!platform) {
-				const res = await prompts({
-					type: 'select',
-					name: 'platform',
-					message: 'Pilih target platform:',
-					choices: [
-						{ title: 'Flutter (BLoC + Freezed + Clean Architecture)', value: 'flutter' },
-						{ title: 'Svelte 5 (Runes + Thin-Page Composable + Tailwind v4)', value: 'svelte5' },
-					],
-				});
-				if (!res.platform) return;
-				platform = res.platform;
-			}
+				if (!platform) {
+					const res = await prompts({
+						type: "select",
+						name: "platform",
+						message: "Pilih target platform:",
+						choices: [
+							{
+								title: "Flutter (BLoC + Freezed + Clean Architecture)",
+								value: "flutter",
+							},
+							{
+								title: "Svelte 5 (Runes + Thin-Page Composable + Tailwind v4)",
+								value: "svelte5",
+							},
+						],
+					});
+					if (!res.platform) return;
+					platform = res.platform;
+				}
 
-			if (!entity) {
-				const res = await prompts({
-					type: 'text',
-					name: 'entity',
-					message: 'Masukkan nama entitas (e.g. AuditLog, Customer, Transaction):',
-					initial: 'AuditLog',
-				});
-				if (!res.entity) return;
-				entity = res.entity;
-			}
+				if (!entity) {
+					const res = await prompts({
+						type: "text",
+						name: "entity",
+						message:
+							"Masukkan nama entitas (e.g. AuditLog, Customer, Transaction):",
+						initial: "AuditLog",
+					});
+					if (!res.entity) return;
+					entity = res.entity;
+				}
 
-			const outDir = opts.out ?? '.';
+				const outDir = opts.out ?? ".";
 
-			if (opts.ai) {
-				if (!platform || !entity) {
-					console.log('Platform dan nama entitas wajib diisi.');
+				if (opts.ai) {
+					if (!platform || !entity) {
+						console.log("Platform dan nama entitas wajib diisi.");
+						return;
+					}
+					console.log(
+						`\nSynthesizing ${platform} screen via AI for "${entity}"...`,
+					);
+					console.log(`Prompt: "${opts.ai}"`);
+					const aiResult = await generateAiScreen({
+						prompt: opts.ai,
+						platform,
+						entityName: entity,
+						model: opts.model,
+					});
+
+					for (const file of aiResult.files) {
+						const targetPath = join(outDir, file.path);
+						mkdirSync(dirname(targetPath), { recursive: true });
+						writeFileSync(targetPath, file.content, "utf8");
+						console.log(
+							`  ✓ AI Generated: ${targetPath} (${file.description})`,
+						);
+					}
+					console.log(
+						`\nSukses AI generate ${aiResult.files.length} file untuk feature ${entity}.\n`,
+					);
 					return;
 				}
-				console.log(`\nSynthesizing ${platform} screen via AI for "${entity}"...`);
-				console.log(`Prompt: "${opts.ai}"`);
-				const aiResult = await generateAiScreen({
-					prompt: opts.ai,
+
+				if (!archetype) {
+					const res = await prompts({
+						type: "select",
+						name: "archetype",
+						message: "Pilih archetype layar:",
+						choices: [
+							{
+								title: "Data Table / List (Search, facet filter, actions)",
+								value: "datatable",
+							},
+							{
+								title: "Dashboard (KPI summary cards, action strip)",
+								value: "dashboard",
+							},
+							{
+								title:
+									"Paywall (Comparison tiers, annual/monthly toggle, sticky CTA)",
+								value: "paywall",
+							},
+							{
+								title: "Checkout Modal (Package selector + QRIS/VA payment)",
+								value: "checkout",
+							},
+							{
+								title: "Auth OTP (6-box auto-focus keypad + cooldown timer)",
+								value: "auth_otp",
+							},
+						],
+					});
+					if (!res.archetype) return;
+					archetype = res.archetype;
+				}
+
+				if (!platform || !archetype || !entity) {
+					console.log(
+						"Semua parameter (platform, archetype, entity) wajib diisi.",
+					);
+					return;
+				}
+
+				console.log(
+					`\nGenerating ${platform} [${archetype}] for "${entity}"${opts.test ? " with test suites" : ""}...`,
+				);
+				const result = generateScreen({
 					platform,
+					archetype,
 					entityName: entity,
-					model: opts.model,
+					generateTests: opts.test,
 				});
 
-				for (const file of aiResult.files) {
+				for (const file of result.files) {
 					const targetPath = join(outDir, file.path);
 					mkdirSync(dirname(targetPath), { recursive: true });
-					writeFileSync(targetPath, file.content, 'utf8');
-					console.log(`  ✓ AI Generated: ${targetPath} (${file.description})`);
+					writeFileSync(targetPath, file.content, "utf8");
+					console.log(`  ✓ Created: ${targetPath} (${file.description})`);
 				}
-				console.log(`\nSukses AI generate ${aiResult.files.length} file untuk feature ${entity}.\n`);
-				return;
+				console.log(
+					`\nSukses generate ${result.files.length} file untuk feature ${entity}.\n`,
+				);
+			} catch (err) {
+				console.error(
+					`Error: ${err instanceof Error ? err.message : String(err)}`,
+				);
+				process.exit(1);
 			}
-
-			if (!archetype) {
-				const res = await prompts({
-					type: 'select',
-					name: 'archetype',
-					message: 'Pilih archetype layar:',
-					choices: [
-						{ title: 'Data Table / List (Search, facet filter, actions)', value: 'datatable' },
-						{ title: 'Dashboard (KPI summary cards, action strip)', value: 'dashboard' },
-						{ title: 'Paywall (Comparison tiers, annual/monthly toggle, sticky CTA)', value: 'paywall' },
-						{ title: 'Checkout Modal (Package selector + QRIS/VA payment)', value: 'checkout' },
-						{ title: 'Auth OTP (6-box auto-focus keypad + cooldown timer)', value: 'auth_otp' },
-					],
-				});
-				if (!res.archetype) return;
-				archetype = res.archetype;
-			}
-
-			if (!platform || !archetype || !entity) {
-				console.log('Semua parameter (platform, archetype, entity) wajib diisi.');
-				return;
-			}
-
-			console.log(`\nGenerating ${platform} [${archetype}] for "${entity}"${opts.test ? ' with test suites' : ''}...`);
-			const result = generateScreen({
-				platform,
-				archetype,
-				entityName: entity,
-				generateTests: opts.test,
-			});
-
-			for (const file of result.files) {
-				const targetPath = join(outDir, file.path);
-				mkdirSync(dirname(targetPath), { recursive: true });
-				writeFileSync(targetPath, file.content, 'utf8');
-				console.log(`  ✓ Created: ${targetPath} (${file.description})`);
-			}
-			console.log(`\nSukses generate ${result.files.length} file untuk feature ${entity}.\n`);
-		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
-			process.exit(1);
-		}
-	});
+		},
+	);
 
 program
-	.command('lint [dir]')
-	.description('Run Vultra Anti-Slop static analyzer (checks emoji, purple gradients, radius consistency, thin-page)')
-	.option('-f, --fix', 'Automatically fix safe anti-slop violations (strip emojis from UI text)')
+	.command("lint [dir]")
+	.description(
+		"Run Vultra Anti-Slop static analyzer (checks emoji, purple gradients, radius consistency, thin-page)",
+	)
+	.option(
+		"-f, --fix",
+		"Automatically fix safe anti-slop violations (strip emojis from UI text)",
+	)
 	.action((dir?: string, opts?: { fix?: boolean }) => {
 		const targetDir = dir ?? process.cwd();
 
 		if (opts?.fix) {
 			console.log(`\nAuto-fixing anti-slop violations in: ${targetDir}...\n`);
-			const { totalFiles, filesModified, totalFixes } = runAntiSlopFixer(targetDir);
-			console.log(`✓ Processed ${totalFiles} files. Modified ${filesModified} files with ${totalFixes} fixes.\n`);
+			const { totalFiles, filesModified, totalFixes } =
+				runAntiSlopFixer(targetDir);
+			console.log(
+				`✓ Processed ${totalFiles} files. Modified ${filesModified} files with ${totalFixes} fixes.\n`,
+			);
 		}
 
 		console.log(`Scanning codebase for UI slop in: ${targetDir}...\n`);
 		const { totalFiles, violations } = runAntiSlopLinter(targetDir);
 
 		if (violations.length === 0) {
-			console.log(`✓ Clean! Scanned ${totalFiles} files. Zero anti-slop violations found.\n`);
+			console.log(
+				`✓ Clean! Scanned ${totalFiles} files. Zero anti-slop violations found.\n`,
+			);
 			return;
 		}
 
-		console.log(`⚠️  Found ${violations.length} anti-slop violation(s) across ${totalFiles} files:\n`);
+		console.log(
+			`⚠️  Found ${violations.length} anti-slop violation(s) across ${totalFiles} files:\n`,
+		);
 		for (const v of violations) {
-			const tag = v.severity === 'error' ? '🔴 ERROR' : '🟡 WARN';
+			const tag = v.severity === "error" ? "🔴 ERROR" : "🟡 WARN";
 			console.log(`  ${tag} [${v.rule}] ${v.file}:${v.line}`);
 			console.log(`    Message: ${v.message}`);
 			console.log(`    Snippet: ${v.snippet.slice(0, 80)}\n`);
 		}
 
-		const errors = violations.filter((v) => v.severity === 'error');
+		const errors = violations.filter((v) => v.severity === "error");
 		if (errors.length > 0) {
-			console.error(`Process failed: ${errors.length} error-level violations must be resolved.\n`);
+			console.error(
+				`Process failed: ${errors.length} error-level violations must be resolved.\n`,
+			);
 			process.exit(1);
 		}
 	});
 
 program
-	.command('vision <image>')
-	.description('Convert screenshot image (PNG/JPG) to Svelte 5 or Flutter code via 9Router Vision')
-	.option('-p, --platform <platform>', 'Platform: svelte5 or flutter', 'svelte5')
-	.option('-e, --entity <name>', 'Entity name', 'GeneratedScreen')
-	.option('-o, --out <path>', 'Output directory', '.')
-	.option('--prompt <text>', 'Additional guidance prompt')
-	.action(async (image: string, opts: { platform: any; entity: string; out: string; prompt?: string }) => {
-		try {
-			console.log(`\nAnalyzing screenshot "${image}" via Vision AI...`);
-			const res = await generateVisionScreen({
-				imagePath: image,
-				platform: opts.platform,
-				entityName: opts.entity,
-				prompt: opts.prompt,
-			});
+	.command("vision <image>")
+	.description(
+		"Convert screenshot image (PNG/JPG) to Svelte 5 or Flutter code via 9Router Vision",
+	)
+	.option(
+		"-p, --platform <platform>",
+		"Platform: svelte5 or flutter",
+		"svelte5",
+	)
+	.option("-e, --entity <name>", "Entity name", "GeneratedScreen")
+	.option("-o, --out <path>", "Output directory", ".")
+	.option("--prompt <text>", "Additional guidance prompt")
+	.action(
+		async (
+			image: string,
+			opts: { platform: any; entity: string; out: string; prompt?: string },
+		) => {
+			try {
+				console.log(`\nAnalyzing screenshot "${image}" via Vision AI...`);
+				const res = await generateVisionScreen({
+					imagePath: image,
+					platform: opts.platform,
+					entityName: opts.entity,
+					prompt: opts.prompt,
+				});
 
-			for (const file of res.files) {
-				const targetPath = join(opts.out, file.path);
-				mkdirSync(dirname(targetPath), { recursive: true });
-				writeFileSync(targetPath, file.content, 'utf8');
-				console.log(`  ✓ Reconstructed: ${targetPath} (${file.description})`);
+				for (const file of res.files) {
+					const targetPath = join(opts.out, file.path);
+					mkdirSync(dirname(targetPath), { recursive: true });
+					writeFileSync(targetPath, file.content, "utf8");
+					console.log(`  ✓ Reconstructed: ${targetPath} (${file.description})`);
+				}
+				console.log(`\nSukses vision reconstruct ${res.files.length} file.\n`);
+			} catch (err) {
+				console.error(
+					`Error: ${err instanceof Error ? err.message : String(err)}`,
+				);
+				process.exit(1);
 			}
-			console.log(`\nSukses vision reconstruct ${res.files.length} file.\n`);
-		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
-			process.exit(1);
-		}
-	});
+		},
+	);
 
 const tokensCmd = program
-	.command('tokens')
-	.description('Design token management and multiplatform synchronization');
+	.command("tokens")
+	.description("Design token management and multiplatform synchronization");
 
 tokensCmd
-	.command('sync [specFile]')
-	.description('Sync design tokens to Tailwind v4 CSS and Flutter Dart tokens')
-	.option('--preset <preset>', 'Preset: ethereal-sand, atelier-zinc', 'ethereal-sand')
-	.option('--web <path>', 'Output path for Tailwind v4 CSS (e.g. src/app.css)')
-	.option('--flutter <path>', 'Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)')
-	.action(async (specFile?: string, opts?: { preset?: string; web?: string; flutter?: string }) => {
-		try {
-			console.log('\nSynchronizing multiplatform design tokens...');
-			const result = await syncTokens({
-				inputPath: specFile,
-				preset: opts?.preset,
-				outWeb: opts?.web,
-				outFlutter: opts?.flutter,
-			});
+	.command("sync [specFile]")
+	.description("Sync design tokens to Tailwind v4 CSS and Flutter Dart tokens")
+	.option(
+		"--preset <preset>",
+		"Preset: ethereal-sand, atelier-zinc",
+		"ethereal-sand",
+	)
+	.option("--web <path>", "Output path for Tailwind v4 CSS (e.g. src/app.css)")
+	.option(
+		"--flutter <path>",
+		"Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)",
+	)
+	.action(
+		async (
+			specFile?: string,
+			opts?: { preset?: string; web?: string; flutter?: string },
+		) => {
+			try {
+				console.log("\nSynchronizing multiplatform design tokens...");
+				const result = await syncTokens({
+					inputPath: specFile,
+					preset: opts?.preset,
+					outWeb: opts?.web,
+					outFlutter: opts?.flutter,
+				});
 
-			if (opts?.web) {
-				console.log(`  ✓ Synced Web Tailwind v4 tokens: ${opts.web}`);
+				if (opts?.web) {
+					console.log(`  ✓ Synced Web Tailwind v4 tokens: ${opts.web}`);
+				}
+				if (opts?.flutter) {
+					console.log(`  ✓ Synced Flutter Native tokens: ${opts.flutter}`);
+				}
+				if (!opts?.web && !opts?.flutter) {
+					console.log("\n--- Tailwind v4 CSS Preview ---");
+					console.log(result.webCss.slice(0, 400) + "...\n");
+					console.log("--- Flutter Dart Preview ---");
+					console.log(result.flutterDart.slice(0, 400) + "...\n");
+					console.log(
+						"Tip: Pass --web <path> and --flutter <path> to write to files.\n",
+					);
+				} else {
+					console.log("\nTokens synchronized successfully.\n");
+				}
+			} catch (err) {
+				console.error(
+					`Error: ${err instanceof Error ? err.message : String(err)}`,
+				);
+				process.exit(1);
 			}
-			if (opts?.flutter) {
-				console.log(`  ✓ Synced Flutter Native tokens: ${opts.flutter}`);
-			}
-			if (!opts?.web && !opts?.flutter) {
-				console.log('\n--- Tailwind v4 CSS Preview ---');
-				console.log(result.webCss.slice(0, 400) + '...\n');
-				console.log('--- Flutter Dart Preview ---');
-				console.log(result.flutterDart.slice(0, 400) + '...\n');
-				console.log('Tip: Pass --web <path> and --flutter <path> to write to files.\n');
-			} else {
-				console.log('\nTokens synchronized successfully.\n');
-			}
-		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
-			process.exit(1);
-		}
-	});
+		},
+	);
 
 tokensCmd
-	.command('watch <specFile>')
-	.description('Watch design token file and recompile to Web and Flutter on save')
-	.option('--web <path>', 'Output path for Tailwind v4 CSS (e.g. src/app.css)')
-	.option('--flutter <path>', 'Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)')
+	.command("watch <specFile>")
+	.description(
+		"Watch design token file and recompile to Web and Flutter on save",
+	)
+	.option("--web <path>", "Output path for Tailwind v4 CSS (e.g. src/app.css)")
+	.option(
+		"--flutter <path>",
+		"Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)",
+	)
 	.action((specFile: string, opts?: { web?: string; flutter?: string }) => {
 		try {
 			watchTokens({
@@ -686,16 +888,22 @@ tokensCmd
 				outFlutter: opts?.flutter,
 			});
 		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			console.error(
+				`Error: ${err instanceof Error ? err.message : String(err)}`,
+			);
 			process.exit(1);
 		}
 	});
 
 tokensCmd
-	.command('export [specFile]')
-	.description('Export tokens to Figma Tokens Studio compliant JSON format')
-	.option('--preset <preset>', 'Preset: ethereal-sand, atelier-zinc', 'ethereal-sand')
-	.option('-o, --out <path>', 'Output file path (default: stdout)')
+	.command("export [specFile]")
+	.description("Export tokens to Figma Tokens Studio compliant JSON format")
+	.option(
+		"--preset <preset>",
+		"Preset: ethereal-sand, atelier-zinc",
+		"ethereal-sand",
+	)
+	.option("-o, --out <path>", "Output file path (default: stdout)")
 	.action((specFile?: string, opts?: { preset?: string; out?: string }) => {
 		try {
 			const jsonStr = exportTokensStudioJson({
@@ -706,62 +914,87 @@ tokensCmd
 			if (opts?.out) {
 				console.log(`\n✓ Exported Figma Tokens Studio JSON to: ${opts.out}\n`);
 			} else {
-				console.log('\n--- Figma Tokens Studio JSON ---');
+				console.log("\n--- Figma Tokens Studio JSON ---");
 				console.log(jsonStr);
 			}
 		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			console.error(
+				`Error: ${err instanceof Error ? err.message : String(err)}`,
+			);
 			process.exit(1);
 		}
 	});
 
 program
-	.command('figma <fileKey>')
-	.description('Import design tokens directly from Figma file via Figma REST API')
-	.option('-t, --token <token>', 'Figma Personal Access Token (or set FIGMA_TOKEN env var)')
-	.option('--web <path>', 'Output path for Tailwind v4 CSS (e.g. src/app.css)')
-	.option('--flutter <path>', 'Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)')
-	.action(async (fileKey: string, opts?: { token?: string; web?: string; flutter?: string }) => {
-		try {
-			const token = opts?.token || process.env.FIGMA_TOKEN;
-			if (!token) {
-				console.error('\nError: Figma Personal Access Token is required.');
-				console.error('Pass via `--token <token>` or set environment variable `FIGMA_TOKEN`.');
-				console.error('Get your token at: https://www.figma.com/developers/api#access-tokens\n');
+	.command("figma <fileKey>")
+	.description(
+		"Import design tokens directly from Figma file via Figma REST API",
+	)
+	.option(
+		"-t, --token <token>",
+		"Figma Personal Access Token (or set FIGMA_TOKEN env var)",
+	)
+	.option("--web <path>", "Output path for Tailwind v4 CSS (e.g. src/app.css)")
+	.option(
+		"--flutter <path>",
+		"Output path for Flutter Dart tokens (e.g. lib/core/theme/app_colors.dart)",
+	)
+	.action(
+		async (
+			fileKey: string,
+			opts?: { token?: string; web?: string; flutter?: string },
+		) => {
+			try {
+				const token = opts?.token || process.env.FIGMA_TOKEN;
+				if (!token) {
+					console.error("\nError: Figma Personal Access Token is required.");
+					console.error(
+						"Pass via `--token <token>` or set environment variable `FIGMA_TOKEN`.",
+					);
+					console.error(
+						"Get your token at: https://www.figma.com/developers/api#access-tokens\n",
+					);
+					process.exit(1);
+				}
+
+				console.log(`\nFetching design tokens from Figma file: ${fileKey}...`);
+				const tokens = await fetchFigmaTokens(fileKey, token);
+				console.log(
+					`✓ Successfully extracted ${Object.keys(tokens.colors).length} colors and ${Object.keys(tokens.radii).length} radii from Figma!\n`,
+				);
+
+				if (opts?.web) {
+					const css = compileFigmaTokensToWebCss(tokens);
+					writeFileSync(opts.web, css, "utf8");
+					console.log(`  ✓ Wrote Tailwind v4 CSS to: ${opts.web}`);
+				}
+				if (opts?.flutter) {
+					const dart = compileFigmaTokensToDart(tokens);
+					writeFileSync(opts.flutter, dart, "utf8");
+					console.log(`  ✓ Wrote Flutter Dart tokens to: ${opts.flutter}`);
+				}
+
+				if (!opts?.web && !opts?.flutter) {
+					console.log("--- Tailwind v4 CSS (@theme) ---");
+					console.log(compileFigmaTokensToWebCss(tokens));
+					console.log("\n--- Flutter Dart Tokens (AppColors) ---");
+					console.log(compileFigmaTokensToDart(tokens));
+				}
+				console.log("");
+			} catch (err) {
+				console.error(
+					`Error: ${err instanceof Error ? err.message : String(err)}`,
+				);
 				process.exit(1);
 			}
-
-			console.log(`\nFetching design tokens from Figma file: ${fileKey}...`);
-			const tokens = await fetchFigmaTokens(fileKey, token);
-			console.log(`✓ Successfully extracted ${Object.keys(tokens.colors).length} colors and ${Object.keys(tokens.radii).length} radii from Figma!\n`);
-
-			if (opts?.web) {
-				const css = compileFigmaTokensToWebCss(tokens);
-				writeFileSync(opts.web, css, 'utf8');
-				console.log(`  ✓ Wrote Tailwind v4 CSS to: ${opts.web}`);
-			}
-			if (opts?.flutter) {
-				const dart = compileFigmaTokensToDart(tokens);
-				writeFileSync(opts.flutter, dart, 'utf8');
-				console.log(`  ✓ Wrote Flutter Dart tokens to: ${opts.flutter}`);
-			}
-
-			if (!opts?.web && !opts?.flutter) {
-				console.log('--- Tailwind v4 CSS (@theme) ---');
-				console.log(compileFigmaTokensToWebCss(tokens));
-				console.log('\n--- Flutter Dart Tokens (AppColors) ---');
-				console.log(compileFigmaTokensToDart(tokens));
-			}
-			console.log('');
-		} catch (err) {
-			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
-			process.exit(1);
-		}
-	});
+		},
+	);
 
 program
-	.command('setup-agent')
-	.description('Generate IDE & Agent Pack (.cursorrules, .windsurfrules, .claude/mcp.json) for anti-slop rules')
+	.command("setup-agent")
+	.description(
+		"Generate IDE & Agent Pack (.cursorrules, .windsurfrules, .claude/mcp.json) for anti-slop rules",
+	)
 	.action(() => {
 		const cursorRules = `# VULTRA DESIGN SYSTEM & ANTI-SLOP RULES
 
@@ -776,25 +1009,29 @@ program
 - Svelte 5: Thin-page pattern. State and logic in src/lib/features/<name>/<name>.svelte.ts ($state, $derived). View markup in src/routes/<name>/+page.svelte.
 - Flutter: Clean architecture. BLoC (flutter_bloc) + Freezed (@freezed). Pure separation between models/, bloc/, and presentation/widgets/.
 `;
-		writeFileSync(join(process.cwd(), '.cursorrules'), cursorRules, 'utf8');
-		writeFileSync(join(process.cwd(), '.windsurfrules'), cursorRules, 'utf8');
+		writeFileSync(join(process.cwd(), ".cursorrules"), cursorRules, "utf8");
+		writeFileSync(join(process.cwd(), ".windsurfrules"), cursorRules, "utf8");
 
-		const mcpDir = join(process.cwd(), '.claude');
+		const mcpDir = join(process.cwd(), ".claude");
 		mkdirSync(mcpDir, { recursive: true });
 		const mcpJson = {
 			mcpServers: {
-				'ui-vault': {
-					command: '/usr/bin/bun',
-					args: ['run', '/root/workspace/ui-vault/src/mcp/index.ts'],
+				"ui-vault": {
+					command: "/usr/bin/bun",
+					args: ["run", "/root/workspace/ui-vault/src/mcp/index.ts"],
 				},
 			},
 		};
-		writeFileSync(join(mcpDir, 'mcp.json'), JSON.stringify(mcpJson, null, 2), 'utf8');
+		writeFileSync(
+			join(mcpDir, "mcp.json"),
+			JSON.stringify(mcpJson, null, 2),
+			"utf8",
+		);
 
-		console.log('\n✓ Generated .cursorrules');
-		console.log('✓ Generated .windsurfrules');
-		console.log('✓ Generated .claude/mcp.json');
-		console.log('\nAgent pack configured successfully.\n');
+		console.log("\n✓ Generated .cursorrules");
+		console.log("✓ Generated .windsurfrules");
+		console.log("✓ Generated .claude/mcp.json");
+		console.log("\nAgent pack configured successfully.\n");
 	});
 
 program.parse();

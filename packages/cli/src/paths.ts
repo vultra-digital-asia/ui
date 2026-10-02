@@ -1,11 +1,11 @@
-import { existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
 /** Resolve the monorepo root from this compiled file's location. */
 export function monorepoRoot(): string {
 	// dist/index.js → packages/cli → repo root
-	return join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
+	return join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 }
 
 /** Locate a file by walking up from cwd (components.json, package.json). */

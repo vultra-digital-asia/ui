@@ -1,71 +1,78 @@
-import { generateScreen } from './generator/index.js';
+import { generateScreen } from "./generator/index.js";
 
-export function generateStitchSpec(themeName: string = 'neutral'): string {
-  const themeSpecs: Record<string, {
-    atmosphere: string;
-    canvas: string;
-    card: string;
-    ink: string;
-    muted: string;
-    border: string;
-    primary: string;
-    secondary: string;
-    fontDisplay: string;
-    fontBody: string;
-  }> = {
-    neutral: {
-      atmosphere: 'Clean, gallery-airy and restrained enterprise dashboard. Tactile, crisp 1px borders, subtle ambient elevation, no oversaturated AI glows.',
-      canvas: '#F9FAFB',
-      card: '#FFFFFF',
-      ink: '#0F172A',
-      muted: '#64748B',
-      border: '#E2E8F0',
-      primary: '#0F172A',
-      secondary: '#0D9488',
-      fontDisplay: 'Inter, -apple-system, sans-serif',
-      fontBody: 'Inter, -apple-system, sans-serif',
-    },
-    'ethereal-sand': {
-      atmosphere: 'Restrained, warm paper-like canvas for high-trust business and lifestyle apps. Digital Atelier aesthetic with 60-30-10 palette balance. Zero AI slop.',
-      canvas: '#FBF9F9',
-      card: '#FFFFFF',
-      ink: '#1B1C1C',
-      muted: '#6B6761',
-      border: '#E8E4DF',
-      primary: '#A13F20',
-      secondary: '#2F6B57',
-      fontDisplay: 'Inter, sans-serif',
-      fontBody: 'Inter, sans-serif',
-    },
-    md3: {
-      atmosphere: 'Material Design 3 expressive surfaces, tonal palettes, squircle containers with emphasized ease curves.',
-      canvas: '#FEF7FF',
-      card: '#F7F2FA',
-      ink: '#1D1B20',
-      muted: '#49454F',
-      border: '#CAC4D0',
-      primary: '#6750A4',
-      secondary: '#625B71',
-      fontDisplay: 'Roboto, Inter, sans-serif',
-      fontBody: 'Roboto, Inter, sans-serif',
-    },
-    cyberpunk: {
-      atmosphere: 'Dark high-contrast neon grid, angular silhouettes, glowing hairline accents against pitch void.',
-      canvas: '#0D0E15',
-      card: '#161926',
-      ink: '#F0F6FC',
-      muted: '#8B949E',
-      border: '#2A3048',
-      primary: '#00F0FF',
-      secondary: '#FF0055',
-      fontDisplay: 'Space Grotesk, sans-serif',
-      fontBody: 'Inter, sans-serif',
-    },
-  };
+export function generateStitchSpec(themeName: string = "neutral"): string {
+	const themeSpecs: Record<
+		string,
+		{
+			atmosphere: string;
+			canvas: string;
+			card: string;
+			ink: string;
+			muted: string;
+			border: string;
+			primary: string;
+			secondary: string;
+			fontDisplay: string;
+			fontBody: string;
+		}
+	> = {
+		neutral: {
+			atmosphere:
+				"Clean, gallery-airy and restrained enterprise dashboard. Tactile, crisp 1px borders, subtle ambient elevation, no oversaturated AI glows.",
+			canvas: "#F9FAFB",
+			card: "#FFFFFF",
+			ink: "#0F172A",
+			muted: "#64748B",
+			border: "#E2E8F0",
+			primary: "#0F172A",
+			secondary: "#0D9488",
+			fontDisplay: "Inter, -apple-system, sans-serif",
+			fontBody: "Inter, -apple-system, sans-serif",
+		},
+		"ethereal-sand": {
+			atmosphere:
+				"Restrained, warm paper-like canvas for high-trust business and lifestyle apps. Digital Atelier aesthetic with 60-30-10 palette balance. Zero AI slop.",
+			canvas: "#FBF9F9",
+			card: "#FFFFFF",
+			ink: "#1B1C1C",
+			muted: "#6B6761",
+			border: "#E8E4DF",
+			primary: "#A13F20",
+			secondary: "#2F6B57",
+			fontDisplay: "Inter, sans-serif",
+			fontBody: "Inter, sans-serif",
+		},
+		md3: {
+			atmosphere:
+				"Material Design 3 expressive surfaces, tonal palettes, squircle containers with emphasized ease curves.",
+			canvas: "#FEF7FF",
+			card: "#F7F2FA",
+			ink: "#1D1B20",
+			muted: "#49454F",
+			border: "#CAC4D0",
+			primary: "#6750A4",
+			secondary: "#625B71",
+			fontDisplay: "Roboto, Inter, sans-serif",
+			fontBody: "Roboto, Inter, sans-serif",
+		},
+		cyberpunk: {
+			atmosphere:
+				"Dark high-contrast neon grid, angular silhouettes, glowing hairline accents against pitch void.",
+			canvas: "#0D0E15",
+			card: "#161926",
+			ink: "#F0F6FC",
+			muted: "#8B949E",
+			border: "#2A3048",
+			primary: "#00F0FF",
+			secondary: "#FF0055",
+			fontDisplay: "Space Grotesk, sans-serif",
+			fontBody: "Inter, sans-serif",
+		},
+	};
 
-  const spec = themeSpecs[themeName] || themeSpecs['neutral'];
+	const spec = themeSpecs[themeName] || themeSpecs["neutral"];
 
-  return `# Design System: @vultra/ui (${themeName} Google Stitch Spec)
+	return `# Design System: @vultra/ui (${themeName} Google Stitch Spec)
 
 ## 1. Visual Theme & Atmosphere
 ${spec.atmosphere}
@@ -112,26 +119,26 @@ ${spec.atmosphere}
 }
 
 export function compileStitchSpec(
-  specMarkdown: string,
-  platform: 'svelte5' | 'flutter' = 'svelte5',
-  entityName: string = 'Screen'
+	specMarkdown: string,
+	platform: "svelte5" | "flutter" = "svelte5",
+	entityName: string = "Screen",
 ): { files: Array<{ path: string; content: string; description: string }> } {
-  const isDataTable = /datatable|table|tabular|list/i.test(specMarkdown);
-  const isDashboard = /dashboard|kpi|overview/i.test(specMarkdown);
-  const isPaywall = /paywall|pricing|subscription|tier/i.test(specMarkdown);
-  const isSettings = /setting|profile|team|permission/i.test(specMarkdown);
+	const isDataTable = /datatable|table|tabular|list/i.test(specMarkdown);
+	const isDashboard = /dashboard|kpi|overview/i.test(specMarkdown);
+	const isPaywall = /paywall|pricing|subscription|tier/i.test(specMarkdown);
+	const isSettings = /setting|profile|team|permission/i.test(specMarkdown);
 
-  let archetype: any = 'datatable';
-  if (isDashboard) archetype = 'dashboard';
-  else if (isPaywall) archetype = 'paywall';
-  else if (isSettings) archetype = 'settings';
-  else if (isDataTable) archetype = 'datatable';
+	let archetype: any = "datatable";
+	if (isDashboard) archetype = "dashboard";
+	else if (isPaywall) archetype = "paywall";
+	else if (isSettings) archetype = "settings";
+	else if (isDataTable) archetype = "datatable";
 
-  const result = generateScreen({
-    platform,
-    archetype,
-    entityName,
-  });
+	const result = generateScreen({
+		platform,
+		archetype,
+		entityName,
+	});
 
-  return { files: result.files };
+	return { files: result.files };
 }
