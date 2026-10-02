@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 dist/
+build/
+storybook-static/
 .svelte-kit/
 *.log
 .env
