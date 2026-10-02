@@ -1,27 +1,31 @@
 <script lang="ts">
-	import { Progress as ProgressPrimitive } from "bits-ui";
-	import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
+  import { Progress as ArkProgress } from "@ark-ui/svelte/progress";
+  import { cn } from "$lib/utils.js";
+  import type { ComponentProps } from "svelte";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		max = 100,
-		value,
-		...restProps
-	}: WithoutChildrenOrChild<ProgressPrimitive.RootProps> = $props();
+  let {
+    ref = $bindable(null),
+    class: className,
+    max = 100,
+    value,
+    ...restProps
+  }: ComponentProps<typeof ArkProgress.Root> = $props();
 </script>
 
-<ProgressPrimitive.Root
-	bind:ref
-	data-slot="progress"
-	class={cn("h-1 rounded-full bg-muted relative flex w-full items-center overflow-x-hidden", className)}
-	{value}
-	{max}
-	{...restProps}
+<ArkProgress.Root
+  bind:ref
+  data-slot="progress"
+  class={cn(
+    "h-1 rounded-full bg-muted relative flex w-full items-center overflow-x-hidden",
+    className,
+  )}
+  {value}
+  {max}
+  {...restProps}
 >
-	<div
-		data-slot="progress-indicator"
-		class="bg-primary size-full flex-1 transition-all"
-		style="transform: translateX(-{100 - (100 * (value ?? 0)) / (max ?? 1)}%)"
-	></div>
-</ProgressPrimitive.Root>
+  <ArkProgress.Track
+    class="w-full h-full bg-muted overflow-hidden rounded-full"
+  >
+    <ArkProgress.Range class="bg-primary h-full transition-all" />
+  </ArkProgress.Track>
+</ArkProgress.Root>

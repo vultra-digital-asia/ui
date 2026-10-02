@@ -12,6 +12,11 @@ export { default as DataTableGroupBar } from './components/data-table/_component
 export { default as DataTableStatusBar } from './components/data-table/_components/DataTableStatusBar.svelte';
 export { default as DataTableDetailRow } from './components/data-table/_components/DataTableDetailRow.svelte';
 export { default as DataTableCellEdit } from './components/data-table/_components/DataTableCellEdit.svelte';
+export { default as QueryBuilder } from "./components/query-builder/QueryBuilder.svelte";
+export {
+	default as TreeGrid,
+	type TreeGridColumn,
+} from "./components/tree-grid/TreeGrid.svelte";
 
 // Re-export grid-core infrastructure for convenience
 export {
@@ -23,9 +28,23 @@ export {
   DEFAULT_PAGE_SIZE_OPTIONS,
   createKeyboardNavigation,
   createClipboard,
-  getTableSettings,
-  saveTableSettings,
-  clearTableSettings,
+	getTableSettings,
+	saveTableSettings,
+	clearTableSettings,
+	createFilterGroup,
+	createFilterRule,
+	isFilterGroup,
+	evaluateFilterRule,
+	evaluateFilterGroup,
+	filterGroupToPredicate,
+	filterGroupToSQL,
+	filterGroupToJSON,
+	filterGroupFromJSON,
+	flatToTree,
+	treeToFlat,
+	filterTree,
+	sortTree,
+	cascadeSelect,
 } from '@vultra/grid-core';
 
 export { summaryPresets } from './components/data-table/index.js';
@@ -35,6 +54,14 @@ export type {
   ServerSideConfig,
   DataTableMeta,
   FocusedCell,
+	FilterCondition,
+	FilterOperator,
+	FilterRule,
+	FilterGroup,
+	FilterField,
+	TreeNodeData,
+	TreeNode,
+	FlatTreeRow,
 } from '@vultra/grid-core';
 
 export type {

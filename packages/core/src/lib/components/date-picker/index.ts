@@ -1,7 +1,7 @@
-import DatePicker from './DatePicker.svelte';
+import DatePicker from "./DatePicker.svelte";
 
 export {
-  DatePicker,
-  //
-  DatePicker as DatePickerRoot,
+	DatePicker,
+	//
+	DatePicker as DatePickerRoot,
 };

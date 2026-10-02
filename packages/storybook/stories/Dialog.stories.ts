@@ -1,19 +1,39 @@
-import type { Meta, StoryObj } from '@storybook/svelte';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose, Button } from '@vultra/ui';
+import type { Meta, StoryObj } from "@storybook/svelte";
+import {
+	Dialog,
+	DialogTrigger,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogDescription,
+	DialogFooter,
+	DialogClose,
+	Button,
+} from "@vultra/ui";
 
 const meta = {
-  title: 'Overlay/Dialog',
-  component: Dialog,
-  tags: ['autodocs'],
+	title: "Overlay/Dialog",
+	component: Dialog,
+	tags: ["autodocs"],
 } satisfies Meta<typeof Dialog>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => ({
-    components: { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose, Button },
-    template: `
+	render: () => ({
+		components: {
+			Dialog,
+			DialogTrigger,
+			DialogContent,
+			DialogHeader,
+			DialogTitle,
+			DialogDescription,
+			DialogFooter,
+			DialogClose,
+			Button,
+		},
+		template: `
       <Dialog>
         <DialogTrigger>
           <Button variant="outline">Open Dialog</Button>
@@ -34,15 +54,23 @@ export const Default: Story = {
         </DialogContent>
       </Dialog>
     `,
-  }),
+	}),
 };
 
 export const Controlled: Story = {
-  args: { open: true },
-  render: (args) => ({
-    components: { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, Button },
-    props: args,
-    template: `
+	args: { open: true },
+	render: (args) => ({
+		components: {
+			Dialog,
+			DialogContent,
+			DialogHeader,
+			DialogTitle,
+			DialogDescription,
+			DialogClose,
+			Button,
+		},
+		props: args,
+		template: `
       <Dialog open={true} onOpenChange={() => {}}>
         <DialogContent>
           <DialogHeader>
@@ -57,5 +85,5 @@ export const Controlled: Story = {
         </DialogContent>
       </Dialog>
     `,
-  }),
+	}),
 };

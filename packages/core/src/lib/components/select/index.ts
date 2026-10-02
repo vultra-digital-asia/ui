@@ -9,34 +9,33 @@ import ScrollUpButton from "./select-scroll-up-button.svelte";
 import Separator from "./select-separator.svelte";
 import Trigger from "./select-trigger.svelte";
 import Root from "./select.svelte";
-import { Select as SelectPrimitive } from "bits-ui";
+import { Select as ArkSelect } from "@ark-ui/svelte/select";
 
-const Value = SelectPrimitive.Value;
-
+const Value = ArkSelect.ValueText;
 export {
-	Root,
-	Group,
-	Label,
-	Item,
-	Content,
-	Trigger,
-	Separator,
-	ScrollDownButton,
-	ScrollUpButton,
-	GroupHeading,
-	Portal,
-	Value,
-	//
-	Root as Select,
-	Group as SelectGroup,
-	Label as SelectLabel,
-	Item as SelectItem,
-	Content as SelectContent,
-	Trigger as SelectTrigger,
-	Separator as SelectSeparator,
-	ScrollDownButton as SelectScrollDownButton,
-	ScrollUpButton as SelectScrollUpButton,
-	GroupHeading as SelectGroupHeading,
-	Portal as SelectPortal,
-	Value as SelectValue,
+  Root,
+  Group,
+  Label,
+  Item,
+  Content,
+  Trigger,
+  Separator,
+  ScrollDownButton,
+  ScrollUpButton,
+  GroupHeading,
+  Portal,
+  Value,
+  //
+  Root as Select,
+  Group as SelectGroup,
+  Label as SelectLabel,
+  Item as SelectItem,
+  Content as SelectContent,
+  Trigger as SelectTrigger,
+  Separator as SelectSeparator,
+  ScrollDownButton as SelectScrollDownButton,
+  ScrollUpButton as SelectScrollUpButton,
+  GroupHeading as SelectGroupHeading,
+  Portal as SelectPortal,
+  Value as SelectValue,
 };

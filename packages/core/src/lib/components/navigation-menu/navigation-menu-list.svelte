@@ -1,20 +1,21 @@
 <script lang="ts">
-	import { NavigationMenu as NavigationMenuPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+  import { NavigationMenu as ArkNavMenu } from "@ark-ui/svelte/navigation-menu";
+  import { cn } from "$lib/utils.js";
+  import type { ComponentProps } from "svelte";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		...restProps
-	}: NavigationMenuPrimitive.ListProps = $props();
+  let {
+    ref = $bindable(null),
+    class: className,
+    ...restProps
+  }: ComponentProps<typeof ArkNavMenu.List> = $props();
 </script>
 
-<NavigationMenuPrimitive.List
-	bind:ref
-	data-slot="navigation-menu-list"
-	class={cn(
-		"gap-0 group flex flex-1 list-none items-center justify-center",
-		className
-	)}
-	{...restProps}
+<ArkNavMenu.List
+  bind:ref
+  data-slot="navigation-menu-list"
+  class={cn(
+    "gap-0 group flex flex-1 list-none items-center justify-center",
+    className,
+  )}
+  {...restProps}
 />

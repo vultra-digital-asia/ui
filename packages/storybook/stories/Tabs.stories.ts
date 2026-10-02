@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/svelte';
-import { Tabs, TabsList, TabsTrigger, TabsContent, Card } from '@vultra/ui';
+import type { Meta, StoryObj } from "@storybook/svelte";
+import { Tabs, TabsList, TabsTrigger, TabsContent, Card } from "@vultra/ui";
 
 const meta = {
-  title: 'Navigation/Tabs',
-  component: Tabs,
-  tags: ['autodocs'],
+	title: "Navigation/Tabs",
+	component: Tabs,
+	tags: ["autodocs"],
 } satisfies Meta<typeof Tabs>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => ({
-    components: { Tabs, TabsList, TabsTrigger, TabsContent, Card },
-    template: `
+	render: () => ({
+		components: { Tabs, TabsList, TabsTrigger, TabsContent, Card },
+		template: `
       <Tabs value="account" style="max-width: 480px;">
         <TabsList>
           <TabsTrigger value="account">Account</TabsTrigger>
@@ -31,5 +31,5 @@ export const Default: Story = {
         </TabsContent>
       </Tabs>
     `,
-  }),
+	}),
 };

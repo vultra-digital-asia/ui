@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { cn } from '$lib/utils.js';
-	import { ChevronLeft, ChevronRight, Quote } from 'lucide-svelte';
+	import { cn } from "$lib/utils.js";
+	import { ChevronLeft, ChevronRight, Quote } from "lucide-svelte";
 
 	type Testimonial = {
 		quote: string;
@@ -30,27 +30,27 @@
 	let touchStartX = 0;
 	let touchDeltaX = 0;
 	let isDragging = $state(false);
-	let direction = $state<'next' | 'prev'>('next');
+	let direction = $state<"next" | "prev">("next");
 
 	let total = $derived(testimonials.length);
 
 	function goTo(index: number) {
 		const nextIndex = ((index % total) + total) % total;
 		if (nextIndex > current) {
-			direction = 'next';
+			direction = "next";
 		} else if (nextIndex < current) {
-			direction = 'prev';
+			direction = "prev";
 		}
 		current = nextIndex;
 	}
 
 	function next() {
-		direction = 'next';
+		direction = "next";
 		goTo(current + 1);
 	}
 
 	function prev() {
-		direction = 'prev';
+		direction = "prev";
 		goTo(current - 1);
 	}
 
@@ -98,7 +98,7 @@
 
 <div
 	bind:this={ref}
-	class={cn('group/testimonial-carousel relative', className)}
+	class={cn("group/testimonial-carousel relative", className)}
 	role="region"
 	aria-label="Testimonial carousel"
 	aria-roledescription="carousel"
@@ -107,6 +107,7 @@
 	{...restProps}
 >
 	<!-- Testimonial slides -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		class="relative overflow-hidden"
 		ontouchstart={handleTouchStart}
@@ -116,12 +117,12 @@
 		{#each testimonials as testimonial, i (i)}
 			<div
 				class={cn(
-					'absolute inset-0 flex flex-col items-center justify-center gap-6 p-8 text-center transition-all duration-500 ease-in-out',
+					"absolute inset-0 flex flex-col items-center justify-center gap-6 p-8 text-center transition-all duration-500 ease-in-out",
 					i === current
-						? 'translate-x-0 opacity-100'
+						? "translate-x-0 opacity-100"
 						: i === (current + 1) % total
-							? 'translate-x-full opacity-0'
-							: '-translate-x-full opacity-0'
+							? "translate-x-full opacity-0"
+							: "-translate-x-full opacity-0",
 				)}
 				role="group"
 				aria-roledescription="slide"
@@ -129,8 +130,13 @@
 				aria-hidden={i !== current}
 			>
 				<div class="relative">
-					<Quote class="absolute -left-4 -top-2 size-8 text-[var(--ui-primary)]/20" aria-hidden="true" />
-					<p class="text-lg leading-relaxed text-[var(--ui-foreground)] max-w-2xl italic">
+					<Quote
+						class="absolute -left-4 -top-2 size-8 text-[var(--ui-primary)]/20"
+						aria-hidden="true"
+					/>
+					<p
+						class="text-lg leading-relaxed text-[var(--ui-foreground)] max-w-2xl italic"
+					>
 						&ldquo;{testimonial.quote}&rdquo;
 					</p>
 				</div>
@@ -143,13 +149,19 @@
 							class="size-12 rounded-full object-cover ring-2 ring-[var(--ui-primary)]/20"
 						/>
 					{:else}
-						<div class="flex size-12 items-center justify-center rounded-full bg-[var(--ui-primary)]/10 text-[var(--ui-primary)] font-semibold text-lg">
+						<div
+							class="flex size-12 items-center justify-center rounded-full bg-[var(--ui-primary)]/10 text-[var(--ui-primary)] font-semibold text-lg"
+						>
 							{testimonial.author.charAt(0).toUpperCase()}
 						</div>
 					{/if}
 					<div class="text-left">
-						<p class="font-semibold text-[var(--ui-foreground)]">{testimonial.author}</p>
-						<p class="text-sm text-[var(--ui-muted-foreground)]">{testimonial.role}</p>
+						<p class="font-semibold text-[var(--ui-foreground)]">
+							{testimonial.author}
+						</p>
+						<p class="text-sm text-[var(--ui-muted-foreground)]">
+							{testimonial.role}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -157,7 +169,9 @@
 
 		<!-- Empty state -->
 		{#if total === 0}
-			<div class="flex items-center justify-center py-16 text-[var(--ui-muted-foreground)]">
+			<div
+				class="flex items-center justify-center py-16 text-[var(--ui-muted-foreground)]"
+			>
 				No testimonials to display
 			</div>
 		{/if}
@@ -184,20 +198,25 @@
 
 	<!-- Navigation dots -->
 	{#if total > 1}
-		<div class="flex justify-center gap-2 mt-6" role="tablist" aria-label="Testimonial navigation">
+		<div
+			class="flex justify-center gap-2 mt-6"
+			role="tablist"
+			aria-label="Testimonial navigation"
+		>
 			{#each { length: total } as _, i}
 				<button
+					type="button"
 					onclick={() => goTo(i)}
 					class={cn(
-						'h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-ring)] focus-visible:ring-offset-2',
+						"h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-ring)] focus-visible:ring-offset-2",
 						i === current
-							? 'w-6 bg-[var(--ui-primary)]'
-							: 'w-2 bg-[var(--ui-muted-foreground)]/30 hover:bg-[var(--ui-muted-foreground)]/50'
+							? "w-6 bg-[var(--ui-primary)]"
+							: "w-2 bg-[var(--ui-muted-foreground)]/30 hover:bg-[var(--ui-muted-foreground)]/50",
 					)}
 					role="tab"
 					aria-selected={i === current}
 					aria-label="Go to testimonial {i + 1}"
-				/>
+				></button>
 			{/each}
 		</div>
 	{/if}

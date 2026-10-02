@@ -1,30 +1,30 @@
-import type { Meta, StoryObj } from '@storybook/svelte';
-import { Hero, Button } from '@vultra/ui';
+import type { Meta, StoryObj } from "@storybook/svelte";
+import { Hero, Button } from "@vultra/ui";
 
 const meta = {
-  title: 'Marketing/Hero',
-  component: Hero,
-  tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      control: 'select',
-      options: ['centered', 'split', 'fullwidth'],
-    },
-    size: {
-      control: 'select',
-      options: ['sm', 'default', 'lg'],
-    },
-  },
+	title: "Marketing/Hero",
+	component: Hero,
+	tags: ["autodocs"],
+	argTypes: {
+		variant: {
+			control: "select",
+			options: ["centered", "split", "fullwidth"],
+		},
+		size: {
+			control: "select",
+			options: ["sm", "default", "lg"],
+		},
+	},
 } satisfies Meta<typeof Hero>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Centered: Story = {
-  render: (args) => ({
-    components: { Hero, Button },
-    props: args,
-    template: `
+	render: (args) => ({
+		components: { Hero, Button },
+		props: args,
+		template: `
       <Hero {...$$restProps}>
         <p style="font-size:14px; color:var(--ui-muted-foreground); margin:0;">New release · v2.0</p>
         <h1 style="font-size:48px; font-weight:700; line-height:1.1; margin:0; max-width:640px;">
@@ -39,15 +39,15 @@ export const Centered: Story = {
         </div>
       </Hero>
     `,
-  }),
-  args: { variant: 'centered', size: 'default' },
+	}),
+	args: { variant: "centered", size: "default" },
 };
 
 export const Split: Story = {
-  render: (args) => ({
-    components: { Hero, Button },
-    props: args,
-    template: `
+	render: (args) => ({
+		components: { Hero, Button },
+		props: args,
+		template: `
       <Hero {...$$restProps}>
         <div style="flex:1; display:flex; flex-direction:column; gap:12px; align-items:flex-start; max-width:480px;">
           <p style="font-size:14px; color:var(--ui-muted-foreground); margin:0;">Product of the day</p>
@@ -64,6 +64,6 @@ export const Split: Story = {
         </div>
       </Hero>
     `,
-  }),
-  args: { variant: 'split', size: 'default' },
+	}),
+	args: { variant: "split", size: "default" },
 };

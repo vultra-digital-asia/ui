@@ -1,27 +1,27 @@
 <script lang="ts">
-	import { Pagination as PaginationPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+  import { Pagination as ArkPagination } from "@ark-ui/svelte/pagination";
+  import { cn } from "$lib/utils.js";
+  import type { ComponentProps } from "svelte";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		count = 0,
-		perPage = 10,
-		page = $bindable(1),
-		siblingCount = 1,
-		...restProps
-	}: PaginationPrimitive.RootProps = $props();
+  let {
+    ref = $bindable(null),
+    class: className,
+    page = $bindable(1),
+    count,
+    pageSize = 10,
+    children,
+    ...restProps
+  }: ComponentProps<typeof ArkPagination.Root> = $props();
 </script>
 
-<PaginationPrimitive.Root
-	bind:ref
-	bind:page
-	role="navigation"
-	aria-label="pagination"
-	data-slot="pagination"
-	{count}
-	{perPage}
-	{siblingCount}
-	class={cn("cn-pagination mx-auto flex w-full justify-center", className)}
-	{...restProps}
-/>
+<ArkPagination.Root
+  bind:ref
+  bind:page
+  {count}
+  {pageSize}
+  data-slot="pagination"
+  class={cn("mx-auto flex w-full justify-center", className)}
+  {...restProps}
+>
+  {@render children?.()}
+</ArkPagination.Root>

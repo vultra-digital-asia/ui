@@ -1,23 +1,28 @@
 <script lang="ts">
-	import { Menubar as MenubarPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+  import { Menu as ArkMenu } from "@ark-ui/svelte/menu";
+  import { cn } from "$lib/utils.js";
+  import type { ComponentProps } from "svelte";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		children,
-		...restProps
-	}: MenubarPrimitive.RootProps = $props();
+  let {
+    ref = $bindable(null),
+    class: className,
+    children,
+    ...restProps
+  }: ComponentProps<typeof ArkMenu.Root> & {
+    ref?: HTMLDivElement | null;
+    class?: string;
+  } = $props();
 </script>
 
-<MenubarPrimitive.Root
-	bind:ref
-	data-slot="menubar"
-	class={cn(
-		"flex h-10 items-center gap-1 rounded-md border bg-background p-1 text-sm shadow-sm",
-		className
-	)}
-	{...restProps}
+<div
+  bind:this={ref}
+  data-slot="menubar"
+  class={cn(
+    "flex h-10 items-center gap-1 rounded-md border bg-background p-1 text-sm shadow-sm",
+    className,
+  )}
 >
-	{@render children?.()}
-</MenubarPrimitive.Root>
+  <ArkMenu.Root {...restProps}>
+    {@render children?.()}
+  </ArkMenu.Root>
+</div>

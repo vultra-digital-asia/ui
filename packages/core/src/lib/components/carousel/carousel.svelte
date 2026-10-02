@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { cn } from '$lib/utils.js';
-	import { ChevronLeft, ChevronRight } from 'lucide-svelte';
+	import { cn } from "$lib/utils.js";
+	import { ChevronLeft, ChevronRight } from "lucide-svelte";
 
 	let {
 		ref = $bindable(null),
@@ -14,7 +14,7 @@
 	}: {
 		ref?: HTMLElement | null;
 		class?: string;
-		children?: import('svelte').Snippet;
+		children?: import("svelte").Snippet;
 		autoplay?: boolean;
 		interval?: number;
 		showDots?: boolean;
@@ -36,16 +36,25 @@
 		if (!container) return;
 		const clamped = Math.max(0, Math.min(index, total - 1));
 		current = clamped;
-		container.children[clamped]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+		container.children[clamped]?.scrollIntoView({
+			behavior: "smooth",
+			inline: "center",
+			block: "nearest",
+		});
 	}
 
-	function next() { scrollTo(current + 1); }
-	function prev() { scrollTo(current - 1); }
+	function next() {
+		scrollTo(current + 1);
+	}
+	function prev() {
+		scrollTo(current - 1);
+	}
 
 	function onScroll() {
 		if (!container) return;
 		const scrollLeft = container.scrollLeft;
-		const childWidth = container.children[0]?.getBoundingClientRect().width ?? 1;
+		const childWidth =
+			container.children[0]?.getBoundingClientRect().width ?? 1;
 		current = Math.round(scrollLeft / childWidth);
 	}
 
@@ -66,7 +75,7 @@
 </script>
 
 <div
-	class={cn('group/carousel relative', className)}
+	class={cn("group/carousel relative", className)}
 	onmouseenter={stopAutoplay}
 	onmouseleave={startAutoplay}
 	role="region"
@@ -102,12 +111,13 @@
 		<div class="flex justify-center gap-2 mt-4">
 			{#each { length: total } as _, i}
 				<button
+					type="button"
 					onclick={() => scrollTo(i)}
 					class="h-2 rounded-full transition-all {i === current
 						? 'w-6 bg-[var(--ui-primary)]'
 						: 'w-2 bg-[var(--ui-muted-foreground)]/30 hover:bg-[var(--ui-muted-foreground)]/50'}"
 					aria-label="Go to slide {i + 1}"
-				/>
+				></button>
 			{/each}
 		</div>
 	{/if}

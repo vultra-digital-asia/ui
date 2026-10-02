@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '../../utils.js';
+	import { cn } from "../../utils.js";
 
 	export type Step = {
 		label: string;
@@ -8,9 +8,9 @@
 
 	let {
 		steps,
-		current,
+		current = $bindable(),
 		completed,
-		class: className
+		class: className,
 	}: {
 		steps: Step[];
 		/** Currently active (0-based) step index. */
@@ -36,7 +36,7 @@
 	}
 </script>
 
-<ol class={cn('flex items-center gap-0', className)} aria-label="Progress">
+<ol class={cn("flex items-center gap-0", className)} aria-label="Progress">
 	{#each steps as step, i (step.label)}
 		<li class="flex flex-1 items-center last:flex-none">
 			{#if isCurrent(i)}
@@ -51,7 +51,9 @@
 							{i + 1}
 						{/if}
 					</span>
-					<span class="truncate text-sm font-semibold text-[var(--ui-foreground)]">
+					<span
+						class="truncate text-sm font-semibold text-[var(--ui-foreground)]"
+					>
 						{step.label}
 					</span>
 				</span>
@@ -67,7 +69,9 @@
 					>
 						<span class="text-sm font-bold">✓</span>
 					</span>
-					<span class="truncate text-sm font-medium text-[var(--ui-muted-foreground)]">
+					<span
+						class="truncate text-sm font-medium text-[var(--ui-muted-foreground)]"
+					>
 						{step.label}
 					</span>
 				</button>
@@ -83,7 +87,9 @@
 							{i + 1}
 						{/if}
 					</span>
-					<span class="truncate text-sm font-medium text-[var(--ui-muted-foreground)]">
+					<span
+						class="truncate text-sm font-medium text-[var(--ui-muted-foreground)]"
+					>
 						{step.label}
 					</span>
 				</span>
@@ -92,8 +98,8 @@
 			{#if i < steps.length - 1}
 				<span
 					class={cn(
-						'h-px flex-1 shrink-0 bg-[var(--ui-border)]',
-						isDone(i) && 'bg-[var(--ui-success)]/50'
+						"h-px flex-1 shrink-0 bg-[var(--ui-border)]",
+						isDone(i) && "bg-[var(--ui-success)]/50",
 					)}
 					aria-hidden="true"
 				></span>

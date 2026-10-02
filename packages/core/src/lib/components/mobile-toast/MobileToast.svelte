@@ -1,23 +1,29 @@
 <script lang="ts">
-	import { CheckCircle, AlertCircle, AlertTriangle, Info, X } from 'lucide-svelte';
-	import { cn } from '../../utils.js';
+	import {
+		CheckCircle,
+		AlertCircle,
+		AlertTriangle,
+		Info,
+		X,
+	} from "lucide-svelte";
+	import { cn } from "../../utils.js";
 
 	let {
 		message,
 		open = $bindable(false),
-		variant = 'default',
+		variant = "default",
 		duration = 4000,
-		position = 'bottom',
+		position = "bottom",
 		action,
 		onAction,
 		ondismiss,
-		class: className
+		class: className,
 	}: {
 		message: string;
 		open?: boolean;
-		variant?: 'default' | 'success' | 'error' | 'warning';
+		variant?: "default" | "success" | "error" | "warning";
 		duration?: number;
-		position?: 'bottom' | 'top';
+		position?: "bottom" | "top";
 		action?: string;
 		onAction?: () => void;
 		ondismiss?: () => void;
@@ -32,14 +38,14 @@
 		default: Info,
 		success: CheckCircle,
 		error: AlertCircle,
-		warning: AlertTriangle
+		warning: AlertTriangle,
 	};
 
 	const styles = {
-		default: 'bg-[var(--ui-foreground)] text-[var(--ui-background)]',
-		success: 'bg-emerald-600 text-white',
-		error: 'bg-red-600 text-white',
-		warning: 'bg-amber-500 text-white'
+		default: "bg-[var(--ui-foreground)] text-[var(--ui-background)]",
+		success: "bg-emerald-600 text-white",
+		error: "bg-red-600 text-white",
+		warning: "bg-amber-500 text-white",
 	};
 
 	function show() {
@@ -70,37 +76,48 @@
 	});
 
 	$effect(() => {
-		return () => { if (timer) clearTimeout(timer); };
+		return () => {
+			if (timer) clearTimeout(timer);
+		};
 	});
 
-	const Icon = icons[variant];
+	const Icon = $derived(icons[variant]);
 </script>
 
 {#if visible}
 	<div
 		class={cn(
-			'fixed inset-x-0 z-50 flex justify-center px-4',
-			position === 'bottom' ? 'bottom-0 pb-[calc(1rem+env(safe-area-inset-bottom))]' : 'top-0 pt-[calc(1rem+env(safe-area-inset-top))]',
-			className
+			"fixed inset-x-0 z-50 flex justify-center px-4",
+			position === "bottom"
+				? "bottom-0 pb-[calc(1rem+env(safe-area-inset-bottom))]"
+				: "top-0 pt-[calc(1rem+env(safe-area-inset-top))]",
+			className,
 		)}
 		role="status"
 		aria-live="polite"
 	>
 		<div
 			class={cn(
-				'flex max-w-md items-center gap-3 rounded-2xl px-4 py-3 shadow-xl transition-all duration-200',
+				"flex max-w-md items-center gap-3 rounded-2xl px-4 py-3 shadow-xl transition-all duration-200",
 				styles[variant],
-				leaving ? 'translate-y-2 opacity-0' : 'translate-y-0 opacity-100'
+				leaving ? "translate-y-2 opacity-0" : "translate-y-0 opacity-100",
 			)}
 		>
 			<Icon class="size-5 shrink-0" />
 			<span class="flex-1 text-sm font-medium">{message}</span>
 			{#if action}
-				<button onclick={handleAction} class="text-sm font-semibold underline underline-offset-2">
+				<button
+					onclick={handleAction}
+					class="text-sm font-semibold underline underline-offset-2"
+				>
 					{action}
 				</button>
 			{/if}
-			<button onclick={hide} class="rounded-full p-1 opacity-70 hover:opacity-100" aria-label="Dismiss">
+			<button
+				onclick={hide}
+				class="rounded-full p-1 opacity-70 hover:opacity-100"
+				aria-label="Dismiss"
+			>
 				<X class="size-4" />
 			</button>
 		</div>

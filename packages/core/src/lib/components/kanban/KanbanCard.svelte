@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { cn } from '../../utils.js';
-	import { getKanbanContext, type KanbanCard } from './KanbanBoard.svelte';
+	import { cn } from "../../utils.js";
+	import { getKanbanContext, type KanbanCard } from "./KanbanBoard.svelte";
 
 	let {
 		card,
@@ -18,8 +18,8 @@
 
 	function handleDragStart(e: DragEvent) {
 		if (!draggable) return;
-		e.dataTransfer!.effectAllowed = 'move';
-		e.dataTransfer!.setData('text/plain', card.id);
+		e.dataTransfer!.effectAllowed = "move";
+		e.dataTransfer!.setData("text/plain", card.id);
 		e.dataTransfer!.setDragImage(e.currentTarget as Element, 20, 20);
 		startDrag(card.id);
 	}
@@ -29,24 +29,25 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <div
 	class={cn(
-		'cursor-grab touch-manipulation select-none rounded-lg border border-[var(--ui-border)] bg-[var(--ui-card)] p-3.5 shadow-sm transition-all duration-150',
-		'hover:border-[var(--ui-border)]/80 hover:shadow-md',
-		'active:cursor-grabbing',
-		'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ui-ring)]',
-		isDragged && 'opacity-40',
-		!draggable && 'cursor-default',
-		className
+		"cursor-grab touch-manipulation select-none rounded-lg border border-[var(--ui-border)] bg-[var(--ui-card)] p-3.5 shadow-sm transition-all duration-150",
+		"hover:border-[var(--ui-border)]/80 hover:shadow-md",
+		"active:cursor-grabbing",
+		"focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ui-ring)]",
+		isDragged && "opacity-40",
+		!draggable && "cursor-default",
+		className,
 	)}
-	draggable={draggable}
+	{draggable}
 	tabindex={draggable ? 0 : undefined}
-	role={draggable ? 'button' : undefined}
+	role={draggable ? "button" : undefined}
 	ondragstart={handleDragStart}
 	ondragend={handleDragEnd}
 	onkeydown={(e) => {
 		if (!draggable) return;
-		if (e.key === 'Enter' || e.key === ' ') {
+		if (e.key === "Enter" || e.key === " ") {
 			e.preventDefault();
 			(e.currentTarget as HTMLElement).click();
 		}

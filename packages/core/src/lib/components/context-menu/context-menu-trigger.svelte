@@ -1,17 +1,18 @@
 <script lang="ts">
-	import { ContextMenu as ContextMenuPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+  import { Menu as ArkMenu } from "@ark-ui/svelte/menu";
+  import type { ComponentProps } from "svelte";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		...restProps
-	}: ContextMenuPrimitive.TriggerProps = $props();
+  let {
+    ref = $bindable(null),
+    children,
+    ...restProps
+  }: ComponentProps<typeof ArkMenu.ContextTrigger> = $props();
 </script>
 
-<ContextMenuPrimitive.Trigger
-	bind:ref
-	data-slot="context-menu-trigger"
-	class={cn("cn-context-menu-trigger select-none", className)}
-	{...restProps}
-/>
+<ArkMenu.ContextTrigger
+  bind:ref
+  data-slot="context-menu-trigger"
+  {...restProps}
+>
+  {@render children?.()}
+</ArkMenu.ContextTrigger>

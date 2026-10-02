@@ -1,0 +1,81 @@
+/* ============================================
+   @vultra/tokens — Midnight Professional Theme
+   
+   Elegant dark mode with vibrant teal & purple accents.
+   Use: import '@vultra/tokens/midnight.css'
+   ============================================ */
+
+@import "tw-animate-css";
+
+@theme inline {
+  --font-sans: var(--ui-font-sans, "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif);
+  --font-mono: var(--ui-font-mono, "JetBrains Mono", ui-monospace, monospace);
+
+  --color-background: var(--ui-background);
+  --color-foreground: var(--ui-foreground);
+  --color-card: var(--ui-card);
+  --color-card-foreground: var(--ui-card-foreground);
+  --color-popover: var(--ui-popover);
+  --color-popover-foreground: var(--ui-popover-foreground);
+  --color-primary: var(--ui-primary);
+  --color-primary-foreground: var(--ui-primary-foreground);
+  --color-secondary: var(--ui-secondary);
+  --color-secondary-foreground: var(--ui-secondary-foreground);
+  --color-muted: var(--ui-muted);
+  --color-muted-foreground: var(--ui-muted-foreground);
+  --color-accent: var(--ui-accent);
+  --color-accent-foreground: var(--ui-accent-foreground);
+  --color-destructive: var(--ui-destructive);
+  --color-border: var(--ui-border);
+  --color-input: var(--ui-input);
+  --color-ring: var(--ui-ring);
+
+  --radius-sm: calc(var(--ui-radius) - 4px);
+  --radius-md: calc(var(--ui-radius) - 2px);
+  --radius-lg: var(--ui-radius);
+  --radius-xl: calc(var(--ui-radius) + 4px);
+}
+
+/* Midnight Theme */
+::root,
+[data-ui-theme="midnight"] {
+  --ui-background: oklch(0.15 0.02 265); /* Deep navy/charcoal */
+  --ui-foreground: oklch(0.95 0.01 265); /* Almost white */
+  
+  --ui-card: oklch(0.18 0.01 265); /* Slightly lighter than background */
+  --ui-card-foreground: oklch(0.95 0.01 265);
+  
+  --ui-popover: oklch(0.16 0.02 265);
+  --ui-popover-foreground: oklch(0.95 0.01 265);
+  
+  --ui-primary: oklch(0.75 0.22 180); /* Vibrant Teal */
+  --ui-primary-foreground: oklch(0.10 0 0); /* Dark text on teal */
+  
+  --ui-secondary: oklch(0.22 0.02 265); /* Slate panels */
+  --ui-secondary-foreground: oklch(0.90 0.01 265);
+  
+  --ui-muted: oklch(0.20 0.01 265);
+  --ui-muted-foreground: oklch(0.60 0.02 265); /* Greyed out text */
+  
+  --ui-accent: oklch(0.75 0.15 320); /* Vibrant Purple */
+  --ui-accent-foreground: oklch(1 0 0); 
+  
+  --ui-destructive: oklch(0.65 0.22 25); /* Bright red */
+  
+  --ui-border: oklch(0.25 0.02 265); /* Subtle grey border */
+  --ui-input: oklch(0.22 0.02 265);
+  --ui-ring: oklch(0.75 0.22 180); /* Teal focus ring */
+  --ui-radius: 0.75rem;
+
+  /* Shadows for dark mode */
+  --ui-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --ui-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --ui-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-color: var(--ui-background);
+  color: var(--ui-foreground);
+  font-family: var(--ui-font-sans);
+  -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,81 @@
+/* ============================================
+   @vultra/tokens — Sky Clean Theme
+   
+   Bright, airy, professional modern light mode.
+   Use: import '@vultra/tokens/sky.css'
+   ============================================ */
+
+@import "tw-animate-css";
+
+@theme inline {
+  --font-sans: var(--ui-font-sans, "Inter Variable", ui-sans-serif, system-ui, sans-serif);
+  --font-mono: var(--ui-font-mono, "JetBrains Mono", ui-monospace, monospace);
+
+  --color-background: var(--ui-background);
+  --color-foreground: var(--ui-foreground);
+  --color-card: var(--ui-card);
+  --color-card-foreground: var(--ui-card-foreground);
+  --color-popover: var(--ui-popover);
+  --color-popover-foreground: var(--ui-popover-foreground);
+  --color-primary: var(--ui-primary);
+  --color-primary-foreground: var(--ui-primary-foreground);
+  --color-secondary: var(--ui-secondary);
+  --color-secondary-foreground: var(--ui-secondary-foreground);
+  --color-muted: var(--ui-muted);
+  --color-muted-foreground: var(--ui-muted-foreground);
+  --color-accent: var(--ui-accent);
+  --color-accent-foreground: var(--ui-accent-foreground);
+  --color-destructive: var(--ui-destructive);
+  --color-border: var(--ui-border);
+  --color-input: var(--ui-input);
+  --color-ring: var(--ui-ring);
+
+  --radius-sm: calc(var(--ui-radius) - 4px);
+  --radius-md: calc(var(--ui-radius) - 2px);
+  --radius-lg: var(--ui-radius);
+  --radius-xl: calc(var(--ui-radius) + 4px);
+}
+
+/* Sky Theme */
+::root,
+[data-ui-theme="sky"] {
+  --ui-background: oklch(0.98 0.005 260); /* Very light cool grey */
+  --ui-foreground: oklch(0.15 0.02 265); /* Dark slate */
+  
+  --ui-card: oklch(1 0 0); 
+  --ui-card-foreground: oklch(0.15 0.02 265);
+  
+  --ui-popover: oklch(1 0 0);
+  --ui-popover-foreground: oklch(0.15 0.02 265);
+  
+  --ui-primary: oklch(0.65 0.25 260); /* Deep vibrant blue */
+  --ui-primary-foreground: oklch(1 0 0); 
+  
+  --ui-secondary: oklch(0.94 0.01 260); /* Soft cool grey */
+  --ui-secondary-foreground: oklch(0.20 0.02 265);
+  
+  --ui-muted: oklch(0.95 0.005 260);
+  --ui-muted-foreground: oklch(0.55 0.02 260); 
+  
+  --ui-accent: oklch(0.75 0.15 320); /* Soft purple accent */
+  --ui-accent-foreground: oklch(0.15 0 0); 
+  
+  --ui-destructive: oklch(0.60 0.25 25); 
+  
+  --ui-border: oklch(0.90 0.005 260); /* Very light grey border */
+  --ui-input: oklch(0.94 0.01 260);
+  --ui-ring: oklch(0.65 0.25 260); /* Blue focus ring */
+  --ui-radius: 0.75rem;
+
+  /* Subtle shadows for light mode */
+  --ui-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --ui-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --ui-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  background-color: var(--ui-background);
+  color: var(--ui-foreground);
+  font-family: var(--ui-font-sans);
+  -webkit-font-smoothing: antialiased;
+}

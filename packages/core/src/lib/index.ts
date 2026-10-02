@@ -6,6 +6,7 @@
 export { Badge } from './components/badge/index.js';
 export { Button } from './components/button/index.js';
 export { Input } from './components/input/index.js';
+export { InputMask, type InputMaskProps, type InputMaskToken } from './components/input-mask/index.js';
 export { Textarea } from './components/textarea/index.js';
 export { Label } from './components/label/index.js';
 export { Separator } from './components/separator/index.js';
@@ -18,6 +19,7 @@ export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './
 export { Collapsible, CollapsibleTrigger, CollapsibleContent } from './components/collapsible/index.js';
 export { AspectRatio } from './components/aspect-ratio/index.js';
 export { ScrollArea, ScrollBar } from './components/scroll-area/index.js';
+export { ResizablePanelGroup, ResizablePanel, ResizableHandle, ResizablePanelGroup as Resizable, ResizablePanel as Panel, ResizableHandle as Handle } from './components/resizable/index.js';
 export { Flex } from './components/flex/index.js';
 export { Stack } from './components/stack/index.js';
 export { Grid } from './components/grid/index.js';
@@ -26,10 +28,49 @@ export { Box } from './components/box/index.js';
 // Navigation
 export { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from './components/breadcrumb/index.js';
 export { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from './components/navigation-menu/index.js';
+export {
+	SidebarRoot,
+	SidebarHeader,
+	SidebarContent,
+	SidebarFooter,
+	SidebarGroup,
+	SidebarGroupLabel,
+	SidebarGroupContent,
+	SidebarMenu,
+	SidebarMenuItem,
+	SidebarMenuButton,
+	SidebarTrigger,
+	SidebarInset,
+	SidebarNav,
+	type SidebarNavBadgeTone,
+	type SidebarNavItemData,
+} from './components/sidebar/index.js';
+export {
+	AppBar,
+	AppBarRoot,
+	AppBarSection,
+	AppBarTitle,
+	AppBarAction,
+	type AppBarPosition,
+	type AppBarVariant,
+	type AppBarSectionAlign,
+} from './components/app-bar/index.js';
+export {
+	Toolbar,
+	ToolbarRoot,
+	ToolbarGroup,
+	ToolbarItem,
+	ToolbarSeparator,
+	ToolbarOverflow,
+	createToolbarOverflow,
+	useToolbarOverflow,
+	type ToolbarOverflowOptions,
+} from './components/toolbar/index.js';
 
 // Overlay
 export { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from './components/dialog/index.js';
 export { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose } from './components/sheet/index.js';
+export { Drawer, DrawerClose, DrawerTrigger, DrawerOverlay, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription } from './components/drawer/index.js';
 export { Popover, PopoverTrigger, PopoverContent } from './components/popover/index.js';
 export { HoverCard, HoverCardContent, HoverCardTrigger } from './components/hover-card/index.js';
 export { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogAction, AlertDialogCancel } from './components/alert-dialog/index.js';
@@ -64,6 +105,12 @@ export { validators, createFormValidator } from './components/validate/index.js'
 export type { ValidationRule } from './components/validate/index.js';
 export { ValidationMessage, FormInput, FormSelect, FormTextarea, FormGroup } from './components/validate/index.js';
 export { SearchSelect, type SearchSelectOption } from './components/search-select/index.js';
+export { DatePicker } from './components/date-picker/index.js';
+export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText, InputGroupTextarea } from './components/input-group/index.js';
+export { Combobox, type ComboboxOption } from './components/combobox/index.js';
+export { ListBox, type ListBoxOption, type ListBoxGroup } from './components/listbox/index.js';
+export { DropdownTree, type DropdownTreeNode } from './components/dropdown-tree/index.js';
+export { MultiSelect, type MultiSelectOption } from './components/multi-select/index.js';
 
 // Feedback
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './components/tooltip/index.js';
@@ -71,6 +118,7 @@ export { Progress } from './components/progress/index.js';
 export { Skeleton } from './components/skeleton/index.js';
 export { Alert, AlertTitle, AlertDescription } from './components/alert/index.js';
 export { Toast, toasts } from './components/toast/index.js';
+export { Message, type MessageAction, type MessageProps, type MessageTone } from './components/message/index.js';
 
 // Wizard / Multi-step
 export { Stepper } from './components/stepper/index.js';
@@ -90,6 +138,7 @@ export { EmptyState } from './components/empty-state/index.js';
 export { StatCard } from './components/stat-card/index.js';
 export { Divider } from './components/divider/index.js';
 export { SectionHeader } from './components/section-header/index.js';
+export { StatsCounter } from './components/stats-counter/index.js';
 
 // Semantic wrappers
 export { Aside } from './components/aside/index.js';
@@ -113,6 +162,7 @@ export { Stats } from './components/stats/index.js';
 export { Carousel } from './components/carousel/index.js';
 export { TestimonialCarousel } from './components/testimonial-carousel/index.js';
 export { PricingTable, PricingCard as PricingTableCard } from './components/pricing-table/index.js';
+export { LogoCloud } from './components/logo-cloud/index.js';
 
 // Infinite Scroll
 export { InfiniteScroll } from './components/infinite-scroll/index.js';
@@ -191,4 +241,4 @@ export { default as EmojiPicker } from './components/emoji/EmojiPicker.svelte';
 export { Calendar } from './components/calendar/index.js';
 
 // Types
-export type { ComponentVariant, ComponentSize } from '../types.js';
+export type { ComponentVariant, ComponentSize } from './types.js';

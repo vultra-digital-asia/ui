@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { cn } from '../../utils.js';
-	import { getKanbanContext, type KanbanColumn } from './KanbanBoard.svelte';
-	import KanbanCardView from './KanbanCard.svelte';
+	import type { Snippet } from "svelte";
+	import { cn } from "../../utils.js";
+	import { getKanbanContext, type KanbanColumn } from "./KanbanBoard.svelte";
+	import KanbanCardView from "./KanbanCard.svelte";
 
 	let {
 		column,
@@ -20,13 +20,13 @@
 
 	const cardCount = $derived(column.cards.length);
 	const isDropTarget = $derived(
-		isDragging() && isDragOver && draggedCardId() !== null
+		isDragging() && isDragOver && draggedCardId() !== null,
 	);
 
 	function handleDragOver(e: DragEvent) {
 		if (!isDragging()) return;
 		e.preventDefault();
-		e.dataTransfer!.dropEffect = 'move';
+		e.dataTransfer!.dropEffect = "move";
 		isDragOver = true;
 	}
 
@@ -41,7 +41,7 @@
 		if (!cardId) return;
 
 		const fromColumnId = columns.find((col) =>
-			col.cards.some((c) => c.id === cardId)
+			col.cards.some((c) => c.id === cardId),
 		)?.id;
 		if (!fromColumnId) return;
 
@@ -49,12 +49,14 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <section
+	aria-label="{column.title} column"
 	class={cn(
-		'flex h-fit w-72 shrink-0 flex-col rounded-xl border border-[var(--ui-border)] bg-[var(--ui-card)] transition-colors',
+		"flex h-fit w-72 shrink-0 flex-col rounded-xl border border-[var(--ui-border)] bg-[var(--ui-card)] transition-colors",
 		isDropTarget &&
-			'border-[var(--ui-primary)] bg-[var(--ui-secondary)] ring-2 ring-[var(--ui-ring)]/40',
-		className
+			"border-[var(--ui-primary)] bg-[var(--ui-secondary)] ring-2 ring-[var(--ui-ring)]/40",
+		className,
 	)}
 	ondragover={handleDragOver}
 	ondragleave={handleDragLeave}
@@ -63,7 +65,7 @@
 	<header class="flex items-center gap-2 px-4 py-3">
 		<span
 			class="size-2.5 shrink-0 rounded-full"
-			style:background={column.accent ?? 'var(--ui-primary)'}
+			style:background={column.accent ?? "var(--ui-primary)"}
 			aria-hidden="true"
 		></span>
 		<h3 class="truncate text-sm font-semibold text-[var(--ui-foreground)]">

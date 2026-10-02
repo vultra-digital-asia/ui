@@ -1,26 +1,31 @@
 <script lang="ts">
-	import { Pagination as PaginationPrimitive } from "bits-ui";
-	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
-	import { buttonVariants } from "$lib/components/button/index.js";
-	import { cn } from "$lib/utils.js";
+  import { Pagination as ArkPagination } from "@ark-ui/svelte/pagination";
+  import ChevronLeftIcon from "@lucide/svelte/icons/chevron-left";
+  import { buttonVariants } from "$lib/components/button/index.js";
+  import { cn } from "$lib/utils.js";
+  import type { ComponentProps } from "svelte";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		...restProps
-	}: PaginationPrimitive.PrevButtonProps = $props();
+  let {
+    ref = $bindable(null),
+    class: className,
+    children,
+    ...restProps
+  }: ComponentProps<typeof ArkPagination.PrevTrigger> = $props();
 </script>
 
-<PaginationPrimitive.PrevButton
-	bind:ref
-	aria-label="Go to previous page"
-	class={cn(
-		buttonVariants({ variant: "ghost", size: "default" }),
-		"pl-1.5!",
-		className
-	)}
-	{...restProps}
+<ArkPagination.PrevTrigger
+  bind:ref
+  aria-label="Go to previous page"
+  class={cn(
+    buttonVariants({
+      variant: "ghost",
+      size: "default",
+    }),
+    "gap-1 px-2.5 sm:pl-2.5 cursor-pointer",
+    className,
+  )}
+  {...restProps}
 >
-	<ChevronLeftIcon data-icon="inline-start" />
-	<span class="cn-pagination-previous-text hidden sm:block">Previous</span>
-</PaginationPrimitive.PrevButton>
+  <ChevronLeftIcon class="size-4" />
+  <span class="hidden sm:block">Previous</span>
+</ArkPagination.PrevTrigger>

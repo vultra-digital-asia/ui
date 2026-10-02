@@ -1,16 +1,21 @@
 <script lang="ts">
-	import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
+  import { Menu as ArkMenu } from "@ark-ui/svelte/menu";
+  import type { ComponentProps } from "svelte";
 
-	let {
-		ref = $bindable(null),
-		value = $bindable([]),
-		...restProps
-	}: DropdownMenuPrimitive.CheckboxGroupProps = $props();
+  let {
+    ref = $bindable(null),
+    value = $bindable([]),
+    children,
+    ...restProps
+  }: ComponentProps<typeof ArkMenu.ItemGroup> & {
+    value?: string[];
+  } = $props();
 </script>
 
-<DropdownMenuPrimitive.CheckboxGroup
-	bind:ref
-	bind:value
-	data-slot="dropdown-menu-checkbox-group"
-	{...restProps}
-/>
+<ArkMenu.ItemGroup
+  bind:ref
+  data-slot="dropdown-menu-checkbox-group"
+  {...restProps}
+>
+  {@render children?.()}
+</ArkMenu.ItemGroup>

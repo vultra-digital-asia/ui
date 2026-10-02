@@ -98,6 +98,26 @@
       "style": "./src/minimalist.css",
       "default": "./src/minimalist.css",
       "production": "./src/minimalist.css"
+    },
+    "./midnight": {
+      "style": "./src/midnight.css",
+      "import": "./src/midnight.css",
+      "require": "./src/midnight.css"
+    },
+    "./midnight.css": {
+      "style": "./src/midnight.css",
+      "import": "./src/midnight.css",
+      "require": "./src/midnight.css"
+    },
+    "./sky": {
+      "style": "./src/sky.css",
+      "import": "./src/sky.css",
+      "require": "./src/sky.css"
+    },
+    "./sky.css": {
+      "style": "./src/sky.css",
+      "import": "./src/sky.css",
+      "require": "./src/sky.css"
     }
   },
   "files": [

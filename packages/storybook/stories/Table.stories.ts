@@ -1,19 +1,37 @@
-import type { Meta, StoryObj } from '@storybook/svelte';
-import { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption } from '@vultra/ui';
+import type { Meta, StoryObj } from "@storybook/svelte";
+import {
+	Table,
+	TableHeader,
+	TableBody,
+	TableFooter,
+	TableHead,
+	TableRow,
+	TableCell,
+	TableCaption,
+} from "@vultra/ui";
 
 const meta = {
-  title: 'Data/Table',
-  component: Table,
-  tags: ['autodocs'],
+	title: "Data/Table",
+	component: Table,
+	tags: ["autodocs"],
 } satisfies Meta<typeof Table>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => ({
-    components: { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption },
-    template: `
+	render: () => ({
+		components: {
+			Table,
+			TableHeader,
+			TableBody,
+			TableFooter,
+			TableHead,
+			TableRow,
+			TableCell,
+			TableCaption,
+		},
+		template: `
       <Table>
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
@@ -52,5 +70,5 @@ export const Default: Story = {
         </TableFooter>
       </Table>
     `,
-  }),
+	}),
 };

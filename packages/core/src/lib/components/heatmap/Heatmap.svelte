@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '../../utils.js';
+	import { cn } from "../../utils.js";
 
 	export type HeatmapCell = {
 		x: string | number;
@@ -13,8 +13,8 @@
 		xLabels,
 		yLabels,
 		showLegend = true,
-		cellSize = 'h-8 w-8',
-		class: className
+		cellSize = "h-8 w-8",
+		class: className,
 	}: {
 		data: HeatmapCell[];
 		/** CSS color stops used to interpolate cell intensity (low → high). */
@@ -26,7 +26,7 @@
 		class?: string;
 	} = $props();
 
-	const scale = colorScale ?? ['#ebedf0', '#9be9a8', '#216e39'];
+	const scale = $derived(colorScale ?? ["#ebedf0", "#9be9a8", "#216e39"]);
 
 	const values = $derived(data.map((d) => d.value));
 	const min = $derived(values.length ? Math.min(...values) : 0);
@@ -62,25 +62,39 @@
 	}
 
 	function parseHex(hex: string): [number, number, number] {
-		const h = hex.replace('#', '');
-		const full = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+		const h = hex.replace("#", "");
+		const full =
+			h.length === 3
+				? h
+						.split("")
+						.map((c) => c + c)
+						.join("")
+				: h;
 		const n = parseInt(full, 16);
 		return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 	}
 
-	function cellValue(x: string | number, y: string | number): number | undefined {
-		return data.find((d) => String(d.x) === String(x) && String(d.y) === String(y))?.value;
+	function cellValue(
+		x: string | number,
+		y: string | number,
+	): number | undefined {
+		return data.find(
+			(d) => String(d.x) === String(x) && String(d.y) === String(y),
+		)?.value;
 	}
 </script>
 
-<div class={cn('inline-flex flex-col gap-1', className)}>
+<div class={cn("inline-flex flex-col gap-1", className)}>
 	<div class="overflow-x-auto">
 		<div class="inline-block">
 			{#if labelsX.length}
 				<div class="flex gap-1 pb-1 pl-8">
 					{#each labelsX as label, i (i)}
 						<div
-							class={cn('flex items-end justify-center text-[10px] text-[var(--ui-muted-foreground)]', cellSize)}
+							class={cn(
+								"flex items-end justify-center text-[10px] text-[var(--ui-muted-foreground)]",
+								cellSize,
+							)}
 							aria-hidden="true"
 						>
 							{label}
@@ -93,7 +107,10 @@
 					<div class="flex w-8 flex-col gap-1">
 						{#each labelsY as label, i (i)}
 							<div
-								class={cn('flex items-center justify-end pr-1 text-[10px] text-[var(--ui-muted-foreground)]', cellSize)}
+								class={cn(
+									"flex items-center justify-end pr-1 text-[10px] text-[var(--ui-muted-foreground)]",
+									cellSize,
+								)}
 								aria-hidden="true"
 							>
 								{label}
@@ -107,11 +124,17 @@
 							{#each labelsX as x, xi (String(x))}
 								{@const value = cellValue(x, y)}
 								<div
-									class={cn('rounded-[4px]', cellSize)}
-									style={value !== undefined ? `background-color: ${colorFor(value)};` : undefined}
-									role={value !== undefined ? 'img' : undefined}
-									aria-label={value !== undefined ? `${x}, ${y}: ${value}` : undefined}
-									title={value !== undefined ? `${x}, ${y}: ${value}` : undefined}
+									class={cn("rounded-[4px]", cellSize)}
+									style={value !== undefined
+										? `background-color: ${colorFor(value)};`
+										: undefined}
+									role={value !== undefined ? "img" : undefined}
+									aria-label={value !== undefined
+										? `${x}, ${y}: ${value}`
+										: undefined}
+									title={value !== undefined
+										? `${x}, ${y}: ${value}`
+										: undefined}
 								></div>
 							{/each}
 						</div>
@@ -125,7 +148,10 @@
 		<div class="flex items-center gap-1.5 pl-8 pt-1" aria-hidden="true">
 			<span class="text-[10px] text-[var(--ui-muted-foreground)]">Less</span>
 			{#each scale as color, i (i)}
-				<span class={cn('rounded-[3px]', cellSize)} style={`background-color: ${color};`}></span>
+				<span
+					class={cn("rounded-[3px]", cellSize)}
+					style={`background-color: ${color};`}
+				></span>
 			{/each}
 			<span class="text-[10px] text-[var(--ui-muted-foreground)]">More</span>
 		</div>

@@ -10,8 +10,8 @@
 </script>
 
 <script lang="ts">
-	import { cn } from '../../utils.js';
-	import TreeNode from './TreeNode.svelte';
+	import { cn } from "../../utils.js";
+	import TreeNode from "./TreeNode.svelte";
 
 	let {
 		data = [],
@@ -29,16 +29,21 @@
 		onExpand?: (id: string, expanded: boolean) => void;
 	} = $props();
 
-	let expandedIds = $state<Set<string>>(() => {
+	function initExpanded(nodes: TreeViewNode[]): Set<string> {
 		const ids = new Set<string>();
-		function collect(nodes: TreeViewNode[]) {
-			for (const n of nodes) {
+		function collect(list: TreeViewNode[]) {
+			for (const n of list) {
 				if (n.expanded) ids.add(n.id);
 				if (n.children) collect(n.children);
 			}
 		}
-		collect(data);
+		collect(nodes);
 		return ids;
+	}
+
+	let expandedIds = $state<Set<string>>(new Set());
+	$effect(() => {
+		expandedIds = initExpanded(data);
 	});
 
 	function toggleExpand(id: string) {
@@ -69,7 +74,7 @@
 </script>
 
 <div
-	class={cn('w-full text-sm', className)}
+	class={cn("w-full text-sm", className)}
 	role="tree"
 	aria-multiselectable={multiple}
 	aria-label="Tree view"

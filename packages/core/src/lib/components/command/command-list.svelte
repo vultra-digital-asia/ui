@@ -1,17 +1,31 @@
 <script lang="ts">
-	import { Command as CommandPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+  import { cn } from "$lib/utils.js";
+  import { getCommandContext } from "./command-context.svelte.js";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		...restProps
-	}: CommandPrimitive.ListProps = $props();
+  let {
+    ref = $bindable(null),
+    class: className,
+    ...restProps
+  }: {
+    ref?: HTMLElement | null;
+    class?: string;
+    [key: string]: any;
+  } = $props();
+
+  const ctx = getCommandContext();
+
+  $effect(() => {
+    if (ref) ctx.setViewportNode(ref);
+  });
 </script>
 
-<CommandPrimitive.List
-	bind:ref
-	data-slot="command-list"
-	class={cn("no-scrollbar max-h-72 scroll-py-1 outline-none overflow-x-hidden overflow-y-auto", className)}
-	{...restProps}
+<div
+  bind:this={ref}
+  data-slot="command-list"
+  role="listbox"
+  class={cn(
+    "no-scrollbar max-h-72 scroll-py-1 outline-none overflow-x-hidden overflow-y-auto",
+    className,
+  )}
+  {...restProps}
 />

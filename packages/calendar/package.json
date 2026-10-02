@@ -19,7 +19,9 @@
     "dev": "svelte-package -o dist -w"
   },
   "dependencies": {
-    "@vultra/ui": "workspace:*"
+    "@vultra/ui": "workspace:*",
+    "date-fns": "^4.4.0",
+    "lucide-svelte": "^1.0.1"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.8",

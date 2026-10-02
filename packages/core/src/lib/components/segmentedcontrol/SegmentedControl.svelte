@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { cn } from '../../utils.js';
+	import { cn } from "../../utils.js";
 
 	let {
 		value,
 		options,
-		class: className
+		class: className,
 	}: {
 		value: string | number;
 		options: { value: string | number; label: string }[];
@@ -33,6 +33,7 @@
 	$effect(() => {
 		if (!track || !thumbEl) return;
 		const onResize = () => {
+			if (!track || !thumbEl) return;
 			const idx = options.findIndex((o) => o.value === value);
 			if (idx < 0) return;
 			const active = track.children[idx] as HTMLElement | undefined;
@@ -42,15 +43,15 @@
 			thumbEl.style.width = `${rect.width}px`;
 			thumbEl.style.transform = `translateX(${rect.left - trackRect.left}px)`;
 		};
-		window.addEventListener('resize', onResize);
-		return () => window.removeEventListener('resize', onResize);
+		window.addEventListener("resize", onResize);
+		return () => window.removeEventListener("resize", onResize);
 	});
 </script>
 
 <div
 	class={cn(
-		'relative inline-flex h-8 max-w-full select-none rounded-full bg-[var(--ui-muted)] p-1',
-		className
+		"relative inline-flex h-8 max-w-full select-none rounded-full bg-[var(--ui-muted)] p-1",
+		className,
 	)}
 	role="tablist"
 	aria-label="Segmented control"
@@ -68,10 +69,10 @@
 				aria-selected={option.value === value}
 				tabindex={option.value === value ? 0 : -1}
 				class={cn(
-					'relative z-10 flex min-w-0 cursor-pointer touch-manipulation select-none items-center justify-center whitespace-nowrap rounded-full px-4 text-[13px] font-semibold leading-none transition-colors duration-[var(--ui-transition-fast)]',
+					"relative z-10 flex min-w-0 cursor-pointer touch-manipulation select-none items-center justify-center whitespace-nowrap rounded-full px-4 text-[13px] font-semibold leading-none transition-colors duration-[var(--ui-transition-fast)]",
 					option.value === value
-						? 'text-[var(--ui-foreground)]'
-						: 'text-[var(--ui-muted-foreground)]'
+						? "text-[var(--ui-foreground)]"
+						: "text-[var(--ui-muted-foreground)]",
 				)}
 				onclick={() => (value = option.value)}
 			>

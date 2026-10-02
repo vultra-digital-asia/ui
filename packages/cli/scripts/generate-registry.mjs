@@ -58,6 +58,7 @@ const CATEGORIES = {
 		'tabs', 'accordion', 'breadcrumb', 'pagination', 'navigation-menu',
 		'sidebar', 'drawer', 'dropdown-menu', 'menubar', 'tabbar',
 		'slide-menu', 'slidemenu', 'navigation-bar', 'navigation-rail', 'top-app-bar',
+		'app-bar', 'toolbar',
 	],
 	forms: [
 		'input', 'textarea', 'select', 'checkbox', 'radio-group', 'radio',
@@ -66,11 +67,12 @@ const CATEGORIES = {
 		'search-select', 'combobox', 'rating', 'toggle', 'toggle-group',
 		'switch', 'segmented-button', 'segmentedcontrol', 'search-bar',
 		'text-field', 'time-picker', 'editable-label', 'chip',
+		'input-mask', 'listbox', 'dropdown-tree', 'multi-select',
 	],
 	feedback: [
 		'alert', 'alert-dialog', 'dialog', 'toast', 'tooltip', 'popover',
 		'sheet', 'bottom-sheet', 'snackbar', 'ripple', 'mobile-toast',
-		'notification', 'status-indicator', 'live-badge',
+		'notification', 'status-indicator', 'live-badge', 'message',
 	],
 	'data-display': [
 		'table', 'badge', 'badge-md3', 'avatar', 'avatar-group', 'timeline',

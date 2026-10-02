@@ -1,19 +1,31 @@
-import type { Meta, StoryObj } from '@storybook/svelte';
-import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent, Button } from '@vultra/ui';
+import type { Meta, StoryObj } from "@storybook/svelte";
+import {
+	Tooltip,
+	TooltipProvider,
+	TooltipTrigger,
+	TooltipContent,
+	Button,
+} from "@vultra/ui";
 
 const meta = {
-  title: 'Overlay/Tooltip',
-  component: Tooltip,
-  tags: ['autodocs'],
+	title: "Overlay/Tooltip",
+	component: Tooltip,
+	tags: ["autodocs"],
 } satisfies Meta<typeof Tooltip>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => ({
-    components: { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent, Button },
-    template: `
+	render: () => ({
+		components: {
+			Tooltip,
+			TooltipProvider,
+			TooltipTrigger,
+			TooltipContent,
+			Button,
+		},
+		template: `
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
@@ -25,13 +37,19 @@ export const Default: Story = {
         </Tooltip>
       </TooltipProvider>
     `,
-  }),
+	}),
 };
 
 export const Placements: Story = {
-  render: () => ({
-    components: { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent, Button },
-    template: `
+	render: () => ({
+		components: {
+			Tooltip,
+			TooltipProvider,
+			TooltipTrigger,
+			TooltipContent,
+			Button,
+		},
+		template: `
       <TooltipProvider>
         <div style="display:flex; gap:16px; flex-wrap:wrap;">
           <Tooltip>
@@ -53,5 +71,5 @@ export const Placements: Story = {
         </div>
       </TooltipProvider>
     `,
-  }),
+	}),
 };
