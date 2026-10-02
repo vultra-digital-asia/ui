@@ -10,6 +10,17 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
+    "@vultra/calendar": "workspace:*",
+    "@vultra/charts": "workspace:*",
+    "@vultra/cli": "workspace:*",
+    "@vultra/data-table": "workspace:*",
+    "@vultra/flat": "workspace:*",
+    "@vultra/grid-core": "workspace:*",
+    "@vultra/kanban": "workspace:*",
+    "@vultra/md3": "workspace:*",
+    "@vultra/native": "workspace:*",
+    "@vultra/notion-database": "workspace:*",
+    "@vultra/screens": "workspace:*",
     "@vultra/tokens": "workspace:*",
     "@vultra/ui": "workspace:*",
     "lucide-svelte": "^1.0.1",

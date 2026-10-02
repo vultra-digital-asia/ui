@@ -21,6 +21,10 @@ const config = {
 		adapter: adapter({ fallback: 'index.html' }),
 		alias: {
 			$ui: '../core/src/lib'
+		},
+		prerender: {
+			handleMissingId: 'warn',
+			handleHttpError: 'warn'
 		}
 	}
 };

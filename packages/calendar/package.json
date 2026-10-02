@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@vultra/ui": "workspace:*",
+    "@vultra/grid-core": "workspace:*",
     "date-fns": "^4.4.0",
     "lucide-svelte": "^1.0.1"
   },

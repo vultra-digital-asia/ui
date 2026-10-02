@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import prompts from 'prompts';
 import { loadRegistry, type RegistryComponent } from './registry.js';
 import { installComponents, syncDependencies } from './install.js';
 import { initProject } from './init.js';
 import { updateComponents } from './update.js';
 import { runDoctor } from './doctor.js';
+import { generateStitchSpec } from './stitch.js';
 
 function toPascal(name: string): string {
 	return name
@@ -23,10 +25,11 @@ function readPkgVersion(): string | null {
 		return null;
 	}
 }
+
 program
 	.name('vultra')
 	.description('Vultra UI component installer for Svelte projects')
-	.version('0.1.0');
+	.version('0.1.1');
 
 program
 	.command('init')
@@ -76,20 +79,45 @@ program
 
 program
 	.command('add')
-	.description('Add a Vultra UI component to your project')
-	.argument('<components...>', 'component names, e.g. button card data-table')
+	.description('Add a Vultra UI component or benchmark screen to your project')
+	.argument('[components...]', 'component names, e.g. button card screen-paywall')
 	.option('-y, --yes', 'skip confirmation and overwrite existing files')
 	.option('-o, --overwrite', 'overwrite existing component files')
 	.option('-m, --mode <mode>', 'install mode: copy (default) or npm (add to package.json)', 'copy')
 	.action(
 		async (
-			components: string[],
+			rawComponents: string[],
 			opts: { yes?: boolean; overwrite?: boolean; mode?: string },
 		) => {
 			const overwrite = opts.yes || opts.overwrite || false;
 			const mode = opts.mode ?? 'copy';
 			try {
 				const registry = await loadRegistry();
+				let components = rawComponents;
+
+				// If no components specified in interactive mode, prompt user
+				if (components.length === 0) {
+					const choices = registry.components.map((c) => ({
+						title: `${c.name} [${c.category || 'core'}]`,
+						value: c.name,
+						description: c.description || '',
+					}));
+
+					const res = await prompts({
+						type: 'autocompleteMultiselect',
+						name: 'selected',
+						message: 'Pilih komponen atau screen untuk di-install:',
+						choices,
+						hint: '- Space to select. Return to submit',
+					});
+
+					if (!res.selected || res.selected.length === 0) {
+						console.log('Tidak ada komponen yang dipilih.');
+						return;
+					}
+					components = res.selected;
+				}
+
 				const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 				const known = new Set(registry.components.map((c) => norm(c.name)));
 				const unknown = components.filter((c) => !known.has(norm(c)));
@@ -112,8 +140,7 @@ program
 						process.exit(1);
 					}
 					const depNames = Object.keys(added);
-					const uiVer =
-						readPkgVersion() ?? '^0.1.0-alpha.7';
+					const uiVer = readPkgVersion() ?? '^0.1.0-alpha.7';
 					if (!depNames.includes('@vultra/ui')) {
 						depNames.unshift('@vultra/ui');
 						added['@vultra/ui'] = uiVer;
@@ -158,6 +185,81 @@ program
 			}
 		},
 	);
+
+program
+	.command('screen')
+	.description('Install ready-to-use benchmark full-page screens')
+	.argument('[name]', 'screen name, e.g. paywall, datatable, checkout-modal, sidebar-shell, onboarding')
+	.option('-y, --yes', 'skip confirmation and overwrite existing files')
+	.action(async (name?: string, opts?: { yes?: boolean }) => {
+		try {
+			const registry = await loadRegistry();
+			const screenComponents = registry.components.filter((c) => c.category === 'screens');
+
+			let targetName = name;
+			if (!targetName) {
+				const res = await prompts({
+					type: 'select',
+					name: 'screen',
+					message: 'Pilih benchmark screen untuk dipasang:',
+					choices: screenComponents.map((s) => ({
+						title: `${s.name.replace(/^screen-/, '')} (${s.description || 'Full-page pattern'})`,
+						value: s.name,
+					})),
+				});
+
+				if (!res.screen) {
+					console.log('Batal memilih screen.');
+					return;
+				}
+				targetName = res.screen as string;
+			} else if (!targetName.startsWith('screen-')) {
+				targetName = `screen-${targetName}`;
+			}
+
+			if (!targetName) return;
+
+			const { installed, written, addedDeps } = await installComponents([targetName], {
+				overwrite: opts?.yes ?? false,
+				cwd: process.cwd(),
+			});
+
+			console.log(`Berhasil memasang screen: ${installed.join(', ')}`);
+			if (written.length > 0) {
+				console.log(`File tersalin ke project (${written.length} files):`);
+				for (const f of written) console.log(`  ✓ ${f}`);
+			}
+			const depNames = Object.keys(addedDeps);
+			if (depNames.length > 0) {
+				console.log(`Dependency ditambahkan ke package.json:`);
+				for (const d of depNames) console.log(`  + ${d}@${addedDeps[d]}`);
+				console.log('Jalankan `pnpm install` untuk mengaktifkan.');
+			}
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
+
+program
+	.command('stitch')
+	.description('Generate Google Stitch DESIGN.md specification from Vultra tokens')
+	.argument('[theme]', 'theme name: neutral, ethereal-sand, md3, cyberpunk (default: neutral)')
+	.option('-o, --out <path>', 'output file path (default: stdout)')
+	.action((theme = 'neutral', opts: { out?: string }) => {
+		try {
+			const spec = generateStitchSpec(theme);
+			if (opts.out) {
+				writeFileSync(opts.out, spec, 'utf8');
+				console.log(`Google Stitch DESIGN.md spec written to ${opts.out}`);
+			} else {
+				console.log(spec);
+			}
+		} catch (err) {
+			console.error(`Error: ${err instanceof Error ? err.message : String(err)}`);
+			process.exit(1);
+		}
+	});
 
 program
 	.command('update')

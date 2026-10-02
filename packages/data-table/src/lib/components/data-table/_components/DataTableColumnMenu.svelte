@@ -1,5 +1,5 @@
 <script lang="ts">
-  import * as DropdownMenu from '@vultra/ui';
+  import * as DropdownMenu from '@vultra/ui/components/dropdown-menu';
   import { ArrowUp, ArrowDown, ArrowUpDown, Pin, PinOff, EyeOff, ArrowLeftFromLine, ArrowRightFromLine, Filter, Expand, Shrink } from 'lucide-svelte';
   import type { Column } from '@tanstack/table-core';
 

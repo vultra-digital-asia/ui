@@ -1,5 +1,5 @@
 <script lang="ts">
-  import * as Popover from '@vultra/ui';
+  import * as Popover from '@vultra/ui/components/popover';
   import { Button, Input } from '@vultra/ui';
   import { Calendar, type CalendarDate } from '@vultra/calendar';
   import { Calendar as CalendarIcon, X } from 'lucide-svelte';

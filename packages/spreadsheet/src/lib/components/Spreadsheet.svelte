@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { getCellId, parseCellId, coerceValue } from '../cell-utils.js';
-  import { setCellValue, createCell, type CellMap } from '../cell-model.js';
+  import { getCellId, parseCellId } from '../cell-utils.js';
+  import { setCellValue, createCell, coerceValue, type CellMap } from '../cell-model.js';
   import { createSelectionState, type CellRange, type SelectionState } from '../selection-store.js';
   import { createWorkbookState, getActiveSheet, addSheet, removeSheet, renameSheet, setActiveSheet, type WorkbookState, type Sheet } from '../sheet-store.js';
   import { createUndoRedoState, pushUndo, undo as undoAction, redo as redoAction, type UndoRedoState } from '../undo-redo.js';

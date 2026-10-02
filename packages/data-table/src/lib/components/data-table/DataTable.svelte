@@ -1,6 +1,6 @@
 <script lang="ts" generics="TData">
   import { Search, ChevronDown, Download, Plus, Copy, ClipboardPaste, FileSpreadsheet, FileText } from 'lucide-svelte';
-  import * as DropdownMenu from '@vultra/ui';
+  import * as DropdownMenu from '@vultra/ui/components/dropdown-menu';
   import { createVirtualizer } from '@tanstack/svelte-virtual';
   import type { ColumnDef, PaginationState, SortingState, RowSelectionState, ColumnPinningState, ColumnOrderState, ExpandedState, ColumnFiltersState, GroupingState } from '@tanstack/table-core';
   import type { Snippet } from 'svelte';

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import * as Popover from '@vultra/ui';
-  import * as DropdownMenu from '@vultra/ui';
+  import * as Popover from '@vultra/ui/components/popover';
+  import * as DropdownMenu from '@vultra/ui/components/dropdown-menu';
   import { Filter, X } from 'lucide-svelte';
   import type { Column } from '@tanstack/table-core';
   import { Input, Button, Checkbox } from '@vultra/ui';

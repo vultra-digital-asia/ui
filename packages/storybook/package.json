@@ -6,10 +6,20 @@
   "type": "module",
   "scripts": {
     "storybook": "storybook dev -p 6006",
+    "build": "storybook build",
     "build-storybook": "storybook build",
     "check": "echo 'storybook: no check needed'"
   },
   "dependencies": {
+    "@vultra/calendar": "workspace:*",
+    "@vultra/charts": "workspace:*",
+    "@vultra/data-table": "workspace:*",
+    "@vultra/file-manager": "workspace:*",
+    "@vultra/kanban": "workspace:*",
+    "@vultra/notion-database": "workspace:*",
+    "@vultra/rich-text": "workspace:*",
+    "@vultra/screens": "workspace:*",
+    "@vultra/spreadsheet": "workspace:*",
     "@vultra/tokens": "workspace:*",
     "@vultra/ui": "workspace:*",
     "lucide-svelte": "^1.0.1"

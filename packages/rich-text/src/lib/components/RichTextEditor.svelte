@@ -8,10 +8,7 @@
   import Link from '@tiptap/extension-link';
   import Image from '@tiptap/extension-image';
   import Highlight from '@tiptap/extension-highlight';
-  import Table from '@tiptap/extension-table';
-  import TableRow from '@tiptap/extension-table-row';
-  import TableCell from '@tiptap/extension-table-cell';
-  import TableHeader from '@tiptap/extension-table-header';
+  import { Table, TableRow, TableCell, TableHeader } from '@tiptap/extension-table';
   import Typography from '@tiptap/extension-typography';
   import BubbleMenu from '@tiptap/extension-bubble-menu';
   import {
