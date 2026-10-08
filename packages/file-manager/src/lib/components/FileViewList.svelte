@@ -2,7 +2,6 @@
 	import FileIcon from "./FileIcon.svelte";
 	import {
 		formatFileSize,
-		formatDate,
 		type FileItem,
 		type SortConfig,
 		type SortField,

@@ -52,6 +52,7 @@
 			{@const isActive = sheet.id === activeSheetId}
 
 			{#if editingId === sheet.id}
+				<!-- svelte-ignore a11y_autofocus -->
 				<input
 					type="text"
 					bind:value={editValue}
@@ -61,9 +62,18 @@
 					autofocus
 				/>
 			{:else}
-				<button
+				<div
+					role="tab"
+					tabindex="0"
+					aria-selected={isActive}
 					onclick={() => onSheetChange(sheet.id)}
 					ondblclick={() => startRename(sheet.id, sheet.name)}
+					onkeydown={(e) => {
+						if (e.key === "Enter" || e.key === " ") {
+							e.preventDefault();
+							onSheetChange(sheet.id);
+						}
+					}}
 					class={cn(
 						"flex items-center gap-1 h-7 px-3 rounded-md text-xs font-medium transition-colors cursor-pointer",
 						isActive
@@ -74,6 +84,7 @@
 					{sheet.name}
 					{#if sheets.length > 1}
 						<button
+							type="button"
 							onclick={(e) => {
 								e.stopPropagation();
 								onRemoveSheet(sheet.id);
@@ -84,7 +95,7 @@
 							<X class="size-3" />
 						</button>
 					{/if}
-				</button>
+				</div>
 			{/if}
 		{/each}
 	</div>

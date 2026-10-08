@@ -64,21 +64,23 @@
 
 	// Workbook state
 	let workbook = $state<WorkbookState>(
-		initialData
-			? {
-					sheets: initialData.map((d, i) => ({
-						id: `sheet-${i + 1}`,
-						name: d.sheetName ?? `Sheet ${i + 1}`,
-						cells: d.cells,
-						selection: createSelectionState(),
-						columnWidths: new Map(),
-						rowHeights: new Map(),
-						frozenRows: 0,
-						frozenCols: 0,
-					})),
-					activeSheetId: "sheet-1",
-				}
-			: createWorkbookState(1),
+		untrack(() =>
+			initialData
+				? {
+						sheets: initialData.map((d, i) => ({
+							id: `sheet-${i + 1}`,
+							name: d.sheetName ?? `Sheet ${i + 1}`,
+							cells: d.cells,
+							selection: createSelectionState(),
+							columnWidths: new Map(),
+							rowHeights: new Map(),
+							frozenRows: 0,
+							frozenCols: 0,
+						})),
+						activeSheetId: "sheet-1",
+					}
+				: createWorkbookState(1),
+		),
 	);
 
 	let undoRedo = $state(createUndoRedoState());

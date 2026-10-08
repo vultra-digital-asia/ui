@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onMount, untrack } from "svelte";
 
 	let {
 		value,
@@ -11,7 +11,7 @@
 		onCancel: () => void;
 	} = $props();
 
-	let editValue = $state(value);
+	let editValue = $state(untrack(() => value));
 	let inputEl: HTMLInputElement | null = null;
 
 	onMount(() => {

@@ -85,7 +85,9 @@
 	let expanded = $state<Set<string>>(initialExpanded);
 	let loadingNodes = $state<Set<string>>(new Set<string>());
 	let searchQuery = $state("");
-	let internalSelected = $state<Set<string>>(new Set(selectedIds));
+	let internalSelected = $state<Set<string>>(
+		new Set(untrack(() => selectedIds)),
+	);
 	let indeterminateSet = $state<Set<string>>(new Set<string>());
 
 	// Sync external selectedIds if provided

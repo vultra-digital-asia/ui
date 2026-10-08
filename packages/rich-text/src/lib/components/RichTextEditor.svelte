@@ -91,7 +91,7 @@
 
 	let editorEl: HTMLDivElement | null = null;
 	let bubbleMenuEl: HTMLDivElement | null = null;
-	let editor: Editor | null = null;
+	let editor = $state<Editor | null>(null);
 	let isActive = $state<Record<string, boolean>>({});
 	let uploadingCount = $state(0);
 	let showFindReplace = $state(false);

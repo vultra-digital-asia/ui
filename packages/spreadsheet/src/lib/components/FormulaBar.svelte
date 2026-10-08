@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { cn } from "@vultra/grid-core/utils";
+	import { untrack } from "svelte";
 
 	let {
 		cellId,
@@ -11,7 +12,7 @@
 		onValueChange: (value: string) => void;
 	} = $props();
 
-	let inputValue = $state(value);
+	let inputValue = $state(untrack(() => value));
 
 	$effect(() => {
 		inputValue = value;
